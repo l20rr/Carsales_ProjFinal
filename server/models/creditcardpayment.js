@@ -1,15 +1,11 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
-
-class creditcardpayment extends Model {}
-
-creditcardpayment.init(
-  {
+module.exports = (sequelize, Sequelize) => {
+  const Creditcardpayment = sequelize.define("creditcardpayment", {
     
     paymentID: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       references: {
         model: "payment",
         key: "ID",
@@ -17,20 +13,21 @@ creditcardpayment.init(
     },
 
     creditcard_num: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
     creditcard_security_code: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
     creditcard_expiration_date: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false,
     },
 
 })
+return Creditcardpayment;
+}
 
-module.exports = creditcardpayment;

@@ -1,28 +1,27 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
 
-class externalprovider extends Model {}
-
-externalprovider.init(
-  {
+module.exports = (sequelize, Sequelize) => {
+  const Externalprovider = sequelize.define("externalprovider", {
+  
     ID: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
 
     provider_name: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     end_point_url: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 })
+return Externalprovider
+}
 
-module.exports = externalprovider;

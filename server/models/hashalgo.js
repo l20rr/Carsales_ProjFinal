@@ -1,28 +1,26 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
 
-class hashalgo extends Model {}
-
-hashalgo.init({
+module.exports = (sequelize, Sequelize) => {
+    const Hashalgo = sequelize.define("hashalgo", {
     ID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
     },
 
     hash_name: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     creation_date: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false,
     },
 
 })
-
-module.exports = hashalgo;
+return Hashalgo
+}

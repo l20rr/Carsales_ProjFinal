@@ -1,63 +1,62 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
 
-class logindata extends Model {}
-
-logindata.init({
+module.exports = (sequelize, Sequelize) => {
+    const Logindata = sequelize.define("logindata", {
     ID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
     },
 
     password_hash: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     password_salt: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     email_addr: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     last_login: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false,
     },
 
     confirmation_token: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     confirmation_token_time: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     recovery_token: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     hash_algoID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
     email_validation_statusID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
 })
+return Logindata
+}
 
-module.exports = logindata;

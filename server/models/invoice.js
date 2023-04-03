@@ -1,39 +1,38 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
 
-class invoice extends Model {}
-
-invoice.init({
+module.exports = (sequelize, Sequelize) => {
+    const Invoice = sequelize.define("invoice", {
     ID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
     },
 
     invoice_date: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false,
     },
 
     total: {
-        type: DataTypes.DECIMAL(4, 2),
+        type: Sequelize.DECIMAL(4, 2),
         allowNull: false,
     },
 
     tax_amount: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     purchaseID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
 
 })
+return Invoice
+}
 
-module.exports = invoice;

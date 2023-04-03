@@ -1,79 +1,76 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
 
-class vehicle extends Model {}
 
-vehicle.init(
-  {
-    ID: {
-      type: DataTypes.INTEGER,
+module.exports = (sequelize, Sequelize) => {
+  const Vehicle = sequelize.define("vehicle", {
+    id: {
+      type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-
+/*
     subcategoryID: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       references: {
         model: "subcategory",
         key: "ID",
       },
     },
-
+*/
     license: {
-      type: DataTypes.VARCHAR,
+      type: Sequelize.STRING,
       allowNull: false,
     },
 
     year: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
 
     kms: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
     brand: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     model: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     fuel: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     power: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
     num_seats: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
     
     image: {
-      type: DataTypes.VARCHAR,
+      type: Sequelize.STRING,
       allowNull: false,
       defaultValue: "id",
     },
   },
   {
-    sequelize,
-    freezeTableName: true,
-    underscored: true,
-    modelName: "vehicle",
+ 
+    freezeTableName: true
+    
   }
 );
-
-module.exports = vehicle;
+return Vehicle;
+}

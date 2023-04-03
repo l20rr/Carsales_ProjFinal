@@ -21,6 +21,6 @@ db.sequelize = sequelize;
 
 
 db.user = require("./User.model")(sequelize,Sequelize);
-
+db.vehicle = require("./vehicle")(sequelize,Sequelize);
 
 module.exports = db;

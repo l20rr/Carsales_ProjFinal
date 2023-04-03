@@ -1,33 +1,31 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
 
-class paypalpayment extends Model {}
-
-paypalpayment.init({
+module.exports = (sequelize, Sequelize) => {
+    const Paypalpayment = sequelize.define("paypalpayment", {
     ID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
     },
 
     paymentID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
     external_txn_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 
     client_email_addr: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
 })
-
-module.exports = paypalpayment;
+return Paypalpayment
+}

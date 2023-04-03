@@ -8,15 +8,6 @@ module.exports = (sequelize, Sequelize) => {
         autoIncrement: true,
         primaryKey: true
       },
-     
-      uuid:{/*token*/ 
-        type: Sequelize.STRING,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false,
-        validate:{
-            notEmpty: true
-        }
-    },
     name:{
         type: Sequelize.STRING,
         allowNull: false,
@@ -49,9 +40,9 @@ module.exports = (sequelize, Sequelize) => {
 
   /*
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
+const sequelize = require("");
 const bcrypt = require("bcrypt");
 
 class User extends Model {
@@ -63,17 +54,17 @@ class User extends Model {
 User.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
     username: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true,
       validate: {
@@ -81,7 +72,7 @@ User.init(
       },
     },
     password: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       validate: {
         len: [8],

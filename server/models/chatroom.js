@@ -1,28 +1,24 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
-
-class chatroom extends Model {}
-
-chatroom.init(
-  {
+module.exports = (sequelize, Sequelize) => {
+  const Chatroom = sequelize.define("chatroom", {
     ID: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
 
     title: {
-      type: DataTypes.VARCHAR,
+      type: Sequelize.STRING,
       allowNull: false,
     },
 
     creation_date: {
-      type: DataTypes.DATE,
+      type: Sequelize.DATE,
       allowNull: false, 
     }
 })
-
-module.exports = chatroom;
+return Chatroom;
+}

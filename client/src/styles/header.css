@@ -120,12 +120,14 @@
   display: flex;
   align-items: center;
   column-gap: 2.7rem;
+  margin-right: 120px;
 }
 
 .nav__item {
   color: #fff;
   text-decoration: none;
   transition: 0.3s;
+  
 }
 
 .nav__item:hover {
@@ -139,6 +141,8 @@
   align-items: center;
   border-radius: 50px;
   background: #020a4de9;
+  
+ 
 }
 
 .search__box input {
@@ -147,6 +151,7 @@
   outline: none;
   color: #fff;
   cursor: pointer;
+  width: 300px;
 }
 
 .search__box input::placeholder {

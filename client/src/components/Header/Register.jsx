@@ -1,150 +1,93 @@
-import React from "react";
-import "../../styles/header.css";
-import { Button, FormGroup, Label, Input } from "reactstrap";
-import { Form, Field } from "react-final-form";
+import React,{useState}from 'react';
+import api from '../../services/api'
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBInput,
+  MDBCheckbox
+}
+from 'mdb-react-ui-kit';
 
-const onSubmit = values => {
-  console.log(values);
-};
+function Register() {
+  
+  const [name , setName] = useState('');
+  const [email , setEmail] = useState('');
+  const [password , setPassword] = useState('');
+  const [confPassword , setConfPassword] = useState('');
 
-const Register = () => (
-  <Form
-    onSubmit={onSubmit}
-    validate={values => {
-      const errors = {};
-      function validateEmail(email) {
-        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
+  async function handleSubmit(){
+
+    const data = {
+      name:name, 
+      email:email,
+       password:password,
+        confPassword:confPassword
+    }
+      
+      console.log(data)
+
+      if(name!==''&&email!==''&&password!==''&&confPassword!==''){
+        const response = await api.post('/auth/',data);
+
+        if(response.status===200){
+          window.location.href='/home'
+        }else{
+          alert('Erro ao cadastrar o usuário!');
+        }
+      }else{
+        alert('Por favor, preencha todos os dados!');
       }
-      if (!values.fname) {
-        errors.fname = "Required";
-      }
-      if (!values.lname) {
-        errors.lname = "Required";
-      }
-      if (!values.email) {
-        errors.email = "Required";
-      } else if (!validateEmail(values.email)) {
-        errors.email = "Not an email adress";
-      }
-      if (!values.password) {
-        errors.password = "Required";
-      }
-      if (!values.tos) {
-        errors.tos = "Required";
-      }
-      if (!values.confirmPassword) {
-        errors.confirmPassword = "Required";
-      } else if (values.confirmPassword !== values.password) {
-        errors.confirmPassword = "Does not match";
-      }
-      return errors;
-    }}
-    render={({ handleSubmit, values, submitting, validating, valid }) => (
-      <form onSubmit={handleSubmit}> 
-        <div style={{ width:'50%', margin:'10px auto'}}>
-        <FormGroup >
-          <Label for="fname">First Name</Label>
-          <Field name="fname">
-            {({ input, meta }) => (
-              <div>
-                <Input
-                  {...input}
-                  type="text"
-                  placeholder="first name"
-                  invalid={meta.error && meta.touched}
-                />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-        </FormGroup>
-        <FormGroup>
-          <Label for="lname">Last Name</Label>
-          <Field name="lname">
-            {({ input, meta }) => (
-              <div>
-                <Input
-                  {...input}
-                  type="text"
-                  placeholder="first name"
-                  invalid={meta.error && meta.touched}
-                />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-        </FormGroup>
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Field name="email">
-            {({ input, meta }) => (
-              <div>
-                <Input
-                  {...input}
-                  type="text"
-                  placeholder="first name"
-                  invalid={meta.error && meta.touched}
-                />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Password</Label>
-          <Field name="password">
-            {({ input, meta }) => (
-              <div>
-                <Input
-                  {...input}
-                  type="password"
-                  placeholder="password"
-                  invalid={meta.error && meta.touched}
-                />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-        </FormGroup>
-        <FormGroup>
-          <Label for="confirmPassword">Confirm Password</Label>
-          <Field name="confirmPassword">
-            {({ input, meta }) => (
-              <div>
-                <Input
-                  {...input}
-                  type="password"
-                  placeholder="confirm password"
-                  invalid={meta.error && meta.touched}
-                />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-        </FormGroup>
-        <FormGroup check>
-          <Field name="tos" type="checkbox">
-            {({ input, meta }) => (
-              <Label>
-                <Input
-                  {...input}
-                  type="checkbox"
-                  invalid={meta.error && meta.touched}
-                />{" "}
-                Check Me
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </Label>
-            )}
-          </Field>
-        </FormGroup>
-        <Button className=" contact__btn" type="submit" style={{backgroundColor: '#000d6b', color:'white', width:'80%', margin:'10px auto'}} disabled={!valid}>
-          Submit
-        </Button>
-        </div>
-      </form>
-    )}
-  />
-);
+
+     
+
+  }
+    
+  return (
+    <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' >
+      <div className='mask gradient-custom-3'></div>
+      <MDBCard className='m-5' style={{maxWidth: '600px'}}>
+        <MDBCardBody className='px-5'>
+          <h2 className="text-uppercase text-center mb-5">Create an account</h2>
+          <MDBInput wrapperClass='mb-4' label='Your Name' size='lg' 
+          id='name' 
+          type='text' 
+          required 
+          value={name} 
+          onChange={e => setName(e.target.value)}
+          />
+
+          <MDBInput wrapperClass='mb-4' label='Your Email' size='lg' 
+          required
+          id="email" 
+          type='email'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          />
+
+          <MDBInput wrapperClass='mb-4' label='Password' size='lg'
+          required 
+          id='password' 
+          type='password'
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          />
+          <MDBInput wrapperClass='mb-4' label='Repeat your password' size='lg' 
+          id='confPassword' 
+          type='password'
+          value={confPassword}
+          onChange={e => setConfPassword(e.target.value)}
+          />
+
+          <div className='d-flex flex-row justify-content-center mb-4'>
+            <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
+          </div>
+          <MDBBtn className='mb-4 w-100 gradient-custom-4' size='lg'  onClick={handleSubmit}>Register</MDBBtn>
+        </MDBCardBody>
+      </MDBCard>
+    </MDBContainer>
+  );
+}
 
 export default Register;

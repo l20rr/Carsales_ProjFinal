@@ -1,21 +1,17 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
-
-class subcategory extends Model {}
-
-subcategory.init(
-  {
+module.exports = (sequelize, Sequelize) => {
+  const Subcategory = sequelize.define("subcategory", {
     ID: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
 
     categoryID: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       references: {
         model: "category",
         key: "ID",
@@ -23,5 +19,5 @@ subcategory.init(
     },
 
 })
-
-module.exports = subcategory;
+return Subcategory
+}

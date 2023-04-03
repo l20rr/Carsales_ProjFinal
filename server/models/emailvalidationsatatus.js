@@ -1,28 +1,25 @@
 // import important parts of sequelize library
-const { Model, DataTypes } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("../config/connection");
-
-class emailvalidationsatatus extends Model {}
-
-emailvalidationsatatus.init({
+module.exports = (sequelize, Sequelize) => {
+    const Emailvalidationsatatus = sequelize.define("emailvalidationsatatus", {
     ID: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
     },
 
     status_name: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
     status_description: {
-        type: DataTypes.VARCHAR,
+        type: Sequelize.STRING,
         allowNull: false,
     },
 
 })
-
-module.exports = emailvalidationsatatus;
+return Emailvalidationsatatus
+}

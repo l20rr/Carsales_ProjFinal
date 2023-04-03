@@ -28,5 +28,5 @@ module.exports = (sequelize, Sequelize) => {
     freezeTableName: true
 });
   
-      return Favorites;
+      return Advert;
   };
