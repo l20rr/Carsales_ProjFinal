@@ -5,7 +5,7 @@ const { and } = require("sequelize");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+    origin: "http://localhost:3001"
 };
 
 app.use(cors(corsOptions));
@@ -17,7 +17,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-const db = require("./models/index") 
+const db = require("./models/index")
+
+//connect without erasing data
+/*
 /*db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -26,19 +29,22 @@ const db = require("./models/index")
     console.log("Failed to sync db: " + err.message);
   });
 */
-  db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
+
+//connect by erasing data
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
 });
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
+const usersRouter = require("./routes/Users");
+app.use("/auth", usersRouter);
 
-require("./routes")(app);
+
+const vehicleRouter = require("./routes/Vehicle");
+app.use("/vehicle", vehicleRouter);
+
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+    console.log(`Server is running on port ${PORT}.`);
 });
