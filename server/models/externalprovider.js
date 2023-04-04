@@ -20,8 +20,10 @@ module.exports = (sequelize, Sequelize) => {
         end_point_url: {
             type: Sequelize.STRING,
             allowNull: false,
-        },
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Externalprovider.associate = function(models) {
         Externalprovider.hasMany(models.Logindataexternal, {
             foreignKey: 'externalproviderID',

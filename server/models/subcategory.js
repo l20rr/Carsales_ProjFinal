@@ -16,11 +16,12 @@ module.exports = (sequelize, Sequelize) => {
                 model: "category",
                 key: "ID",
             },
-        },
-
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Subcategory.associate = function(models) {
-        Subcategory.belongsTo(models.Category, { foreignKey: 'ID' })
+        Subcategory.belongsTo(models.Category)
         Subcategory.hasMany(models.Vehicle, {
             foreignKey: 'subcategoryID',
             onDelete: "cascade",

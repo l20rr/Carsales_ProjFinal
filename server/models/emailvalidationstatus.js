@@ -18,9 +18,10 @@ module.exports = (sequelize, Sequelize) => {
         status_description: {
             type: Sequelize.STRING,
             allowNull: false,
-        },
-
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Emailvalidationstatus.associate = function(models) {
         Emailvalidationstatus.hasMany(models.Logindata, { foreignKey: 'email_validation_statusID' })
     };

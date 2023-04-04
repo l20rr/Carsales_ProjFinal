@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Account.associate = function(models) {
-        Account.belongsTo(models.logindata, { foreignKey: 'ID' })
+        Account.belongsTo(models.logindata)
         Account.hasMany(models.Client, {
             foreignKey: 'accountID',
             onDelete: "cascade",

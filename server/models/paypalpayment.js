@@ -28,11 +28,12 @@ module.exports = (sequelize, Sequelize) => {
         client_email_addr: {
             type: Sequelize.STRING,
             allowNull: false,
-        },
-
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Paypalpayment.associate = function(models) {
-        Paypalpayment.belongsTo(models.Payment, { foreignKey: 'ID' })
+        Paypalpayment.belongsTo(models.Payment)
 
     };
     return Paypalpayment

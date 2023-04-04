@@ -19,6 +19,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DATE,
             allowNull: false,
         }
+    }, {
+        freezeTableName: true
     });
     Chatroom.associate = function(models) {
         Chatroom.hasMany(models.message, {

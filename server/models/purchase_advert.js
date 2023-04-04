@@ -33,12 +33,13 @@ module.exports = (sequelize, Sequelize) => {
                 model: "advert",
                 key: "ID",
             },
-        },
-
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Purchase_advert.associate = function(models) {
-        Purchase_advert.belongsTo(models.Client, { foreignKey: 'ID' })
-        Purchase_advert.belongsTo(models.Advert, { foreignKey: 'ID' })
+        Purchase_advert.belongsTo(models.Client)
+        Purchase_advert.belongsTo(models.Advert)
         Purchase_advert.hasMany(models.Invoice, {
             foreignKey: 'invoiceID',
             onDelete: "cascade",

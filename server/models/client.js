@@ -48,7 +48,7 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Client.associate = function(models) {
-        Client.belongsTo(models.Account, { foreignKey: 'ID' })
+        Client.belongsTo(models.Account)
         Client.hasMany(models.Message, {
             foreignKey: 'clientIDEmission',
             onDelete: "cascade",

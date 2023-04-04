@@ -19,9 +19,10 @@ module.exports = (sequelize, Sequelize) => {
         creation_date: {
             type: Sequelize.DATE,
             allowNull: false,
-        },
-
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Hashalgo.associate = function(models) {
         Hashalgo.hasMany(models.Logindata, {
             foreignKey: 'hash_algoID',

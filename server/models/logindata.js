@@ -62,12 +62,13 @@ module.exports = (sequelize, Sequelize) => {
                 model: "emailvalidationstatus",
                 key: "ID",
             },
-        },
-
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Logindata.associate = function(models) {
-        Logindata.belongsTo(models.hashalgo, { foreignKey: 'ID' })
-        Logindata.belongsTo(models.emailvalidationstatus, { foreignKey: 'ID' })
+        Logindata.belongsTo(models.hashalgo)
+        Logindata.belongsTo(models.emailvalidationstatus)
         Logindata.hasOne(models.Account, {
             foreignKey: 'accountID',
             onDelete: "cascade",

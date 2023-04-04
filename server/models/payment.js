@@ -28,11 +28,12 @@ module.exports = (sequelize, Sequelize) => {
                 model: "invoice",
                 key: "ID",
             },
-        },
-
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Payment.associate = function(models) {
-        Payment.belongsTo(models.invoice, { foreignKey: 'ID' })
+        Payment.belongsTo(models.invoice)
         Payment.hasMany(models.paypalpayment, {
             foreignKey: 'paymentID',
             onDelete: "cascade",

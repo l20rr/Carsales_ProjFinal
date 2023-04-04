@@ -16,9 +16,12 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.STRING,
             allowNull: false,
-        },
-
+        }
+    }, {
+        freezeTableName: true
     });
+
+
     Category.associate = function(models) {
         Category.hasMany(models.subcategory, {
             foreignKey: 'categoryID',

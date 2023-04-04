@@ -36,8 +36,8 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Advert.associate = function(models) {
-        Advert.belongsTo(models.Vehicle, { foreignKey: 'ID' })
-        Advert.belongsTo(models.Client, { foreignKey: 'ID' })
+        Advert.belongsTo(models.Vehicle)
+        Advert.belongsTo(models.Client)
         Advert.belongsToMany(models.Client, {
             through: 'favorites',
             foreignKey: 'advertID',

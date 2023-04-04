@@ -31,11 +31,12 @@ module.exports = (sequelize, Sequelize) => {
         creditcard_expiration_date: {
             type: Sequelize.DATE,
             allowNull: false,
-        },
-
-    })
+        }
+    }, {
+        freezeTableName: true
+    });
     Creditcardpayment.associate = function(models) {
-        Creditcardpayment.belongsTo(models.Payment, { foreignKey: 'ID' })
+        Creditcardpayment.belongsTo(models.Payment)
     };
     return Creditcardpayment;
 }
