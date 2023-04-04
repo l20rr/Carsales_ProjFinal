@@ -23,7 +23,11 @@ module.exports = (sequelize, Sequelize) => {
 
     })
     Hashalgo.associate = function(models) {
-        Hashalgo.hasMany(models.Logindata, { as: 'hash_algoID' })
+        Hashalgo.hasMany(models.Logindata, {
+            as: 'hash_algoID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Hashalgo
 }

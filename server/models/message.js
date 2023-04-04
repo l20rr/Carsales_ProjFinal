@@ -9,6 +9,10 @@ module.exports = (sequelize, Sequelize) => {
         chatroomID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "chatroom",
+                key: "ID",
+            },
             validate: {
                 notEmpty: true
             }
@@ -24,7 +28,7 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
-        clientIDRecepition: {
+        clientIDReception: {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
@@ -36,7 +40,7 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Message.associate = function(models) {
-        Message.belongsTo(models.Client, { foreignKey: 'clientIDRecepition' })
+        Message.belongsTo(models.Client, { foreignKey: 'clientIDReception' })
         Message.belongsTo(models.Client, { foreignKey: 'clientIDEmission' })
         Message.belongsTo(models.Chatroom, { foreignKey: 'chatroomID' })
     };

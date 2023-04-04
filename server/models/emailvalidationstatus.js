@@ -2,7 +2,7 @@
 const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
 module.exports = (sequelize, Sequelize) => {
-    const Emailvalidationsatatus = sequelize.define("emailvalidationsatatus", {
+    const Emailvalidationstatus = sequelize.define("emailvalidationstatus", {
         ID: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -21,8 +21,8 @@ module.exports = (sequelize, Sequelize) => {
         },
 
     })
-    Emailvalidationsatatus.associate = function(models) {
-        Emailvalidationsatatus.hasMany(models.Logindata, { as: 'email_validation_statusID' })
+    Emailvalidationstatus.associate = function(models) {
+        Emailvalidationstatus.hasMany(models.Logindata, { as: 'email_validation_statusID' })
     };
-    return Emailvalidationsatatus
+    return Emailvalidationstatus
 }

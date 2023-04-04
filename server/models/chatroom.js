@@ -21,7 +21,11 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
     Chatroom.associate = function(models) {
-        Chatroom.hasMany(models.message, { as: 'chatroomID' })
+        Chatroom.hasMany(models.message, {
+            as: 'chatroomID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Chatroom;
 }

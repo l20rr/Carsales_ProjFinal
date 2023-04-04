@@ -1,7 +1,7 @@
 // import important parts of sequelize library
 const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
-const sequelize = require("");
+
 
 module.exports = (sequelize, Sequelize) => {
     const Category = sequelize.define("category ", {
@@ -20,7 +20,11 @@ module.exports = (sequelize, Sequelize) => {
 
     });
     Category.associate = function(models) {
-        Category.hasMany(models.subcategory, { as: 'categoryID' })
+        Category.hasMany(models.subcategory, {
+            as: 'categoryID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Category;
 }

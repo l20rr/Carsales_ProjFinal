@@ -21,7 +21,11 @@ module.exports = (sequelize, Sequelize) => {
     })
     Subcategory.associate = function(models) {
         Subcategory.belongsTo(models.Category, { foreignKey: 'categoryID' })
-        Subcategory.hasMany(models.Vehicle, { as: 'subcategoryID' })
+        Subcategory.hasMany(models.Vehicle, {
+            as: 'subcategoryID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Subcategory
 }

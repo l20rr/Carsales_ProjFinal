@@ -24,12 +24,25 @@ module.exports = (sequelize, Sequelize) => {
         invoiceID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "invoice",
+                key: "ID",
+            },
         },
 
     })
     Payment.associate = function(models) {
-        Payment.hasMany(models.paypalpayment, { as: 'paymentID' })
-        Payment.hasMany(models.Creditcardpayment, { as: 'paymentID' })
+        Payment.belongsTo(models.invoice, { foreignKey: 'invoiceID' })
+        Payment.hasMany(models.paypalpayment, {
+            as: 'paymentID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Payment.hasMany(models.Creditcardpayment, {
+            as: 'paymentID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Payment
 }

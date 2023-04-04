@@ -10,6 +10,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             unique: true,
+            references: {
+                model: "account",
+                key: "ID",
+            },
             validate: {
                 notEmpty: true
             }
@@ -45,10 +49,34 @@ module.exports = (sequelize, Sequelize) => {
     });
     Client.associate = function(models) {
         Client.belongsTo(models.Account, { foreignKey: 'accountID' })
-        Client.hasMany(models.Message, { as: 'clientID' })
-        Client.belongsToMany(models.vehicle, { through: 'advert', foreignKey: 'clientID' })
-        Client.belongsToMany(models.advert, { through: 'favorites', foreignKey: 'clientID' })
-        Client.belongsToMany(models.advert, { through: 'purchase_advert', foreignKey: 'clientID' })
+        Client.hasMany(models.Message, {
+            as: 'clientIDEmission',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Client.hasMany(models.Message, {
+            as: 'clientIDReception',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Client.belongsToMany(models.vehicle, {
+            through: 'advert',
+            foreignKey: 'clientID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Client.belongsToMany(models.advert, {
+            through: 'favorites',
+            foreignKey: 'clientID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Client.belongsToMany(models.advert, {
+            through: 'purchase_advert',
+            foreignKey: 'clientID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
 
     return Client;

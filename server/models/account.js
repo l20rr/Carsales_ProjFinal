@@ -4,7 +4,11 @@ module.exports = (sequelize, Sequelize) => {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
-            primaryKey: true
+            primaryKey: true,
+            references: {
+                model: "logindata",
+                key: "ID",
+            },
         },
         logName: {
             type: Sequelize.STRING,
@@ -23,8 +27,16 @@ module.exports = (sequelize, Sequelize) => {
     });
     Account.associate = function(models) {
         Account.belongsTo(models.logindata, { foreignKey: 'ID' })
-        Account.hasMany(models.Client, { as: 'accountID' })
-        Account.hasMany(models.logindataexternal, { as: 'accountID' })
+        Account.hasMany(models.Client, {
+            as: 'accountID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Account.hasMany(models.logindataexternal, {
+            as: 'accountID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Account;
 };

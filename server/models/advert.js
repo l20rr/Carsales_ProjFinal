@@ -9,6 +9,10 @@ module.exports = (sequelize, Sequelize) => {
         clientID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "client",
+                key: "ID",
+            },
             validate: {
                 notEmpty: true
             },
@@ -16,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
         vehicleID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "vehicle",
+                key: "ID",
+            },
             validate: {
                 notEmpty: true
             },
@@ -30,8 +38,18 @@ module.exports = (sequelize, Sequelize) => {
     Advert.associate = function(models) {
         Advert.belongsTo(models.Vehicle, { foreignKey: 'vehicleID' })
         Advert.belongsTo(models.Client, { foreignKey: 'clientID' })
-        Advert.belongsToMany(models.Client, { through: 'favorites', foreignKey: 'advertID' })
-        Advert.belongsToMany(models.Client, { through: 'purchase_advert', foreignKey: 'advertID' })
+        Advert.belongsToMany(models.Client, {
+            through: 'favorites',
+            foreignKey: 'advertID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Advert.belongsToMany(models.Client, {
+            through: 'purchase_advert',
+            foreignKey: 'advertID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
 
     return Advert;

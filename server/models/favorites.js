@@ -9,6 +9,10 @@ module.exports = (sequelize, Sequelize) => {
         clientID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "client",
+                key: "ID",
+            },
             validate: {
                 notEmpty: true
             },
@@ -16,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
         advertID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "advert",
+                key: "ID",
+            },
             validate: {
                 notEmpty: true
             },
@@ -24,8 +32,16 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Favorites.associate = function(models) {
-        Favorites.hasMany(models.Client, { as: 'clientID' })
-        Favorites.hasMany(models.Advert, { as: 'advertID' })
+        Favorites.hasMany(models.Client, {
+            as: 'clientID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Favorites.hasMany(models.Advert, {
+            as: 'advertID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
 
     return Favorites;

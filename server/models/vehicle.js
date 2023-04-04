@@ -10,19 +10,21 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
+            unique: true
         },
-        /*
-            subcategoryID: {
-              type: Sequelize.INTEGER,
-              references: {
+
+        subcategoryID: {
+            type: Sequelize.INTEGER,
+            references: {
                 model: "subcategory",
                 key: "ID",
-              },
             },
-        */
+        },
+
         license: {
             type: Sequelize.STRING,
             allowNull: false,
+            unique: true
         },
 
         year: {
@@ -66,13 +68,18 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: "id",
         },
     }, {
-
+        indexes: [{ fields: ['ID', 'license'], unique: true }],
         freezeTableName: true
 
     });
     Vehicle.associate = function(models) {
         Vehicle.belongsTo(models.Subcategory, { foreignKey: 'subcategoryID' })
-        Vehicle.belongsToMany(models.Client, { through: 'Advert', foreignKey: 'vehicleID' })
+        Vehicle.belongsToMany(models.Client, {
+            through: 'Advert',
+            foreignKey: 'vehicleID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Vehicle;
 }

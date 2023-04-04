@@ -20,17 +20,30 @@ module.exports = (sequelize, Sequelize) => {
         clientID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "client",
+                key: "ID",
+            },
         },
 
         advertID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "advert",
+                key: "ID",
+            },
         },
 
     })
     Purchase_advert.associate = function(models) {
         Purchase_advert.belongsTo(models.Client, { foreignKey: 'ClientID' })
-        Purchase_advert.hasMany(models.Invoice, { as: 'invoiceID' })
+        Purchase_advert.belongsTo(models.Advert, { foreignKey: 'advertID' })
+        Purchase_advert.hasMany(models.Invoice, {
+            as: 'invoiceID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Purchase_advert;
 }

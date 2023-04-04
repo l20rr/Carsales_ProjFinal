@@ -9,6 +9,10 @@ module.exports = (sequelize, Sequelize) => {
         accountID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "account",
+                key: "ID",
+            },
             validate: {
                 notEmpty: true
             }
@@ -16,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
         externalproviderID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "externalprovider",
+                key: "ID",
+            },
         },
         external_provider_token: {
             type: Sequelize.STRING,

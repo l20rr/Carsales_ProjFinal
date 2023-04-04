@@ -49,18 +49,30 @@ module.exports = (sequelize, Sequelize) => {
         hash_algoID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "hashalgo",
+                key: "ID",
+            },
         },
 
         email_validation_statusID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "emailvalidationstatus",
+                key: "ID",
+            },
         },
 
     })
     Logindata.associate = function(models) {
         Logindata.belongsTo(models.hashalgo, { foreignKey: 'hash_algoID' })
         Logindata.belongsTo(models.emailvalidationstatus, { foreignKey: 'email_validation_statusID' })
-        Logindata.hasMany(models.Account, { as: 'accountID' })
+        Logindata.hasOne(models.Account, {
+            as: 'accountID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
     };
     return Logindata
 }

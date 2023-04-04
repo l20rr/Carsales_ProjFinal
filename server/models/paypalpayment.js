@@ -14,6 +14,10 @@ module.exports = (sequelize, Sequelize) => {
         paymentID: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            references: {
+                model: "payment",
+                key: "ID",
+            },
         },
 
         external_txn_id: {
