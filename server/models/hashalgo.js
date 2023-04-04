@@ -4,23 +4,26 @@ const { Model, Sequelize } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
     const Hashalgo = sequelize.define("hashalgo", {
-    ID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-    },
+        ID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-    hash_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
+        hash_name: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
 
-    creation_date: {
-        type: Sequelize.DATE,
-        allowNull: false,
-    },
+        creation_date: {
+            type: Sequelize.DATE,
+            allowNull: false,
+        },
 
-})
-return Hashalgo
+    })
+    Hashalgo.associate = function(models) {
+        Hashalgo.hasMany(models.Logindata, { as: 'hash_algoID' })
+    };
+    return Hashalgo
 }

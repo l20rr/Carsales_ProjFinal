@@ -2,22 +2,26 @@
 const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
 module.exports = (sequelize, Sequelize) => {
-  const Subcategory = sequelize.define("subcategory", {
-    ID: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+    const Subcategory = sequelize.define("subcategory", {
+        ID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-    categoryID: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: "category",
-        key: "ID",
-      },
-    },
+        categoryID: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: "category",
+                key: "ID",
+            },
+        },
 
-})
-return Subcategory
+    })
+    Subcategory.associate = function(models) {
+        Subcategory.belongsTo(models.Category, { foreignKey: 'categoryID' })
+        Subcategory.hasMany(models.Vehicle, { as: 'subcategoryID' })
+    };
+    return Subcategory
 }

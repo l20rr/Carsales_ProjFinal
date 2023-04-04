@@ -4,20 +4,23 @@ const { Model, Sequelize } = require("sequelize");
 const sequelize = require("");
 
 module.exports = (sequelize, Sequelize) => {
-  const Category = sequelize.define("category ", {
-  
-    ID: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+    const Category = sequelize.define("category ", {
 
-    description: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
+        ID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-})
-return Category;
+        description: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
+    });
+    Category.associate = function(models) {
+        Category.hasMany(models.subcategory, { as: 'categoryID' })
+    };
+    return Category;
 }

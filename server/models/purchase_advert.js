@@ -5,28 +5,32 @@ const { Model, Sequelize } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
     const Purchase_advert = sequelize.define("purchase_advert", {
-    ID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-    },
+        ID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-    purchase_date: {
-        type: Sequelize.DATE,
-        allowNull: false,
-    },
+        purchase_date: {
+            type: Sequelize.DATE,
+            allowNull: false,
+        },
 
-    clientID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
+        clientID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
 
-    advertID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
+        advertID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
 
-})
-return Purchase_advert;
+    })
+    Purchase_advert.associate = function(models) {
+        Purchase_advert.belongsTo(models.Client, { foreignKey: 'ClientID' })
+        Purchase_advert.hasMany(models.Invoice, { as: 'invoiceID' })
+    };
+    return Purchase_advert;
 }

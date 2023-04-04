@@ -4,35 +4,36 @@ const { Model, Sequelize } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
     const Invoice = sequelize.define("invoice", {
-    ID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-    },
+        ID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-    invoice_date: {
-        type: Sequelize.DATE,
-        allowNull: false,
-    },
+        invoice_date: {
+            type: Sequelize.DATE,
+            allowNull: false,
+        },
 
-    total: {
-        type: Sequelize.DECIMAL(4, 2),
-        allowNull: false,
-    },
+        total: {
+            type: Sequelize.DECIMAL(4, 2),
+            allowNull: false,
+        },
 
-    tax_amount: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
+        tax_amount: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
 
-    purchaseID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-
-
-})
-return Invoice
+        purchaseID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
+    })
+    Invoice.associate = function(models) {
+        Invoice.belongsTo(models.Purchase_advert, { foreignKey: 'purchaseID' })
+        Invoice.hasMany(models.Payment, { as: 'invoiceID' })
+    };
+    return Invoice
 }
-

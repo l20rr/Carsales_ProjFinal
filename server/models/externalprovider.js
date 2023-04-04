@@ -3,25 +3,27 @@ const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
 
 module.exports = (sequelize, Sequelize) => {
-  const Externalprovider = sequelize.define("externalprovider", {
-  
-    ID: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+    const Externalprovider = sequelize.define("externalprovider", {
 
-    provider_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
+        ID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-    end_point_url: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-})
-return Externalprovider
+        provider_name: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
+        end_point_url: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+    })
+    Externalprovider.associate = function(models) {
+        Externalprovider.hasMany(models.Logindataexternal, { as: 'externalproviderID' })
+    };
+    return Externalprovider
 }
-

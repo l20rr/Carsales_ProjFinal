@@ -2,32 +2,40 @@
 const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
 module.exports = (sequelize, Sequelize) => {
-  const Creditcardpayment = sequelize.define("creditcardpayment", {
-    
-    paymentID: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: "payment",
-        key: "ID",
-      },
-    },
+    const Creditcardpayment = sequelize.define("creditcardpayment", {
+        ID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-    creditcard_num: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
+        paymentID: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: "payment",
+                key: "ID",
+            },
+        },
 
-    creditcard_security_code: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
+        creditcard_num: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
 
-    creditcard_expiration_date: {
-        type: Sequelize.DATE,
-        allowNull: false,
-    },
+        creditcard_security_code: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
 
-})
-return Creditcardpayment;
+        creditcard_expiration_date: {
+            type: Sequelize.DATE,
+            allowNull: false,
+        },
+
+    })
+    Creditcardpayment.associate = function(models) {
+        Creditcardpayment.belongsTo(models.Payment, { foreignKey: 'paymentID' })
+    };
+    return Creditcardpayment;
 }
-

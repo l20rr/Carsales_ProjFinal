@@ -4,28 +4,32 @@ const { Model, Sequelize } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
     const Paypalpayment = sequelize.define("paypalpayment", {
-    ID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-    },
+        ID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-    paymentID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
+        paymentID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
 
-    external_txn_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
+        external_txn_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
 
-    client_email_addr: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
+        client_email_addr: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
 
-})
-return Paypalpayment
+    })
+    Paypalpayment.associate = function(models) {
+        Paypalpayment.belongsTo(models.Payment, { foreignKey: 'paymentID' })
+
+    };
+    return Paypalpayment
 }
