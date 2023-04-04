@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
     });
     Chatroom.associate = function(models) {
         Chatroom.hasMany(models.message, {
-            as: 'chatroomID',
+            foreignKey: 'chatroomID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })

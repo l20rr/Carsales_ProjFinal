@@ -33,12 +33,12 @@ module.exports = (sequelize, Sequelize) => {
     });
     Favorites.associate = function(models) {
         Favorites.hasMany(models.Client, {
-            as: 'clientID',
+            foreignKey: 'clientID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })
         Favorites.hasMany(models.Advert, {
-            as: 'advertID',
+            foreignKey: 'advertID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })

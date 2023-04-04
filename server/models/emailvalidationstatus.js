@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
 
     })
     Emailvalidationstatus.associate = function(models) {
-        Emailvalidationstatus.hasMany(models.Logindata, { as: 'email_validation_statusID' })
+        Emailvalidationstatus.hasMany(models.Logindata, { foreignKey: 'email_validation_statusID' })
     };
     return Emailvalidationstatus
 }

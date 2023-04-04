@@ -40,8 +40,8 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Message.associate = function(models) {
-        Message.belongsTo(models.Client, { foreignKey: 'clientIDReception' })
-        Message.belongsTo(models.Client, { foreignKey: 'clientIDEmission' })
+        Message.belongsTo(models.Client, { foreignKey: 'ID' })
+        Message.belongsTo(models.Client, { foreignKey: 'ID' })
         Message.belongsTo(models.Chatroom, { foreignKey: 'chatroomID' })
     };
 

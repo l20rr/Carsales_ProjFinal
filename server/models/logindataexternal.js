@@ -36,8 +36,8 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Logindataexternal.associate = function(models) {
-        Logindataexternal.belongsTo(models.Externalprovider, { foreignKey: 'externalproviderID' })
-        Logindataexternal.belongsTo(models.Account, { foreignKey: 'accountID' })
+        Logindataexternal.belongsTo(models.Externalprovider, { foreignKey: 'ID' })
+        Logindataexternal.belongsTo(models.Account, { foreignKey: 'ID' })
     };
     return Logindataexternal;
 };

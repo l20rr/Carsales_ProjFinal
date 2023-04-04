@@ -73,7 +73,7 @@ module.exports = (sequelize, Sequelize) => {
 
     });
     Vehicle.associate = function(models) {
-        Vehicle.belongsTo(models.Subcategory, { foreignKey: 'subcategoryID' })
+        Vehicle.belongsTo(models.Subcategory, { foreignKey: 'ID' })
         Vehicle.belongsToMany(models.Client, {
             through: 'Advert',
             foreignKey: 'vehicleID',

@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
     })
     Externalprovider.associate = function(models) {
         Externalprovider.hasMany(models.Logindataexternal, {
-            as: 'externalproviderID',
+            foreignKey: 'externalproviderID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })

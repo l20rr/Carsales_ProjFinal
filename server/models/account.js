@@ -28,12 +28,12 @@ module.exports = (sequelize, Sequelize) => {
     Account.associate = function(models) {
         Account.belongsTo(models.logindata, { foreignKey: 'ID' })
         Account.hasMany(models.Client, {
-            as: 'accountID',
+            foreignKey: 'accountID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })
         Account.hasMany(models.logindataexternal, {
-            as: 'accountID',
+            foreignKey: 'accountID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })

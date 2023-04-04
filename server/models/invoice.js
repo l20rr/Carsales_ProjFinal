@@ -36,9 +36,9 @@ module.exports = (sequelize, Sequelize) => {
         },
     })
     Invoice.associate = function(models) {
-        Invoice.belongsTo(models.Purchase_advert, { foreignKey: 'purchaseID' })
+        Invoice.belongsTo(models.Purchase_advert, { foreignKey: 'ID' })
         Invoice.hasMany(models.Payment, {
-            as: 'invoiceID',
+            foreignKey: 'invoiceID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })

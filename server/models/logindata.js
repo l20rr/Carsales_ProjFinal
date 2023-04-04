@@ -66,10 +66,10 @@ module.exports = (sequelize, Sequelize) => {
 
     })
     Logindata.associate = function(models) {
-        Logindata.belongsTo(models.hashalgo, { foreignKey: 'hash_algoID' })
-        Logindata.belongsTo(models.emailvalidationstatus, { foreignKey: 'email_validation_statusID' })
+        Logindata.belongsTo(models.hashalgo, { foreignKey: 'ID' })
+        Logindata.belongsTo(models.emailvalidationstatus, { foreignKey: 'ID' })
         Logindata.hasOne(models.Account, {
-            as: 'accountID',
+            foreignKey: 'accountID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })

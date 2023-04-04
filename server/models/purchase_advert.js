@@ -37,10 +37,10 @@ module.exports = (sequelize, Sequelize) => {
 
     })
     Purchase_advert.associate = function(models) {
-        Purchase_advert.belongsTo(models.Client, { foreignKey: 'ClientID' })
-        Purchase_advert.belongsTo(models.Advert, { foreignKey: 'advertID' })
+        Purchase_advert.belongsTo(models.Client, { foreignKey: 'ID' })
+        Purchase_advert.belongsTo(models.Advert, { foreignKey: 'ID' })
         Purchase_advert.hasMany(models.Invoice, {
-            as: 'invoiceID',
+            foreignKey: 'invoiceID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })

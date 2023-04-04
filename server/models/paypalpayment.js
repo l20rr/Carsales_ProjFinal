@@ -32,7 +32,7 @@ module.exports = (sequelize, Sequelize) => {
 
     })
     Paypalpayment.associate = function(models) {
-        Paypalpayment.belongsTo(models.Payment, { foreignKey: 'paymentID' })
+        Paypalpayment.belongsTo(models.Payment, { foreignKey: 'ID' })
 
     };
     return Paypalpayment
