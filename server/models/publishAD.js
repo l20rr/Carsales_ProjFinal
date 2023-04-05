@@ -6,12 +6,12 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        advertID: {
+        Advert_vehicleID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             unique: true,
             references: {
-                model: "advert",
+                model: "Advert_vehicle",
                 key: "ID",
             },
             validate: {
@@ -35,13 +35,13 @@ module.exports = (sequelize, Sequelize) => {
     });
     PublishAD.associate = function(models) {
         PublishAD.belongsTo(models.Client)
-        PublishAD.belongsTo(models.Advert)
+        PublishAD.belongsTo(models.Advert_vehicle)
         PublishAD.hasMany(models.Favorites, {
             foreignKey: 'publishadID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })
-        PublishAD.hasMany(models.Purchase_advert, {
+        PublishAD.hasMany(models.purchase_Advert_vehicle, {
             foreignKey: 'publishadID',
             onDelete: "cascade",
             onUpdate: "cascade",

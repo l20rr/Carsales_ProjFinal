@@ -74,7 +74,7 @@ module.exports = (sequelize, Sequelize) => {
     });
     Vehicle.associate = function(models) {
         Vehicle.belongsTo(models.Subcategory)
-        Vehicle.hasMany(models.advert, {
+        Vehicle.hasMany(models.Advert_vehicle, {
             foreignKey: 'vehicleID',
             onDelete: "cascade",
             onUpdate: "cascade",

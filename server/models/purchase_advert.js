@@ -4,7 +4,7 @@ const { Model, Sequelize } = require("sequelize");
 
 
 module.exports = (sequelize, Sequelize) => {
-    const Purchase_advert = sequelize.define("purchase_advert", {
+    const purchase_Advert_vehicle = sequelize.define("purchase_Advert_vehicle", {
         ID: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -37,14 +37,14 @@ module.exports = (sequelize, Sequelize) => {
     }, {
         freezeTableName: true
     });
-    Purchase_advert.associate = function(models) {
-        Purchase_advert.belongsTo(models.Client)
-        Purchase_advert.belongsTo(models.PublishAD)
-        Purchase_advert.hasMany(models.Invoice, {
+    purchase_Advert_vehicle.associate = function(models) {
+        purchase_Advert_vehicle.belongsTo(models.Client)
+        purchase_Advert_vehicle.belongsTo(models.PublishAD)
+        purchase_Advert_vehicle.hasMany(models.Invoice, {
             foreignKey: 'invoiceID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })
     };
-    return Purchase_advert;
+    return purchase_Advert_vehicle;
 }

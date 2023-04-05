@@ -1,6 +1,6 @@
 const { INTEGER } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
-    const Advert = sequelize.define("advert ", {
+    const Advert_vehicle = sequelize.define("Advert_vehicle ", {
         ID: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -24,15 +24,15 @@ module.exports = (sequelize, Sequelize) => {
     }, {
         freezeTableName: true
     });
-    Advert.associate = function(models) {
-        Advert.belongsTo(models.Vehicle)
-        Advert.belongsToMany(models.Client, {
+    Advert_vehicle.associate = function(models) {
+        Advert_vehicle.belongsTo(models.Vehicle)
+        Advert_vehicle.belongsToMany(models.Client, {
             through: 'PublishAD',
-            foreignKey: 'advertID',
+            foreignKey: 'Advert_vehicleID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })
     };
 
-    return Advert;
+    return Advert_vehicle;
 };

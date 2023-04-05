@@ -30,7 +30,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: "purchase_advert",
+                model: "purchase_Advert_vehicle",
                 key: "ID",
             },
         }
@@ -38,7 +38,7 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Invoice.associate = function(models) {
-        Invoice.belongsTo(models.Purchase_advert)
+        Invoice.belongsTo(models.purchase_Advert_vehicle)
         Invoice.hasMany(models.Payment, {
             foreignKey: 'invoiceID',
             onDelete: "cascade",

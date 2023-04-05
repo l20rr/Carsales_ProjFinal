@@ -64,12 +64,12 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: "cascade",
             onUpdate: "cascade",
         })
-        Client.hasMany(models.Purchase_advert, {
+        Client.hasMany(models.purchase_Advert_vehicle, {
             foreignKey: 'clientID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })
-        Client.belongsToMany(models.advert, {
+        Client.belongsToMany(models.Advert_vehicle, {
             through: 'PublishAD',
             foreignKey: 'clientID',
             onDelete: "cascade",
