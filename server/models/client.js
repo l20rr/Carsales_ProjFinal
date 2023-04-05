@@ -59,25 +59,22 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: "cascade",
             onUpdate: "cascade",
         })
-        Client.belongsToMany(models.vehicle, {
-            through: 'advert',
+        Client.hasMany(models.Favorites, {
+            foreignKey: 'clientID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Client.hasMany(models.Purchase_advert, {
             foreignKey: 'clientID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })
         Client.belongsToMany(models.advert, {
-            through: 'favorites',
-            foreignKey: 'clientID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
-        })
-        Client.belongsToMany(models.advert, {
-            through: 'purchase_advert',
+            through: 'PublishAD',
             foreignKey: 'clientID',
             onDelete: "cascade",
             onUpdate: "cascade",
         })
     };
-
     return Client;
 };

@@ -17,11 +17,11 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             },
         },
-        advertID: {
+        publishadID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: "advert",
+                model: "PublishAD",
                 key: "ID",
             },
             validate: {
@@ -32,16 +32,8 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
     Favorites.associate = function(models) {
-        Favorites.hasMany(models.Client, {
-            foreignKey: 'clientID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
-        })
-        Favorites.hasMany(models.Advert, {
-            foreignKey: 'advertID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
-        })
+        Favorites.belongsTo(models.Client)
+        Favorites.belongsTo(models.PublishAD)
     };
 
     return Favorites;
