@@ -8,6 +8,7 @@ import Blog from "../pages/Blog";
 import BlogDetails from "../pages/BlogDetails";
 import NotFound from "../pages/NotFound";
 import Contact from "../pages/Contact";
+import ChatApi from "../pages/ChatApi";
 
 import Register from "../components/Header/Register";
 
@@ -24,6 +25,7 @@ const Routers = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="*" element={<NotFound />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/chat" element={<ChatApi />} />
     </Routes>
   );
 };
