@@ -1,6 +1,6 @@
 const { INTEGER } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
-    const Advert_vehicle = sequelize.define("Advert_vehicle", {
+    const Advert_vehicle = sequelize.define("Advert_vehicle ", {
         ID: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
