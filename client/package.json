@@ -22,7 +22,7 @@
     "remixicon": "^2.5.0",
     "slick-carousel": "^1.8.1",
     "stream-chat": "^8.5.0",
-    "stream-chat-react": "^10.7.3",
+    "stream-chat-react": "^9.5.2",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"
   },

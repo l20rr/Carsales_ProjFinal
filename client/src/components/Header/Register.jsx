@@ -1,4 +1,6 @@
 import React,{useState}from 'react';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 import api from '../../services/api'
 import {
   MDBBtn,
@@ -10,47 +12,49 @@ import {
 }
 from 'mdb-react-ui-kit';
 
+const cookies = new Cookies();
+
+const initialState = {
+    fullname: '',
+    email: '',
+    password: '',
+    confPassword: '',
+}
+
 const Register = () => {
-  
-  const [name , setName] = useState('');
-  const [email , setEmail] = useState('');
-  const [password , setPassword] = useState('');
-  const [confPassword , setConfPassword] = useState('');
+    const [form, setForm] = useState(initialState);
+    const [isSignup, setIsSignup] = useState(true);
 
-  const [isSignup, setIsSignup] = useState(true);
-
-  const handleChange = () => {}
-
-  const switchMode = () => {
-    setIsSignup((prevIsSignup) => !prevIsSignup);
-  }
-
-  async function handleSubmit(){
-
-    const data = {
-      name:name, 
-      email:email,
-      password:password,
-      confPassword:confPassword
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
     }
-      
-      console.log(data)
 
-      if(name!==''&&email!==''&&password!==''&&confPassword!==''){
-        const response = await api.post('/auth/',data);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        if(response.status===200){
-          window.location.href='/home'
-        }else{
-          alert('Erro ao cadastrar o usuário!');
+        const { email, password } = form;
+
+        
+
+        const { data: { token, userId, hashedPassword, fullname } } = await api.post(`${isSignup ? 'signup' : 'login'}`, {
+            email, password, fullname: form.fullname,
+        });
+
+        cookies.set('token', token);
+        cookies.set('email', email);
+        cookies.set('fullname', fullname);
+        cookies.set('userId', userId);
+
+        if(isSignup) {
+            cookies.set('hashedPassword', hashedPassword);
         }
-      }else{
-        alert('Por favor, preencha todos os dados!');
-      }
 
+        window.location.reload();
+    }
 
-      
-  }
+    const switchMode = () => {
+        setIsSignup((prevIsSignup) => !prevIsSignup);
+    }
     
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' >
@@ -59,50 +63,56 @@ const Register = () => {
         <MDBCardBody className='px-5'>
           <div className="text-uppercase text-center mb-5">
             <h2>{isSignup ? 'Registar' : 'Entrar'}</h2>
-          </div>
-          {isSignup && (
-            <MDBInput wrapperClass='mb-4' label='Your Name' size='lg' 
-            id='name' 
-            type='text' 
-            required 
-            value={name} 
-            onChange={e => setName(e.target.value)}
-            />
-          )}
-          
-            <MDBInput wrapperClass='mb-4' label='Your Email' size='lg' 
-            required
-            id="email" 
-            type='email'
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            />
-          
-            <MDBInput wrapperClass='mb-4' label='Password' size='lg'
-            required 
-            id='password' 
-            type='password'
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            />
-          
-          {isSignup && (
-            <MDBInput wrapperClass='mb-4' label='Repeat your password' size='lg' 
-            id='confPassword' 
-            type='password'
-            value={confPassword}
-            onChange={e => setConfPassword(e.target.value)}
-          />
-          )}
-          <div className='d-flex flex-row justify-content-center mb-4'>
-            <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
-          </div>
-          <MDBBtn className='mb-4 w-100 gradient-custom-4' size='lg'  onClick={handleSubmit}>Register</MDBBtn>
+            </div>
+            <form onSubmit={handleSubmit}>
+              {isSignup && (
+                <MDBInput wrapperClass='mb-4' htmlFor="fullname" label='Your Name' size='lg' 
+                required 
+                id='fullname' 
+                type='text' 
+                name='fullname'
+                
+                onChange={handleChange}
+                />
+              )}
+                <MDBInput wrapperClass='mb-4' htmlFor="email" label='Your Email' size='lg' 
+                required
+                id='email' 
+                type='email'
+                name='email'
+                
+                onChange={handleChange}
+                />
+              
+                <MDBInput wrapperClass='mb-4' htmlFor="password" label='Password' size='lg'
+                required 
+                id='password' 
+                type='password'
+                name='password'
+                
+                onChange={handleChange}
+                />
+              
+              {isSignup && (
+                <MDBInput wrapperClass='mb-4' htmlFor="confPassword" label='Repeat your password' size='lg'
+                required 
+                id='confPassword' 
+                type='password'
+                name='confPassword'
+                
+                onChange={handleChange}
+              />
+              )}
+              <div className='d-flex flex-row justify-content-center mb-4'>
+                <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
+              </div>
+              <button> {isSignup ? 'Registar' : 'Entrar'} </button>
+            </form>
           <div className='auth__form-container_fields-account'>
             <p>
               {isSignup
-              ? "Já estás registado?"
-              : "Ainda não estás registado?"
+              ? 'Já estás registado?'
+              : 'Ainda não estás registado?'
               }
               <span onClick={switchMode}>
                 {isSignup ? 'Entrar' : 'Registar'}

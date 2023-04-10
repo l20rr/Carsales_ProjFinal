@@ -11,7 +11,9 @@ import ChannelSearch from './ChannelSearch';
 import TeamChannelList from './TeamChannelList';
 import TeamChannelPreview from './TeamChannelPreview'
 
-const SideBar = () => (
+const cookies = new Cookies();
+
+const SideBar = ({ logout }) => (
 
     <div className="channel-list__sidebar">
         <div className="channel-list__sidebar__icon1">
@@ -20,7 +22,7 @@ const SideBar = () => (
             </div>
         </div>
         <div className="channel-list__sidebar__icon2">
-            <div className="icon1__inner">
+            <div className="icon1__inner" onClick={logout}>
                 <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
         </div>
@@ -34,9 +36,19 @@ const ClassifyHeader = () => (
 )
 
 const ChanelListContainer = () => {
-  return (
+    const logout = () => {
+        cookies.remove("token");
+        cookies.remove('userId');
+        cookies.remove('fullname');
+        cookies.remove('email');
+        cookies.remove('hashedPassword');
+
+        window.location.reload();
+    }
+
+    return (
     <>
-        <SideBar />
+        <SideBar logout={logout} />
         <div className="channel-list__list__wrapper">
             <ClassifyHeader />
             <ChannelSearch />
