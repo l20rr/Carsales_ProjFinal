@@ -35,7 +35,7 @@ const ClassifyHeader = () => (
     </div>
 )
 
-const ChanelListContainer = () => {
+const ChanelListContainer = ({ isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer }) => {
     const logout = () => {
         cookies.remove("token");
         cookies.remove('userId');
@@ -59,6 +59,11 @@ const ChanelListContainer = () => {
                     <TeamChannelList 
                         {...listProps}
                         type="team"
+                        isCreating={isCreating}
+                        setIsCreating={setIsCreating}
+                        setCreateType={setCreateType} 
+                        setIsEditing={setIsEditing}
+                        setToggleContainer={setToggleContainer}
                     />
                 )}
                 Preview={(previewProps) => (
@@ -75,6 +80,11 @@ const ChanelListContainer = () => {
                     <TeamChannelList 
                         {...listProps}
                         type="messaging"
+                        isCreating={isCreating}
+                        setIsCreating={setIsCreating}
+                        setCreateType={setCreateType} 
+                        setIsEditing={setIsEditing}
+                        setToggleContainer={setToggleContainer}
                     />
                 )}
                 Preview={(previewProps) => (

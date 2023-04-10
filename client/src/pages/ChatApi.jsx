@@ -13,6 +13,7 @@ import ChannelInner from "../components/Layout/ChannelInner";
 import CreateChannel from "../components/Layout/CreateChannel";
 import EditChannel from "../components/Layout/EditChannel";
 import TeamMessage from "../components/Layout/TeamMessage";
+import UserList from "../components/Layout/UserList";
 
 
 
