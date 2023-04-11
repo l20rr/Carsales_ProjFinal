@@ -22,15 +22,16 @@ module.exports = (sequelize, Sequelize) => {
 
         external_txn_id: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
 
         client_email_addr: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Paypalpayment.associate = function(models) {
         Paypalpayment.belongsTo(models.Payment)

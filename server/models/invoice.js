@@ -12,18 +12,18 @@ module.exports = (sequelize, Sequelize) => {
         },
 
         invoice_date: {
-            type: Sequelize.DATE,
-            allowNull: false,
+            type: Sequelize.DATEONLY,
+            allowNull: true,
         },
 
         total: {
             type: Sequelize.DECIMAL(4, 2),
-            allowNull: false,
+            allowNull: true,
         },
 
         tax_amount: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         },
 
         purchaseID: {
@@ -35,7 +35,8 @@ module.exports = (sequelize, Sequelize) => {
             },
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Invoice.associate = function(models) {
         Invoice.belongsTo(models.purchase_Advert_vehicle)

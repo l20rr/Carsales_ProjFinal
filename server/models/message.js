@@ -33,11 +33,12 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
         message_date: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATEONLY,
             allowNull: false,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Message.associate = function(models) {
         Message.belongsTo(models.Client)

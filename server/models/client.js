@@ -6,13 +6,9 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        username: {
-            type: Sequelize.STRING(255),
-            unique: true
-        },
-       /* accountID: {
+        accountID: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+
             unique: true,
             references: {
                 model: "account",
@@ -21,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
             validate: {
                 notEmpty: true
             }
-        },*/
+        },
         name: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -30,18 +26,18 @@ module.exports = (sequelize, Sequelize) => {
                 len: [3, 100]
             }
         },
-        email:{
+        email: {
             type: Sequelize.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true,
                 isEmail: true
             }
         },
-        password:{
+        password: {
             type: Sequelize.STRING,
             allowNull: false,
-            validate:{
+            validate: {
                 notEmpty: true
             }
         },
@@ -60,22 +56,23 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         birthdate: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATEONLY,
             allowNull: false,
         },
-       /* admin: { 
-            type: Sequelize.BOOLEAN,
-            defaultValue: true,
-        },*/
-        approved: { 
+        /* admin: { 
+             type: Sequelize.BOOLEAN,
+             defaultValue: true,
+         },*/
+        approved: {
             type: Sequelize.BOOLEAN,
             defaultValue: true,
         },
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Client.associate = function(models) {
-        //Client.belongsTo(models.Account)
+        Client.belongsTo(models.Account)
         Client.hasMany(models.Message, {
             foreignKey: 'clientIDEmission',
             onDelete: "cascade",

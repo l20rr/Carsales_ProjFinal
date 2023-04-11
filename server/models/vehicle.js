@@ -64,12 +64,13 @@ module.exports = (sequelize, Sequelize) => {
 
         image: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
             defaultValue: "id",
         },
     }, {
         indexes: [{ fields: ['ID', 'license'], unique: true }],
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
 
     });
     Vehicle.associate = function(models) {

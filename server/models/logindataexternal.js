@@ -1,4 +1,4 @@
-/*const { INTEGER } = require("sequelize");
+const { INTEGER } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
     const Logindataexternal = sequelize.define("logindataexternal", {
         id: {
@@ -33,11 +33,12 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Logindataexternal.associate = function(models) {
         Logindataexternal.belongsTo(models.Externalprovider)
         Logindataexternal.belongsTo(models.Account)
     };
     return Logindataexternal;
-};*/
+};

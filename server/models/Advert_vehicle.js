@@ -18,11 +18,12 @@ module.exports = (sequelize, Sequelize) => {
             },
         },
         creation_date: {
-            type: Sequelize.DATE,
-            allowNull: false,
+            type: Sequelize.DATEONLY,
+            allowNull: true,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Advert_vehicle.associate = function(models) {
         Advert_vehicle.belongsTo(models.Vehicle)

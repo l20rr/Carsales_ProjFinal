@@ -13,15 +13,16 @@ module.exports = (sequelize, Sequelize) => {
 
         hash_name: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         },
 
         creation_date: {
-            type: Sequelize.DATE,
-            allowNull: false,
+            type: Sequelize.DATEONLY,
+            allowNull: true,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Hashalgo.associate = function(models) {
         Hashalgo.hasMany(models.Logindata, {

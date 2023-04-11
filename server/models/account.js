@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
                 key: "ID",
             },
         },
-        logName: {
+        logname: {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
@@ -19,11 +19,12 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         register_date: {
-            type: Sequelize.DATE,
-            allowNull: false,
+            type: Sequelize.DATEONLY,
+            allowNull: true,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Account.associate = function(models) {
         Account.belongsTo(models.logindata)

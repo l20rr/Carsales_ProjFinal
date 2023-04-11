@@ -14,15 +14,16 @@ module.exports = (sequelize, Sequelize) => {
 
         provider_name: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         },
 
         end_point_url: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     Externalprovider.associate = function(models) {
         Externalprovider.hasMany(models.Logindataexternal, {

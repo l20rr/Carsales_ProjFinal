@@ -31,7 +31,8 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     });
     PublishAD.associate = function(models) {
         PublishAD.belongsTo(models.Client)
