@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         autoIncrement: true,
         primaryKey: true
       },
-    fullname:{
+    name:{
         type: Sequelize.STRING,
         allowNull: false,
         validate:{
@@ -51,7 +51,7 @@ class User extends Model {
   }
 }
 
-User.init(
+Client.init(
   {
     id: {
       type: Sequelize.INTEGER,

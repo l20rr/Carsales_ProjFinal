@@ -16,7 +16,12 @@ module.exports = (sequelize, Sequelize) => {
                 model: "category",
                 key: "ID",
             },
-        }
+        },
+        SubcategoryName: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
     }, {
         freezeTableName: true
     });

@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
 
-        description: {
+        categoryName: {
             type: Sequelize.STRING,
             allowNull: false,
         }

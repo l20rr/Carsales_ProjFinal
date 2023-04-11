@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
+const { Input } = require("@material-ui/core");
 const Vehicle = db.vehicle;
 
 
 router.post("/addvehicle", async (req, res) => {
-    const {license, year, kms, brand,model,fuel,power,num_seats} = req.body;
+    const {license, year, kms, brand,model,fuel,price,power,num_seats} = req.body;
  
     try {
          Vehicle.create({
@@ -15,6 +16,7 @@ router.post("/addvehicle", async (req, res) => {
             brand:brand,
             model:model,
             fuel:fuel,
+            price:price,
            power:power,
            num_seats:num_seats
         });
