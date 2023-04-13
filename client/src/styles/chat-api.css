@@ -204,7 +204,7 @@
   }
   
   .str-chat-channel {
-    height: 100%;
+   /* height: 100%;*/
   }
   
   .str-chat__load-more-button {
@@ -365,9 +365,11 @@
   
   .channel-list__container {
     display: flex;
-    /* height: 800px; */
-    height: 100%;
+    
+    /*height: 800px; */
+    /*height: 100%;*/
     box-shadow: inset 1px 0px 0px rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
   
   .channel-list__sidebar {
@@ -398,6 +400,7 @@
     flex-direction: column;
     background: var(--primary-color);
     width: 240px;
+    text-align: center;
   }
   
   .icon1__inner {
@@ -434,6 +437,9 @@
   .channel-list__header {
     padding-left: 16px;
     height: 62px;
+    display: flex;
+    align-items: center;
+    text-align: center;
   }
   
   .channel-list__header__text {
@@ -441,8 +447,9 @@
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
-    line-height: 28px;
     color: #ffffff;
+    text-align: center;
+    
   }
   
   .channel-search__container {
@@ -938,6 +945,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+
+    
   }
   
   .team-channel-list__message {
@@ -973,6 +982,7 @@
     height: 37px;
     display: flex;
     align-items: center;
+    
   }
   
   .channel-preview__wrapper__selected {
@@ -1008,6 +1018,9 @@
     width: 100%;
     text-overflow: ellipsis;
     word-break: break-all;
+    
+    
+    
   }
   
   .channel-preview__item.multi {
@@ -1016,6 +1029,7 @@
   
   .channel-preview__item.single .str-chat__avatar {
     margin-right: 12px;
+  
   }
   
   .channel-preview__item.multi .str-chat__avatar {

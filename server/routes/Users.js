@@ -20,7 +20,7 @@ router.post('/signup', async (req, res) => {
         const { fullname, email, password } = req.body;
     
         
-    
+
         const userId = crypto.randomBytes(16).toString('hex');
     
         const serverClient = connect(api_key, api_secret, app_id);

@@ -4,7 +4,7 @@ import { StreamChat } from 'stream-chat';
 import { Chat } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
 
-import ChanelListContainer from "../components/Layout/ChannelListContainer";
+import ChannelListContainer from "../components/Layout/ChannelListContainer";
 import ChannelContainer from "../components/Layout/ChannelContainer";
 import ChannelSearch from "../components/Layout/ChannelSearch";
 import TeamChannelList from "../components/Layout/TeamChannelList";
@@ -14,6 +14,7 @@ import CreateChannel from "../components/Layout/CreateChannel";
 import EditChannel from "../components/Layout/EditChannel";
 import TeamMessage from "../components/Layout/TeamMessage";
 import UserList from "../components/Layout/UserList";
+import ResultsDropdown from "../components/Layout/ResultsDropdown";
 
 
 
@@ -48,7 +49,7 @@ const ChatApi = () => {
     return(
         <div className="app__wrapper">
             <Chat client={client} theme="team light">
-                <ChanelListContainer
+                <ChannelListContainer
                     isCreating={isCreating}
                     setIsCreating={setIsCreating}
                     setCreateType={setCreateType}
