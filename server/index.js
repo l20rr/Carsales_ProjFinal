@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./models/index")
 
 //connect without erasing data
-
+/*
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -31,13 +31,13 @@ db.sequelize.sync()
     console.log("Failed to sync db: " + err.message);
   });
 
-
+*/
 //connect by erasing data
-/*
+
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
 });
-*/
+
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
 
