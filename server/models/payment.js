@@ -12,13 +12,13 @@ module.exports = (sequelize, Sequelize) => {
         },
 
         payment_date: {
-            type: Sequelize.DATEONLY,
-            allowNull: true,
+            type: Sequelize.DATE,
+            allowNull: false,
         },
 
         amount: {
             type: Sequelize.DECIMAL(4, 2),
-            allowNull: true,
+            allowNull: false,
         },
 
         invoiceID: {
@@ -30,8 +30,7 @@ module.exports = (sequelize, Sequelize) => {
             },
         }
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
     Payment.associate = function(models) {
         Payment.belongsTo(models.invoice)

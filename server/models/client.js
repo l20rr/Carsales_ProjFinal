@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         accountID: {
             type: Sequelize.INTEGER,
-
+            allowNull: false,
             unique: true,
             references: {
                 model: "account",
@@ -26,21 +26,6 @@ module.exports = (sequelize, Sequelize) => {
                 len: [3, 100]
             }
         },
-        email: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                isEmail: true
-            }
-        },
-        password: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
         locality: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -56,20 +41,11 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         birthdate: {
-            type: Sequelize.DATEONLY,
+            type: Sequelize.DATE,
             allowNull: false,
-        },
-        /* admin: { 
-             type: Sequelize.BOOLEAN,
-             defaultValue: true,
-         },*/
-        approved: {
-            type: Sequelize.BOOLEAN,
-            defaultValue: true,
-        },
+        }
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
     Client.associate = function(models) {
         Client.belongsTo(models.Account)

@@ -67,9 +67,7 @@ const Header = () => {
             
             <Col lg="6" md="6" sm="6">
               <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                <Link to="login" className=" d-flex align-items-center gap-1">
-                  <i class="ri-login-circle-line"></i> Entrar
-                </Link>
+                
 
                 <Link to="register" className=" d-flex align-items-center gap-1">
                   <i class="ri-user-line"></i> Criar Conta

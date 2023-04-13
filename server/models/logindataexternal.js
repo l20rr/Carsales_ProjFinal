@@ -33,8 +33,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
     Logindataexternal.associate = function(models) {
         Logindataexternal.belongsTo(models.Externalprovider)

@@ -20,21 +20,20 @@ module.exports = (sequelize, Sequelize) => {
 
         creditcard_num: {
             type: Sequelize.INTEGER,
-            allowNull: true,
+            allowNull: false,
         },
 
         creditcard_security_code: {
             type: Sequelize.INTEGER,
-            allowNull: true,
+            allowNull: false,
         },
 
         creditcard_expiration_date: {
-            type: Sequelize.DATEONLY,
-            allowNull: true,
+            type: Sequelize.DATE,
+            allowNull: false,
         }
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
     Creditcardpayment.associate = function(models) {
         Creditcardpayment.belongsTo(models.Payment)

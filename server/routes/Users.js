@@ -1,91 +1,73 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const db = require("../models");
-const Client = db.client;
-const jwt = require("jsonwebtoken");
-const { Op } = require("sequelize");
-const bcrypt = require("bcrypt");
-const { validateToken } = require("../middlewares/AuthMiddleware");
-const secret = "mysecret";
-const { sign } = require("jsonwebtoken");
+const db = require('../models');
+const Users = db.user;
 
 
-router.post("/", async (req, res) => {
-    const {username,name,email, password, confPassword, locality,tel,birthdate} = req.body; 
-    if(password !== confPassword) return res.status(400).json({msg: "Password dan Confirm Password tidak cocok"});
-    bcrypt.hash(password, 10).then((hash) => {
-      Client.create({
-        username: username,
-        name: name,
-        email: email,
-        password: hash,
-        locality:locality,
-        tel:tel,
-        birthdate:birthdate,
-       /* admin: false,
-        approved: false*/
-  
-    });
+const bcrypt = require('bcrypt');
+const { connect } = require('getstream');
+const StreamChat = require('stream-chat').StreamChat;
+const crypto = require('crypto');
+
+require('dotenv').config();
+
+const api_key = process.env.STREAM_API_KEY;
+const api_secret = process.env.STREAM_API_SECRET;
+const app_id = process.env.STREAM_APP_ID;
+
+router.post('/signup', async (req, res) => {
+    try {
+        const { fullname, email, password } = req.body;
     
-      res.json("SUCCESS");
-    });
-  });
-
-  router.post('/login', async (req, res) => {
-      
-    const { email , password } = req.body;
-  
-    const user = await Client.findOne({ where: {email: email}});
-  
-    // if the user is not in the table
-    if (!user){
-        res.json({error: "User doesn't exist!"});
-    }
-    else{
-  
-        if (user.approved===false){
-            res.json({error: "approval"});
-        }
-        else{
-  
-            bcrypt.compare(password, user.password).then((matched)=>{
-                if(!matched){
-                    res.json({error: "Wrong User Credentials!"});
-                }
-                else{
-                     const payload = { email };
-                    const token = jwt.sign(payload, secret, {
-                        expiresIn: '24h'
-                    })
-                    res.cookie('token', token, {httpOnly: true});
-                    res.status(200).json({status:1, auth:true, token:token});
-                }
-            });
-  
-        }
-  
         
-    }
-  
-  });
 
+        const userId = crypto.randomBytes(16).toString('hex');
+    
+        const serverClient = connect(api_key, api_secret, app_id);
 
-  
-  router.get('/checkToken', async function checkToken(req, res){
-    const token = req.body.token || req.query.token || req.cookies.token || req.headers['x-access-token'];
-        if(!token){
-            res.json({status:401,msg:'Não autorizado: Token inexistente!'});
-        }else{
-            jwt.verify(token, secret, function(err, decoded){
-                if(err){
-                    res.json({status:401,msg:'Não autorizado: Token inválido!'});
-                }else{
-                    res.json({status:200})
-                }
-            })
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const token = serverClient.createUserToken(userId);
+    
+        // criando o usuário
+        Users.create({
+          fullname: fullname,
+          email: email,
+          password: hashedPassword
+        });
+    
+        res.status(200).json({ token, userId, fullname, email, hashedPassword });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+      }
+    });
+
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        
+        const serverClient = connect(api_key, api_secret, app_id);
+        const client = StreamChat.getInstance(api_key, api_secret);
+
+        const { users } = await client.queryUsers({ name: email });
+
+        if(!users.length) return res.status(400).json({ message: 'User not found' });
+
+        const success = await bcrypt.compare(password, users[0].hashedPassword);
+
+        const token = serverClient.createUserToken(users[0].id);
+
+        if(success) {
+            res.status(200).json({ token, fullname: users[0].fullname, email, userId: users[0].id});
+        } else {
+            res.status(500).json({ message: 'Incorrect password' });
         }
-  });
+    } catch (error) {ads
+        console.log(error);
 
-
+        res.status(500).json({ message: error });
+    }
+});
 
 module.exports = router;

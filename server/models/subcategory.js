@@ -16,15 +16,9 @@ module.exports = (sequelize, Sequelize) => {
                 model: "category",
                 key: "ID",
             },
-        },
-        SubcategoryName: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
-
+        }
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
     Subcategory.associate = function(models) {
         Subcategory.belongsTo(models.Category)

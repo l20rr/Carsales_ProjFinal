@@ -16,12 +16,11 @@ module.exports = (sequelize, Sequelize) => {
         },
 
         creation_date: {
-            type: Sequelize.DATEONLY,
-            allowNull: true,
+            type: Sequelize.DATE,
+            allowNull: false,
         }
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
     Chatroom.associate = function(models) {
         Chatroom.hasMany(models.message, {
