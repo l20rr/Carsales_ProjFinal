@@ -204,7 +204,7 @@
   }
   
   .str-chat-channel {
-    height: 100%;
+   /* height: 100%;*/
   }
   
   .str-chat__load-more-button {
@@ -366,7 +366,7 @@
   .channel-list__container {
     display: flex;
     /* height: 800px; */
-    height: 100%;
+    /*height: 100%;*/
     box-shadow: inset 1px 0px 0px rgba(0, 0, 0, 0.1);
   }
   

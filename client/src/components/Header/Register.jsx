@@ -36,7 +36,7 @@ const Register = () => {
 
         
 
-        const { data: { token, userId, hashedPassword, fullname } } = await api.post(`${isSignup ? 'signup' : 'login'}`, {
+        const { data: { token, userId, hashedPassword, fullname } } = await api.post(`${isSignup ? '/auth/signup' : '/auth/login'}`, {
             email, password, fullname: form.fullname,
         });
 

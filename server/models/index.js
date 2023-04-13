@@ -40,7 +40,7 @@ db.purchase_Advert_vehicle = require("./purchase_Advert_vehicle")(sequelize, Seq
 db.invoice = require("./invoice")(sequelize, Sequelize);
 db.payment = require("./payment")(sequelize, Sequelize);
 db.paypalpayment = require("./paypalpayment")(sequelize, Sequelize);
-
+db.user = require("./User.model")(sequelize,Sequelize);
 
 
 module.exports = db;

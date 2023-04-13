@@ -55,8 +55,8 @@ const TeamChannelHeader = ({ setIsEditing }) => {
           <div className='team-channel-header__name-wrapper'>
             {members.map(({ user }, i) => (
               <div key={i} className='team-channel-header__name-multi'>
-                <Avatar image={user.image} name={user.fullName || user.id} size={32} />
-                <p className='team-channel-header__name user'>{user.fullName || user.id}</p>
+                <Avatar image={user.image} name={user.fullname || user.id} size={32} />
+                <p className='team-channel-header__name user'>{user.fullname || user.id}</p>
               </div>
             ))}
   

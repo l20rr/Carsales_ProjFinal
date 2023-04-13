@@ -13,12 +13,12 @@ module.exports = (sequelize, Sequelize) => {
 
         password_hash: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: false,
         },
 
         password_salt: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: false,
         },
 
         email_addr: {
@@ -27,23 +27,23 @@ module.exports = (sequelize, Sequelize) => {
         },
 
         last_login: {
-            type: Sequelize.DATEONLY,
-            allowNull: true,
+            type: Sequelize.DATE,
+            allowNull: false,
         },
 
         confirmation_token: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: false,
         },
 
         confirmation_token_time: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: false,
         },
 
         recovery_token: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: false,
         },
 
         hash_algoID: {
@@ -64,8 +64,7 @@ module.exports = (sequelize, Sequelize) => {
             },
         }
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
     Logindata.associate = function(models) {
         Logindata.belongsTo(models.hashalgo)

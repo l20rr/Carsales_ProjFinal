@@ -4,6 +4,7 @@ import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";
+import { Link } from "react-router-dom";
 
 const CarListing = () => {
   return (
@@ -26,7 +27,11 @@ const CarListing = () => {
                 </select>
               </div>
             </Col>
-
+            <button>
+            <Link to="registerCategory" className=" d-flex align-items-center gap-1">
+                  Cadastrar Veiculo
+                </Link>
+            </button>
             {carData.map((item) => (
               <CarItem item={item} key={item.id} />
             ))}

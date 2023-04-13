@@ -29,8 +29,7 @@ module.exports = (sequelize, Sequelize) => {
             },
         }
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
     Favorites.associate = function(models) {
         Favorites.belongsTo(models.Client)

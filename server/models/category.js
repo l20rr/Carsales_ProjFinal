@@ -13,13 +13,12 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
 
-        categoryName: {
+        description: {
             type: Sequelize.STRING,
             allowNull: false,
         }
     }, {
-        freezeTableName: true,
-        timestamps: false,
+        freezeTableName: true
     });
 
 
