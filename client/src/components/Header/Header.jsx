@@ -29,10 +29,7 @@ const navLinks = [
   },
 ];
 
-const Header = () => {
-  const menuRef = useRef(null);
-
-  const cookies = new Cookies();
+const cookies = new Cookies();
 
   const authToken = cookies.get("token");
 
@@ -45,6 +42,11 @@ const Header = () => {
 
     window.location.reload();
 }
+const Header = ({ logout }) => {
+  const menuRef = useRef(null);
+
+  
+
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
