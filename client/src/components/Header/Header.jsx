@@ -1,8 +1,14 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+
 
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
+
+
+import Cookies from 'universal-cookie';
+import { StreamChat } from 'stream-chat';
 
 const navLinks = [
   {
@@ -25,6 +31,20 @@ const navLinks = [
 
 const Header = () => {
   const menuRef = useRef(null);
+
+  const cookies = new Cookies();
+
+  const authToken = cookies.get("token");
+
+  const logout = () => {
+    cookies.remove("token");
+    cookies.remove('userId');
+    cookies.remove('fullname');
+    cookies.remove('email');
+    cookies.remove('hashedPassword');
+
+    window.location.reload();
+}
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
@@ -67,11 +87,21 @@ const Header = () => {
             
             <Col lg="6" md="6" sm="6">
               <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                
 
-                <Link to="register" className=" d-flex align-items-center gap-1">
-                  <i class="ri-user-line"></i> Criar Conta
+              {
+              authToken ?
+              
+                <button to="register" className=" d-flex align-items-center gap-1">
+                  <i class="ri-user-line"onClick={logout}></i> Logout
+                </button>
+              
+              :
+              
+                <Link to="register" className=" d-flex align-items-center gap-1" >
+                  <i class="ri-user-line" ></i> Entrar/Registar
                 </Link>
+              
+              }  
               </div>
             </Col>
           </div>

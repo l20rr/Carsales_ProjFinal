@@ -5,7 +5,9 @@ const { and } = require("sequelize");
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:3001"
+    origin: "http://localhost:3001",
+    methods: ["POST, GET"],
+    credentials: true
 };
 
 app.use(cors(corsOptions));

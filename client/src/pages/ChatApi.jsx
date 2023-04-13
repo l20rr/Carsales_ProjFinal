@@ -15,6 +15,7 @@ import EditChannel from "../components/Layout/EditChannel";
 import TeamMessage from "../components/Layout/TeamMessage";
 import UserList from "../components/Layout/UserList";
 import ResultsDropdown from "../components/Layout/ResultsDropdown";
+import Header from "../components/Header/Header";
 
 
 
