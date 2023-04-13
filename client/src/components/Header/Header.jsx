@@ -29,7 +29,11 @@ const navLinks = [
   },
 ];
 
-const cookies = new Cookies();
+
+const Header = () => {
+  const menuRef = useRef(null);
+
+  const cookies = new Cookies();
 
   const authToken = cookies.get("token");
 
@@ -41,11 +45,8 @@ const cookies = new Cookies();
     cookies.remove('hashedPassword');
 
     window.location.reload();
+    window.location.href= '/home'
 }
-const Header = ({ logout }) => {
-  const menuRef = useRef(null);
-
-  
 
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
@@ -93,9 +94,11 @@ const Header = ({ logout }) => {
               {
               authToken ?
               
-                <button to="register" className=" d-flex align-items-center gap-1">
-                  <i class="ri-user-line"onClick={logout}></i> Logout
+               
+                 <button className=" d-flex align-items-center gap-1" onClick={logout}>
+                  <i class="ri-user-line"></i>Logout 
                 </button>
+             
               
               :
               

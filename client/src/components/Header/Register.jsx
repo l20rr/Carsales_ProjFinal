@@ -50,6 +50,7 @@ const Register = () => {
         }
 
         window.location.reload();
+        window.location.href= '/home'
     }
 
     const switchMode = () => {
