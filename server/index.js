@@ -43,6 +43,15 @@ const vehicleRouter = require("./routes/Vehicle");
 app.use("/vehicle", vehicleRouter);
 
 
+const cat = require("./routes/Category");
+app.use("/cat", cat);
+
+
+const subcat = require("./routes/subcategory");
+app.use("/subcat", subcat);
+
+
+
 // set port, listen for requests
 const PORT = 3000;
 app.listen(PORT, () => {
