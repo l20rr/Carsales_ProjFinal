@@ -23,7 +23,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     Account.associate = function(models) {
         Account.belongsTo(models.logindata)

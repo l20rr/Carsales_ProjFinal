@@ -1,44 +1,41 @@
 const { INTEGER } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
-    const Logindataexternal = sequelize.define("logindataexternal", {
-        id: {
+    const priorityAdvert = sequelize.define("priorityAdvert", {
+        ID: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        accountID: {
+        advertID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: "account",
+                model: "Advert_vehicle",
                 key: "ID",
             },
             validate: {
                 notEmpty: true
-            }
+            },
         },
-        externalproviderID: {
+        invoiceID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: "externalprovider",
+                model: "invoice",
                 key: "ID",
             },
-        },
-        external_provider_token: {
-            type: Sequelize.STRING,
-            allowNull: false,
             validate: {
                 notEmpty: true
-            }
+            },
         },
     }, {
         freezeTableName: true,
         timestamps: false
     });
-    Logindataexternal.associate = function(models) {
-        Logindataexternal.belongsTo(models.Externalprovider)
-        Logindataexternal.belongsTo(models.Account)
+    priorityAdvert.associate = function(models) {
+        priorityAdvert.belongsTo(models.Advert_vehicle)
+        priorityAdvert.belongsTo(models.invoice)
     };
-    return Logindataexternal;
+
+    return priorityAdvert;
 };
