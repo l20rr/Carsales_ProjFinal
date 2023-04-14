@@ -36,6 +36,24 @@ const HeroSlider = () => {
          
         </Container>
       </div>
+      <div className="slider__item slider__item-04 mt0">
+        <Container>
+         
+        </Container>
+      </div>
+      <div className="slider__item slider__item-05 mt0">
+        <Container>
+        </Container>
+      </div>
+      <div className="slider__item slider__item-06 mt0">
+        <Container>
+        </Container>
+      </div>
+      <div className="slider__item slider__item-07 mt0">
+        <Container>
+         
+        </Container>
+      </div>
     </Slider>
   );
 };
