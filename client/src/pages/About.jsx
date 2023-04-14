@@ -28,33 +28,23 @@ const About = () => {
             <Col lg="6" md="6" sm="12">
               <div className="about__page-content">
                 <h2 className="section__title">
-                  We Are Committed To Provide Safe Ride Solutions
+                Estamos comprometidos em fornecer soluções segura e eficaz
                 </h2>
 
                 <p className="section__description">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Eveniet veniam assumenda aperiam accusantium ex autem
-                  perferendis repellendus nostrum delectus. Nemo et dolore est
-                  tempore rem minima adipisci magni dolorum ipsam.
+                Nossa seleção de veiculos é extensa e cuidadosamente selecionada para atender às suas necessidades e estilo de vida. Temos desde carros populares até veículos de luxo,
+                 todos em excelente estado e prontos para serem entregues em qualquer lugar do país.
+                 Com nossa plataforma online fácil de usar, você pode pesquisar, comparar e comprar o carro que 
+                 deseja com apenas alguns cliques. Além disso, nosso sistema de financiamento é simples e acessível,
+                  tornando o processo de compra ainda mais fácil.
                 </p>
 
                 <p className="section__description">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Eveniet veniam assumenda aperiam accusantium ex autem
-                  perferendis repellendus nostrum delectus. Nemo et dolore est
-                  tempore rem minima adipisci magni dolorum ipsam.
+                Nosso compromisso com a qualidade e a satisfação do cliente é inabalável. Trabalhamos duro para garantir que nossos clientes recebam um excelente atendimento e um produto de qualidade, desde o momento da compra até a entrega do veículo.
+Seja você um comprador pela primeira vez ou um colecionador experiente, estamos confiantes de que encontrará exatamente o que está procurando em nossa loja de veículos online. Estamos aqui para ajudá-lo em cada passo do caminho, desde a escolha do carro até a entrega à sua porta.
                 </p>
 
-                <div className=" d-flex align-items-center gap-3 mt-4">
-                  <span className="fs-4">
-                    <i class="ri-phone-line"></i>
-                  </span>
-
-                  <div>
-                    <h6 className="section__subtitle">Need Any Help?</h6>
-                    <h4>+00123456789</h4>
-                  </div>
-                </div>
+            
               </div>
             </Col>
           </Row>
@@ -63,12 +53,12 @@ const About = () => {
 
       <BecomeDriverSection />
 
-      <section>
+      <section className="membros">
         <Container>
           <Row>
             <Col lg="12" className="mb-5 text-center">
-              <h6 className="section__subtitle">Experts</h6>
-              <h2 className="section__title">Our Members</h2>
+              <h6 className="section__subtitle">Membros</h6>
+              <h2 className="section__title">Criadores</h2>
             </Col>
             <OurMembers />
           </Row>

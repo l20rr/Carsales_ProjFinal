@@ -130,6 +130,20 @@
   
 }
 
+.btn-cadastrar{
+  background-color: #000d6b;
+  color: white;
+  padding: 2px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  
+}
+
+.formulario{
+  margin-bottom: 50%;
+}
+
 .nav__item:hover {
   color: #f9a826;
 }
@@ -176,7 +190,10 @@
   .mobile__menu {
     display: block;
   }
-
+  .formulario{
+    margin-bottom: 42%;
+  }
+  
   .navigation {
     background: rgb(0, 13, 107, 0.6);
     width: 100%;

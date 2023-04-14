@@ -1,6 +1,7 @@
 import React,{useState}from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import "../../styles/header.css";
 import api from '../../services/api'
 import {
   MDBBtn,
@@ -59,7 +60,7 @@ const Register = () => {
     
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' >
-      <div className='mask gradient-custom-3'></div>
+      <div className='mask gradient-custom-3 formulario'></div>
       <MDBCard className='m-5' style={{maxWidth: '600px'}}>
         <MDBCardBody className='px-5'>
           <div className="text-uppercase text-center mb-5">
@@ -107,7 +108,7 @@ const Register = () => {
               <div className='d-flex flex-row justify-content-center mb-4'>
                 <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
               </div>
-              <button> {isSignup ? 'Registar' : 'Entrar'} </button>
+              <button className="btn-cadastrar"> {isSignup ? 'Registar' : 'Entrar'} </button>
             </form>
           <div className='auth__form-container_fields-account'>
             <p>

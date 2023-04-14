@@ -8,15 +8,7 @@ import ava03 from "../../assets/all-images/ava-3.jpg";
 
 const OUR__MEMBERS = [
 
-  {
-    name: "Pedro",
-    experience: "5 years of experience",
-    fbUrl: "#",
-    instUrl: "#",
-    twitUrl: "#",
-    linkedinUrl: "#",
-    imgUrl: ava02,
-  },
+
 
   {
     name: "Daniel Ferreira",
@@ -30,6 +22,15 @@ const OUR__MEMBERS = [
 
   {
     name: "Lucas",
+    experience: "5 years of experience",
+    fbUrl: "#",
+    instUrl: "#",
+    twitUrl: "#",
+    linkedinUrl: "#",
+    imgUrl: ava01,
+  },
+  {
+    name: "Pedro",
     experience: "5 years of experience",
     fbUrl: "#",
     instUrl: "#",

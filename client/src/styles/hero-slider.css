@@ -5,7 +5,7 @@
 
 .slider__item-01 {
   background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
-    url("../assets/all-images/slider-img/slider-1.jpg");
+    url("../assets/all-images/slider-img/moto.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,7 +26,34 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
+.slider__item-04 {
+  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+    url("../assets/all-images/slider-img/renault-zoe.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.slider__item-05 {
+  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+    url("../assets/all-images/slider-img/Citroen-C4_Cactus.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.slider__item-06 {
+  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+    url("../assets/all-images/slider-img/pcx.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.slider__item-07 {
+  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+    url("../assets/all-images/slider-img/campervan-confort.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .hero__slider {
   overflow: hidden;
 }

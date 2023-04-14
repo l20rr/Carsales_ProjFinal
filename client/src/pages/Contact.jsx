@@ -33,7 +33,7 @@ const Contact = () => {
         <Container>
           <Row>
             <Col lg="7" md="7">
-              <h6 className="fw-bold mb-4">Get In Touch</h6>
+              <h6 className="fw-bold mb-4">Entrar em contato</h6>
 
               <Form>
                 <FormGroup className="contact__form">
@@ -51,7 +51,7 @@ const Contact = () => {
                 </FormGroup>
 
                 <button className=" contact__btn" type="submit">
-                  Send Message
+                  Enviar
                 </button>
               </Form>
             </Col>
@@ -60,11 +60,11 @@ const Contact = () => {
               <div className="contact__info">
                 <h6 className="fw-bold">Contact Information</h6>
                 <p className="section__description mb-0">
-                  123 ZindaBazar, Sylhet, Bangladesh
+                  Av. Comandante 123, Lisboa
                 </p>
                 <div className=" d-flex align-items-center gap-2">
                   <h6 className="fs-6 mb-0">Phone:</h6>
-                  <p className="section__description mb-0">+88683896366</p>
+                  <p className="section__description mb-0">(+351)985447213</p>
                 </div>
 
                 <div className=" d-flex align-items-center gap-2">
