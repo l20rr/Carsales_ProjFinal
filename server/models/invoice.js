@@ -35,11 +35,17 @@ module.exports = (sequelize, Sequelize) => {
             },
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     Invoice.associate = function(models) {
         Invoice.belongsTo(models.purchase_Advert_vehicle)
         Invoice.hasMany(models.Payment, {
+            foreignKey: 'invoiceID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
+        Invoice.hasMany(models.priorityAdvert, {
             foreignKey: 'invoiceID',
             onDelete: "cascade",
             onUpdate: "cascade",

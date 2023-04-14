@@ -21,7 +21,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     Hashalgo.associate = function(models) {
         Hashalgo.hasMany(models.Logindata, {

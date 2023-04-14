@@ -64,7 +64,8 @@ module.exports = (sequelize, Sequelize) => {
             },
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     Logindata.associate = function(models) {
         Logindata.belongsTo(models.hashalgo)

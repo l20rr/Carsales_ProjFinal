@@ -69,7 +69,8 @@ module.exports = (sequelize, Sequelize) => {
         },
     }, {
         indexes: [{ fields: ['ID', 'license'], unique: true }],
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
 
     });
     Vehicle.associate = function(models) {

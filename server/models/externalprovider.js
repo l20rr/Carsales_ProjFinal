@@ -22,7 +22,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     Externalprovider.associate = function(models) {
         Externalprovider.hasMany(models.Logindataexternal, {

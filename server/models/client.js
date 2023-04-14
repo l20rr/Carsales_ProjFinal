@@ -45,7 +45,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     Client.associate = function(models) {
         Client.belongsTo(models.Account)

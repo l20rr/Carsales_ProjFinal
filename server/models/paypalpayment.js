@@ -30,7 +30,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     Paypalpayment.associate = function(models) {
         Paypalpayment.belongsTo(models.Payment)

@@ -35,7 +35,8 @@ module.exports = (sequelize, Sequelize) => {
             },
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     purchase_Advert_vehicle.associate = function(models) {
         purchase_Advert_vehicle.belongsTo(models.Client)

@@ -18,14 +18,20 @@ module.exports = (sequelize, Sequelize) => {
             },
         },
         creation_date: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATEONLY,
             allowNull: false,
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     });
     Advert_vehicle.associate = function(models) {
         Advert_vehicle.belongsTo(models.Vehicle)
+        Advert_vehicle.hasMany(models.priorityAdvert, {
+            foreignKey: 'advertID',
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
         Advert_vehicle.belongsToMany(models.Client, {
             through: 'PublishAD',
             foreignKey: 'Advert_vehicleID',
