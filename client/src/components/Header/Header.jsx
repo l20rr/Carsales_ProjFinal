@@ -14,6 +14,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
 
+
 const navLinks = [
   {
     path: "/home",
@@ -47,7 +48,7 @@ const Header = () => {
     cookies.remove('fullname');
     cookies.remove('email');
     cookies.remove('hashedPassword');
-
+    
     window.location.reload();
     window.location.href= '/home'
 }
@@ -55,7 +56,12 @@ const Header = () => {
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
+  const fullname = () => cookies.get('fullname');
+        
+
   return (
+
+    
     
     <header className="header">
       
@@ -106,10 +112,10 @@ const Header = () => {
                   </Dropdown.Toggle>
 
                 <Dropdown.Menu variant="dark" >
-                  <Dropdown.Header>Alberto</Dropdown.Header>
+                  <Dropdown.Header>Bem vindo,{' '}<span style={{ color: 'white', fontWeight: 'bold' }}>{fullname()}.</span></Dropdown.Header>
                   <Dropdown.Header>A tua conta</Dropdown.Header>
                   <Dropdown.Item href="#/action-1">Perfil</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Mensagens</Dropdown.Item>
+                  <Dropdown.Item href="/chat">Mensagens</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">Favoritos</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={logout}>Sair</Dropdown.Item>
@@ -123,7 +129,7 @@ const Header = () => {
               </Link>
 
               }  
-              
+
               </div>
             </Col>
           </div>
