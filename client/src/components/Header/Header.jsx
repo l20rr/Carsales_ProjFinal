@@ -114,7 +114,7 @@ const Header = () => {
                 <Dropdown.Menu variant="dark" >
                   <Dropdown.Header>Bem vindo,{' '}<span style={{ color: 'white', fontWeight: 'bold' }}>{fullname()}.</span></Dropdown.Header>
                   <Dropdown.Header>A tua conta</Dropdown.Header>
-                  <Dropdown.Item href="#/action-1">Perfil</Dropdown.Item>
+                  <Dropdown.Item href="Admin">Geral</Dropdown.Item>
                   <Dropdown.Item href="/chat">Mensagens</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">Favoritos</Dropdown.Item>
                   <Dropdown.Divider />

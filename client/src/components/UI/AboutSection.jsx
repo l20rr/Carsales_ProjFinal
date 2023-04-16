@@ -20,7 +20,7 @@ const AboutSection = ({ aboutClass }) => {
               <h4 className="section__subtitle">About Us</h4>
               <h2 className="section__title">Bem-vinda a nossa loja de veículos online</h2>
               <p className="section__description">
-              onde você pode encontrar o carro dos seus sonhos sem sair de casa! Somos uma empresa comprometida
+              Onde você pode encontrar o carro dos seus sonhos sem sair de casa! Somos uma empresa comprometida
                em fornecer uma experiência de compra excepcional, 
               combinando o melhor da tecnologia com um serviço personalizado.
               </p>

@@ -9,22 +9,21 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true,
         },
-
+/*
         categoryID: {
             type: Sequelize.INTEGER,
-            allowNull: false,
             references: {
                 model: "category",
                 key: "ID",
             },
-        },
+        },*/
         SubcategoryName: {
             type: Sequelize.STRING,
             allowNull: false,
-        }
+        },
+
     }, {
-        freezeTableName: true,
-        timestamps: false
+        freezeTableName: true
     });
     Subcategory.associate = function(models) {
         Subcategory.belongsTo(models.Category)

@@ -10,11 +10,17 @@ import Contact from "../pages/Contact";
 import ChatApi from "../pages/ChatApi";
 import PrivateRoute from "../services/PrivateRoute";
 import RegisterCat from "../pages/RegisterCategory";
-
+import RegisterAcount from "../pages/RegisterAcount"
 import RegisterSub from "../pages/RegisterSub";
-
+import Registeradverts from "../pages/Registeradverts";
 import RegisterVhicle from "../pages/RegisterVhicle";
 import Register from "../components/Header/Register";
+
+import UserProfile from "../Admin/UserProfile"
+
+import Dash from "../Admin/Dash";
+
+
 
 const Routers = () => {
   return (
@@ -28,6 +34,8 @@ const Routers = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/register" element={<Register />} />
       <Route path="/chat" element={<ChatApi />} />
+      <Route path="/Admin" element={<Dash />} />
+      <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="cars/registerCategory" element={
         <PrivateRoute redirectTo="register">
           <RegisterCat/> 
@@ -43,6 +51,8 @@ const Routers = () => {
           <RegisterVhicle/> 
         </PrivateRoute>
     }/>
+       <Route path="cars/registerCategory/registerSub/registerVhicle/Registeradverts" element={<Registeradverts />} />
+       <Route path="cars/registerCategory/RegisterSub/RegisterVhicle/Registeradverts/RegisterAcout" element={<RegisterAcount />} />
     </Routes>
   );
 };

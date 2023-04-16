@@ -15,7 +15,6 @@ module.exports = (sequelize, Sequelize) => {
 
         subcategoryID: {
             type: Sequelize.INTEGER,
-            allowNull: false,
             references: {
                 model: "subcategory",
                 key: "ID",
@@ -62,16 +61,15 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
-
+/*
         image: {
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: "id",
-        },
+        },*/
     }, {
         indexes: [{ fields: ['ID', 'license'], unique: true }],
-        freezeTableName: true,
-        timestamps: false
+        freezeTableName: true
 
     });
     Vehicle.associate = function(models) {

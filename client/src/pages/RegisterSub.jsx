@@ -43,27 +43,45 @@ function RegisterSub(){
     }
   }
   return (
-    <Form>
+   <div style={{ display: 'block', 
+   width: 900,
+   marginLeft: 500,
+   marginTop:200, 
+   padding: 30 ,
+   height:600}}>
+     <Form>
     
 
 
 
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridState">
-          <Form.Label>sub-categoria</Form.Label>
-          <Form.Select defaultValue="ecolha a sub-categoria..." value={SubcategoryName} onChange={handleSelectChange}>
-           <option value={'SUV'} id='SUV'  >SUV</option>
-           <option value={'Desportivo'} id='Desportivo'>Desportivo</option>
-           <option value={'Citadinos'} id='Citadinos'>Citadinos</option>
-          </Form.Select>
-        </Form.Group>
-      </Row>
-      <Button variant="primary"  onClick={handleSubmit}>
-      <Link to="RegisterVhicle" className=" d-flex align-items-center gap-1">
-                  next
-                </Link>
-      </Button>
-    </Form>
+    <Row className="mb-3">
+      <Form.Group as={Col} controlId="formGridState">
+        <Form.Label>sub-categoria</Form.Label>
+        <Form.Select defaultValue="ecolha a sub-categoria..." value={SubcategoryName} onChange={handleSelectChange}>
+         <option value={'SUV'} id='SUV'  >SUV</option>
+         <option value={'Desportivo'} id='Desportivo'>Desportivo</option>
+         <option value={'Citadinos'} id='Citadinos'>Citadinos</option>
+        </Form.Select>
+      </Form.Group>
+    </Row>
+    <Button variant="primary"  onClick={handleSubmit} style={{ display: 'flex', 
+    marginLeft: 800,
+  textDecoration: 'none',
+  color:'white'
+   }}>
+    <Link to="RegisterVhicle" className=" d-flex align-items-center gap-1"  style={{
+   
+  textDecoration: 'none',
+  color:'white'
+   }}>
+                next
+              </Link>
+    </Button>
+
+
+  
+  </Form>
+   </div>
   );
 }
 

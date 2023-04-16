@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import api from '../services/api';
+import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 
@@ -68,7 +69,14 @@ function RegisterVhicle() {
 
 
   return (
-    <Form>
+    <div style={{ display: 'flex', 
+    width: 900,
+    marginLeft: 500,
+    marginTop:100, 
+    padding: 30 ,
+    height:700}}>
+    
+      <Form>
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>Brand</Form.Label>
@@ -160,10 +168,20 @@ function RegisterVhicle() {
 
 
 
-      <Button variant="primary"  onClick={handleSubmit} >
-        Next
+      <Button variant="primary"  onClick={handleSubmit} style={{ display: 'flex', 
+    marginLeft: 800,
+  
+   }}>
+    <Link to="Registeradverts" className=" d-flex align-items-center gap-1"  style={{
+   
+   textDecoration: 'none',
+   color:'white'
+    }}>
+    next
+              </Link>
       </Button>
     </Form>
+    </div>
   );
 }
 

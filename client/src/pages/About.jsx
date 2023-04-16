@@ -28,7 +28,7 @@ const About = () => {
             <Col lg="6" md="6" sm="12">
               <div className="about__page-content">
                 <h2 className="section__title">
-                Estamos comprometidos em fornecer soluções segura e eficaz
+                Estamos comprometidos em fornecer uma solução segura e eficaz
                 </h2>
 
                 <p className="section__description">

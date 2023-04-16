@@ -45,29 +45,44 @@ function RegisterCategory() {
   }
 
   return (
-    <Form>
+    <div style={{ display: 'block', 
+    width: 900,
+    marginLeft: 500,
+    marginTop:200, 
+    padding: 30 ,
+    height:600}}>
+      <Form>
     
 
 
 
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridState">
-          <Form.Label>Categoria</Form.Label>
-          <Form.Select defaultValue="ecolha a categoria..." value={categoryName} onChange={handleSelectChange}>
-            <option value={'Mota'} id='Mota'  >Mota</option>
-            <option value={'Carro'} id='Carro'>Carro</option>
-            <option value={'Autocaravana'} id='Autocaravana'>AutoCaravana</option>
-          </Form.Select>
-        </Form.Group>
-      </Row>
-      <Button variant="primary" onClick={handleSubmit}>
-      <Link to="RegisterSub" className=" d-flex align-items-center gap-1">
-      next
-                </Link>
-             
-      </Button>
+    <Row className="mb-3">
+      <Form.Group as={Col} controlId="formGridState">
+        <Form.Label>Categoria</Form.Label>
+        <Form.Select defaultValue="ecolha a categoria..." value={categoryName} onChange={handleSelectChange}>
+          <option value={'Mota'} id='Mota'  >Mota</option>
+          <option value={'Carro'} id='Carro'>Carro</option>
+          <option value={'Autocaravana'} id='Autocaravana'>AutoCaravana</option>
+        </Form.Select>
+      </Form.Group>
+    </Row>
+    <Button variant="primary"  onClick={handleSubmit} style={{ display: 'flex', 
+    marginLeft: 800,
+  
+   }}>
+    <Link to="RegisterSub" className=" d-flex align-items-center gap-1"  style={{
+   
+   textDecoration: 'none',
+   color:'white'
+    }}>
+    next
+              </Link>
+           
+    </Button>
+   
 
-    </Form>
+  </Form>
+  </div>
   );
 }
 
