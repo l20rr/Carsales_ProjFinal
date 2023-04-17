@@ -1,4 +1,5 @@
 // import important parts of sequelize library
+const { Timestamp } = require("mongodb");
 const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
 module.exports = (sequelize, Sequelize) => {
@@ -28,8 +29,8 @@ module.exports = (sequelize, Sequelize) => {
         timestamp:false
     });
     Subcategory.associate = function(models) {
-        Subcategory.belongsTo(models.Category)
-        Subcategory.hasMany(models.Vehicle, {
+        Subcategory.belongsTo(models.category)
+        Subcategory.hasMany(models.vehicle, {
             foreignKey: 'subcategoryID',
             onDelete: "cascade",
             onUpdate: "cascade",
