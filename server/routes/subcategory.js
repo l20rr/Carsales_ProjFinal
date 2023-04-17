@@ -9,7 +9,7 @@ router.post("/sub", async (req, res) => {
  
     try {
         subcategory.create({
-            SubcategoryName:SubcategoryName
+            SubcategorName:SubcategoryName
         });
         res.status(201).json({msg: "Register "});
     } catch (error) {
