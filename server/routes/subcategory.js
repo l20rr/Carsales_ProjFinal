@@ -13,6 +13,7 @@ router.get("/subcat/:id", async (req, res) => {
         if (data) {
           res.send(data);
         } else {
+            console.log("error")
           res.status(404).send({
             message: `Cannot find Vehicle with id=${id}.`
           });
