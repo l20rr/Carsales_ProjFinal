@@ -1,4 +1,5 @@
 // import important parts of sequelize library
+const { Timestamp } = require("mongodb");
 const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
 module.exports = (sequelize, Sequelize) => {
@@ -9,21 +10,23 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true,
         },
-/*
+
         categoryID: {
             type: Sequelize.INTEGER,
+            allowNull: false,
             references: {
                 model: "category",
                 key: "ID",
             },
-        },*/
+        },
         SubcategoryName: {
             type: Sequelize.STRING,
             allowNull: false,
         },
 
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamp:false
     });
     Subcategory.associate = function(models) {
         Subcategory.belongsTo(models.Category)

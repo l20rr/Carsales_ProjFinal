@@ -61,12 +61,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
-/*
+
         image: {
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: "id",
-        },*/
+        },
     }, {
         indexes: [{ fields: ['ID', 'license'], unique: true }],
         freezeTableName: true
