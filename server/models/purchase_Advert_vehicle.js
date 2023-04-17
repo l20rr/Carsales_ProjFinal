@@ -12,11 +12,6 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
 
-        purchase_date: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
-
         clientID: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -36,7 +31,6 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         freezeTableName: true,
-        timestamps: false
     });
     purchase_Advert_vehicle.associate = function(models) {
         purchase_Advert_vehicle.belongsTo(models.Client)

@@ -3,26 +3,20 @@ const router = express.Router();
 const db = require("../models");
 const subcategory = db.subcategory;
 
-
-router.post("/sub", async (req, res) => {
-    const {SubcategoryName} = req.body;
- 
+  router.get("/subAll/:id", async (req, res) => {
+    const categoryID = req.params.id;
     try {
-        subcategory.create({
-            SubcategorName:SubcategoryName
-        });
-        res.status(201).json({msg: "Register "});
+        const response = await subcategory.findAll({ where: { categoryID:categoryID } });
+        res.status(200).json(response);
     } catch (error) {
-        res.status(400).json({msg: error.message});
+        res.status(500).json({msg: error.message});
     }
- 
-});
-
+  });
 
 router.get("/subcat", async (req, res) => {
     try {
         const response = await subcategory.findAll({
-            attributes:['ID','SubcategoryName']
+            attributes:['ID','categoryID','SubcategoryName']
         });
         res.status(200).json(response);
     } catch (error) {
