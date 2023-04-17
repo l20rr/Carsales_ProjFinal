@@ -3,31 +3,16 @@ const router = express.Router();
 const db = require("../models");
 const Category = db.category;
 
-
-router.post("/addCat", async (req, res) => {
-    const {categoryName} = req.body;
- 
-    try {
-        Category.create({
-            categoryName:categoryName
-        });
-        res.status(201).json({msg: "Register"});
-    } catch (error) {
-        res.status(400).json({msg: error.message});
-    }
- 
+router.get("/subcat", async (req, res) => {
+  try {
+      const response = await Category.findAll({
+          attributes:['ID','categoryName',]
+      });
+      res.status(200).json(response);
+  } catch (error) {
+      res.status(500).json({msg: error.message});
+  }
 });
-
-router.get("/Cat", async (req, res) => {
-    try {
-        const response = await Category.findAll({
-            attributes:['ID','categoryName']
-        });
-        res.status(200).json(response);
-    } catch (error) {
-        res.status(500).json({msg: error.message});
-    }
-  });
 
 
   router.get("/Cat/:id", async (req, res) => {

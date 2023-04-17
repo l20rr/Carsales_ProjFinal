@@ -28,6 +28,7 @@ if(authToken) {
 
 function RegisterCategory() {
   const [categoryName , setCategoryName] = useState('');
+  
   if(!authToken) return <Register />
   function handleSelectChange(event) {
     setCategoryName(event.target.value);
