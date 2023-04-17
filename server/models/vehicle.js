@@ -67,6 +67,14 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             defaultValue: "id",
         },
+
+        description: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
     }, {
         indexes: [{ fields: ['ID', 'license'], unique: true }],
         freezeTableName: true
