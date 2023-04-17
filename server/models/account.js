@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         register_date: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATEONLY,
             allowNull: false,
         }
     }, {

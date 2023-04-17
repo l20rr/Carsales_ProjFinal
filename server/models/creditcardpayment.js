@@ -29,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
         },
 
         creditcard_expiration_date: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATEONLY,
             allowNull: false,
         }
     }, {

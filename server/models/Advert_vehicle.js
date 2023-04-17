@@ -17,13 +17,16 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             },
         },
-        creation_date: {
-            type: Sequelize.DATEONLY,
+        title: {
+            type: Sequelize.STRING,
             allowNull: false,
-        }
+            validate: {
+                notEmpty: true
+            }
+        },
     }, {
         freezeTableName: true,
-        timestamps: false
+
     });
     Advert_vehicle.associate = function(models) {
         Advert_vehicle.belongsTo(models.Vehicle)
