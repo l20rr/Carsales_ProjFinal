@@ -17,13 +17,6 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             },
         },
-        title: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
     }, {
         freezeTableName: true,
 
