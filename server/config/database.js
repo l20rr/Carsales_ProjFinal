@@ -1,7 +1,7 @@
 module.exports = {
     HOST: "localhost",
     USER: "root",
-    PASSWORD: "Tpsiclasses",
+    PASSWORD: "SCP4linhas+",
     DB: "Car_Proj",
     dialect: "mysql",
     pool: {
