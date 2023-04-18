@@ -1,4 +1,4 @@
-import React,{useState}from 'react';
+import React,{useState,useEffect}from 'react';
 import { Link } from "react-router-dom";
 import api from '../services/api'
 import Button from 'react-bootstrap/Button';
@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
+import {useParams} from 'react-router-dom'
 
 import Register from "../components/Header/Register"
 
@@ -16,6 +17,7 @@ const authToken = cookies.get("token");
 const apiKey = 'cd4bcsnrt3ej';
 const client = StreamChat.getInstance(apiKey);
 
+
 if(authToken) {
     client.connectUser({
         id: cookies.get('userId'),
@@ -24,64 +26,49 @@ if(authToken) {
         hashedPassword: cookies.get('hashedPassword'),
     }, authToken)
 }
-function RegisterSub(){
-   const [SubcategoryName , setSubcategoryName] = useState('');
 
-   if(!authToken) return <Register />
-  function handleSelectChange(event) {
-    setSubcategoryName(event.target.value);
-  }
-
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    try {
-      const response = await api.post('/subcat/sub', { SubcategoryName });
-      console.log(response.data); // ou faça algo com a resposta do servidor
-    } catch (error) {
-      console.error(error);
+function RegisterSub() {
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const {IDCategory} = useParams()
+  useEffect(() => {
+    async function fetchCategories() {
+      var response = await api.get('subcat/subAll/'+IDCategory)
+      setCategoryOptions(response.data);
     }
+    fetchCategories();
+  }, []);
+
+  if (!authToken) return <Register />;
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    window.location.href = `/cars/registerCategory/registerSub/${IDCategory}/registerVhicle`;
   }
+
   return (
-   <div style={{ display: 'block', 
-   width: 900,
-   marginLeft: 500,
-   marginTop:200, 
-   padding: 30 ,
-   height:600}}>
-     <Form>
-    
-
-
-
-    <Row className="mb-3">
-      <Form.Group as={Col} controlId="formGridState">
-        <Form.Label>sub-categoria</Form.Label>
-        <Form.Select defaultValue="ecolha a sub-categoria..." value={SubcategoryName} onChange={handleSelectChange}>
-         <option value={'SUV'} id='SUV'  >SUV</option>
-         <option value={'Desportivo'} id='Desportivo'>Desportivo</option>
-         <option value={'Citadinos'} id='Citadinos'>Citadinos</option>
-        </Form.Select>
-      </Form.Group>
-    </Row>
-    <Button variant="primary"  onClick={handleSubmit} style={{ display: 'flex', 
-    marginLeft: 800,
-  textDecoration: 'none',
-  color:'white'
-   }}>
-    <Link to="RegisterVhicle" className=" d-flex align-items-center gap-1"  style={{
-   
-  textDecoration: 'none',
-  color:'white'
-   }}>
-                next
-              </Link>
-    </Button>
-
-
-  
-  </Form>
-   </div>
+    <div className="container">
+      <Form>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="formGridState">
+            <Form.Label>Categoria</Form.Label>
+            <Form.Select
+              defaultValue=""
+              value={selectedCategory}
+              onChange={(event) => setSelectedCategory(event.target.value)}
+            >
+              <option value="">Escolha a categoria...</option>
+              {categoryOptions.map((category) => (
+                <option key={category.ID} value={category.ID}>
+                  {category.SubcategoryName}
+                </option>
+              ))}
+            </Form.Select>
+            <Button variant="primary" onClick={handleSubmit}>Ir para a URL</Button>
+          </Form.Group>
+        </Row>
+      </Form>
+    </div>
   );
 }
 

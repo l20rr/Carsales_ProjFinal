@@ -1,4 +1,4 @@
-import React,{useState}from 'react';
+import React,{useState,useEffect}from 'react';
 import { Link } from "react-router-dom";
 import api from '../services/api'
 import Button from 'react-bootstrap/Button';
@@ -9,6 +9,7 @@ import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 
 import Register from "../components/Header/Register"
+
 
 const cookies = new Cookies();
 const authToken = cookies.get("token");
@@ -25,67 +26,49 @@ if(authToken) {
     }, authToken)
 }
 
-
 function RegisterCategory() {
-  const [categoryName , setCategoryName] = useState('');
-  
-  if(!authToken) return <Register />
-  function handleSelectChange(event) {
-    setCategoryName(event.target.value);
-  }
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    try {
-      const response = await api.post('/cat/addCat', { categoryName });
-      console.log(response.data); // ou faça algo com a resposta do servidor
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    async function fetchCategories() {
+      const response = await api.get("/cat/subcat");
+      setCategoryOptions(response.data);
     }
+    fetchCategories();
+  }, []);
+
+  if (!authToken) return <Register />;
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    window.location.href = `/cars/registerCategory/registerSub/${selectedCategory}`;
   }
 
   return (
-    <div style={{ display: 'block', 
-    width: 900,
-    marginLeft: 500,
-    marginTop:200, 
-    padding: 30 ,
-    height:600}}>
+    <div className="container">
       <Form>
-    
-
-
-
-    <Row className="mb-3">
-      <Form.Group as={Col} controlId="formGridState">
-        <Form.Label>Categoria</Form.Label>
-        <Form.Select defaultValue="ecolha a categoria..." value={categoryName} onChange={handleSelectChange}>
-          <option value={'Mota'} id='Mota'  >Mota</option>
-          <option value={'Carro'} id='Carro'>Carro</option>
-          <option value={'Autocaravana'} id='Autocaravana'>AutoCaravana</option>
-        </Form.Select>
-      </Form.Group>
-    </Row>
-    <Button variant="primary"  onClick={handleSubmit} style={{ display: 'flex', 
-    marginLeft: 800,
-  
-   }}>
-    <Link to="RegisterSub" className=" d-flex align-items-center gap-1"  style={{
-   
-   textDecoration: 'none',
-   color:'white'
-    }}>
-    next
-              </Link>
-           
-    </Button>
-   
-
-  </Form>
-  </div>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="formGridState">
+            <Form.Label>Categoria</Form.Label>
+            <Form.Select
+              defaultValue=""
+              value={selectedCategory}
+              onChange={(event) => setSelectedCategory(event.target.value)}
+            >
+              <option value="">Escolha a categoria...</option>
+              {categoryOptions.map((category) => (
+                <option key={category.ID} value={category.ID}>
+                  {category.categoryName}
+                </option>
+              ))}
+            </Form.Select>
+            <Button variant="primary" onClick={handleSubmit}>Ir para a URL</Button>
+          </Form.Group>
+        </Row>
+      </Form>
+    </div>
   );
 }
-
 
 export default RegisterCategory;

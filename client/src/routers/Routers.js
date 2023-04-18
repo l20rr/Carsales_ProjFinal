@@ -41,18 +41,14 @@ const Routers = () => {
           <RegisterCat/> 
         </PrivateRoute>
     }/>
-          <Route path="cars/registerCategory/registerSub" element={
-        <PrivateRoute redirectTo="register">
-          <RegisterSub/> 
-        </PrivateRoute>
-    }/>
-     <Route path="cars/registerCategory/registerSub/registerVhicle" element={
+  <Route path="cars/registerCategory/RegisterSub/:IDCategory" element={<RegisterSub />} />
+     <Route path="cars/registerCategory/RegisterSub/:IDCategory/registerVhicle" element={
         <PrivateRoute redirectTo="register">
           <RegisterVhicle/> 
         </PrivateRoute>
     }/>
-       <Route path="cars/registerCategory/registerSub/registerVhicle/Registeradverts" element={<Registeradverts />} />
-       <Route path="cars/registerCategory/RegisterSub/RegisterVhicle/Registeradverts/RegisterAcout" element={<RegisterAcount />} />
+       <Route path="cars/registerCategory/RegisterSub/:IDCategory/registerVhicle/Registeradverts" element={<Registeradverts />} />
+       <Route path="cars/registerCategory/RegisterSub/:IDCategory/RegisterVhicle/Registeradverts/RegisterAcout" element={<RegisterAcount />} />
     </Routes>
   );
 };

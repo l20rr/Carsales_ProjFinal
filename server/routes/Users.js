@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const Users = db.user;
-
+const Client = db.client;
 
 const bcrypt = require('bcrypt');
 const { connect } = require('getstream');
 const StreamChat = require('stream-chat').StreamChat;
 const crypto = require('crypto');
+
 
 require('dotenv').config();
 
@@ -35,6 +36,8 @@ router.post('/signup', async (req, res) => {
           email: email,
           password: hashedPassword
         });
+
+     
     
         res.status(200).json({ token, userId, fullname, email, hashedPassword });
       } catch (error) {
