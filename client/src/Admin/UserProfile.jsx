@@ -2,6 +2,8 @@ import React from "react";
 import  SideBar from "./SideBar";
 
 import Cookies from "universal-cookie";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
 // react-bootstrap components
 import {
@@ -19,6 +21,7 @@ import {
   MDBListGroup,
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
+import AccountSettings from "./AccountSettings";
 
 function UserProfile() {
 
@@ -89,7 +92,7 @@ function UserProfile() {
                     <MDBCardText>Nome completo:</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{fullname()}</MDBCardText>
+                    <MDBCardText className="text-muted">{fullname()}<span onClick={AccountSettings} style={{float: 'right', cursor: 'pointer'}}><FontAwesomeIcon icon={faPencil} /></span></MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />

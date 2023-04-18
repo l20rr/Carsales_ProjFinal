@@ -1,5 +1,4 @@
 // import important parts of sequelize library
-const { Timestamp } = require("mongodb");
 const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js
 module.exports = (sequelize, Sequelize) => {
