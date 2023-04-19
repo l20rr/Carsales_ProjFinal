@@ -7,7 +7,7 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from 'cdbreact';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 function SideBar() {
   return (
@@ -21,21 +21,21 @@ function SideBar() {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/" activeClassName="activeClicked">
+            <Link  to="/" >
               <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/tables" activeClassName="activeClicked">
+            </Link >
+            <Link to="/tables" >
               <CDBSidebarMenuItem icon="heart">Favoritos</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/UserProfile" activeClassName="activeClicked">
+            </Link >
+            <Link to="/UserProfile" >
               <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/analytics" activeClassName="activeClicked">
+            </Link >
+            <Link to="/analytics" >
               <CDBSidebarMenuItem icon="chart-line">Analytics</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/analytics" activeClassName="activeClicked">
+            </Link >
+            <Link to="/analytics" >
               <CDBSidebarMenuItem icon="comment">Chat</CDBSidebarMenuItem>
-            </NavLink>
+            </Link >
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
@@ -45,9 +45,9 @@ function SideBar() {
               padding: '20px 5px',
             }}
           >
-              <NavLink exact to="/home" activeClassName="activeClicked">
+              <Link to="/home">
               <CDBSidebarMenuItem  icon="sign-out-alt" >Sair</CDBSidebarMenuItem>
-            </NavLink>
+            </Link >
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>

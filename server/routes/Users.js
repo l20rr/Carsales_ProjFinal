@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const Users = db.user;
-const Client = db.client;
+
 
 const bcrypt = require('bcrypt');
 const { connect } = require('getstream');

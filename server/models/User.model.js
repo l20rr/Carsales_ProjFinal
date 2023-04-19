@@ -34,6 +34,14 @@ module.exports = (sequelize, Sequelize) => {
 },{
     freezeTableName: true
 });
+
+User.associate = function(models) {
+  User.hasMany(models.Client, {
+      foreignKey: 'userID',
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+  })
+};
   
       return User;
   };

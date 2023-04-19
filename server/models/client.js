@@ -6,26 +6,19 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        accountID: {
+        userID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             unique: true,
             references: {
-                model: "account",
-                key: "ID",
+                model: "User",
+                key: "id",
             },
             validate: {
                 notEmpty: true
             }
         },
-        name: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                len: [3, 100]
-            }
-        },
+        
         locality: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -33,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
-        tel: {
+        telem: {
             type: Sequelize.INTEGER,
             allowNull: false,
             validate: {
@@ -49,7 +42,7 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     Client.associate = function(models) {
-        Client.belongsTo(models.Account)
+        Client.belongsTo(models.User)
         Client.hasMany(models.Message, {
             foreignKey: 'clientIDEmission',
             onDelete: "cascade",

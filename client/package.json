@@ -17,6 +17,7 @@
     "cdbreact": "^1.5.13",
     "install": "^0.13.0",
     "mdb-react-ui-kit": "^6.0.0",
+    "mdbreact": "^5.2.0",
     "npm": "^9.6.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.3",
