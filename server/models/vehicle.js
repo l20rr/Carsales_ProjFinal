@@ -19,6 +19,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "subcategory",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
 
         license: {
@@ -27,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
             unique: true
         },
 
-       year: {
+        year: {
             type: Sequelize.DATEONLY,
             allowNull: false,
         },
@@ -86,11 +88,16 @@ module.exports = (sequelize, Sequelize) => {
 
     });
     Vehicle.associate = function(models) {
-        Vehicle.belongsTo(models.Subcategory)
+        Vehicle.belongsTo(models.Subcategory, {
+            foreignKey: 'subcategoryID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
         Vehicle.hasMany(models.Advert_vehicle, {
             foreignKey: 'vehicleID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
     };
     return Vehicle;

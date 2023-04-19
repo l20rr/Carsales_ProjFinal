@@ -19,15 +19,15 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         freezeTableName: true,
-        timestamp:false
+        timestamp: false
     });
 
 
     Category.associate = function(models) {
         Category.hasMany(models.subcategory, {
             foreignKey: 'categoryID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         })
     };
     return Category;

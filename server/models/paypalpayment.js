@@ -18,6 +18,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "payment",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
 
         external_txn_id: {
@@ -34,7 +36,11 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     Paypalpayment.associate = function(models) {
-        Paypalpayment.belongsTo(models.Payment)
+        Paypalpayment.belongsTo(models.Payment, {
+            foreignKey: 'paymentID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
 
     };
     return Paypalpayment

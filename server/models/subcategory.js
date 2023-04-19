@@ -17,6 +17,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "category",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
         SubcategoryName: {
             type: Sequelize.STRING,
@@ -25,14 +27,19 @@ module.exports = (sequelize, Sequelize) => {
 
     }, {
         freezeTableName: true,
-        timestamp:false
+        timestamp: false
     });
     Subcategory.associate = function(models) {
-        Subcategory.belongsTo(models.category)
+        Subcategory.belongsTo(models.category, {
+            foreignKey: 'categoryID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
         Subcategory.hasMany(models.vehicle, {
             foreignKey: 'subcategoryID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
     };
     return Subcategory

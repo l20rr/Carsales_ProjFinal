@@ -20,13 +20,10 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 
-db.hashalgo = require("./hashalgo")(sequelize, Sequelize);
-db.externalprovider = require("./externalprovider")(sequelize, Sequelize);
-db.emailvalidationstatus = require("./emailvalidationstatus")(sequelize, Sequelize);
+
+
+
 db.category = require("./category")(sequelize, Sequelize);
-db.logindata = require('./logindata')(sequelize, Sequelize)
-db.account = require("./account")(sequelize, Sequelize);
-db.logindataexternal = require("./logindataexternal")(sequelize, Sequelize);
 db.subcategory = require("./subcategory")(sequelize, Sequelize);
 db.vehicle = require("./vehicle")(sequelize, Sequelize);
 db.client = require("./client")(sequelize, Sequelize);

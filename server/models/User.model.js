@@ -3,50 +3,50 @@
 const { INTEGER } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("User", {
-      id : {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-      },
-    fullname:{
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate:{
-            notEmpty: true,
-            len: [3, 100]
-        }
-    },
-    email:{
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate:{
-            notEmpty: true,
-            isEmail: true
-        }
-    },
-    password:{
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate:{
-            notEmpty: true
-        }
-    },
-},{
-    freezeTableName: true
-});
+        id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        fullname: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                len: [3, 100]
+            }
+        },
+        email: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                isEmail: true
+            }
+        },
+        password: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+    }, {
+        freezeTableName: true
+    });
 
-User.associate = function(models) {
-  User.hasMany(models.Client, {
-      foreignKey: 'userId',
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
-  })
+    User.associate = function(models) {
+        User.hasMany(models.Client, {
+            foreignKey: 'userId',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
+    };
+
+    return User;
 };
-  
-      return User;
-  };
 
-  /*
+/*
 // import important parts of sequelize library
 const { Model, Sequelize } = require("sequelize");
 // import our database connection from config.js

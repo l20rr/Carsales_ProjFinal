@@ -19,6 +19,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "client",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
 
         publishadID: {
@@ -28,17 +30,28 @@ module.exports = (sequelize, Sequelize) => {
                 model: "PublishAD",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         }
     }, {
         freezeTableName: true,
     });
     purchase_Advert_vehicle.associate = function(models) {
-        purchase_Advert_vehicle.belongsTo(models.Client)
-        purchase_Advert_vehicle.belongsTo(models.PublishAD)
+        purchase_Advert_vehicle.belongsTo(models.Client, {
+            foreignKey: 'clientID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
+        purchase_Advert_vehicle.belongsTo(models.PublishAD, {
+            foreignKey: 'publishadID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
         purchase_Advert_vehicle.hasMany(models.Invoice, {
             foreignKey: 'invoiceID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
     };
     return purchase_Advert_vehicle;

@@ -16,6 +16,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "payment",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         },
 
         creditcard_num: {
@@ -37,7 +39,11 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     Creditcardpayment.associate = function(models) {
-        Creditcardpayment.belongsTo(models.Payment)
+        Creditcardpayment.belongsTo(models.Payment, {
+            foreignKey: 'paymentID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
     };
     return Creditcardpayment;
 }

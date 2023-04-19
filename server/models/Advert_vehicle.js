@@ -13,6 +13,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "vehicle",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
             validate: {
                 notEmpty: true
             },
@@ -22,17 +24,23 @@ module.exports = (sequelize, Sequelize) => {
 
     });
     Advert_vehicle.associate = function(models) {
-        Advert_vehicle.belongsTo(models.Vehicle)
+        Advert_vehicle.belongsTo(models.Vehicle, {
+            foreignKey: 'vehicleID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
         Advert_vehicle.hasMany(models.priorityAdvert, {
             foreignKey: 'advertID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
         Advert_vehicle.belongsToMany(models.Client, {
             through: 'PublishAD',
             foreignKey: 'Advert_vehicleID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
     };
 

@@ -13,6 +13,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "Advert_vehicle",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
             validate: {
                 notEmpty: true
             },
@@ -24,6 +26,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "invoice",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
             validate: {
                 notEmpty: true
             },
@@ -33,8 +37,16 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     priorityAdvert.associate = function(models) {
-        priorityAdvert.belongsTo(models.Advert_vehicle)
-        priorityAdvert.belongsTo(models.invoice)
+        priorityAdvert.belongsTo(models.Advert_vehicle, {
+            foreignKey: 'advertID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
+        priorityAdvert.belongsTo(models.invoice, {
+            foreignKey: 'invoiceID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
     };
 
     return priorityAdvert;

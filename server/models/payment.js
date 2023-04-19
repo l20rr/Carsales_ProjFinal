@@ -28,22 +28,30 @@ module.exports = (sequelize, Sequelize) => {
                 model: "invoice",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         }
     }, {
         freezeTableName: true,
         timestamps: false
     });
     Payment.associate = function(models) {
-        Payment.belongsTo(models.invoice)
+        Payment.belongsTo(models.invoice, {
+            foreignKey: 'invoiceID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
         Payment.hasMany(models.paypalpayment, {
             foreignKey: 'paymentID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
         Payment.hasMany(models.Creditcardpayment, {
             foreignKey: 'paymentID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
     };
     return Payment

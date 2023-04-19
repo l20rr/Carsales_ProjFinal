@@ -14,6 +14,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "Advert_vehicle",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
             validate: {
                 notEmpty: true
             }
@@ -26,6 +28,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "client",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
             validate: {
                 notEmpty: true
             }
@@ -35,17 +39,27 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     PublishAD.associate = function(models) {
-        PublishAD.belongsTo(models.Client)
-        PublishAD.belongsTo(models.Advert_vehicle)
+        PublishAD.belongsTo(models.Client, {
+            foreignKey: 'clientID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
+        PublishAD.belongsTo(models.Advert_vehicle, {
+            foreignKey: 'Advert_vehicleID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
         PublishAD.hasMany(models.Favorites, {
             foreignKey: 'publishadID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
         PublishAD.hasMany(models.purchase_Advert_vehicle, {
             foreignKey: 'publishadID',
-            onDelete: "cascade",
-            onUpdate: "cascade",
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
         })
     };
 

@@ -13,6 +13,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "client",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
             validate: {
                 notEmpty: true
             },
@@ -24,6 +26,8 @@ module.exports = (sequelize, Sequelize) => {
                 model: "PublishAD",
                 key: "ID",
             },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
             validate: {
                 notEmpty: true
             },
@@ -33,8 +37,16 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     Favorites.associate = function(models) {
-        Favorites.belongsTo(models.Client)
-        Favorites.belongsTo(models.PublishAD)
+        Favorites.belongsTo(models.Client, {
+            foreignKey: 'clientID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
+        Favorites.belongsTo(models.PublishAD, {
+            foreignKey: 'publishadID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        })
     };
 
     return Favorites;
