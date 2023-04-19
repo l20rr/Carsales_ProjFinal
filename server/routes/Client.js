@@ -11,7 +11,7 @@ router.post("/userData", async (req, res) => {
             locality: locality,
             telem: telem,
             birthdate: birthdate,
-            userID: userId
+            userId: userId
         });
 
         res.status(201).json({msg: "Register Berhasil"});
@@ -21,12 +21,23 @@ router.post("/userData", async (req, res) => {
  
 });
 
-router.put("/client/:id", async (req, res) => {
+
+router.get("/All/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+      const response = await Client.findAll({ where: { userId:userId } });
+      res.status(200).json(response);
+  } catch (error) {
+      res.status(500).json({msg: error.message});
+  }
+});
+
+router.put("/:id", async (req, res) => {
     const id = req.params.id;
   
     try {
         const num = await Client.update(req.body, {
-          where: { userID: id },
+          where: { userId: id },
         });
     
         if (num == 1) {
@@ -44,3 +55,5 @@ router.put("/client/:id", async (req, res) => {
         });
       }
     });
+
+    module.exports = router;

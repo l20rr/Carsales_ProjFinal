@@ -6,11 +6,12 @@ const subcategory = db.subcategory;
 const Category = db.category;
 
 
+
 const app = express();
 
 var corsOptions = {
     origin: "http://localhost:3001",
-    methods: ["POST, GET"],
+    methods: ["POST, GET","PUT"],
     credentials: true
 };
 
@@ -174,6 +175,9 @@ app.use("/cat", cat);
 
 const subcat = require("./routes/subcategory");
 app.use("/subcat", subcat);
+
+const client_user = require("./routes/Client");
+app.use("/cl", client_user);
 
 
 
