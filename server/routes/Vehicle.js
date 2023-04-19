@@ -5,16 +5,20 @@ const Vehicle = db.vehicle;
 
 
 router.post("/addvehicle", async (req, res) => {
-    const {license, year, kms, brand,model,fuel,power,num_seats} = req.body;
+    const {price,description,image,license,subcategoryID ,year, kms, brand,model,fuel,power,num_seats} = req.body;
  
     try {
          Vehicle.create({
+          subcategoryID:subcategoryID,
+          image:image,
+          description:description,
             license: license,
             year: year,
             kms: kms,
             brand:brand,
             model:model,
             fuel:fuel,
+            price:price,
            power:power,
            num_seats:num_seats
         });
@@ -26,7 +30,6 @@ router.post("/addvehicle", async (req, res) => {
 });
 
 router.get("/vehicle", async (req, res) => {
-    const {name, email, password, confPassword} = req.body;
     try {
         const response = await Vehicle.findAll({
             attributes:['ID','model','brand','kms','year','num_seats']

@@ -27,8 +27,8 @@ module.exports = (sequelize, Sequelize) => {
             unique: true
         },
 
-        year: {
-            type: Sequelize.INTEGER,
+       year: {
+            type: Sequelize.DATEONLY,
             allowNull: false,
         },
 
@@ -75,6 +75,11 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
+        price: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
+
     }, {
         indexes: [{ fields: ['ID', 'license'], unique: true }],
         freezeTableName: true
