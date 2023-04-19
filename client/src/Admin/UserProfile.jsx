@@ -7,7 +7,7 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { StreamChat } from 'stream-chat';
 import api from '../services/api';
@@ -91,6 +91,12 @@ function UserProfile() {
   const [locality , setLocality] = useState('');
   const [telem , setTelem] = useState('');
   const [birthdate , setBirthdate] = useState('');
+  const [userID, setUserID] = useState(null);
+
+  useEffect(() => { 
+        const userIDFromCookies = getUserIDFromCookies(); 
+        setUserID(userIDFromCookies); 
+      }, []);
 
   if(!authToken) return <Register />
 
@@ -101,12 +107,13 @@ function UserProfile() {
       locality: locality,
       telem: telem,
       birthdate: birthdate,
+      userId: userID
     };
       
       console.log(data);
 
       if(locality!==''&&telem!==''&&birthdate!==''){
-        const response = await api.put('/userData',data);
+        const response = await api.post('/userData',data);
 
         if(response.status===200){
           window.location.href='/home'
@@ -117,6 +124,17 @@ function UserProfile() {
         alert('Por favor, preencha todos os dados!');
       }
     }
+    function getUserIDFromCookies() {
+    const cookies = document.cookie.split(';'); 
+    for (let i = 0; i < cookies.length; i++) { 
+      const cookie = cookies[i].trim(); 
+      if (cookie.startsWith('userId=')) { 
+        return cookie.substring('userId='.length, cookie.length); 
+      } } 
+      return null; 
+    }
+
+    
 
   return (
     <>

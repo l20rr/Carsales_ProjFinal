@@ -4,13 +4,14 @@ const db = require('../models');
 const Client = db.client;
 
 router.post("/userData", async (req, res) => {
-    const {locality, telem, birthdate} = req.body;
+    const {locality, telem, birthdate, userId} = req.body;
  
     try {
          await Client.create({
             locality: locality,
             telem: telem,
             birthdate: birthdate,
+            userID: userId
         });
 
         res.status(201).json({msg: "Register Berhasil"});

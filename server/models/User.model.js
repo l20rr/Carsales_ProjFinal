@@ -37,7 +37,7 @@ module.exports = (sequelize, Sequelize) => {
 
 User.associate = function(models) {
   User.hasMany(models.Client, {
-      foreignKey: 'userID',
+      foreignKey: 'userId',
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
   })
