@@ -35,6 +35,8 @@ function RegisterVhicle() {
   const [price , setPrice] = useState('');
   const [power , setPower] = useState('');
   const [num_seats , setNum_seats] = useState('');
+  const [image, setImage] = useState(null)
+ const [subcategoryID, setSubcategoryID] = useState('')
 
   if(!authToken) return <Register />
 
@@ -49,7 +51,8 @@ function RegisterVhicle() {
       fuel:fuel,
       price:price,
       power:power,
-      num_seats:num_seats
+      num_seats:num_seats,
+      image:image
     }
       
       console.log(data)
@@ -58,7 +61,7 @@ function RegisterVhicle() {
         const response = await api.post('/vehicle/addvehicle',data);
 
         if(response.status===200){
-          window.location.href='/home'
+          window.location.href='/Registeradverts'
         }else{
           alert('Erro ao cadastrar !');
         }
@@ -66,11 +69,17 @@ function RegisterVhicle() {
         alert('Por favor, preencha todos os dados!');
       }
     }
-
+    const onImageChange = (event) => {
+      if (event.target.files && event.target.files[0]) {
+        setImage(URL.createObjectURL(event.target.files[0]));
+      }
+     }
 
     return (
+      
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
         <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
+       
           <Form>
             <Row className="mb-3">
               <Form.Group as={Col}>
@@ -90,6 +99,10 @@ function RegisterVhicle() {
                   value={model}
                   onChange={e => setModel(e.target.value)} />
               </Form.Group>
+              <div>
+               <input type="file" onChange={onImageChange} className="filetype" />
+                <img alt="preview image" src={image}/>
+            </div>
             </Row>
   
             <Row className="mb-3">

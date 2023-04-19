@@ -28,13 +28,13 @@ if(authToken) {
 }
 
 function RegisterSub() {
-  const [categoryOptions, setCategoryOptions] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [SubcategoryOptions, setSubCategoryOptions] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const {IDCategory} = useParams()
   useEffect(() => {
     async function fetchCategories() {
       var response = await api.get('subcat/subAll/'+IDCategory)
-      setCategoryOptions(response.data);
+      setSubCategoryOptions(response.data);
     }
     fetchCategories();
   }, []);
@@ -54,11 +54,11 @@ function RegisterSub() {
             <Form.Label>Categoria</Form.Label>
             <Form.Select
               defaultValue=""
-              value={selectedCategory}
-              onChange={(event) => setSelectedCategory(event.target.value)}
+              value={selectedSubCategory}
+              onChange={(event) => setSelectedSubCategory(event.target.value)}
             >
               <option value="">Escolha a categoria...</option>
-              {categoryOptions.map((category) => (
+              {SubcategoryOptions.map((category) => (
                 <option key={category.ID} value={category.ID}>
                   {category.SubcategoryName}
                 </option>

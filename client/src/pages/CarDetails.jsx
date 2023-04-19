@@ -109,17 +109,10 @@ const CarDetails = () => {
 
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-                <h5 className="mb-4 fw-bold ">Booking Information</h5>
-                <BookingForm />
+                <a href="/chat"><button style={{ background: "#f9a826", border:"none", borderRadius:12, padding:10, width:150 }}>Message</button></a>
               </div>
             </Col>
 
-            <Col lg="5" className="mt-5">
-              <div className="payment__info mt-5">
-                <h5 className="mb-4 fw-bold ">Payment Information</h5>
-                <PaymentMethod />
-              </div>
-            </Col>
           </Row>
         </Container>
       </section>
