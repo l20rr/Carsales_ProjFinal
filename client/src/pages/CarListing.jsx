@@ -5,7 +5,6 @@ import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";
 import { Link } from "react-router-dom";
-import HeroSlider from "../components/UI/HeroSlider";
 import FindCarForm from "../components/UI/FindCarForm";
 
 const CarListing = () => {
