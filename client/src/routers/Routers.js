@@ -35,7 +35,7 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/chat" element={<ChatApi />} />
       <Route path="/Admin" element={<Dash />} />
-      <Route path="/UserProfile" element={<UserProfile />} />
+      <Route path="/UserProfile" element={<UserProfile />} /> Ver ex com /:userID
       <Route path="cars/registerCategory" element={
         <PrivateRoute redirectTo="register">
           <RegisterCat/> 
