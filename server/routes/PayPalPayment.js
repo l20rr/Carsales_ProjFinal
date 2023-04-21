@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const db = require('../models');
-const Advert_vehicle = db.Advert_vehicle;
+const PayPalPayment = db.paypalpayment;
 
-router.post("/Advert", async(req, res) => {
-    const { vehicleID } = req.body;
+router.post("/paypal", async(req, res) => {
+    const { paymentID, external_txn_id, client_email_addr } = req.body;
 
     try {
         console.log(req.body);
-        await Advert_vehicle.create({
-            vehicleID: vehicleID
+        await PayPalPayment.create({
+            paymentID: paymentID,
+            external_txn_id: external_txn_id,
+            client_email_addr: client_email_addr
         });
 
         res.status(201).json({ msg: "Register Berhasil" });
@@ -22,7 +24,7 @@ router.post("/Advert", async(req, res) => {
 router.get("/:id", async(req, res) => {
     const id = req.params.id;
 
-    Advert_vehicle.findByPk(id)
+    PayPalPayment.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -43,8 +45,8 @@ router.get("/:id", async(req, res) => {
 
 router.get("/All", async(req, res) => {
     try {
-        const response = await Advert_vehicle.findAll({
-            attributes: ['ID', 'vehicleID']
+        const response = await PayPalPayment.findAll({
+            attributes: ['ID', 'paymentID', 'external_txn_id', 'client_email_addr']
         });
         res.status(200).json(response);
     } catch (error) {

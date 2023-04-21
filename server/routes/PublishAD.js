@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const db = require('../models');
-const Advert_vehicle = db.Advert_vehicle;
+const PublishAD = db.publishAD;
 
-router.post("/Advert", async(req, res) => {
-    const { vehicleID } = req.body;
+router.post("/publishad", async(req, res) => {
+    const { Advert_vehicleID, clientID } = req.body;
 
     try {
         console.log(req.body);
-        await Advert_vehicle.create({
-            vehicleID: vehicleID
+        await PublishAD.create({
+            Advert_vehicleID: Advert_vehicleID,
+            clientID: clientID
         });
 
         res.status(201).json({ msg: "Register Berhasil" });
@@ -22,7 +23,7 @@ router.post("/Advert", async(req, res) => {
 router.get("/:id", async(req, res) => {
     const id = req.params.id;
 
-    Advert_vehicle.findByPk(id)
+    PublishAD.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -43,8 +44,8 @@ router.get("/:id", async(req, res) => {
 
 router.get("/All", async(req, res) => {
     try {
-        const response = await Advert_vehicle.findAll({
-            attributes: ['ID', 'vehicleID']
+        const response = await PublishAD.findAll({
+            attributes: ['ID', 'Advert_vehicleID', 'clientID']
         });
         res.status(200).json(response);
     } catch (error) {

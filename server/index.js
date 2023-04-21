@@ -37,10 +37,10 @@ app.use(express.urlencoded({ extended: true }));
     console.log("Failed to sync db: " + err.message);
   });
 
-
+*/
 //connect by erasing data
 
-/*db.sequelize.sync({ force: true })*/db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
 
      // create the admin, if they do not already exist

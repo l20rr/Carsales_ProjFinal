@@ -1,15 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const db = require('../models');
-const Advert_vehicle = db.Advert_vehicle;
+const CreditCardPayment = db.creditcardpayment;
 
-router.post("/Advert", async(req, res) => {
-    const { vehicleID } = req.body;
+router.post("/creditcard", async(req, res) => {
+    const { paymentID, creditcard_num, creditcard_security_code, creditcard_expiration_date } = req.body;
 
     try {
         console.log(req.body);
-        await Advert_vehicle.create({
-            vehicleID: vehicleID
+        await CreditCardPayment.create({
+            paymentID: paymentID,
+            creditcard_num: creditcard_num,
+            creditcard_security_code: creditcard_security_code,
+            creditcard_expiration_date: creditcard_expiration_date
         });
 
         res.status(201).json({ msg: "Register Berhasil" });
@@ -22,7 +25,7 @@ router.post("/Advert", async(req, res) => {
 router.get("/:id", async(req, res) => {
     const id = req.params.id;
 
-    Advert_vehicle.findByPk(id)
+    CreditCardPayment.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -43,8 +46,8 @@ router.get("/:id", async(req, res) => {
 
 router.get("/All", async(req, res) => {
     try {
-        const response = await Advert_vehicle.findAll({
-            attributes: ['ID', 'vehicleID']
+        const response = await CreditCardPayment.findAll({
+            attributes: ['ID', 'paymentID', 'creditcard_num', 'creditcard_security_code', 'creditcard_expiration_date']
         });
         res.status(200).json(response);
     } catch (error) {
