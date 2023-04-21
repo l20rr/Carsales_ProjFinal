@@ -36,7 +36,7 @@ function RegisterVhicle() {
   const [numSeats, setNumSeats] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
-  const [selectedSubcategory, setSelectedSubcategory] = useState({});
+  const [selectedSubcategory, setSelectedSubcategory] = useState([]);
   
   const { subcategoryID } = useParams();
 
@@ -44,7 +44,7 @@ function RegisterVhicle() {
     async function fetchSubcategory() {
     try {
     const response = await api.get('subcat/subcat/' +subcategoryID);
-    setSelectedSubcategory(response.data.ID)
+    setSelectedSubcategory(response.data)
     console.log(response.data);
     } catch (error) {
     console.error(error);
@@ -113,13 +113,10 @@ function RegisterVhicle() {
 <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
 <Form>
 <Row className="mb-3">
-<div>
-<h2>
-{selectedSubcategory.SubcategoryName} {selectedSubcategory.categoryID}
-</h2>
-</div>
-              <Form.Group as={Col}>
+
+            <Form.Group>
                 <Form.Label>Brand</Form.Label>
+            
                 <Form.Control id='name'
                   type='text'
                   required
