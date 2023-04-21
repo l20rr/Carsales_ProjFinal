@@ -47,7 +47,7 @@ router.get("/:id", async(req, res) => {
 router.get("/All", async(req, res) => {
     try {
         const response = await Client.findAll({
-            attributes: ['ID', 'userId', 'locality', 'telem', 'birthdate']
+            attributes: ['id', 'userId', 'locality', 'telem', 'birthdate']
         });
         res.status(200).json(response);
     } catch (error) {
