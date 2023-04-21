@@ -23,16 +23,28 @@ router.post("/userData", async (req, res) => {
 });
 
 
-router.get("/All", async (req, res) => {
-  try {
-      const response = await Client.findAll({
-          attributes:['userId',]
+
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+
+  Client.findByPk(id)
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+          console.log("error")
+        res.status(404).send({
+          message: `Cannot find with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving  with id=" + id
       });
-      res.status(200).json(response);
-  } catch (error) {
-      res.status(500).json({msg: error.message});
-  }
+    });
 });
+
 
 
 router.put("/:id", async (req, res) => {

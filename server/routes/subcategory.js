@@ -29,7 +29,7 @@ router.get("/subcat/:id", async (req, res) => {
   router.get("/subAll/:id", async (req, res) => {
     const categoryID = req.params.id;
     try {
-        const response = await subcategory.findAll({ where: { categoryID:categoryID } });
+        const response = await subcategory.findAll({ where: { categoryID:categoryID} });
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({msg: error.message});

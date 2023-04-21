@@ -26,11 +26,11 @@ if(authToken) {
         hashedPassword: cookies.get('hashedPassword'),
     }, authToken)
 }
-
 function RegisterSub() {
   const [SubcategoryOptions, setSubCategoryOptions] = useState([]);
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const {IDCategory} = useParams()
+
   useEffect(() => {
     async function fetchCategories() {
       var response = await api.get('subcat/subAll/'+IDCategory)
@@ -43,7 +43,7 @@ function RegisterSub() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    window.location.href = `/cars/registerCategory/registerSub/${IDCategory}/registerVhicle`;
+    window.location.href = `/cars/registerCategory/registerSub/registerVhicle/${selectedSubCategory}`;
   }
 
   return (

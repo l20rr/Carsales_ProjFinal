@@ -1,4 +1,4 @@
-import React,{useState}from 'react';
+import React,{useState,useEffect}from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +7,7 @@ import api from '../services/api';
 import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
-
+import {useParams} from 'react-router-dom'
 import Register from "../components/Header/Register"
 
 const cookies = new Cookies();
@@ -25,63 +25,99 @@ if(authToken) {
     }, authToken)
 }
 function RegisterVhicle() {
-     
-  const [license , setLicense] = useState('');
-  const [year , setYear] = useState('');
-  const [kms , setKms] = useState('');
-  const [brand , setBrand] = useState('');
-  const [model , setModel] = useState('');
-  const [fuel , setFuel] = useState('');
-  const [price , setPrice] = useState('');
-  const [power , setPower] = useState('');
-  const [num_seats , setNum_seats] = useState('');
-  const [image, setImage] = useState(null)
- const [subcategoryID, setSubcategoryID] = useState('')
+  const [license, setLicense] = useState('');
+  const [year, setYear] = useState('');
+  const [kms, setKms] = useState('');
+  const [brand, setBrand] = useState('');
+  const [model, setModel] = useState('');
+  const [fuel, setFuel] = useState('');
+  const [price, setPrice] = useState('');
+  const [power, setPower] = useState('');
+  const [numSeats, setNumSeats] = useState('');
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState({});
+  
+  const { subcategoryID } = useParams();
 
+  useEffect(() => {
+    async function fetchSubcategory() {
+    try {
+    const response = await api.get('subcat/subcat/' +subcategoryID);
+    setSelectedSubcategory(response.data.ID)
+    console.log(response.data);
+    } catch (error) {
+    console.error(error);
+    }
+    }
+    fetchSubcategory();
+    }, []);
+    
+  
+ 
+
+ 
+  
   if(!authToken) return <Register />
-
-  async function handleSubmit(){
-
-    const data = {
-      license:license, 
-      year:year,
-      kms:kms,
-      brand:brand,
-      model:model,
-      fuel:fuel,
-      price:price,
-      power:power,
-      num_seats:num_seats,
-      image:image
-    }
-      
-      console.log(data)
-
-      if(license!==''&&year!==''&&kms!==''&&brand!==''&& model !== ''&&fuel!==''&&price !==''&&power!==''&&num_seats!==''){
-        const response = await api.post('/vehicle/addvehicle',data);
-
-        if(response.status===200){
-          window.location.href='/Registeradverts'
-        }else{
-          alert('Erro ao cadastrar !');
-        }
-      }else{
-        alert('Por favor, preencha todos os dados!');
+  async function handleSubmit() {
+  const data = {
+  license:license,
+  year:year,
+  kms:kms,
+  brand:brand,
+  model:model,
+  fuel:fuel,
+  description:description,
+  price:price,
+  power:power,
+  num_seats: numSeats,
+  image:image,
+  subcategoryID:selectedSubcategory,
+  };
+  if (
+    license !== '' &&
+    year !== '' &&
+    kms !== '' &&
+    brand !== '' &&
+    model !== '' &&
+    fuel !== '' &&
+    price !== '' &&
+    power !== '' &&
+    numSeats !== ''
+  ) {
+    try {
+      const response = await api.post('/vehicle/addvehicle', data);
+      if (response.status === 200) {
+        window.location.href = '/Registeradverts';
       }
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao cadastrar!');
     }
-    const onImageChange = (event) => {
-      if (event.target.files && event.target.files[0]) {
-        setImage(URL.createObjectURL(event.target.files[0]));
-      }
-     }
+  } else {
+    alert('Por favor, preencha todos os dados!');
+  }
+  }
+  
+  function handleImageChange(event) {
+  if (event.target.files && event.target.files[0]) {
+  setImage(URL.createObjectURL(event.target.files[0]));
+  }
+  }
+  
+  if (!authToken) return <Register />;
 
     return (
       
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-        <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
-       
-          <Form>
-            <Row className="mb-3">
+<div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
+<Form>
+<Row className="mb-3">
+<div>
+<h2>
+{selectedSubcategory.SubcategoryName} {selectedSubcategory.categoryID}
+</h2>
+</div>
               <Form.Group as={Col}>
                 <Form.Label>Brand</Form.Label>
                 <Form.Control id='name'
@@ -99,10 +135,20 @@ function RegisterVhicle() {
                   value={model}
                   onChange={e => setModel(e.target.value)} />
               </Form.Group>
+              <br/>
               <div>
-               <input type="file" onChange={onImageChange} className="filetype" />
+               <input type="file" onChange={handleImageChange} className="filetype" />
                 <img alt="preview image" src={image}/>
             </div>
+
+            <Form.Group as={Col} controlId="formGridCity">
+                <Form.Label>description</Form.Label>
+                <Form.Control id='description'
+                  type='text'
+                  required
+                  value={description}
+                  onChange={e => setDescription(e.target.value)} />
+              </Form.Group>
             </Row>
   
             <Row className="mb-3">
@@ -167,8 +213,8 @@ function RegisterVhicle() {
                 <Form.Control id='num_seats'
                   type='number'
                   required
-                  value={num_seats}
-                  onChange={e => setNum_seats(e.target.value)} />
+                  value={numSeats}
+                  onChange={e => setNumSeats(e.target.value)} />
               </Form.Group>
             </Row>
 

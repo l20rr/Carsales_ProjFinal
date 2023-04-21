@@ -93,7 +93,7 @@ function UserProfile() {
   const [locality , setLocality] = useState('');
   const [telem , setTelem] = useState('');
   const [birthdate , setBirthdate] = useState('');
-  const [userId , setUserId] = useState('');
+  const [userId , setUserId] = useState([]);
   
   useEffect(() => {
     
@@ -101,17 +101,17 @@ function UserProfile() {
     const fetchUserData = async () => {
       const response = await api.get(`/AllUsers`);
       const userData = response.data[0];
-      setLocality(userData.locality);
+     /* setLocality(userData.locality);
       setTelem(userData.telem);
-      setBirthdate(userData.birthdate);
+      setBirthdate(userData.birthdate);*/
       setUserId(userData.id);
+
       
     };
 
-    if (authToken) {
       fetchUserData();
-    }
-  }, [authToken, userId]);
+    
+  }, []);
 
 
   if(!authToken) return <Register />
