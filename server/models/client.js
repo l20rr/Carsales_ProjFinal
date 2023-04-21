@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         userId: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
             unique: true,
             references: {
