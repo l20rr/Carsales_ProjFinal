@@ -59,6 +59,7 @@ function RegisterVhicle() {
  
   
   if(!authToken) return <Register />
+  
   async function handleSubmit() {
   const data = {
   license:license,

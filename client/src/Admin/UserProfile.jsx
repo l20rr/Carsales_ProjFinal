@@ -100,11 +100,12 @@ function UserProfile() {
   useEffect(() => {
     async function fetchUserData() {
     try {
-    const response = await api.get('auth/Users/' +userId);
-    setSelectedUserId(response.data.id)
+    const response = await api.get('cl/'+UserID );
+    /*setSelectedUserId(response.data.id)
     setLocality(response.data.locality);
     setTelem(response.data.telem);
-    setBirthdate(response.data.birthdate);
+    setBirthdate(response.data.birthdate);*/
+    setSelectedUserId(response.data)
     console.log(response.data);
     } catch (error) {
     console.error(error);
@@ -262,57 +263,66 @@ function UserProfile() {
                   </MDBCard>
                 </MDBCol>
                 <MDBCol lg="8">
-                  <MDBCard className="mb-4">
-                    <MDBCardBody>
-                      <MDBRow>
-                        <MDBCol sm="3">
-                          <MDBCardText>Nome completo:</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBCardText className="text-muted">{fullname()}
-                            <div onClick={handleClickA} style={{ float: 'right', cursor: 'pointer' }}><FontAwesomeIcon icon={faPencil} /></div>
-                            <div onClick={handleClickB} style={{ float: 'right', cursor: 'pointer', marginRight: '15px' }}><FontAwesomeIcon icon={faPlus} /></div>
-                          </MDBCardText>
-                        </MDBCol>
-                      </MDBRow>
-                      <hr />
-                      <MDBRow>
-                        <MDBCol sm="3">
-                          <MDBCardText>Email:</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBCardText className="text-muted">{locality}</MDBCardText>
-                        </MDBCol>
-                      </MDBRow>
-                      <hr />
-                      <MDBRow>
-                        <MDBCol sm="3">
-                          <MDBCardText>Telemóvel:</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBCardText className="text-muted">{telem}</MDBCardText>
-                        </MDBCol>
-                      </MDBRow>
-                      <hr />
-                      <MDBRow>
-                        <MDBCol sm="3">
-                          <MDBCardText>Data de Nascimento:</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBCardText className="text-muted">{birthdate}</MDBCardText>
-                        </MDBCol>
-                      </MDBRow>
-                      <hr />
-                      <MDBRow>
-                        <MDBCol sm="3">
-                          <MDBCardText>Morada:</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBCardText className="text-muted">{locality}</MDBCardText>
-                        </MDBCol>
-                      </MDBRow>
-                    </MDBCardBody>
-                  </MDBCard>
+                
+                       <MDBCard className="mb-4">
+                       <MDBCardBody>
+                       {selectedUserId.map((info)=>{
+                        <>
+                         <MDBRow>
+                           <MDBCol sm="3">
+                             <MDBCardText>Nome completo:</MDBCardText>
+                           </MDBCol>
+                           <MDBCol sm="9">
+                             <MDBCardText className="text-muted">{fullname()}
+                               <div onClick={handleClickA} style={{ float: 'right', cursor: 'pointer' }}><FontAwesomeIcon icon={faPencil} /></div>
+                               <div onClick={handleClickB} style={{ float: 'right', cursor: 'pointer', marginRight: '15px' }}><FontAwesomeIcon icon={faPlus} /></div>
+                             </MDBCardText>
+                           </MDBCol>
+                         </MDBRow>
+                         <hr />
+                         <MDBRow>
+                           <MDBCol sm="3">
+                             <MDBCardText>Email:</MDBCardText>
+                           </MDBCol>
+                           <MDBCol sm="9">
+                             <MDBCardText className="text-muted">{}</MDBCardText>
+                           </MDBCol>
+                         </MDBRow>
+                         <hr />
+                         
+                         <MDBRow>
+                           <MDBCol sm="3">
+                             <MDBCardText>Telemóvel:</MDBCardText>
+                           </MDBCol>
+                           <MDBCol sm="9">
+                             <MDBCardText className="text-muted">{info.telem}</MDBCardText>
+                           </MDBCol>
+                         </MDBRow>
+                         <hr />
+                         <MDBRow>
+                           <MDBCol sm="3">
+                             <MDBCardText>Data de Nascimento:</MDBCardText>
+                           </MDBCol>
+                           <MDBCol sm="9">
+                             <MDBCardText className="text-muted">{info.birthdate}</MDBCardText>
+                           </MDBCol>
+                         </MDBRow>
+                         <hr />
+                         <MDBRow>
+                           <MDBCol sm="3">
+                             <MDBCardText>Morada:</MDBCardText>
+                           </MDBCol>
+                           <MDBCol sm="9">
+                             <MDBCardText className="text-muted">{info.locality}</MDBCardText>
+                           </MDBCol>
+                           
+                         </MDBRow>
+                         </>
+                           })}
+                       </MDBCardBody>
+                     
+                     </MDBCard>
+              
 
                   <MDBRow>
                     <MDBCol md="6">
