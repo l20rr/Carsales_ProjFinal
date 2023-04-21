@@ -36,7 +36,7 @@ function RegisterVhicle() {
   const [numSeats, setNumSeats] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
-  const [selectedSubcategory, setSelectedSubcategory] = useState({});
+  const [selectedSubcategory, setSelectedSubcategory] = useState([]);
   
   const { subcategoryID } = useParams();
 
@@ -109,37 +109,34 @@ function RegisterVhicle() {
 
   return (
       
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-    <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
-      <Form>
-        <Row className="mb-3">
-          <div>
-          <h2>
-          {selectedSubcategory.SubcategoryName} {selectedSubcategory.categoryID}
-          </h2>
-          </div>
-                  <Form.Group as={Col}>
-                    <Form.Label>Brand</Form.Label>
-                    <Form.Control id='name'
-                      type='text'
-                      required
-                      value={brand}
-                      onChange={e => setBrand(e.target.value)} />
-                  </Form.Group>
-        
-                  <Form.Group as={Col} controlId="formGridPassword">
-                    <Form.Label>Model</Form.Label>
-                    <Form.Control id='model'
-                      type='text'
-                      required
-                      value={model}
-                      onChange={e => setModel(e.target.value)} />
-                  </Form.Group>
-                    <br/>
-                      <div>
-                      <input type="file" onChange={handleImageChange} className="filetype" />
-                        <img alt="preview image" src={image}/>
-                    </div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+<div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
+<Form>
+<Row className="mb-3">
+
+            <Form.Group>
+                <Form.Label>Brand</Form.Label>
+            
+                <Form.Control id='name'
+                  type='text'
+                  required
+                  value={brand}
+                  onChange={e => setBrand(e.target.value)} />
+              </Form.Group>
+  
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label>Model</Form.Label>
+                <Form.Control id='model'
+                  type='text'
+                  required
+                  value={model}
+                  onChange={e => setModel(e.target.value)} />
+              </Form.Group>
+              <br/>
+              <div>
+               <input type="file" onChange={handleImageChange} className="filetype" />
+                <img alt="preview image" src={image}/>
+            </div>
 
                   <Form.Group as={Col} controlId="formGridCity">
                       <Form.Label>description</Form.Label>
@@ -227,4 +224,3 @@ function RegisterVhicle() {
 }
 
 export default RegisterVhicle;
-
