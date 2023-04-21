@@ -67,7 +67,7 @@ router.put("/vehicle/:id", async(req, res) => {
     const id = req.params.id;
 
     Vehicle.update(req.body, {
-            where: { id: id }
+            where: { ID: id }
         })
         .then(num => {
             if (num == 1) {
