@@ -42,7 +42,7 @@ const Routers = () => {
         </PrivateRoute>
     }/>
   <Route path="cars/registerCategory/RegisterSub/:IDCategory" element={<RegisterSub />} />
-     <Route path="cars/registerCategory/RegisterSub/:IDCategory/registerVhicle" element={
+     <Route path="cars/registerCategory/RegisterSub/registerVhicle/:subcategoryID" element={
         <PrivateRoute redirectTo="register">
           <RegisterVhicle/> 
         </PrivateRoute>
