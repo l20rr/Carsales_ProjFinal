@@ -33,11 +33,13 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        
+
         const { email, password } = form;
 
         
 
-        const { data: { token, userId, hashedPassword, fullname } } = await api.post(`${isSignup ? '/auth/signup' : '/auth/login'}`, {
+        const { data: { token, userId, hashedPassword, fullname } } = await api.post(`${isSignup ? '/auth/signup' : '/auth/login/'}`, {
             email, password, fullname: form.fullname,
         });
 
@@ -45,10 +47,16 @@ const Register = () => {
         cookies.set('email', email);
         cookies.set('fullname', fullname);
         cookies.set('userId', userId);
+        
+        
 
         if(isSignup) {
             cookies.set('hashedPassword', hashedPassword);
         }
+
+        
+        
+        
 
         window.location.reload();
         window.location.href= '/home'

@@ -93,40 +93,36 @@ function UserProfile() {
   const [locality , setLocality] = useState('');
   const [telem , setTelem] = useState('');
   const [birthdate , setBirthdate] = useState('');
-  const [userId , setUserId] = useState([]);
+  const [selectedUserId , setSelectedUserId] = useState([]);
+
+  const userId = cookies.get('userId');
   
   useEffect(() => {
-    
-    // Fetch user data and update state
-    const fetchUserData = async () => {
-      const response = await api.get(`/AllUsers`);
-      const userData = response.data[0];
-     /* setLocality(userData.locality);
-      setTelem(userData.telem);
-      setBirthdate(userData.birthdate);*/
-      setUserId(userData.id);
-
-      
-    };
-
-      fetchUserData();
-    
-  }, []);
+    async function fetchUserData() {
+    try {
+    const response = await api.get('auth/Users/' +userId);
+    setSelectedUserId(response.data.id)
+    setLocality(response.data.locality);
+    setTelem(response.data.telem);
+    setBirthdate(response.data.birthdate);
+    console.log(response.data);
+    } catch (error) {
+    console.error(error);
+    }
+    }
+    fetchUserData();
+    }, []);
 
 
   if(!authToken) return <Register />
-  
-
   async function handleSubmit(e) {
     e.preventDefault();
-
-   
 
     const data = {
       locality: locality,
       telem: telem,
       birthdate: birthdate,
-      userId: userId
+      userId: selectedUserId 
     };
     
       
@@ -159,7 +155,8 @@ function UserProfile() {
             <MDBInput type="number" required value={telem} onChange={e => setTelem(e.target.value)} label="Telemóvel" />
             <MDBInput type="date" required value={birthdate} onChange={e => setBirthdate(e.target.value)} label="Data de nascimento" />
             <MDBInput type="text" required value={locality} onChange={e => setLocality(e.target.value)} label="Morada" />
-            <MDBInput type="hidden" value={userId} name="userId"/>
+            <MDBInput type="hidden" value={userId} />
+            
           <MDBModalFooter>
             <MDBBtn color="secondary" onClick={toggleModalAdd}>Cancelar</MDBBtn>
             <MDBBtn color="primary" onClick={handleSubmit}  >Adicionar</MDBBtn>
@@ -284,7 +281,7 @@ function UserProfile() {
                           <MDBCardText>Email:</MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">{email()}</MDBCardText>
+                          <MDBCardText className="text-muted">{locality}</MDBCardText>
                         </MDBCol>
                       </MDBRow>
                       <hr />

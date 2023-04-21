@@ -50,19 +50,21 @@ router.post('/login', async(req, res) => {
     try {
         const { email, password } = req.body;
 
-        const serverClient = connect(api_key, api_secret, app_id);
-        const client = StreamChat.getInstance(api_key, api_secret);
+        const user = await Users.findOne({ where: { email },  attributes: ['id', 'email', 'fullname', 'password'] });
 
-        const { users } = await client.queryUsers({ name: email });
+        console.log(user);
 
-        if (!users.length) return res.status(400).json({ message: 'User not found' });
+        if (!user) return res.status(400).json({ message: 'User not found' });
 
-        const success = await bcrypt.compare(password, users[0].hashedPassword);
-
-        const token = serverClient.createUserToken(users[0].id);
+        const success = await bcrypt.compare(password, user.password);
 
         if (success) {
-            res.status(200).json({ token, fullname: users[0].fullname, email, userId: users[0].id });
+            const serverClient = connect(api_key, api_secret, app_id);
+            const client = StreamChat.getInstance(api_key, api_secret);
+
+            const token = serverClient.createUserToken(String(user.id));
+
+            res.status(200).json({ token, fullname: user.fullname, email, userId: user.id });
         } else {
             res.status(500).json({ message: 'Incorrect password' });
         }
@@ -73,6 +75,7 @@ router.post('/login', async(req, res) => {
         res.status(500).json({ message: error });
     }
 });
+
 
 router.get("/AllUsers", async(req, res) => {
     try {
