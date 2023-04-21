@@ -44,7 +44,7 @@ function RegisterVhicle() {
     async function fetchSubcategory() {
     try {
     const response = await api.get('subcat/subcat/' +subcategoryID);
-    setSelectedSubcategory(response.data)
+    setSelectedSubcategory(response.data.ID)
     console.log(response.data);
     } catch (error) {
     console.error(error);
@@ -224,4 +224,3 @@ function RegisterVhicle() {
 }
 
 export default RegisterVhicle;
-
