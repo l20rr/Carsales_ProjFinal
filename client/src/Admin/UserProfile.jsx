@@ -1,6 +1,8 @@
 import React from "react";
 import  SideBar from "./SideBar";
 
+import { useParams } from 'react-router-dom';
+
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
@@ -64,7 +66,7 @@ function UserProfile() {
   const [modalOpenA, setModalOpenA] = useState(false);
   const [modalOpenB, setModalOpenB] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
-  const [tel, setTel] = useState('');
+  
 
   const toggleModalChange = () => {
     setModalOpenA(!modalOpenA);
@@ -91,32 +93,50 @@ function UserProfile() {
   const [locality , setLocality] = useState('');
   const [telem , setTelem] = useState('');
   const [birthdate , setBirthdate] = useState('');
-  const [userID, setUserID] = useState(null);
+  const [userId , setUserId] = useState('');
+  
+  useEffect(() => {
+    
+    // Fetch user data and update state
+    const fetchUserData = async () => {
+      const response = await api.get(`/AllUsers`);
+      const userData = response.data[0];
+      setLocality(userData.locality);
+      setTelem(userData.telem);
+      setBirthdate(userData.birthdate);
+      setUserId(userData.id);
+      
+    };
 
-  useEffect(() => { 
-        const userIDFromCookies = getUserIDFromCookies(); 
-        setUserID(userIDFromCookies); 
-      }, []);
+    if (authToken) {
+      fetchUserData();
+    }
+  }, [authToken, userId]);
+
 
   if(!authToken) return <Register />
+  
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+
+   
+
     const data = {
       locality: locality,
       telem: telem,
       birthdate: birthdate,
-      userId: userID
+      userId: userId
     };
+    
       
       console.log(data);
 
       if(locality!==''&&telem!==''&&birthdate!==''){
-        const response = await api.post('/userData',data);
+        const response = await api.post('/cl/userData',data);
 
-        if(response.status===200){
-          window.location.href='/home'
+        if(response.status===201){
+          toggleModalAdd();
         }else{
           alert('Erro ao cadastrar !');
         }
@@ -124,17 +144,7 @@ function UserProfile() {
         alert('Por favor, preencha todos os dados!');
       }
     }
-    function getUserIDFromCookies() {
-    const cookies = document.cookie.split(';'); 
-    for (let i = 0; i < cookies.length; i++) { 
-      const cookie = cookies[i].trim(); 
-      if (cookie.startsWith('userId=')) { 
-        return cookie.substring('userId='.length, cookie.length); 
-      } } 
-      return null; 
-    }
-
-    
+  
 
   return (
     <>
@@ -149,6 +159,7 @@ function UserProfile() {
             <MDBInput type="number" required value={telem} onChange={e => setTelem(e.target.value)} label="Telemóvel" />
             <MDBInput type="date" required value={birthdate} onChange={e => setBirthdate(e.target.value)} label="Data de nascimento" />
             <MDBInput type="text" required value={locality} onChange={e => setLocality(e.target.value)} label="Morada" />
+            <MDBInput type="hidden" value={userId} name="userId"/>
           <MDBModalFooter>
             <MDBBtn color="secondary" onClick={toggleModalAdd}>Cancelar</MDBBtn>
             <MDBBtn color="primary" onClick={handleSubmit}  >Adicionar</MDBBtn>
@@ -282,7 +293,7 @@ function UserProfile() {
                           <MDBCardText>Telemóvel:</MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted"></MDBCardText>
+                          <MDBCardText className="text-muted">{telem}</MDBCardText>
                         </MDBCol>
                       </MDBRow>
                       <hr />
@@ -291,7 +302,7 @@ function UserProfile() {
                           <MDBCardText>Data de Nascimento:</MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted"></MDBCardText>
+                          <MDBCardText className="text-muted">{birthdate}</MDBCardText>
                         </MDBCol>
                       </MDBRow>
                       <hr />
@@ -300,7 +311,7 @@ function UserProfile() {
                           <MDBCardText>Morada:</MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted"></MDBCardText>
+                          <MDBCardText className="text-muted">{locality}</MDBCardText>
                         </MDBCol>
                       </MDBRow>
                     </MDBCardBody>

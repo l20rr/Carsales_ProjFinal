@@ -7,6 +7,7 @@ router.post("/userData", async (req, res) => {
     const {locality, telem, birthdate, userId} = req.body;
  
     try {
+          console.log(req.body);
          await Client.create({
             locality: locality,
             telem: telem,
@@ -22,15 +23,17 @@ router.post("/userData", async (req, res) => {
 });
 
 
-router.get("/All/:id", async (req, res) => {
-  const userId = req.params.id;
+router.get("/All", async (req, res) => {
   try {
-      const response = await Client.findAll({ where: { userId:userId } });
+      const response = await Client.findAll({
+          attributes:['userId',]
+      });
       res.status(200).json(response);
   } catch (error) {
       res.status(500).json({msg: error.message});
   }
 });
+
 
 router.put("/:id", async (req, res) => {
     const id = req.params.id;

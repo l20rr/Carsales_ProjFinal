@@ -73,4 +73,38 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.get("/AllUsers", async (req, res) => {
+    try {
+        const response = await Users.findAll({
+            attributes:['id',]
+        });
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({msg: error.message});
+    }
+  });
+
+router.get("/Users/:id", async (req, res) => {
+    const id = req.params.id;
+    Users.findByPk(id)
+      .then(data => {
+        if (data) {
+          res.send(data);
+        } else {
+            console.log("error")
+          res.status(404).send({
+            message: `Cannot find User with id=${id}.`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving User with id=" + id
+        });
+      });
+  });
+
+
+  
+  
 module.exports = router;
