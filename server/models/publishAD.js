@@ -6,12 +6,12 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        Advert_vehicleID: {
+        vehicleID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             unique: true,
             references: {
-                model: "Advert_vehicle",
+                model: "vehicle",
                 key: "ID",
             },
             onDelete: 'CASCADE',
@@ -44,8 +44,8 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        PublishAD.belongsTo(models.Advert_vehicle, {
-            foreignKey: 'Advert_vehicleID',
+        PublishAD.belongsTo(models.vehicle, {
+            foreignKey: 'vehicleID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
@@ -55,7 +55,13 @@ module.exports = (sequelize, Sequelize) => {
             onUpdate: 'CASCADE',
             hooks: true,
         })
-        PublishAD.hasMany(models.purchase_Advert_vehicle, {
+        PublishAD.hasMany(models.purchase_Advert, {
+            foreignKey: 'publishadID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
+        })
+        PublishAD.hasMany(models.priorityAdvert, {
             foreignKey: 'publishadID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',

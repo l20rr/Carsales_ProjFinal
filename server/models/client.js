@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         userId: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
             unique: true,
             references: {
@@ -55,13 +55,8 @@ module.exports = (sequelize, Sequelize) => {
             onUpdate: 'CASCADE',
             hooks: true,
         })
-        Client.hasMany(models.purchase_Advert_vehicle, {
-            foreignKey: 'clientID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            hooks: true,
-        })
-        Client.belongsToMany(models.Advert_vehicle, {
+
+        Client.belongsToMany(models.vehicle, {
             through: 'PublishAD',
             foreignKey: 'clientID',
             onDelete: 'CASCADE',

@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
 
     }, {
         freezeTableName: true,
-        timestamp: false
+        timestamps: false
     });
     Subcategory.associate = function(models) {
         Subcategory.belongsTo(models.category, {

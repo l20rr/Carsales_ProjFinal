@@ -30,7 +30,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: "purchase_Advert_vehicle",
+                model: "purchase_Advert",
                 key: "ID",
             },
             onDelete: 'CASCADE',
@@ -41,7 +41,7 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     Invoice.associate = function(models) {
-        Invoice.belongsTo(models.purchase_Advert_vehicle, {
+        Invoice.belongsTo(models.purchase_Advert, {
             foreignKey: 'purchaseID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
