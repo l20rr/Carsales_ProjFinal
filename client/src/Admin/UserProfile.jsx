@@ -96,11 +96,12 @@ function UserProfile() {
   const [selectedUserId , setSelectedUserId] = useState([]);
 
   const userId = cookies.get('userId');
-  
+  const decodedUserId = atob(userId);
+
   useEffect(() => {
     async function fetchUserData() {
     try {
-    const response = await api.get('cl/'+UserID );
+    const response = await api.get('cl/1' );
     /*setSelectedUserId(response.data.id)
     setLocality(response.data.locality);
     setTelem(response.data.telem);
@@ -263,66 +264,66 @@ function UserProfile() {
                   </MDBCard>
                 </MDBCol>
                 <MDBCol lg="8">
-                
-                       <MDBCard className="mb-4">
-                       <MDBCardBody>
-                       {selectedUserId.map((info)=>{
+                {Array.isArray(selectedUserId) && selectedUserId.map((info) => {
                         <>
-                         <MDBRow>
-                           <MDBCol sm="3">
-                             <MDBCardText>Nome completo:</MDBCardText>
-                           </MDBCol>
-                           <MDBCol sm="9">
-                             <MDBCardText className="text-muted">{fullname()}
-                               <div onClick={handleClickA} style={{ float: 'right', cursor: 'pointer' }}><FontAwesomeIcon icon={faPencil} /></div>
-                               <div onClick={handleClickB} style={{ float: 'right', cursor: 'pointer', marginRight: '15px' }}><FontAwesomeIcon icon={faPlus} /></div>
-                             </MDBCardText>
-                           </MDBCol>
-                         </MDBRow>
-                         <hr />
-                         <MDBRow>
-                           <MDBCol sm="3">
-                             <MDBCardText>Email:</MDBCardText>
-                           </MDBCol>
-                           <MDBCol sm="9">
-                             <MDBCardText className="text-muted">{}</MDBCardText>
-                           </MDBCol>
-                         </MDBRow>
-                         <hr />
-                         
-                         <MDBRow>
-                           <MDBCol sm="3">
-                             <MDBCardText>Telemóvel:</MDBCardText>
-                           </MDBCol>
-                           <MDBCol sm="9">
-                             <MDBCardText className="text-muted">{info.telem}</MDBCardText>
-                           </MDBCol>
-                         </MDBRow>
-                         <hr />
-                         <MDBRow>
-                           <MDBCol sm="3">
-                             <MDBCardText>Data de Nascimento:</MDBCardText>
-                           </MDBCol>
-                           <MDBCol sm="9">
-                             <MDBCardText className="text-muted">{info.birthdate}</MDBCardText>
-                           </MDBCol>
-                         </MDBRow>
-                         <hr />
-                         <MDBRow>
-                           <MDBCol sm="3">
-                             <MDBCardText>Morada:</MDBCardText>
-                           </MDBCol>
-                           <MDBCol sm="9">
-                             <MDBCardText className="text-muted">{info.locality}</MDBCardText>
-                           </MDBCol>
-                           
-                         </MDBRow>
-                         </>
-                           })}
-                       </MDBCardBody>
-                     
-                     </MDBCard>
-              
+                        <MDBCard className="mb-4">
+    <MDBCardBody>
+      <MDBRow>
+        <MDBCol sm="3">
+          <MDBCardText>Nome completo:</MDBCardText>
+        </MDBCol>
+        <MDBCol sm="9">
+          <MDBCardText className="text-muted">
+            {info.name}
+            <div onClick={handleClickA} style={{ float: 'right', cursor: 'pointer' }}>
+              <FontAwesomeIcon icon={faPencil} />
+            </div>
+            <div onClick={handleClickB} style={{ float: 'right', cursor: 'pointer', marginRight: '15px' }}>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+          </MDBCardText>
+        </MDBCol>
+      </MDBRow>
+      <hr />
+      <MDBRow>
+        <MDBCol sm="3">
+          <MDBCardText>Email:</MDBCardText>
+        </MDBCol>
+        <MDBCol sm="9">
+          <MDBCardText className="text-muted">{info.email}</MDBCardText>
+        </MDBCol>
+      </MDBRow>
+      <hr />
+      <MDBRow>
+        <MDBCol sm="3">
+          <MDBCardText>Telemóvel:</MDBCardText>
+        </MDBCol>
+        <MDBCol sm="9">
+          <MDBCardText className="text-muted">{info.telem}</MDBCardText>
+        </MDBCol>
+      </MDBRow>
+      <hr />
+      <MDBRow>
+        <MDBCol sm="3">
+          <MDBCardText>Data de Nascimento:</MDBCardText>
+        </MDBCol>
+        <MDBCol sm="9">
+          <MDBCardText className="text-muted">{info.birthdate}</MDBCardText>
+        </MDBCol>
+      </MDBRow>
+      <hr />
+      <MDBRow>
+        <MDBCol sm="3">
+          <MDBCardText>Morada:</MDBCardText>
+        </MDBCol>
+        <MDBCol sm="9">
+          <MDBCardText className="text-muted">{info.locality}</MDBCardText>
+        </MDBCol>
+      </MDBRow>
+    </MDBCardBody>
+  </MDBCard>
+                </>
+                          })}
 
                   <MDBRow>
                     <MDBCol md="6">
