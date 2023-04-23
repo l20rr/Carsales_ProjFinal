@@ -1,15 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const db = require('../models');
-const PurchaseAdvert = db.purchase_Advert_vehicle;
+const PurchaseAdvert = db.purchase_Advert;
 
 router.post("/purchaseadvert", async(req, res) => {
-    const { clientID, publishadID } = req.body;
+    const { publishadID } = req.body;
 
     try {
         console.log(req.body);
         await PurchaseAdvert.create({
-            clientID: clientID,
             publishadID: publishadID
         });
 
@@ -45,7 +44,7 @@ router.get("/:id", async(req, res) => {
 router.get("/All", async(req, res) => {
     try {
         const response = await PurchaseAdvert.findAll({
-            attributes: ['ID', 'clientID', 'publishadID']
+            attributes: ['ID', 'publishadID']
         });
         res.status(200).json(response);
     } catch (error) {

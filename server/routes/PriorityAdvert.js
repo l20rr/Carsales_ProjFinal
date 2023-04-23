@@ -4,12 +4,12 @@ const db = require('../models');
 const PriorityAdvert = db.priorityAdvert;
 
 router.post("/priorityadvert", async(req, res) => {
-    const { advertID, invoiceID } = req.body;
+    const { publishadID, invoiceID } = req.body;
 
     try {
         console.log(req.body);
         await PriorityAdvert.create({
-            advertID: advertID,
+            publishadID: publishadID,
             invoiceID: invoiceID
         });
 
@@ -45,7 +45,7 @@ router.get("/:id", async(req, res) => {
 router.get("/All", async(req, res) => {
     try {
         const response = await PriorityAdvert.findAll({
-            attributes: ['ID', 'advertID', 'invoiceID']
+            attributes: ['ID', 'publishadID', 'invoiceID']
         });
         res.status(200).json(response);
     } catch (error) {

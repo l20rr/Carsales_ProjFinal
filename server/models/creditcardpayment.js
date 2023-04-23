@@ -12,6 +12,7 @@ module.exports = (sequelize, Sequelize) => {
 
         paymentID: {
             type: Sequelize.INTEGER,
+            allowNull: false,
             references: {
                 model: "payment",
                 key: "ID",

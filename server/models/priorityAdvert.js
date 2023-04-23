@@ -6,11 +6,11 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        advertID: {
+        publishadID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: "Advert_vehicle",
+                model: "publishAD",
                 key: "ID",
             },
             onDelete: 'CASCADE',
@@ -37,13 +37,13 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     priorityAdvert.associate = function(models) {
-        priorityAdvert.belongsTo(models.Advert_vehicle, {
-            foreignKey: 'advertID',
+        priorityAdvert.belongsTo(models.invoice, {
+            foreignKey: 'invoiceID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        priorityAdvert.belongsTo(models.invoice, {
-            foreignKey: 'invoiceID',
+        priorityAdvert.belongsTo(models.PublishAD, {
+            foreignKey: 'publishadID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })

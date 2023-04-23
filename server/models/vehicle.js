@@ -15,6 +15,7 @@ module.exports = (sequelize, Sequelize) => {
 
         subcategoryID: {
             type: Sequelize.INTEGER,
+            allowNull: false,
             references: {
                 model: "subcategory",
                 key: "ID",
@@ -84,7 +85,8 @@ module.exports = (sequelize, Sequelize) => {
 
     }, {
         indexes: [{ fields: ['ID', 'license'], unique: true }],
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
 
     });
     Vehicle.associate = function(models) {
@@ -93,7 +95,9 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        Vehicle.hasMany(models.Advert_vehicle, {
+
+        Vehicle.belongsToMany(models.Client, {
+            through: 'PublishAD',
             foreignKey: 'vehicleID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',

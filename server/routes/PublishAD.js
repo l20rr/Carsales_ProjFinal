@@ -4,12 +4,12 @@ const db = require('../models');
 const PublishAD = db.publishAD;
 
 router.post("/publishad", async(req, res) => {
-    const { Advert_vehicleID, clientID } = req.body;
+    const { vehicleID, clientID } = req.body;
 
     try {
         console.log(req.body);
         await PublishAD.create({
-            Advert_vehicleID: Advert_vehicleID,
+            vehicleID: vehicleID,
             clientID: clientID
         });
 
@@ -45,7 +45,7 @@ router.get("/:id", async(req, res) => {
 router.get("/All", async(req, res) => {
     try {
         const response = await PublishAD.findAll({
-            attributes: ['ID', 'Advert_vehicleID', 'clientID']
+            attributes: ['ID', 'vehicleID', 'clientID']
         });
         res.status(200).json(response);
     } catch (error) {
