@@ -22,7 +22,7 @@ router.post("/userData", async(req, res) => {
 
 });
 
-router.get("/:id", async(req, res) => {
+router.get("/client/:id", async(req, res) => {
     const id = req.params.id;
 
     Client.findByPk(id)

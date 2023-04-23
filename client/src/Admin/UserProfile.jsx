@@ -90,28 +90,43 @@ function UserProfile() {
       
     }
 
-  const [locality , setLocality] = useState('');
-  const [telem , setTelem] = useState('');
-  const [birthdate , setBirthdate] = useState('');
-  const [selectedUserId , setSelectedUserId] = useState([]);
-
+  const [locality , setLocality] = useState(null);
+  const [telem , setTelem] = useState(null);
+  const [birthdate , setBirthdate] = useState(null);
+  const [selectedUserId , setSelectedUserId] = useState('');
   const userId = cookies.get('userId');
   
   useEffect(() => {
-    async function fetchUserData() {
-    try {
-    const response = await api.get('auth/Users/' +userId);
-    setSelectedUserId(response.data.id)
-    setLocality(response.data.locality);
-    setTelem(response.data.telem);
-    setBirthdate(response.data.birthdate);
-    console.log(response.data);
-    } catch (error) {
-    console.error(error);
+    const storedData = localStorage.getItem(`userData_${userId}`);
+    if (storedData) {
+      const { locality, telem, birthdate } = JSON.parse(storedData);
+      setLocality(locality);
+      setTelem(telem);
+      setBirthdate(birthdate);
     }
+  }, [userId]);
+
+  useEffect(() => {
+    if (locality && telem && birthdate) {
+      localStorage.setItem(`userData_${userId}`, JSON.stringify({ locality, telem, birthdate }));
+    }
+  }, [locality, telem, birthdate, userId]);
+
+  useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const response = await api.get('cl/client/'+userId);
+        setSelectedUserId(response.data.id)
+        setLocality(response.data.locality);
+        setTelem(response.data.telem);
+        setBirthdate(response.data.birthdate);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
     fetchUserData();
-    }, []);
+  }, [userId]);
 
 
   if(!authToken) return <Register />
@@ -122,7 +137,7 @@ function UserProfile() {
       locality: locality,
       telem: telem,
       birthdate: birthdate,
-      userId: selectedUserId 
+      userId: userId
     };
     
       
