@@ -1,5 +1,4 @@
 import React,{useState,useEffect}from 'react';
-import { Link } from "react-router-dom";
 import api from '../services/api'
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -7,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
-import {useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom';
 
 import Register from "../components/Header/Register"
 
@@ -33,7 +32,7 @@ function RegisterSub() {
 
   useEffect(() => {
     async function fetchCategories() {
-      var response = await api.get('subcat/subAll/'+IDCategory)
+      const response = await api.get('subcat/subAll/'+IDCategory)
       setSubCategoryOptions(response.data);
     }
     fetchCategories();

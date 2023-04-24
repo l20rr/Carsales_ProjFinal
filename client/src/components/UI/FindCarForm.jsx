@@ -1,11 +1,9 @@
 import React,{useState,useEffect}from 'react';
-import { Link } from "react-router-dom";
 import api from '../../services/api'
-import Button from 'react-bootstrap/Button';
 import {  FormGroup } from "reactstrap";
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
+import "../../styles/find-car-form.css";
+
 
 const FindCarForm = () => {
   const [categoryOptions, setCategoryOptions] = useState([]);
@@ -19,14 +17,23 @@ const FindCarForm = () => {
     fetchCategories();
   }, []);
 
+  const [SubcategoryOptions, setSubCategoryOptions] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState("category.ID");
   
+
+  useEffect(() => {
+    async function fetchSubcategories() {
+      const response = await api.get('subcat/subAll/')
+      setSubCategoryOptions(response.data);
+    }
+    fetchSubcategories();
+  }, []);
 
   
   return (
     <Form className="form">
       <div className=" d-flex align-items-center justify-content-between flex-wrap">
-      <Form.Group className="select__group" as={Col} controlId="formGridState">
-            <Form.Label>Categoria</Form.Label>
+      <Form.Group className="select__group">
             <Form.Select
               defaultValue=""
               value={selectedCategory}
@@ -41,18 +48,18 @@ const FindCarForm = () => {
             </Form.Select>
           </Form.Group>
         <FormGroup className="select__group">
-          <select>
-          <option value="" disabled selected>Sub-Categoria</option>
-            <option parent_category="1" value="1">Citadino</option>
-            <option parent_category="1" value="2">SUV</option>
-            <option parent_category="1" value="3">Desportivo</option>
-            <option parent_category="2" value="4">Citadina</option>
-            <option parent_category="2" value="5">Desportiva</option>
-            <option parent_category="2" value="6">Todo-o-Terreno</option>
-            <option parent_category="3" value="7">Passageiros</option>
-            <option parent_category="3" value="8">Caravana</option>
-            <option parent_category="3" value="9">Mercadorias</option>
-          </select>
+        <Form.Select
+              defaultValue=""
+              value={selectedSubCategory}
+              onChange={(event) => setSelectedSubCategory(event.target.value)}
+            >
+              <option value="">Escolha a subcategoria...</option>
+              {SubcategoryOptions.map((category) => (
+                <option key={category.ID} value={category.ID}>
+                  {category.SubcategoryName}
+                </option>
+              ))}
+            </Form.Select>
         </FormGroup>
         <FormGroup className="select__group">
           <select>
