@@ -28,21 +28,16 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data
 
-/*
-/*db.sequelize.sync()
+
+  db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
 
-*/
 //connect by erasing data
-
+/*
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
-
+*/
      // create the admin, if they do not already exist
      Category.create({
       categoryName:"Carro"
