@@ -16,6 +16,7 @@ import api from '../services/api';
 import Register from "../components/Header/Register"
 import Form from 'react-bootstrap/Form';
 
+
 // react-bootstrap components
 import {
   MDBCol,
@@ -66,6 +67,7 @@ function UserProfile() {
   const [modalOpenA, setModalOpenA] = useState(false);
   const [modalOpenB, setModalOpenB] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [deleteConfirmationModalOpen, setDeleteConfirmationModalOpen] = useState(false);
   
 
   const toggleModalChange = () => {
@@ -89,6 +91,22 @@ function UserProfile() {
       toggleModalAdd();
       
     }
+
+    const authToken = cookies.get("token");
+  
+    const logout = () => {
+      cookies.remove("token");
+      cookies.remove('userId');
+      cookies.remove('fullname');
+      cookies.remove('email');
+      cookies.remove('hashedPassword');
+      
+      window.location.reload();
+      window.location.href= '/home'
+  }
+
+
+
 
   const [locality , setLocality] = useState(null);
   const [telem , setTelem] = useState(null);
@@ -128,6 +146,43 @@ function UserProfile() {
     fetchUserData();
   }, [userId]);
 
+
+  async function handleDeleteAccount(id) {
+
+    try {
+
+      const response = await api.delete(`/auth/Users/${id}`);
+      
+      console.log(response);
+      
+     } catch (error) {
+      
+      console.error(error);
+       
+       }
+      
+      }
+
+    /*const handleDeleteAccount = (id) => {
+      fetch(`http://localhost:3000/auth/Users/${id}`, {
+        method: 'DELETE'
+       
+      })
+      console.log
+      .then(response => {
+        if (response.ok) {
+          console.log('User deleted successfully');
+          logout(true);
+        } else {
+          console.error('Failed to delete user');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting user:', error);
+      });  }
+
+      */
+    
 
   if(!authToken) return <Register />
   async function handleSubmit(e) {
@@ -197,7 +252,7 @@ function UserProfile() {
         <Button >
           Mudar Email
         </Button>
-        <Button >
+        <Button onClick={() => setDeleteConfirmationModalOpen(true)} >
           Apagar  Conta
         </Button>
       </DialogActions>
@@ -218,6 +273,21 @@ function UserProfile() {
       <DialogActions>
         <MDBBtn color="primary" type="submit" form="change-name-form">Alterar</MDBBtn>
       </DialogActions>
+      </MDBModal>
+    </form>
+
+    {/* Apagar conta */}
+
+    <form >
+      <MDBModal isOpen={deleteConfirmationModalOpen} toggle={() => setDeleteConfirmationModalOpen(false)}>
+        <MDBModalHeader toggle={() => setDeleteConfirmationModalOpen(false)}>Tem a certeza que quer apagar a sua conta?</MDBModalHeader>
+        <MDBModalBody>
+          <p>Todos os seus dados e conversas serão perdidos permanentemente.</p>
+        </MDBModalBody>
+        <MDBModalFooter>
+          <MDBBtn color="secondary" onClick={() => setDeleteConfirmationModalOpen(false)}>Cancelar</MDBBtn>
+          <MDBBtn color="danger" onClick={handleDeleteAccount}>Apagar</MDBBtn>
+        </MDBModalFooter>
       </MDBModal>
     </form>
 
@@ -296,7 +366,7 @@ function UserProfile() {
                           <MDBCardText>Email:</MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                          <MDBCardText className="text-muted">{locality}</MDBCardText>
+                          <MDBCardText className="text-muted">{email()}</MDBCardText>
                         </MDBCol>
                       </MDBRow>
                       <hr />

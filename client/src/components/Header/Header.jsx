@@ -14,7 +14,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
 
-
 const navLinks = [
   {
     path: "/home",
@@ -52,7 +51,6 @@ const Header = () => {
     window.location.reload();
     window.location.href= '/home'
 }
-
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
@@ -140,3 +138,4 @@ const Header = () => {
 };
 
 export default Header;
+
