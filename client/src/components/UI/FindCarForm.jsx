@@ -1,12 +1,10 @@
 import React,{useState,useEffect}from 'react';
-import { Link } from "react-router-dom";
 import api from '../../services/api'
-import "../../styles/find-car-form.css";
 import Button from 'react-bootstrap/Button';
 import {  FormGroup } from "reactstrap";
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
+import "../../styles/find-car-form.css";
 
 function FindCarForm ()  {
   const [categoryOptions, setCategoryOptions] = useState([]);
