@@ -26,7 +26,7 @@ const Home = () => {
             <Row className="form__row">
               <Col lg="4" md="4">
                 <div className="find__cars-left">
-                  <h2>Ache o melhor veículo para si</h2>
+                  <h2>Filtre a pesquisa de anuncios</h2>
                 </div>
               </Col>
 

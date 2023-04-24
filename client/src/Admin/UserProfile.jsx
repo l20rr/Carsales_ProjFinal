@@ -100,11 +100,11 @@ function UserProfile() {
   useEffect(() => {
     async function fetchUserData() {
     try {
-    const response = await api.get('cl/'+UserID );
-    /*setSelectedUserId(response.data.id)
+    const response = await api.get('cl/'+userId );
+    setSelectedUserId(response.data.id)
     setLocality(response.data.locality);
     setTelem(response.data.telem);
-    setBirthdate(response.data.birthdate);*/
+    setBirthdate(response.data.birthdate);
     setSelectedUserId(response.data)
     console.log(response.data);
     } catch (error) {
