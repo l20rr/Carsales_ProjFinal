@@ -102,7 +102,7 @@ function UserProfile() {
       cookies.remove('hashedPassword');
       
       window.location.reload();
-      window.location.href= '/home'
+      window.location.href= '/home';
   }
 
 
@@ -149,7 +149,7 @@ function UserProfile() {
 
   async function handleDeleteAccount(id) {
     try {
-      const response = await api.delete(`/auth/Users/${id}`);
+      const response = await api.delete('/auth/Users/${id}');
       if (response.status === 200) {
         console.log('User deleted successfully');
         logout(true);
@@ -284,7 +284,7 @@ function UserProfile() {
         </MDBModalBody>
         <MDBModalFooter>
           <MDBBtn color="secondary" onClick={() => setDeleteConfirmationModalOpen(false)}>Cancelar</MDBBtn>
-          <MDBBtn class='deleteButton' color="danger" onClick={handleDeleteAccount(userId)}>Apagar</MDBBtn>
+          <MDBBtn class='deleteButton' color="danger" onClick={() => handleDeleteAccount(userId)}>Apagar</MDBBtn>
         </MDBModalFooter>
       </MDBModal>
     </form>
