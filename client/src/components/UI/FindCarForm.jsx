@@ -1,6 +1,8 @@
-import React from "react";
+import React,{useState,useEffect}from 'react';
+import api from '../../services/api'
+import { FormGroup, Col } from "reactstrap";
+import Form from 'react-bootstrap/Form';
 import "../../styles/find-car-form.css";
-import { Form, FormGroup } from "reactstrap";
 
 const FindCarForm = () => {
   const [categoryOptions, setCategoryOptions] = useState([]);

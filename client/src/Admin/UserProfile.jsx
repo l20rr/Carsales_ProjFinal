@@ -148,20 +148,18 @@ function UserProfile() {
 
 
   async function handleDeleteAccount(id) {
-
     try {
-
       const response = await api.delete(`/auth/Users/${id}`);
-      
-      console.log(response);
-      
-     } catch (error) {
-      
-      console.error(error);
-       
-       }
-      
+      if (response.status === 200) {
+        console.log('User deleted successfully');
+        logout(true);
+      } else {
+        console.error('Failed to delete user');
       }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  }
 
     /*const handleDeleteAccount = (id) => {
       fetch(`http://localhost:3000/auth/Users/${id}`, {
@@ -286,7 +284,7 @@ function UserProfile() {
         </MDBModalBody>
         <MDBModalFooter>
           <MDBBtn color="secondary" onClick={() => setDeleteConfirmationModalOpen(false)}>Cancelar</MDBBtn>
-          <MDBBtn color="danger" onClick={handleDeleteAccount}>Apagar</MDBBtn>
+          <MDBBtn class='deleteButton' color="danger" onClick={handleDeleteAccount(userId)}>Apagar</MDBBtn>
         </MDBModalFooter>
       </MDBModal>
     </form>
