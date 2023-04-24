@@ -1,20 +1,43 @@
-import React from "react";
-import "../../styles/find-car-form.css";
-import "../../styles/find-car-form.css";
+import React,{useState,useEffect}from "react";
 import { Form, FormGroup } from "reactstrap";
+import api from "../../services/api";
+import Col from 'react-bootstrap/Col';
+
+
 
 const FindCarForm = () => {
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const response = await api.get("/cat/subcat");
+      setCategoryOptions(response.data);
+    }
+    fetchCategories();
+  }, []);
+
+  
+
+  
   return (
     <Form className="form">
       <div className=" d-flex align-items-center justify-content-between flex-wrap">
-      <FormGroup className="select__group">
-          <select>
-            <option value="" disabled selected>Categoria</option>
-            <option value="1">Carro</option>
-            <option value="2">Motociclo</option>
-            <option value="3">Veiculo Pesado</option>
-          </select>
-        </FormGroup>
+      <Form.Group className="select__group" as={Col} controlId="formGridState">
+            <Form.Label>Categoria</Form.Label>
+            <Form.Select
+              defaultValue=""
+              value={selectedCategory}
+              onChange={(event) => setSelectedCategory(event.target.value)}
+            >
+              <option value="">Escolha a categoria...</option>
+              {categoryOptions.map((category) => (
+                <option key={category.ID} value={category.ID}>
+                  {category.categoryName}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
         <FormGroup className="select__group">
           <select>
           <option value="" disabled selected>Sub-Categoria</option>
