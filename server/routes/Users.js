@@ -20,25 +20,27 @@ router.post('/signup', async(req, res) => {
     try {
         const { fullname, email, password } = req.body;
 
+        const userExists = await Users.findOne({ where: { email } });
 
+        if (userExists) {
+            return res.status(400).json({ message: 'User already exists' });
+          }
 
-        const userId = crypto.randomBytes(16).toString('hex');
+        
 
         const serverClient = connect(api_key, api_secret, app_id);
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const token = serverClient.createUserToken(userId);
-
         // criando o usuário
-        Users.create({
+        const user = await Users.create({
             fullname: fullname,
             email: email,
             password: hashedPassword
         });
 
-
-
+        const token = serverClient.createUserToken(String(user.id));
+        const userId = parseInt(user.id);
         res.status(200).json({ token, userId, fullname, email, hashedPassword });
     } catch (error) {
         console.log(error);
@@ -63,6 +65,7 @@ router.post('/login', async(req, res) => {
             const client = StreamChat.getInstance(api_key, api_secret);
 
             const token = serverClient.createUserToken(String(user.id));
+            
 
             res.status(200).json({ token, fullname: user.fullname, email, userId: user.id });
         } else {

@@ -88,16 +88,14 @@ function RegisterVhicle() {
   ) {
     try {
       const response = await api.post('/vehicle/addvehicle', data);
-      if (response.status === 200) {
+     
         window.location.href = '/Registeradverts';
-      }
+    
     } catch (error) {
       console.error(error);
       alert('Erro ao cadastrar!');
     }
-  } else {
-    alert('Por favor, preencha todos os dados!');
-  }
+  } 
   }
   
   function handleImageChange(event) {
@@ -162,7 +160,7 @@ function RegisterVhicle() {
                       <Form.Group as={Col} controlId="formGridZip">
                         <Form.Label>Year</Form.Label>
                         <Form.Control id='year'
-                          type='number'
+                          type='date'
                           required
                           value={year}
                           onChange={e => setYear(e.target.value)} />
