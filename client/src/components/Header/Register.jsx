@@ -54,12 +54,8 @@ const Register = () => {
             cookies.set('hashedPassword', hashedPassword);
         }
 
-        
-        
-        
-
         window.location.reload();
-        window.location.href= '/home'
+        window.location.href= '/RegisterCli'
     }
 
     const switchMode = () => {
