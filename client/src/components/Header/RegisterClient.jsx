@@ -1,6 +1,18 @@
-import React,{useState}from 'react';
+import React from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
+import { StreamChat } from 'stream-chat';
+import Register from "../../components/Header/Register"
+import { useParams } from 'react-router-dom';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
+import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
+import { useState, useEffect } from 'react';
+
 import "../../styles/header.css";
 import api from '../../services/api'
 import {
@@ -8,12 +20,29 @@ import {
   MDBContainer,
   MDBCard,
   MDBCardBody,
-  MDBInput,
+
   MDBCheckbox
 }
 from 'mdb-react-ui-kit';
 
+
+
+
 const cookies = new Cookies();
+const authToken = cookies.get("token");
+
+const apiKey = 'cd4bcsnrt3ej';
+const client = StreamChat.getInstance(apiKey);
+
+if(authToken) {
+    client.connectUser({
+        id: cookies.get('userId'),
+        fullname: cookies.get('fullname'),
+        name: cookies.get('email'),
+        hashedPassword: cookies.get('hashedPassword'),
+    }, authToken)
+}
+
 
 
 
@@ -55,9 +84,8 @@ const RegisterClient = () => {
       }
       fetchUserData();
     }, [userId]);
-  
-  
-    if(!authToken) return <Register />
+    if (!authToken) return <Register />;
+
     async function handleSubmit(e) {
       e.preventDefault();
   
@@ -75,7 +103,7 @@ const RegisterClient = () => {
           const response = await api.post('/cl/userData',data);
   
           if(response.status===201){
-            toggleModalAdd();
+          
           }else{
             alert('Erro ao cadastrar !');
           }
@@ -85,26 +113,47 @@ const RegisterClient = () => {
       }
     
   
-    return (
-      <>      
-          <MDBModalHeader>Definições da conta</MDBModalHeader>
-          <MDBModalBody>
-          <Form >
-              <MDBInput type="number" required value={telem} onChange={e => setTelem(e.target.value)} label="Telemóvel" />
-              <MDBInput type="date" required value={birthdate} onChange={e => setBirthdate(e.target.value)} label="Data de nascimento" />
-              <MDBInput type="text" required value={locality} onChange={e => setLocality(e.target.value)} label="Morada" />
-              <MDBInput type="hidden" value={userId} />
-              
-            <MDBModalFooter>
-              <MDBBtn color="secondary" onClick={toggleModalAdd}>Cancelar</MDBBtn>
-              <MDBBtn color="primary" onClick={handleSubmit}  >Adicionar</MDBBtn>
-            </MDBModalFooter>
-          </Form>
-          </MDBModalBody>
-          
+      return (
+        <div className="modal-wrapper">
+          <>
+            <MDBModalHeader>Definições da conta</MDBModalHeader>
+            <MDBModalBody>
+              <Form>
+                <MDBInput type="number" required value={telem} onChange={(e) => setTelem(e.target.value)} label="Telemóvel" />
+                <MDBInput type="date" required value={birthdate} onChange={(e) => setBirthdate(e.target.value)} label="Data de nascimento" />
+                <MDBInput type="text" required value={locality} onChange={(e) => setLocality(e.target.value)} label="Morada" />
+                <MDBInput type="hidden" value={userId} />
       
-        </>
-        )
-}
+                <MDBModalFooter>
+                <MDBBtn color="danger" onClick={handleSubmit}>
+                    Cancelar
+                  </MDBBtn>
+                  <MDBBtn color="primary" onClick={handleSubmit}>
+                    Adicionar
+                  </MDBBtn>
+                  
+                </MDBModalFooter>
+              </Form>
+            </MDBModalBody>
+          </>
+      
+          <style jsx>{`
+            .modal-wrapper {
+              height: 100vh;
+              width: 100vw;
+            }
+            Form {
+              max-width: 400px;
+              width: 100%;
+              padding: 20px;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              background-color: #fff;
+            }
+          `}</style>
+        </div>
+      );
+      
+          }
 
 export default RegisterClient;

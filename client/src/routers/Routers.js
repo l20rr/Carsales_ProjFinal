@@ -15,7 +15,7 @@ import RegisterSub from "../pages/RegisterSub";
 import Registeradverts from "../pages/Registeradverts";
 import RegisterVhicle from "../pages/RegisterVhicle";
 import Register from "../components/Header/Register";
-
+import RegisterClient from "../components/Header/RegisterClient"
 import UserProfile from "../Admin/UserProfile"
 
 import Dash from "../Admin/Dash";
@@ -49,6 +49,7 @@ const Routers = () => {
     }/>
        <Route path="/Registeradverts" element={<Registeradverts />} />
        <Route path="/Registeradverts/RegisterAcout" element={<RegisterAcount />} />
+       <Route path="/RegisterCli" element={<RegisterClient />} />
     </Routes>
   );
 };
