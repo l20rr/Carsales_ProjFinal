@@ -181,6 +181,8 @@ app.use("/subcat", subcat);
 const client_user = require("./routes/Client");
 app.use("/cl", client_user);
 
+const publi = require("./routes/PublishAD");
+app.use("/publi", publi);
 
 
 // set port, listen for requests
