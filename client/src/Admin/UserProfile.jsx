@@ -149,7 +149,7 @@ function UserProfile() {
 
   async function handleDeleteAccount(id) {
     try {
-      const response = await api.delete('/auth/Users/${id}');
+      const response = await api.delete(`/auth/Users/${id}`);
       if (response.status === 200) {
         console.log('User deleted successfully');
         logout(true);
@@ -159,6 +159,7 @@ function UserProfile() {
     } catch (error) {
       console.error('Error deleting user:', error);
     }
+    window.location.href= '/home';
   }
 
     /*const handleDeleteAccount = (id) => {
@@ -197,16 +198,17 @@ function UserProfile() {
       console.log(data);
 
       if(locality!==''&&telem!==''&&birthdate!==''){
-        const response = await api.post('/cl/userData',data);
+        const response = await api.put('/cl/userData',data);
 
         if(response.status===201){
-          toggleModalAdd();
+          toggleModalChange();
         }else{
           alert('Erro ao cadastrar !');
-        }
+        }    
       }else{
-        alert('Por favor, preencha todos os dados!');
+        alert('Por favor, preencha todos os dados!'); 
       }
+      
     }
   
 

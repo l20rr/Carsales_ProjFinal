@@ -21,7 +21,10 @@ import {
   MDBCard,
   MDBCardBody,
 
-  MDBCheckbox
+  MDBCheckbox,
+  MDBCardSubTitle,
+  MDBModalContent,
+  MDBModalDialog
 }
 from 'mdb-react-ui-kit';
 
@@ -103,13 +106,14 @@ const RegisterClient = () => {
           const response = await api.post('/cl/userData',data);
   
           if(response.status===201){
-          
+            
           }else{
             alert('Erro ao cadastrar !');
           }
         }else{
           alert('Por favor, preencha todos os dados!');
         }
+        window.location.href= '/home';
       }
     
   
@@ -117,6 +121,7 @@ const RegisterClient = () => {
         <div className="modal-wrapper">
           <>
             <MDBModalHeader>Definições da conta</MDBModalHeader>
+            
             <MDBModalBody>
               <Form>
                 <MDBInput type="number" required value={telem} onChange={(e) => setTelem(e.target.value)} label="Telemóvel" />
@@ -131,10 +136,11 @@ const RegisterClient = () => {
                   <MDBBtn color="primary" onClick={handleSubmit}>
                     Adicionar
                   </MDBBtn>
-                  
+                 
                 </MDBModalFooter>
               </Form>
             </MDBModalBody>
+            <MDBModalHeader>Para poder publicar anuncios tem de preencher estes dados</MDBModalHeader>
           </>
       
           <style jsx>{`
