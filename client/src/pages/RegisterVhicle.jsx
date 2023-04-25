@@ -9,6 +9,7 @@ import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 import {useParams} from 'react-router-dom'
 import Register from "../components/Header/Register"
+import DatePicker, { DateObject } from "react-multi-date-picker";
 
 const cookies = new Cookies();
 const authToken = cookies.get("token");
@@ -114,82 +115,72 @@ function RegisterVhicle() {
 <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
 <Form>
 <Row className="mb-3">
-
-            <Form.Group>
-                <Form.Label>Brand</Form.Label>
-            
+            <Form.Group  controlId="formGridCity">
+                <Form.Label>Marca</Form.Label>
                 <Form.Control id='name'
                   type='text'
                   required
                   value={brand}
                   onChange={e => setBrand(e.target.value)} />
               </Form.Group>
-  
-              <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Model</Form.Label>
+</Row>
+<Row className="mb-3">
+              <Form.Group  controlId="formGridCity">
+                <Form.Label>Modelo</Form.Label>
                 <Form.Control id='model'
                   type='text'
                   required
                   value={model}
                   onChange={e => setModel(e.target.value)} />
               </Form.Group>
-              <br/>
-              <div>
+</Row>
+<Row className="mb-3">
+              <Form.Group  controlId="formGridCity">
+               <div>
                <input type="file" onChange={handleImageChange} className="filetype" />
                 <img alt="preview image" src={image}/>
-            </div>
-
-                  <Form.Group as={Col} controlId="formGridCity">
-                      <Form.Label>description</Form.Label>
-                      <Form.Control id='description'
-                        type='text'
-                        required
-                        value={description}
-                        onChange={e => setDescription(e.target.value)} />
-                    </Form.Group>
-                    </Row>
-          
-                    <Row className="mb-3">
+               </div>
+              </Form.Group>             
+</Row>         
+<Row className="mb-3">
                       <Form.Group as={Col} controlId="formGridCity">
-                        <Form.Label>License</Form.Label>
+                        <Form.Label>Matricula</Form.Label>
                         <Form.Control id='license'
                           type='text'
                           required
                           value={license}
                           onChange={e => setLicense(e.target.value)} />
-                      </Form.Group>
-          
+                      </Form.Group>        
                       <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>Year</Form.Label>
-                        <Form.Control id='year'
-                          type='date'
+                        <Form.Label>Mês e Ano de construção</Form.Label>
+                        <Form.Control id='year' 
+                          type='month'
                           required
                           value={year}
                           onChange={e => setYear(e.target.value)} />
                       </Form.Group>
-                    </Row>
-                    <Row className="mb-3">
+</Row>
+<Row className="mb-3">
                       <Form.Group as={Col} controlId="formGridCity">
-                        <Form.Label>kms rodados</Form.Label>
+                        <Form.Label>Kms rodados</Form.Label>
                         <Form.Control id='kms'
                           type='number'
                           required
                           value={kms}
                           onChange={e => setKms(e.target.value)} />
                       </Form.Group>
-          
                       <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>fuel</Form.Label>
+                        <Form.Label>Combustivel</Form.Label>
                         <Form.Control id='fuel'
                           type='text'
                           required
                           value={fuel}
                           onChange={e => setFuel(e.target.value)} />
                       </Form.Group>
-                    </Row>
-                    <Row className="mb-3">
+</Row>
+<Row className="mb-3">
                       <Form.Group as={Col} controlId="formGridCity">
-                        <Form.Label>Price</Form.Label>
+                        <Form.Label>Preço</Form.Label>
                         <Form.Control id='price'
                           type='number'
                           required
@@ -198,7 +189,7 @@ function RegisterVhicle() {
                       </Form.Group>
           
                       <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>Power</Form.Label>
+                        <Form.Label>Potência (Kwatts)</Form.Label>
                         <Form.Control id='power'
                           type='number'
                           required
@@ -207,7 +198,7 @@ function RegisterVhicle() {
                       </Form.Group>
           
                       <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>num seats</Form.Label>
+                        <Form.Label>Numero de lugares</Form.Label>
                         <Form.Control id='num_seats'
                           type='number'
                           required
@@ -215,8 +206,16 @@ function RegisterVhicle() {
                           onChange={e => setNumSeats(e.target.value)} />
                       </Form.Group>
                     </Row>
-
-
+                    <Row className="mb-3">
+                    <Form.Group as={Col} controlId="formGridCity">
+                      <Form.Label>Descrição Adicional</Form.Label>
+                      <Form.Control id='description'
+                        type='text'
+                        required
+                        value={description}
+                        onChange={e => setDescription(e.target.value)} />
+                    </Form.Group>
+                    </Row>
                   <Button variant="primary" onClick={handleSubmit} style={{ display: 'flex', justifyContent: 'flex-end' }}>next</Button>
             </Form>
           </div>
