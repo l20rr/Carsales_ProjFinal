@@ -50,13 +50,13 @@ function RegisterSub() {
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>Categoria</Form.Label>
+            <Form.Label>Sub-categoria</Form.Label>
             <Form.Select
               defaultValue=""
               value={selectedSubCategory}
               onChange={(event) => setSelectedSubCategory(event.target.value)}
             >
-              <option value="">Escolha a categoria...</option>
+              <option value="">Escolha a sub-categoria...</option>
               {SubcategoryOptions.map((category) => (
                 <option key={category.ID} value={category.ID}>
                   {category.SubcategoryName}

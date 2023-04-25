@@ -9,7 +9,6 @@ module.exports = (sequelize, Sequelize) => {
         vehicleID: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            unique: true,
             references: {
                 model: "vehicle",
                 key: "ID",
@@ -23,7 +22,6 @@ module.exports = (sequelize, Sequelize) => {
         clientID: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            unique: true,
             references: {
                 model: "client",
                 key: "ID",

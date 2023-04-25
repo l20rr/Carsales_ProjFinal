@@ -88,9 +88,9 @@ export default function  Registeradverts() {
         <MDBCol md="3">
           <MDBCard border="dark">
             <MDBCardBody className="mx-2">
-              <MDBCardTitle className="my-2">Anuncio Basico</MDBCardTitle>
+              <MDBCardTitle className="my-2">Anuncio Simples</MDBCardTitle>
               <p className="text-muted">
-                All the essentials for starting a business
+                O anuncio do seu veiculo á distância de um clique
               </p>
               <p className="h2 fw-bold">
                 Free
@@ -114,7 +114,7 @@ export default function  Registeradverts() {
                 className="text-uppercase fw-bold"
                 style={{ fontSize: "12px" }}
               >
-                What's included
+                Beneficios
               </p>
             
               <MDBTypography listUnStyled className="mb-0 px-4">
@@ -122,17 +122,17 @@ export default function  Registeradverts() {
                   <MDBIcon fas icon="check" className="text-success me-3" />
                   <small>
                
-                  <i class="ri-checkbox-circle-line"></i> Compra e venda
+                  <i class="ri-checkbox-circle-line"></i> Publicação do seu anuncio
              
                   </small>
                 </li>
                 <li className="mb-3">
                   <MDBIcon fas icon="check" className="text-success me-3" />
-                  <small>    <i class="ri-checkbox-circle-line"></i> Compra e venda</small>
+                  <small>    <i class="ri-checkbox-circle-line"></i> Comunicação via mensagem com os interessados</small>
                 </li>
                 <li className="mb-3">
                   <MDBIcon fas icon="check" className="text-success me-3" />
-                  <small>    <i class="ri-checkbox-circle-line"></i> Compra e venda</small>
+                  <small>    <i class="ri-checkbox-circle-line"></i> Inclusão na lista de anuncios</small>
                 </li>
               </MDBTypography>
             </MDBCardFooter>
@@ -147,7 +147,7 @@ export default function  Registeradverts() {
             <MDBCardBody className="mx-2">
               <MDBCardTitle className="my-2">Anuncio Premium</MDBCardTitle>
               <p className="text-muted">
-                All the essentials for starting a business
+                O seu veiculo na pole-position para vender!!!!!!!
               </p>
               <p className="h2 fw-bold">
                 €40
@@ -171,25 +171,25 @@ export default function  Registeradverts() {
                 className="text-uppercase fw-bold"
                 style={{ fontSize: "12px" }}
               >
-                What's included
+                Beneficios
               </p>
 
               <MDBTypography listUnStyled className="mb-0 px-4">
                 <li className="mb-3">
                   <MDBIcon fas icon="check" className="text-success me-3" />
-                   <small>    <i class="ri-checkbox-circle-line"></i> Compra e venda</small>
+                   <small>    <i class="ri-checkbox-circle-line"></i> Publicação do seu anuncio</small>
                 </li>
                 <li className="mb-3">
                   <MDBIcon fas icon="check" className="text-success me-3" />
-                   <small>    <i class="ri-checkbox-circle-line"></i> Compra e venda</small>
+                   <small>    <i class="ri-checkbox-circle-line"></i> Comunicação via mensagem com os interessados</small>
                 </li>
                 <li className="mb-3">
                   <MDBIcon fas icon="check" className="text-success me-3" />
-                   <small>    <i class="ri-checkbox-circle-line"></i> Compra e venda</small>
+                   <small>    <i class="ri-checkbox-circle-line"></i> O seu anuncio em DESTAQUE na lista de anuncios</small>
                 </li>
                 <li className="mb-3">
                   <MDBIcon fas icon="check" className="text-success me-3" />
-                   <small>    <i class="ri-checkbox-circle-line"></i> Compra e venda</small>
+                   <small>    <i class="ri-checkbox-circle-line"></i> Acesso a dados estatisticos do seu anuncio</small>
                 </li>
               </MDBTypography>
             </MDBCardFooter>

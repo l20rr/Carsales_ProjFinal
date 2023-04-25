@@ -98,7 +98,7 @@ const FindCarForm = () => {
         </FormGroup>
         
         <FormGroup className="form__group">  
-          <input type="range" onChange={setValuePrice} value={valuePrice} name="price" min="0" max="500000" step={1000}/><br></br>
+          <input type="range" onChange={setValuePrice} value={valuePrice} name="price" min="0" max="500000" step={1000}/>
           <label for="price">Preço Máximo: {valuePrice} €</label>
         </FormGroup>
 
