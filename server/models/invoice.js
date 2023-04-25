@@ -16,6 +16,17 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
 
+        NIF: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
+
+        CredCard: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+        },
+
+
         total: {
             type: Sequelize.DECIMAL(4, 2),
             allowNull: false,
