@@ -10,7 +10,7 @@ import Contact from "../pages/Contact";
 import ChatApi from "../pages/ChatApi";
 import PrivateRoute from "../services/PrivateRoute";
 import RegisterCat from "../pages/RegisterCategory";
-import RegisterAcount from "../pages/RegisterAcount"
+import RegisterInvoice from "../pages/RegisterInvoice"
 import RegisterSub from "../pages/RegisterSub";
 import Registeradverts from "../pages/Registeradverts";
 import RegisterVhicle from "../pages/RegisterVhicle";
