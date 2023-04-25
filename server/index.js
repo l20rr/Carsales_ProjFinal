@@ -94,28 +94,28 @@ db.sequelize.sync({ force: true }).then(() => {
     });
     subcategory.create({
         categoryID: 2,
-        SubcategoryName: "campervan"
+        SubcategoryName: "Campervan"
     }).catch(err => {
         console.log("Already exists");
         console.log(err)
     });
     subcategory.create({
         categoryID: 2,
-        SubcategoryName: "capucino"
+        SubcategoryName: "Capucino"
     }).catch(err => {
         console.log("Already exists");
         console.log(err)
     });
     subcategory.create({
         categoryID: 2,
-        SubcategoryName: "perfilada"
+        SubcategoryName: "Perfilada"
     }).catch(err => {
         console.log("Already exists");
         console.log(err)
     });
     subcategory.create({
         categoryID: 2,
-        SubcategoryName: "integral"
+        SubcategoryName: "Integral"
     }).catch(err => {
         console.log("Already exists");
         console.log(err)

@@ -3,6 +3,7 @@ import api from '../../services/api'
 import {  FormGroup } from "reactstrap";
 import Form from 'react-bootstrap/Form';
 import "../../styles/find-car-form.css";
+import DatePicker, { DateObject } from "react-multi-date-picker";
 
 
 const FindCarForm = () => {
@@ -29,6 +30,17 @@ const FindCarForm = () => {
     fetchSubcategories();
   }, []);
 
+  const [valuePrice, setPrice]=useState(0);
+
+  const setValuePrice = (event) => {
+    setPrice(event.target.value);
+  };
+
+  const [values, setValues] = useState([
+    new DateObject().subtract(4, "days"),
+    new DateObject().add(4, "days")
+  ])
+
   
   return (
     <Form className="form">
@@ -37,8 +49,7 @@ const FindCarForm = () => {
             <Form.Select
               defaultValue=""
               value={selectedCategory}
-              onChange={(event) => setSelectedCategory(event.target.value)}
-            >
+              onChange={(event) => setSelectedCategory(event.target.value)}>
               <option value="">Escolha a categoria...</option>
               {categoryOptions.map((category) => (
                 <option key={category.ID} value={category.ID}>
@@ -51,8 +62,7 @@ const FindCarForm = () => {
         <Form.Select
               defaultValue=""
               value={selectedSubCategory}
-              onChange={(event) => setSelectedSubCategory(event.target.value)}
-            >
+              onChange={(event) => setSelectedSubCategory(event.target.value)}>
               <option value="">Escolha a subcategoria...</option>
               {SubcategoryOptions.map((Subcategory) => (
                 <option key={Subcategory.ID} value={Subcategory.ID}>
@@ -66,9 +76,9 @@ const FindCarForm = () => {
             <option value="" disabled selected>Combustivel</option>
             <option value="Gasolina">Gasolina</option>
             <option value="Gasoleo">Gasoleo</option>
-            <option value="Gasoleo">Hibrido</option>
-            <option value="Gasoleo">Elétrico</option>
-            <option value="Gasoleo">GPL</option>
+            <option value="Hibrido">Hibrido</option>
+            <option value="Eletrico">Elétrico</option>
+            <option value="GPL">GPL</option>
           </select>
         </FormGroup>
         <FormGroup className="form__group">
@@ -80,7 +90,7 @@ const FindCarForm = () => {
         </FormGroup>
 
         <FormGroup className="form__group">
-          <input type="month" placeholder="Ano" />
+        <DatePicker  onlyYearPicker range value={values} onChange={setValues} dateSeparator=" até "/>
         </FormGroup>
 
         <FormGroup className="form__group">
@@ -88,8 +98,8 @@ const FindCarForm = () => {
         </FormGroup>
         
         <FormGroup className="form__group">  
-          <input type="range" name="price" min="0" max="1000000"/><br></br>
-          <label for="price">Preço Máximo</label>
+          <input type="range" onChange={setValuePrice} value={valuePrice} name="price" min="0" max="500000" step={1000}/><br></br>
+          <label for="price">Preço Máximo: {valuePrice} €</label>
         </FormGroup>
 
         <FormGroup className="form__group">
