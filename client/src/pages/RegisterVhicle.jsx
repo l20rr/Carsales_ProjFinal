@@ -54,11 +54,7 @@ function RegisterVhicle() {
     fetchSubcategory();
     }, []);
     
-  
- 
 
- 
-  
   if(!authToken) return <Register />
   
   async function handleSubmit() {

@@ -19,6 +19,7 @@
     "mdb-react-ui-kit": "^6.0.0",
     "mdbreact": "^5.2.0",
     "npm": "^9.6.4",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.3",
     "react-cookie": "^4.1.1",
