@@ -18,12 +18,12 @@ const FindCarForm = () => {
   }, []);
 
   const [SubcategoryOptions, setSubCategoryOptions] = useState([]);
-  const [selectedSubCategory, setSelectedSubCategory] = useState("category.ID");
+  const [selectedSubCategory, setSelectedSubCategory] = useState([]);
   
 
   useEffect(() => {
     async function fetchSubcategories() {
-      const response = await api.get('subcat/subAll/')
+      const response = await api.get('subcat/subcat')
       setSubCategoryOptions(response.data);
     }
     fetchSubcategories();
@@ -54,9 +54,9 @@ const FindCarForm = () => {
               onChange={(event) => setSelectedSubCategory(event.target.value)}
             >
               <option value="">Escolha a subcategoria...</option>
-              {SubcategoryOptions.map((category) => (
-                <option key={category.ID} value={category.ID}>
-                  {category.SubcategoryName}
+              {SubcategoryOptions.map((Subcategory) => (
+                <option key={Subcategory.ID} value={Subcategory.ID}>
+                  {Subcategory.SubcategoryName}
                 </option>
               ))}
             </Form.Select>

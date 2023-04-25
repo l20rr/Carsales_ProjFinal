@@ -93,7 +93,7 @@ function UserProfile() {
     }
 
     const authToken = cookies.get("token");
-  /*
+
     const logout = () => {
       cookies.remove("token");
       cookies.remove('userId');
@@ -104,7 +104,7 @@ function UserProfile() {
       window.location.reload();
       window.location.href= '/home';
   }
-*/
+
 
 
 
@@ -117,7 +117,7 @@ function UserProfile() {
   useEffect(() => {
     const storedData = localStorage.getItem(`userData_${userId}`);
     if (storedData) {
-      const { locality, telem, birthdate } = JSON.parse(storedData);
+      const {locality, telem, birthdate } = JSON.parse(storedData);
       setLocality(locality);
       setTelem(telem);
       setBirthdate(birthdate);
@@ -151,22 +151,24 @@ function UserProfile() {
     try {
       const response = await api.delete(`/auth/Users/${id}`);
       if (response.status === 200) {
-        console.log('User deleted successfully');
+        console.log('User deleted successfully')
+        //logout(true)
         cookies.remove("token");
         cookies.remove('userId');
         cookies.remove('fullname');
         cookies.remove('email');
         cookies.remove('hashedPassword');
-        localStorage.clear();
-        window.location.reload();
-        window.location.href= '/home';
+        localStorage.clear();    
       } else {
         console.error('Failed to delete user');
       }
     } catch (error) {
       console.error('Error deleting user:', error);
     }
+    window.location.reload();
     window.location.href= '/home';
+
+ 
   }
 
     /*const handleDeleteAccount = (id) => {

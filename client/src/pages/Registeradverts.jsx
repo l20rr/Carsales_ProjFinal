@@ -1,4 +1,9 @@
-import React from "react";
+import React,{useState , useEffect}from 'react';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import api from '../services/api';
 import {
   MDBContainer,
   MDBBtnGroup,
@@ -13,9 +18,51 @@ import {
   MDBCardTitle,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
+import Cookies from 'universal-cookie';
+import { StreamChat } from 'stream-chat';
+import {useParams} from 'react-router-dom'
+import Register from "../components/Header/Register"
+
+const cookies = new Cookies();
+const authToken = cookies.get("token");
+
+const apiKey = 'cd4bcsnrt3ej';
+const client = StreamChat.getInstance(apiKey);
+
+if(authToken) {
+    client.connectUser({
+        id: cookies.get('userId'),
+        fullname: cookies.get('fullname'),
+        name: cookies.get('email'),
+        hashedPassword: cookies.get('hashedPassword'),
+    }, authToken)
+}
+
 export default function  Registeradverts() {
+
+
+  const clientID = cookies.get('userId');
+  const vehicleID = localStorage.getItem('vehicleID');
+
+  async function handleSubmitFree(e) {
+    e.preventDefault();
+
+    const data = {
+      vehicleID:vehicleID,
+      clientID: clientID
+    };
+    
+      
+      console.log(data);
+
+
+      
+
+  }
+
+
   return (
-    <div style={{backgroundColor:"#000d6b", height:1000}}>
+    <div style={{backgroundColor:"#000d6b", height:900}}>
       
       <MDBContainer className="py-5  mb-5 rounded bg-white">
       <div className="text-center">
