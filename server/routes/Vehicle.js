@@ -8,7 +8,7 @@ router.post("/addvehicle", async(req, res) => {
     const { price, description, image, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats } = req.body;
 
     try {
-        Vehicle.create({
+        const response = await  Vehicle.create({
             subcategoryID: subcategoryID,
             image: image,
             description: description,
@@ -22,7 +22,7 @@ router.post("/addvehicle", async(req, res) => {
             power: power,
             num_seats: num_seats
         });
-        res.status(201).json({ msg: "Register Berhasil" });
+        res.status(200).json(response)
     } catch (error) {
         res.status(400).json({ msg: error.message });
     }

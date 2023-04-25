@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import api from '../services/api';
-import queryString from 'query-string';
+//import queryString from 'query-string';
 import {
   MDBContainer,
   MDBBtnGroup,
@@ -43,24 +43,28 @@ export default function  Registeradverts() {
 
 
   const clientID = cookies.get('userId');
-  //const values = queryString.parse(props.location.search);
-//const vehicleID = values.id;
+  const {vehicleID} = useParams()
 
   async function handleSubmitFree(e) {
     e.preventDefault();
 
     const data = {
-      //vehicleID:vehicleID,
+      vehicleID:vehicleID,
       clientID: clientID
     };
     
       
-      console.log(data);
+     try {
+      api.post('/publi/publishad', data);
+  
+    
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao cadastrar!');
+    }
+  }     
 
-
-      
-
-  }
+  
 
 
   return (
@@ -98,6 +102,7 @@ export default function  Registeradverts() {
                 href="#"
                 color="warning"
                 className="d-block mb-2 mt-3 text-capitalize"
+                onClick={handleSubmitFree}
               >
                 Selecionar
               </MDBBtn>

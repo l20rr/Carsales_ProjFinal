@@ -36,7 +36,6 @@ function RegisterVhicle() {
   const [numSeats, setNumSeats] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
-
   const [selectedSubcategory, setSelectedSubcategory] = useState([]);
   
   const { subcategoryID } = useParams();
@@ -45,7 +44,7 @@ function RegisterVhicle() {
     async function fetchSubcategory() {
     try {
     const response = await api.get('subcat/subcat/' +subcategoryID);
-    //setSelectedSubcategory(response.data.ID)
+    setSelectedSubcategory(response.data.ID)
     console.log(response.data);
     } catch (error) {
     console.error(error);
@@ -54,7 +53,11 @@ function RegisterVhicle() {
     fetchSubcategory();
     }, []);
     
+  
+ 
 
+ 
+  
   if(!authToken) return <Register />
   
   async function handleSubmit() {
@@ -85,9 +88,10 @@ function RegisterVhicle() {
   ) {
     try {
       const response = await api.post('/vehicle/addvehicle', data);
-      const vehicleID = response.data.id;
-      localStorage.setItem('vehicleID', vehicleID);
-        window.location.href = '/Registeradverts';
+  
+       const vehicleID = response.data.id
+
+       window.location.href = `/Registeradverts/${vehicleID}`;
     
     } catch (error) {
       console.error(error);

@@ -47,7 +47,7 @@ const Routers = () => {
           <RegisterVhicle/> 
         </PrivateRoute>
     }/>
-       <Route path="/Registeradverts" element={<Registeradverts />} />
+       <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
        <Route path="/Registeradverts/RegisterAcout" element={<RegisterAcount />} />
        <Route path="/RegisterCli" element={<RegisterClient />} />
     </Routes>
