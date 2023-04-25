@@ -93,18 +93,18 @@ function UserProfile() {
     }
 
     const authToken = cookies.get("token");
-  
+  /*
     const logout = () => {
       cookies.remove("token");
       cookies.remove('userId');
       cookies.remove('fullname');
       cookies.remove('email');
       cookies.remove('hashedPassword');
-      
+      localStorage.clear();
       window.location.reload();
       window.location.href= '/home';
   }
-
+*/
 
 
 
@@ -152,7 +152,14 @@ function UserProfile() {
       const response = await api.delete(`/auth/Users/${id}`);
       if (response.status === 200) {
         console.log('User deleted successfully');
-        logout(true);
+        cookies.remove("token");
+        cookies.remove('userId');
+        cookies.remove('fullname');
+        cookies.remove('email');
+        cookies.remove('hashedPassword');
+        localStorage.clear();
+        window.location.reload();
+        window.location.href= '/home';
       } else {
         console.error('Failed to delete user');
       }
