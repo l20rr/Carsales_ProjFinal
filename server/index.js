@@ -7,6 +7,8 @@ const Category = db.category;
 
 
 
+
+
 const app = express();
 
 var corsOptions = {
@@ -26,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-//connect without erasing data
+//connect without erasing data!!!!!!!!!!
 
 /*
   db.sequelize.sync()
@@ -180,7 +182,14 @@ app.use("/cl", client_user);
 const publi = require("./routes/PublishAD");
 app.use("/publi", publi);
 
+const invoice = require('./routes/Invoice')
+app.use("/in", invoice)
 
+const payment  = require('./routes/Invoice')
+app.use("/pay", payment)
+
+const PurchaseAdvert = require('./routes/PurchaseAdvert')
+app.use("/padvert",PurchaseAdvert)
 // set port, listen for requests
 const PORT = 3000;
 app.listen(PORT, () => {

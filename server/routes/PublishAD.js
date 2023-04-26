@@ -55,7 +55,7 @@ router.get("/All", async(req, res) => {
 });
 
 router.get("/ListPublishPriceDesc", async(req, res) => {
-    const list = await db.publishAD.findAll({
+    const list = await PublishAD.findAll({
         order: [
             ['$vehicle.price$', 'DESC']
         ],
@@ -69,7 +69,7 @@ router.get("/ListPublishPriceDesc", async(req, res) => {
 });
 
 router.get("/ListPublishPriceAsc", async(req, res) => {
-    const list = await db.publishAD.findAll({
+    const list = await PublishAD.findAll({
         order: [
             ['$vehicle.price$', 'ASC']
         ],

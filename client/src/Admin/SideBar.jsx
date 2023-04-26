@@ -31,7 +31,7 @@ function SideBar() {
               <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
             </Link >
             <Link to="/analytics" >
-              <CDBSidebarMenuItem icon="chart-line">Analytics</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="chart-line">Faturas</CDBSidebarMenuItem>
             </Link >
             <Link to="/analytics" >
               <CDBSidebarMenuItem icon="comment">Chat</CDBSidebarMenuItem>

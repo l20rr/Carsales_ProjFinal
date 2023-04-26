@@ -62,20 +62,29 @@ export default function  Registeradverts() {
 
   async function handleSubmitPre(e) {
     e.preventDefault();
-
-    const data = {
-      vehicleID:vehicleID,
-      clientID: clientID
+  
+    const publishadData = {
+      vehicleID: vehicleID,
+      clientID: clientID,
+      // outros dados de publishad aqui
     };
-     try {
-      api.post('/publi/publishad', data);
+  
+    try {
+      // cria o publishad e espera a resposta
+      const publishad = await api.post('/publi/publishad', publishadData);
+  
+      // usa o ID do publishad criado para criar o purchase_advert
+      const purchaseAdvertData = {
+        publishadID: publishad.data.ID,
+        // outros dados de purchase_advert aqui
+      };
+       await api.post('/padvert/purchase_advert', purchaseAdvertData);
+  
     } catch (error) {
       console.error(error);
       alert('Erro ao cadastrar!');
     }
-  }     
-
-
+  }
 
   return (
     <div style={{backgroundColor:"#000d6b", height:900}}>
@@ -169,6 +178,7 @@ export default function  Registeradverts() {
                 href="#"
                 color="warning"
                 className="d-block mb-2 mt-3 text-capitalize"
+                onClick={handleSubmitPre}
               >
                 <Link to="RegisterAcout"  style={{textDecoration: 'none',color:'white'}}>
                     Selecionar
