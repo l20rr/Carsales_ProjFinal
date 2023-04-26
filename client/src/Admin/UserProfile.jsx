@@ -206,7 +206,7 @@ function UserProfile() {
       console.log(data);
 
       if(locality!==''&&telem!==''&&birthdate!==''){
-        const response = await api.put('/cl/userData',data);
+        const response = await api.post('/cl/userData',data);
 
         if(response.status===201){
           toggleModalChange();

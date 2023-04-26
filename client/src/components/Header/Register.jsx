@@ -1,4 +1,4 @@
-import React,{useState}from 'react';
+import React,{ useState, useEffect }from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import "../../styles/header.css";
@@ -12,6 +12,11 @@ import {
   MDBCheckbox
 }
 from 'mdb-react-ui-kit';
+
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script';
+
+const clientId = "574474093326-klu8iamgt3rupvjhnstb3o5jcju58h9l.apps.googleusercontent.com"
 
 const cookies = new Cookies();
 
@@ -61,7 +66,8 @@ const Register = () => {
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
     }
-    
+
+   
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' >
       <div className='mask gradient-custom-3 formulario'></div>
@@ -98,7 +104,7 @@ const Register = () => {
                 
                 onChange={handleChange}
                 />
-              
+
               {isSignup && (
                 <MDBInput wrapperClass='mb-4' htmlFor="confPassword" label='Repeat your password' size='lg'
                 required 
@@ -113,6 +119,7 @@ const Register = () => {
                 <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
               </div>
               <button className="btn-cadastrar"> {isSignup ? 'Registar' : 'Entrar'} </button>
+            
             </form>
           <div className='auth__form-container_fields-account'>
             <p>
