@@ -24,9 +24,9 @@ router.post('/signup', async(req, res) => {
 
         if (userExists) {
             return res.status(400).json({ message: 'User already exists' });
-          }
+        }
 
-        
+
 
         const serverClient = connect(api_key, api_secret, app_id);
 
@@ -52,7 +52,7 @@ router.post('/login', async(req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await Users.findOne({ where: { email },  attributes: ['id', 'email', 'fullname', 'password'] });
+        const user = await Users.findOne({ where: { email }, attributes: ['id', 'email', 'fullname', 'password'] });
 
         console.log(user);
 
@@ -65,7 +65,7 @@ router.post('/login', async(req, res) => {
             const client = StreamChat.getInstance(api_key, api_secret);
 
             const token = serverClient.createUserToken(String(user.id));
-            
+
 
             res.status(200).json({ token, fullname: user.fullname, email, userId: user.id });
         } else {
@@ -117,31 +117,31 @@ const client = StreamChat.getInstance(api_key, api_secret);
 
 router.delete("/Users/:id", async(req, res) => {
 
-  const id = req.params.id;
+    const id = req.params.id;
 
-  const user = await Users.findByPk(id);
-  if (!user) {
-    return res.status(404).send({
-      message: `Cannot find User with id=${id}.`
-    });
-  }
+    const user = await Users.findByPk(id);
+    if (!user) {
+        return res.status(404).send({
+            message: `Cannot find User with id=${id}.`
+        });
+    }
 
-  try {
-    const destroy = await client.deleteUser(id, {
-      delete_conversation_channels: true,
-      mark_messages_deleted: true,
-      hard_delete: true,
-    });
-    await Users.destroy({ where: { id: id } });
-    res.send({
-      message: "User was deleted successfully!"
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      message: "Could not delete User with id=" + id
-    });
-  }
+    try {
+        const destroy = await client.deleteUser(id, {
+            delete_conversation_channels: true,
+            mark_messages_deleted: true,
+            hard_delete: true,
+        });
+        await Users.destroy({ where: { id: id } });
+        res.send({
+            message: "User was deleted successfully!"
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            message: "Could not delete User with id=" + id
+        });
+    }
 });
 
 

@@ -55,29 +55,35 @@ router.get("/All", async(req, res) => {
 });
 
 router.get("/ListPublishPriceDesc", async(req, res) => {
-    const list = await db.publishAD.findAll({
+    const list = await db.vehicle.findAll({
+        attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
+        include: [{
+            model: db.client,
+            attributes: ['locality', 'telem'],
+            through: {
+                model: db.publishAD
+            }
+        }],
         order: [
-            ['$vehicle.price$', 'DESC']
-        ],
-        include: {
-            model: vehicle,
-            client
-
-        }
+            [db.vehicle, '$vehicle.price$', 'DESC']
+        ]
     });
     res.status(200).json(list);
 });
 
 router.get("/ListPublishPriceAsc", async(req, res) => {
-    const list = await db.publishAD.findAll({
+    const list = await db.vehicle.findAll({
+        attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
+        include: [{
+            model: db.client,
+            attributes: ['locality', 'telem'],
+            through: {
+                model: db.publishAD
+            }
+        }],
         order: [
             ['$vehicle.price$', 'ASC']
-        ],
-        include: {
-            model: vehicle,
-            client
-
-        }
+        ]
     });
     res.status(200).json(list);
 });
