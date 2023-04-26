@@ -11,6 +11,15 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
 
+        email: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                isEmail: true
+            }
+        },
+
         invoice_date: {
             type: Sequelize.DATEONLY,
             allowNull: false,
@@ -21,19 +30,23 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
 
-        CredCard: {
-            type: Sequelize.INTEGER,
+        Postal_code: {
+            type: Sequelize.STRING,
             allowNull: false,
         },
 
-
-        total: {
+        amount: {
             type: Sequelize.DECIMAL(4, 2),
             allowNull: false,
         },
 
         tax_amount: {
-            type: Sequelize.STRING,
+            type: Sequelize.DECIMAL(4, 2),
+            allowNull: false,
+        },
+
+        total: {
+            type: Sequelize.DECIMAL(4, 2),
             allowNull: false,
         },
 

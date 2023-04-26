@@ -11,13 +11,13 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
 
-        payment_date: {
-            type: Sequelize.DATEONLY,
+        CredCard: {
+            type: Sequelize.INTEGER,
             allowNull: false,
         },
 
-        amount: {
-            type: Sequelize.DECIMAL(4, 2),
+        CredCard_date: {
+            type: Sequelize.DATEONLY,
             allowNull: false,
         },
 
@@ -41,18 +41,7 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        Payment.hasMany(models.paypalpayment, {
-            foreignKey: 'paymentID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            hooks: true,
-        })
-        Payment.hasMany(models.Creditcardpayment, {
-            foreignKey: 'paymentID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            hooks: true,
-        })
+
     };
     return Payment
 }
