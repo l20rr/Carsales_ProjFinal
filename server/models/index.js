@@ -22,7 +22,7 @@ db.sequelize = sequelize;
 
 
 
-
+db.user = require("./User.model")(sequelize, Sequelize);
 db.category = require("./category")(sequelize, Sequelize);
 db.subcategory = require("./subcategory")(sequelize, Sequelize);
 db.vehicle = require("./vehicle")(sequelize, Sequelize);
@@ -32,10 +32,8 @@ db.favorites = require("./favorites")(sequelize, Sequelize);
 db.purchase_Advert = require("./purchase_Advert")(sequelize, Sequelize);
 db.invoice = require("./invoice")(sequelize, Sequelize);
 db.payment = require("./payment")(sequelize, Sequelize);
-db.paypalpayment = require("./paypalpayment")(sequelize, Sequelize);
-db.creditcardpayment = require("./creditcardpayment")(sequelize, Sequelize);
 db.priorityAdvert = require("./priorityAdvert")(sequelize, Sequelize);
-db.user = require("./User.model")(sequelize, Sequelize);
+
 
 
 module.exports = db;

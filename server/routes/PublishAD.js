@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require('../models');
+const { where } = require("sequelize");
 const PublishAD = db.publishAD;
 
 router.post("/publishad", async(req, res) => {
@@ -51,6 +52,34 @@ router.get("/All", async(req, res) => {
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }
+});
+
+router.get("/ListPublishPriceDesc", async(req, res) => {
+    const list = await db.publishAD.findAll({
+        order: [
+            ['$vehicle.price$', 'DESC']
+        ],
+        include: {
+            model: vehicle,
+            client
+
+        }
+    });
+    res.status(200).json(list);
+});
+
+router.get("/ListPublishPriceAsc", async(req, res) => {
+    const list = await db.publishAD.findAll({
+        order: [
+            ['$vehicle.price$', 'ASC']
+        ],
+        include: {
+            model: vehicle,
+            client
+
+        }
+    });
+    res.status(200).json(list);
 });
 
 

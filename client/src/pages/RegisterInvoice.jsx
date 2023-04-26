@@ -13,7 +13,7 @@ import {
   Col
 } from "react-bootstrap";
 
-function RegisterAcount() {
+function RegisterInvoice() {
   return (
     <div style={{ display:"flex",
         margin:"0 auto",
@@ -163,4 +163,4 @@ function RegisterAcount() {
   );
 }
 
-export default RegisterAcount;
+export default RegisterInvoice;

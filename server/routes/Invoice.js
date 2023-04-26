@@ -4,14 +4,18 @@ const db = require('../models');
 const Invoice = db.invoice;
 
 router.post("/invoice", async(req, res) => {
-    const { invoice_date, total, tax_amount, purchaseID } = req.body;
+    const { email, invoice_date, NIF, Postal_code, amount, tax_amount, total, purchaseID } = req.body;
 
     try {
         console.log(req.body);
         await Invoice.create({
+            email: email,
             invoice_date: invoice_date,
-            total: total,
+            NIF: NIF,
+            Postal_code: Postal_code,
+            amount: amount,
             tax_amount: tax_amount,
+            total: total,
             purchaseID: purchaseID
         });
 
@@ -47,7 +51,7 @@ router.get("/:id", async(req, res) => {
 router.get("/All", async(req, res) => {
     try {
         const response = await Invoice.findAll({
-            attributes: ['ID', 'invoice_date', 'total', 'tax_amount', 'purchaseID']
+            attributes: ['ID', 'email', 'invoice_date', 'NIF', 'Postal_code', 'amount', 'tax_amount', 'total', 'purchaseID']
         });
         res.status(200).json(response);
     } catch (error) {

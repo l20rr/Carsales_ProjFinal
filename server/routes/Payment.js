@@ -4,13 +4,13 @@ const db = require('../models');
 const Payment = db.payment;
 
 router.post("/payment", async(req, res) => {
-    const { payment_date, amount, invoiceID } = req.body;
+    const { CredCard, CredCard_date, invoiceID } = req.body;
 
     try {
         console.log(req.body);
         await Payment.create({
-            payment_date: payment_date,
-            amount: amount,
+            CredCard: CredCard,
+            CredCard_date: CredCard_date,
             invoiceID: invoiceID
         });
 
@@ -46,7 +46,7 @@ router.get("/:id", async(req, res) => {
 router.get("/All", async(req, res) => {
     try {
         const response = await Payment.findAll({
-            attributes: ['ID', 'payment_date', 'amount', 'invoiceID']
+            attributes: ['ID', 'CredCard', 'CredCard_date', 'invoiceID']
         });
         res.status(200).json(response);
     } catch (error) {
