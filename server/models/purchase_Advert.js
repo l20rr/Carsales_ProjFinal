@@ -24,6 +24,7 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         freezeTableName: true,
+        timestamps: false
     });
     purchase_Advert.associate = function(models) {
         purchase_Advert.belongsTo(models.PublishAD, {

@@ -32,6 +32,10 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
+        publishAD_date: {
+            type: Sequelize.DATEONLY,
+            allowNull: false,
+        },
     }, {
         freezeTableName: true,
         timestamps: false
