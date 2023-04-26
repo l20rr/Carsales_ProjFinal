@@ -4,13 +4,14 @@ const db = require('../models');
 const PriorityAdvert = db.priorityAdvert;
 
 router.post("/priorityadvert", async(req, res) => {
-    const { publishadID, invoiceID } = req.body;
+    const { publishadID, invoiceID, priorityAD_date } = req.body;
 
     try {
         console.log(req.body);
         await PriorityAdvert.create({
             publishadID: publishadID,
-            invoiceID: invoiceID
+            invoiceID: invoiceID,
+            priorityAD_date: priorityAD_date
         });
 
         res.status(201).json({ msg: "Register Berhasil" });
@@ -45,7 +46,7 @@ router.get("/:id", async(req, res) => {
 router.get("/All", async(req, res) => {
     try {
         const response = await PriorityAdvert.findAll({
-            attributes: ['ID', 'publishadID', 'invoiceID']
+            attributes: ['ID', 'publishadID', 'invoiceID', 'priorityAD_date']
         });
         res.status(200).json(response);
     } catch (error) {

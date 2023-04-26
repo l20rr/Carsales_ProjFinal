@@ -32,6 +32,10 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             },
         },
+        priorityAD_date: {
+            type: Sequelize.DATEONLY,
+            allowNull: false,
+        },
     }, {
         freezeTableName: true,
         timestamps: false

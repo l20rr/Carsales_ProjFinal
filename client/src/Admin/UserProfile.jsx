@@ -152,7 +152,6 @@ function UserProfile() {
       const response = await api.delete(`/auth/Users/${id}`);
       if (response.status === 200) {
         console.log('User deleted successfully')
-        //logout(true)
         cookies.remove("token");
         cookies.remove('userId');
         cookies.remove('fullname');
@@ -207,7 +206,7 @@ function UserProfile() {
       console.log(data);
 
       if(locality!==''&&telem!==''&&birthdate!==''){
-        const response = await api.put('/cl/userData',data);
+        const response = await api.post('/cl/userData',data);
 
         if(response.status===201){
           toggleModalChange();
