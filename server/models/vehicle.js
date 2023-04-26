@@ -1,5 +1,6 @@
 // import important parts of sequelize library
 const { Model, Sequelize } = require("sequelize");
+const { vehicle } = require(".");
 // import our database connection from config.js
 
 
@@ -90,14 +91,21 @@ module.exports = (sequelize, Sequelize) => {
 
     });
     Vehicle.associate = function(models) {
-        Vehicle.belongsTo(models.Subcategory, {
+        Vehicle.belongsTo(models.subcategory, {
             foreignKey: 'subcategoryID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
 
-        Vehicle.belongsToMany(models.Client, {
-            through: 'PublishAD',
+        Vehicle.belongsToMany(models.client, {
+            through: 'publishAD',
+            foreignKey: 'vehicleID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
+        })
+
+        Vehicle.hasMany(models.publishAD, {
             foreignKey: 'vehicleID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',

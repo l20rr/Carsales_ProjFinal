@@ -41,7 +41,7 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     PublishAD.associate = function(models) {
-        PublishAD.belongsTo(models.Client, {
+        PublishAD.belongsTo(models.client, {
             foreignKey: 'clientID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
@@ -51,7 +51,7 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        PublishAD.hasMany(models.Favorites, {
+        PublishAD.hasMany(models.favorites, {
             foreignKey: 'publishadID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
