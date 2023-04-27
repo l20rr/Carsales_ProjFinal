@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             references: {
                 model: "vehicle",
-                key: "ID",
+                key: "id",
             },
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
@@ -42,34 +42,38 @@ module.exports = (sequelize, Sequelize) => {
     });
     PublishAD.associate = function(models) {
         PublishAD.belongsTo(models.Client, {
-            foreignKey: 'clientID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-        })
-        PublishAD.belongsTo(models.vehicle, {
-            foreignKey: 'vehicleID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-        })
+          foreignKey: 'clientID',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+        });
+      
+        PublishAD.belongsTo(models.Vehicle, {
+          foreignKey: 'vehicleID',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+        });
+      
         PublishAD.hasMany(models.Favorites, {
-            foreignKey: 'publishadID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            hooks: true,
-        })
+          foreignKey: 'publishadID',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          hooks: true,
+        });
+      
         PublishAD.hasMany(models.purchase_Advert, {
-            foreignKey: 'publishadID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            hooks: true,
-        })
+          foreignKey: 'publishadID',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          hooks: true,
+        });
+      
         PublishAD.hasMany(models.priorityAdvert, {
-            foreignKey: 'publishadID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            hooks: true,
-        })
-    };
+          foreignKey: 'publishadID',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          hooks: true,
+        });
+      };
 
     return PublishAD;
 };

@@ -91,18 +91,26 @@ module.exports = (sequelize, Sequelize) => {
     });
     Vehicle.associate = function(models) {
         Vehicle.belongsTo(models.Subcategory, {
-            foreignKey: 'subcategoryID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-        })
-
+          foreignKey: 'subcategoryID',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+        });
+      
         Vehicle.belongsToMany(models.Client, {
-            through: 'PublishAD',
-            foreignKey: 'vehicleID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            hooks: true,
-        })
-    };
+          through: 'PublishAD',
+          foreignKey: 'vehicleID', 
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          hooks: true,
+        });
+      
+        Vehicle.hasMany(models.PublishAD, {
+          foreignKey: 'vehicleID',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          hooks: true,
+        });
+      };
+      
     return Vehicle;
 }
