@@ -1,5 +1,6 @@
 // import important parts of sequelize library
 const { Model, Sequelize } = require("sequelize");
+const { vehicle } = require(".");
 // import our database connection from config.js
 
 

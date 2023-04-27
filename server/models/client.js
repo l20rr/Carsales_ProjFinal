@@ -49,7 +49,7 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        Client.hasMany(models.Favorites, {
+        Client.hasMany(models.favorites, {
             foreignKey: 'clientID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
@@ -57,7 +57,14 @@ module.exports = (sequelize, Sequelize) => {
         })
 
         Client.belongsToMany(models.vehicle, {
-            through: 'PublishAD',
+            through: 'publishAD',
+            foreignKey: 'clientID',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            hooks: true,
+        })
+
+        Client.hasMany(models.publishAD, {
             foreignKey: 'clientID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',

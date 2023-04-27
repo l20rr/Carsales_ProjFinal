@@ -70,7 +70,7 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        Invoice.hasMany(models.Payment, {
+        Invoice.hasMany(models.payment, {
             foreignKey: 'invoiceID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',

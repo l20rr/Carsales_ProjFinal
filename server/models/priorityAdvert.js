@@ -46,7 +46,7 @@ module.exports = (sequelize, Sequelize) => {
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        priorityAdvert.belongsTo(models.PublishAD, {
+        priorityAdvert.belongsTo(models.publishAD, {
             foreignKey: 'publishadID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',

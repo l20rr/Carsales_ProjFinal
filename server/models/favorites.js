@@ -37,12 +37,12 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     Favorites.associate = function(models) {
-        Favorites.belongsTo(models.Client, {
+        Favorites.belongsTo(models.client, {
             foreignKey: 'clientID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        Favorites.belongsTo(models.PublishAD, {
+        Favorites.belongsTo(models.publishAD, {
             foreignKey: 'publishadID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
