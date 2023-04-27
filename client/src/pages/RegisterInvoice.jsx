@@ -33,58 +33,40 @@ if(authToken) {
     }, authToken)
 }
 function RegisterInvoice() {
-  const [email, setEmail] = useState(cookies.get('email'));
+  const [email, setEmail] = useState('');
   const [NIF, setNIF] = useState('');
-  const [invoice_date, setinvoice_date] = useState(moment().format('YYYY-MM-DD'));
-  const [Postal_code, setPostalCode] = useState('');
-  const [CredCard_date, setCredCard_date] = useState('');
-  const [CredCard, setCredCard] = useState('');
+  const [invoice_date, setInvoiceDate] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [creditCardDate, setCreditCardDate] = useState('');
+  const [creditCard, setCreditCard] = useState('');
 
-
-  if(!authToken) return <Register />
-  
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     const data = {
       email: email,
-      NIF: NIF,
       invoice_date: invoice_date,
-      Postal_code: Postal_code,
-      CredCard: CredCard,
+      Postal_code: postalCode,
+      NIF: NIF,
       amount: 40,
-      toal: 40 * 0.23,
-      tax_amount: 9.2,
+      tax_amount: 0.28,
+      total: 900,
       purchaseID: 1
     };
-  
+
     try {
       const response = await api.post('/in/invoice', data);
-  
-      const invoiceID = response.data.id;
-  
-      const paymentData = {
-        CredCard_date: CredCard_date,
-        CredCard: CredCard,
-        invoiceID: invoiceID
-      };
-  
-      await api.post('/pay/payment', paymentData);
-  
-     
+    
+      
+
+
     } catch (error) {
-      console.error(error);
-      alert('Erro ao cadastrar!');
+      console.log(error);
+      alert('Erro ao registrar fatura!');
     }
   }
 
-
-
   return (
-    <div style={{ display:"flex",
-        margin:"0 auto",
-    padding: 30,
-    height:800}}>
-   
-  
+    <div style={{ display: "flex", margin: "0 auto", padding: 30, height: 800 }}>
       <Container fluid>
         <Row>
           <Col md="8">
@@ -93,103 +75,87 @@ function RegisterInvoice() {
                 <Card.Title as="h4">Fatura</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <Row>
-                  <Col className="pl-1" md="4">
+                    <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>email</label>
+                        <label>Email</label>
                         <Form.Control
-                          id='email' 
+                          id='email'
                           value={email}
                           type='email'
                           required
-                         
-                          onChange={e => setEmail(e.target.value)} 
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                 
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Postal Code</label>
-                        <Form.Control
-                             id='PostalCode' 
-                             type='number'
-                             required
-                            value={Postal_code}
-                             onChange={e => setPostalCode(e.target.value)} 
+                          onChange={e => setEmail(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>Data de compra</label>
+                        <label>Código Postal</label>
                         <Form.Control
-                        value={invoice_date}
-                       
-                        onChange={e => setinvoice_date(moment().format('YYYY-MM-DD'))} 
-                        disabled
-                        
-                        type="text"
+                          id='postalCode'
+                          type='number'
+                          required
+                          value={postalCode}
+                          onChange={e => setPostalCode(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pl-1" md="4">
+                      <Form.Group>
+                        <label>Data da compra</label>
+                        <Form.Control
+                          value={invoice_date}
+                          onChange={e => setInvoiceDate(e.target.value)}
+                          type='date'
+                          required
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
-                 <hr/>
-                 <Row>
-                  <Col className="pl-1" md="4">
+                  <hr />
+                  <Row>
+                    <Col className="pl-1" md="4">
                       <Form.Group>
                         <label>NIF</label>
                         <Form.Control
-                             id='NIF' 
-                             value={NIF}
-                             type='number'
-                             required
-                            
-                             onChange={e => setNIF(e.target.value)} 
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                 
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Num Cartão</label>
-                        <Form.Control
-                             id='CredCard' 
-                             value={CredCard}
-                             type='number'
-                             required
-                            
-                             onChange={e => setCredCard(e.target.value)} 
+                          id='NIF'
+                          value={NIF}
+                          type='number'
+                          required
+                          onChange={e => setNIF(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>Data de validade</label>
+                        <label>NIF</label>
                         <Form.Control
-                            id='CredCard_date' 
-                           value={CredCard_date}
-                            type='date'
-                            required 
-                           
-                            onChange={e => setCredCard_date(e.target.value)} 
+                          id='creditCardDate'
+                          value={creditCardDate}
+                          type='date'
+                          required
+                          onChange={e => setCreditCardDate(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pl-1" md="4">
+                      <Form.Group>
+                        <label>NIF</label>
+                        <Form.Control
+                          id='creditCard'
+                          value={creditCard}
+                          type='number'
+                          required
+                          onChange={e => setCreditCard(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
-                  <br/>
-                  <Button
-                    className="btn-fill pull-right"
-                    type="submit"
-                    
-                  >
-                    voltar
-                  </Button>
+                  <br />
                   <Button
                     className="btn-fill pull-left"
-                    onClick={handleSubmit}
-                    
+                    type="submit"
                   >
                     Enviar
                   </Button>
@@ -198,10 +164,9 @@ function RegisterInvoice() {
               </Card.Body>
             </Card>
           </Col>
-         
         </Row>
       </Container>
-  </div>
+    </div>
   );
 }
 
