@@ -4,7 +4,7 @@ const db = require('../models');
 const Client = db.client;
 
 router.post("/userData", async(req, res) => {
-    const { locality, telem, birthdate, userId } = req.body;
+    const { locality, telem, birthdate, userID } = req.body;
 
     try {
         console.log(req.body);
@@ -12,7 +12,7 @@ router.post("/userData", async(req, res) => {
             locality: locality,
             telem: telem,
             birthdate: birthdate,
-            userId: userId
+            userID: userID
         });
 
         res.status(201).json({ msg: "Register Berhasil" });
