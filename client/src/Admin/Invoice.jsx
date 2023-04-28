@@ -35,7 +35,15 @@ if(authToken) {
 }
 const Invoice = () => {
 
-  
+  const [locality, setLocality] = useState(localStorage.getItem('locality'));
+  const userId = cookies.get('userId');
+  const userID = cookies.get('userID');
+  const email = cookies.get('email');
+  const fullname = cookies.get('fullname');
+
+ 
+
+
   return (
     <div style={{display: 'flex'}}>
     < SideBar/>
@@ -54,7 +62,7 @@ const Invoice = () => {
                       <Form.Group>
                         <label>Nome</label>
                         <Form.Control
-               
+                        value={fullname}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -62,7 +70,8 @@ const Invoice = () => {
                       <Form.Group>
                         <label>Endereço</label>
                         <Form.Control
-              
+                       type="text" 
+                       placeholder={locality}
                         ></Form.Control>
                       </Form.Group>
                     </Col>

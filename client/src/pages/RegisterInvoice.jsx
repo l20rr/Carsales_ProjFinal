@@ -45,8 +45,8 @@ function RegisterInvoice() {
     const data = {
       email: email,
       invoice_date: invoice_date,
-      Postal_code: postalCode,
       NIF: NIF,
+      Postal_code: postalCode,
       amount: 40,
       tax_amount: 0.28,
       total: 900,
@@ -55,15 +55,14 @@ function RegisterInvoice() {
 
     try {
       const response = await api.post('/in/invoice', data);
-    
-      
-
-
+      const invoiceID = response.data.id
+      cookies.set('invoiceID',invoiceID)
     } catch (error) {
       console.log(error);
       alert('Erro ao registrar fatura!');
     }
   }
+  
 
   return (
     <div style={{ display: "flex", margin: "0 auto", padding: 30, height: 800 }}>
@@ -127,30 +126,7 @@ function RegisterInvoice() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>NIF</label>
-                        <Form.Control
-                          id='creditCardDate'
-                          value={creditCardDate}
-                          type='date'
-                          required
-                          onChange={e => setCreditCardDate(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>NIF</label>
-                        <Form.Control
-                          id='creditCard'
-                          value={creditCard}
-                          type='number'
-                          required
-                          onChange={e => setCreditCard(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
+                    
                   </Row>
                   <br />
                   <Button
