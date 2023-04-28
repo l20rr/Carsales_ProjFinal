@@ -8,7 +8,7 @@ router.post("/addvehicle", async(req, res) => {
     const { price, description, image, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats } = req.body;
 
     try {
-        const response = await  Vehicle.create({
+        const response = await Vehicle.create({
             subcategoryID: subcategoryID,
             image: image,
             description: description,
@@ -110,6 +110,56 @@ router.delete("/vehicle/:id", async(req, res) => {
                 message: "Could not delete Vehicle with id=" + id
             });
         });
+});
+
+router.get("/listAno/:id", async(req, res) => {
+    const { QueryTypes } = require('sequelize');
+    const id = req.params.id;
+
+    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , 
+    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
+    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade'   
+    from vehicle 
+    inner join subcategory on vehicle.subcategoryID=subcategory.ID
+    inner join category on subcategory.categoryID=category.ID
+    inner join publishAD on  vehicle.ID=publishAD.vehicleID
+    inner join client on  publishAD.clientID=client.ID
+    where Year(vehicle.year)='${id}';`, { type: QueryTypes.SELECT });
+    res.status(200).json(response);
+});
+
+router.get("/listKms/:id-:id2", async(req, res) => {
+    const { QueryTypes } = require('sequelize');
+    const id = req.params.id;
+    const id2 = req.params.id2;
+
+    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , 
+    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
+    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade'   
+    from vehicle 
+    inner join subcategory on vehicle.subcategoryID=subcategory.ID
+    inner join category on subcategory.categoryID=category.ID
+    inner join publishAD on  vehicle.ID=publishAD.vehicleID
+    inner join client on  publishAD.clientID=client.ID
+    where vehicle.kms between '${id}' and '${id2}';`, { type: QueryTypes.SELECT });
+    res.status(200).json(response);
+});
+
+router.get("/listPower/:id-:id2", async(req, res) => {
+    const { QueryTypes } = require('sequelize');
+    const id = req.params.id;
+    const id2 = req.params.id2;
+
+    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , 
+    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
+    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade'   
+    from vehicle 
+    inner join subcategory on vehicle.subcategoryID=subcategory.ID
+    inner join category on subcategory.categoryID=category.ID
+    inner join publishAD on  vehicle.ID=publishAD.vehicleID
+    inner join client on  publishAD.clientID=client.ID
+    where vehicle.power between '${id}' and '${id2}';`, { type: QueryTypes.SELECT });
+    res.status(200).json(response);
 });
 
 
