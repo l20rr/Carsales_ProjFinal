@@ -40,6 +40,7 @@ const client = StreamChat.getInstance(apiKey);
 if(authToken) {
     client.connectUser({
         id: cookies.get('userId'),
+        userID: cookies.get('userID'),
         fullname: cookies.get('fullname'),
         name: cookies.get('email'),
         hashedPassword: cookies.get('hashedPassword'),
@@ -55,27 +56,28 @@ const RegisterClient = () => {
     const [birthdate , setBirthdate] = useState(null);
     const [selectedUserId , setSelectedUserId] = useState('');
     const userId = cookies.get('userId');
+    const userID = cookies.get('userID');
     
     useEffect(() => {
-      const storedData = localStorage.getItem(`userData_${userId}`);
+      const storedData = localStorage.getItem(`userData_${userID}`);
       if (storedData) {
         const { locality, telem, birthdate } = JSON.parse(storedData);
         setLocality(locality);
         setTelem(telem);
         setBirthdate(birthdate);
       }
-    }, [userId]);
+    }, [userID]);
   
     useEffect(() => {
       if (locality && telem && birthdate) {
-        localStorage.setItem(`userData_${userId}`, JSON.stringify({ locality, telem, birthdate }));
+        localStorage.setItem(`userData_${userID}`, JSON.stringify({ locality, telem, birthdate }));
       }
-    }, [locality, telem, birthdate, userId]);
+    }, [locality, telem, birthdate, userID]);
   
     useEffect(() => {
       async function fetchUserData() {
         try {
-          const response = await api.get('cl/client/'+userId);
+          const response = await api.get('cl/client/'+userID);
           setSelectedUserId(response.data.id)
           setLocality(response.data.locality);
           setTelem(response.data.telem);
@@ -86,7 +88,7 @@ const RegisterClient = () => {
         }
       }
       fetchUserData();
-    }, [userId]);
+    }, [userID]);
     if (!authToken) return <Register />;
 
     async function handleSubmit(e) {
@@ -96,7 +98,7 @@ const RegisterClient = () => {
         locality: locality,
         telem: telem,
         birthdate: birthdate,
-        userId: userId
+        userID: userID
       };
       
         
@@ -127,7 +129,7 @@ const RegisterClient = () => {
                 <MDBInput type="number" required value={telem} onChange={(e) => setTelem(e.target.value)} label="Telemóvel" />
                 <MDBInput type="date" required value={birthdate} onChange={(e) => setBirthdate(e.target.value)} label="Data de nascimento" />
                 <MDBInput type="text" required value={locality} onChange={(e) => setLocality(e.target.value)} label="Morada" />
-                <MDBInput type="hidden" value={userId} />
+                <MDBInput type="hidden" value={userID} />
       
                 <MDBModalFooter>
                 <MDBBtn color="danger" onClick={handleSubmit}>

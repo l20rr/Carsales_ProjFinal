@@ -6,6 +6,10 @@ const vehicle = db.vehicle;
 const client = db.client;
 const { where } = require("sequelize");
 
+const PublishAD = db.publishAD;
+const Vehicle = db.vehicle
+const Client = db.client
+
 
 router.post("/publishad", async(req, res) => {
     const { vehicleID, clientID, publishAD_date } = req.body;
@@ -24,39 +28,116 @@ router.post("/publishad", async(req, res) => {
     }
 
 });
+/*
+router.get("/publish/publish/publishad", async (req, res) => {
+    try {
+      const publishAds = await db.publishAD.findAll({
+        attributes: ["publishAD_date"],
+        include: [
+          {
+            model: db.client,
+            attributes: ["locality", "telem"]
+          },
+          {
+            model: db.vehicle,
+            attributes: [
+              "model",
+              "brand",
+              "kms",
+              "year",
+              "num_seats",
+              "price",
+              "description",
+              "image",
+              "subcategoryID",
+              "license",
+              "fuel",
+              "power"
+            ]
+          }
+        ]
+      });
+      res.status(200).json(publishAds);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  });
+*/
 
-router.get("/publish/:id", async(req, res) => {
-    const id = req.params.id;
-
-    PublishAD.findByPk(id)
-        .then(data => {
-            if (data) {
-                res.send(data);
-            } else {
-                console.log("error")
-                res.status(404).send({
-                    message: `Cannot find with id=${id}.`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving  with id=" + id
-            });
-        });
-});
-
-
-router.get("/All", async(req, res) => {
+router.get('/all', async(req, res) => {
     try {
         const response = await PublishAD.findAll({
             attributes: ['id', 'vehicleID', 'clientID', 'publishAD_date']
         });
         res.status(200).json(response);
+        const publishads = await PublishAD.findAll({
+            include: [{
+                    model: Vehicle,
+                    attributes: [
+                        'model',
+                        'brand',
+                        'kms',
+                        'year',
+                        'num_seats',
+                        'price',
+                        'description',
+                        'image',
+                        'subcategoryID',
+                        'license',
+                        'fuel',
+                        'power',
+                    ],
+                },
+                {
+                    model: Client,
+                    attributes: ['locality', 'telem'],
+                },
+            ],
+        });
+
+        res.status(200).json(publishads);
     } catch (error) {
-        res.status(500).json({ msg: error.message });
+        res.status(500).json({ error: error.message });
+    }
+}); *
+/
+
+router.get('/all', async(req, res) => {
+    try {
+        const publishads = await PublishAD.findAll({
+            include: [{
+                    model: Vehicle,
+                    attributes: [
+                        'model',
+                        'brand',
+                        'kms',
+                        'year',
+                        'num_seats',
+                        'price',
+                        'description',
+                        'image',
+                        'subcategoryID',
+                        'license',
+                        'fuel',
+                        'power',
+                    ],
+                },
+                {
+                    model: Client,
+                    attributes: ['locality', 'telem'],
+                },
+            ],
+        });
+
+        res.status(200).json(publishads);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 });
+
+
+
 
 router.get("/ListPricePublishDesc", async(req, res) => {
     const list = await PublishAD.findAll({
@@ -66,9 +147,13 @@ router.get("/ListPricePublishDesc", async(req, res) => {
                 client
             ]
         }],
+        order: [
+            [db.publishAD, 'publishAD_date', 'DESC']
+        ]
     });
     res.status(200).json(list);
 });
+
 
 router.get("/ListPricePublishAsc", async(req, res) => {
     const list = await vehicle.findAll({
@@ -99,7 +184,7 @@ router.get("/ListDatePublishDesc", async(req, res) => {
             }
         }],
         order: [
-            [db.publishAD, '$publishAD.publishAD_date$', 'DESC']
+            [db.publishAD, 'publishAD_date', 'DESC']
         ]
     });
     res.status(200).json(list);

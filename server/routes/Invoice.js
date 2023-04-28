@@ -8,7 +8,7 @@ router.post("/invoice", async(req, res) => {
 
     try {
         console.log(req.body);
-        await Invoice.create({
+       const response = await Invoice.create({
             email: email,
             invoice_date: invoice_date,
             NIF: NIF,
@@ -19,7 +19,7 @@ router.post("/invoice", async(req, res) => {
             purchaseID: purchaseID
         });
 
-        res.status(201).json({ msg: "Register Berhasil" });
+        res.status(200).json(response)
     } catch (error) {
         res.status(400).json({ msg: error.message });
     }

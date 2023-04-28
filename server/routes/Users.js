@@ -26,9 +26,10 @@ router.post('/signup', async(req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-
-
         const serverClient = connect(api_key, api_secret, app_id);
+        
+        
+        
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -39,18 +40,22 @@ router.post('/signup', async(req, res) => {
             password: hashedPassword
         });
 
-        const token = serverClient.createUserToken(String(user.id));
-        const userId = parseInt(user.id);
-        res.status(200).json({ token, userId, fullname, email, hashedPassword });
+        const userId = crypto.randomBytes(16).toString('hex');
+        const token = serverClient.createUserToken(userId);
+        const userID = parseInt(user.id);
+
+        res.status(200).json({ token, userId, userID, fullname, email, hashedPassword });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });
     }
 });
 
+const jwt = require('jsonwebtoken');
+
 router.post('/login', async(req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, token } = req.body;
 
         const user = await Users.findOne({ where: { email }, attributes: ['id', 'email', 'fullname', 'password'] });
 
@@ -64,10 +69,25 @@ router.post('/login', async(req, res) => {
             const serverClient = connect(api_key, api_secret, app_id);
             const client = StreamChat.getInstance(api_key, api_secret);
 
-            const token = serverClient.createUserToken(String(user.id));
+            
+            let userId;
+            if (token) {
+                try {
+                    const decodedToken = jwt.verify(token, api_secret);
+                    userId = decodedToken.user.id;
+                } catch (err) {
+                    console.error(err);
+                    return res.status(401).json({ message: 'Invalid token' });
+                }
+            } else {
+                userId = crypto.randomBytes(16).toString('hex');
+            }
 
+            const newToken = serverClient.createUserToken(userId);
 
-            res.status(200).json({ token, fullname: user.fullname, email, userId: user.id });
+            const userID = parseInt(user.id);
+
+            res.status(200).json({ token: newToken, fullname: user.fullname, email, userID, userId });
         } else {
             res.status(500).json({ message: 'Incorrect password' });
         }
