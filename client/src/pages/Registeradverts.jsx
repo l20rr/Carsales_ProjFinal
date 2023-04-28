@@ -47,28 +47,19 @@ export default function  Registeradverts() {
 
   async function handleSubmitFree(e) {
     e.preventDefault();
-  
+
     const data = {
-      vehicleID: vehicleID,
-      clientID: clientID
+      vehicleID:vehicleID,
+      clientID: clientID,
+      publishAD_date:"2000-12-12"
     };
-  
-    try {
-      const response = await api.post('/publi/publishad', data);
-      const publishadID = response.data.id;
-  
-      const purchaseData = {
-        publishadID: publishadID,
-       
-      };
-  
-      await api.post('/padvert/purchaseadvert', purchaseData);
-  
+     try {
+      api.post('/publi/publishad', data);
     } catch (error) {
       console.error(error);
       alert('Erro ao cadastrar!');
     }
-  }
+  }     
 
   async function handleSubmitPre(e) {
     e.preventDefault();
