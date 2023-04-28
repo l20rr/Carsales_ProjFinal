@@ -31,6 +31,12 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
+
+        admin: { 
+          type: Sequelize.BOOLEAN,
+          defaultValue: false,
+      }
+
     }, {
         freezeTableName: true
     });

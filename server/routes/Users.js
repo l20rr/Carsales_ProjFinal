@@ -103,7 +103,7 @@ router.post('/login', async(req, res) => {
 router.get("/AllUsers", async(req, res) => {
     try {
         const response = await Users.findAll({
-            attributes: ['id', 'fullname', 'email']
+            attributes: ['id', 'fullname', 'email', 'createdAt']
         });
         res.status(200).json(response);
     } catch (error) {

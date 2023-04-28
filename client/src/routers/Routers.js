@@ -17,41 +17,71 @@ import RegisterVhicle from "../pages/RegisterVhicle";
 import Register from "../components/Header/Register";
 import RegisterClient from "../components/Header/RegisterClient"
 import UserProfile from "../Admin/UserProfile"
+import AdminUsers from "../pages/AdminUsers";
 
 import Dash from "../Admin/Dash";
 
+import {useState, useEffect } from 'react';
+import api from '../services/api'
+import Cookies from "universal-cookie";
+import { AuthContext } from '../components/AuthContext'
 
 
 const Routers = () => {
+
+  const [authState, setAuthState] = useState({
+    email: "admin@gmail.com", 
+    id: 1, 
+    status:true
+  });
+
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/home" />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/cars" element={<CarListing />} />
-      <Route path="/cars/:slug" element={<CarDetails />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="*" element={<NotFound />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/chat" element={<ChatApi />} />
-      <Route path="/Admin" element={<Dash />} />
-      <Route path="/UserProfile" element={<UserProfile />} /> Ver ex com /:userID
-      <Route path="cars/registerCategory" element={
-        <PrivateRoute redirectTo="register">
-          <RegisterCat/> 
-        </PrivateRoute>
-    }/>
-  <Route path="cars/registerCategory/RegisterSub/:IDCategory" element={<RegisterSub />} />
-     <Route path="cars/registerCategory/RegisterSub/registerVhicle/:subcategoryID" element={
-        <PrivateRoute redirectTo="register">
-          <RegisterVhicle/> 
-        </PrivateRoute>
-    }/>
-       <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
-       <Route path="/Registeradverts/RegisterInvoice" element={<RegisterInvoice />} />
-       <Route path="/RegisterCli" element={<RegisterClient />} />
-    </Routes>
-  );
+    <AuthContext.Provider value={{authState, setAuthState}} >
+      <Routes>
+        { ! (authState.email==="admin@gmail.com") ? (
+          <>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/cars" element={<CarListing />} />
+            <Route path="/cars/:slug" element={<CarDetails />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/chat" element={<ChatApi />} />
+            <Route path="/Admin" element={<Dash />} />
+            <Route path="/UserProfile" element={<UserProfile />} />
+            <Route path="cars/registerCategory" element={
+              <PrivateRoute redirectTo="register">
+                <RegisterCat/> 
+              </PrivateRoute>
+            }/>
+            <Route path="cars/registerCategory/RegisterSub/:IDCategory" element={<RegisterSub />} />
+            <Route path="cars/registerCategory/RegisterSub/registerVhicle/:subcategoryID" element={
+              <PrivateRoute redirectTo="register">
+                <RegisterVhicle/> 
+              </PrivateRoute>
+            }/>
+            <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
+            <Route path="/Registeradverts/RegisterInvoice" element={<RegisterInvoice />} />
+            <Route path="/RegisterCli" element={<RegisterClient />} />
+          </>
+        ) : (
+          <>
+            <Route path="/AdminUsers" element={ 
+              <PrivateRoute redirectTo="/register">
+                {authState.email === "admin@gmail.com" ? (
+                  <AdminUsers />
+                ) : (
+                  <Navigate to="/" />
+                )}
+              </PrivateRoute>
+            } />
+          </>
+        )}
+      </Routes>
+    </AuthContext.Provider>
+  ); 
 };
 
 export default Routers;
