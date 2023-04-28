@@ -33,9 +33,11 @@ if(authToken) {
     }, authToken)
 }
 function RegisterInvoice() {
+  const {publishadID} = useParams()
+  const {purchaseID} = useParams()
   const [email, setEmail] = useState('');
   const [NIF, setNIF] = useState('');
-  const [invoice_date, setInvoiceDate] = useState('');
+  const [invoice_date, setInvoiceDate] = useState(moment().format('YYYY-MM-DD'));
   const [postalCode, setPostalCode] = useState('');
   const [creditCardDate, setCreditCardDate] = useState('');
   const [creditCard, setCreditCard] = useState('');
@@ -50,13 +52,27 @@ function RegisterInvoice() {
       amount: 40,
       tax_amount: 0.28,
       total: 900,
-      purchaseID: 1
+      purchaseID: purchaseID
     };
 
     try {
       const response = await api.post('/in/invoice', data);
       const invoiceID = response.data.id
       cookies.set('invoiceID',invoiceID)
+
+      const paymentdata = {
+        creditCard:creditCard,
+        creditCardDate:creditCardDate,
+        invoiceID:invoiceID,
+      }
+      const responsepay = await api.post('/pay/payment', paymentdata);
+
+      const priority = {
+        publishadID:publishadID,
+        invoiceID:invoiceID,
+        priorityAD_date:moment().format('YYYY-MM-DD'),
+      }
+      const responsepri = await api.post('/pri/priorityadvert', priority);
     } catch (error) {
       console.log(error);
       alert('Erro ao registrar fatura!');
@@ -105,8 +121,9 @@ function RegisterInvoice() {
                         <label>Data da compra</label>
                         <Form.Control
                           value={invoice_date}
-                          onChange={e => setInvoiceDate(e.target.value)}
+                          onChange={e => setInvoiceDate(moment().format('YYYY-MM-DD'))}
                           type='date'
+                          disabled
                           required
                         ></Form.Control>
                       </Form.Group>
@@ -127,6 +144,34 @@ function RegisterInvoice() {
                       </Form.Group>
                     </Col>
                     
+                    <Col className="pl-1" md="4">
+                      <Form.Group>
+                        <label>creditCardDate</label>
+                        <Form.Control
+                          id='creditCardDate'
+                          value={creditCardDate}
+                          type='date'
+                          required
+                          onChange={e => setCreditCardDate(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pl-1" md="4">
+                      <Form.Group>
+                        <label>creditCard</label>
+                        <Form.Control
+                          id='creditCard'
+                          value={creditCard}
+                          type='number'
+                          required
+                          onChange={e => setCreditCard(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+
+
+
+
                   </Row>
                   <br />
                   <Button

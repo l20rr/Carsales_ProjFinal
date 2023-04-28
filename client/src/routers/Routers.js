@@ -48,7 +48,7 @@ const Routers = () => {
         </PrivateRoute>
     }/>
        <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
-       <Route path="/Registeradverts/RegisterInvoice" element={<RegisterInvoice />} />
+       <Route path="/:publishadID/:purchaseID/RegisterInvoice" element={<RegisterInvoice />} />
        <Route path="/RegisterCli" element={<RegisterClient />} />
        <Route path="/Invoice" element={<Invoice />} />
     </Routes>

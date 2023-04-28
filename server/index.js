@@ -30,13 +30,13 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
-
+/*
 db.sequelize.sync()
     .then(() => {
         console.log("Synced db.");
-
+*/
         //connect by erasing data
-        /*
+        
         db.sequelize.sync({ force: true }).then(() => {
             console.log("Drop and re-sync db.");
         
@@ -156,7 +156,7 @@ db.sequelize.sync()
         }).catch(err => {
             console.log("Already exists");
             console.log(err)
-        });*/
+        });
     });
 
 
@@ -185,8 +185,11 @@ app.use("/publi", publi);
 const invoice = require('./routes/Invoice')
 app.use("/in", invoice)
 
-const payment = require('./routes/Invoice')
+const payment = require('./routes/Payment')
 app.use("/pay", payment)
+
+const priority = require('./routes/PriorityAdvert')
+app.use("/pri", priority)
 
 const PurchaseAdvert = require('./routes/PurchaseAdvert')
 app.use("/padvert", PurchaseAdvert)

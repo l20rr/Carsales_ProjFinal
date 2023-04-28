@@ -2,6 +2,7 @@ import React,{useState , useEffect}from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import moment from 'moment';
 import Row from 'react-bootstrap/Row';
 import api from '../services/api';
 //import queryString from 'query-string';
@@ -44,6 +45,8 @@ export default function  Registeradverts() {
 
   const clientID = cookies.get('userID');
   const {vehicleID} = useParams()
+ 
+
 
   async function handleSubmitFree(e) {
     e.preventDefault();
@@ -51,15 +54,48 @@ export default function  Registeradverts() {
     const data = {
       vehicleID:vehicleID,
       clientID: clientID,
-      publishAD_date:"2000-12-12"
+      publishAD_date: moment().format('YYYY-MM-DD'),
     };
      try {
       api.post('/publi/publishad', data);
+      window.location.href = '/cars'
     } catch (error) {
       console.error(error);
       alert('Erro ao cadastrar!');
     }
   }     
+  async function handleSubmitPree(e) {
+    e.preventDefault();
+  
+    try {
+      // Insere o registro de publishad
+      const publishAdData = {
+        vehicleID: vehicleID,
+        clientID: clientID,
+        publishAD_date: moment().format('YYYY-MM-DD'),
+      };
+      const publishAdResponse = await api.post('/publi/publishad', publishAdData);
+      const publishadID = publishAdResponse.data.id;
+   
+  
+      // Insere o registro de purchaseadvert com o ID do publishad
+      const purchaseAdData = {
+        publishadID: publishadID,
+     };
+      const purchaseAdResponse = await api.post('/padvert/purchaseadvert', purchaseAdData);
+  
+      // Exibe mensagem de sucesso
+      const purchaseID = purchaseAdResponse.data.ID
+      console.log(purchaseID)
+  
+      //window.location.href = `/${publishadID}/${purchaseID}/RegisterInvoice`
+    } catch (error) {
+      console.error(error);
+    
+    }
+  }
+
+
 
 
   return (
@@ -154,11 +190,11 @@ export default function  Registeradverts() {
                 href="#"
                 color="warning"
                 className="d-block mb-2 mt-3 text-capitalize"
-              
+              onClick={handleSubmitPree}
               >
-                <Link to="RegisterAcout"  style={{textDecoration: 'none',color:'white'}}>
+       
                     Selecionar
-              </Link> 
+             
               </MDBBtn>
             </MDBCardBody>
 

@@ -15,13 +15,13 @@ router.post("/publishad", async(req, res) => {
 
     try {
         console.log(req.body);
-        await PublishAD.create({
+       const response = await PublishAD.create({
             vehicleID: vehicleID,
             clientID: clientID,
             publishAD_date: publishAD_date
         });
 
-        res.status(201).json({ msg: "Register Berhasil" });
+        res.status(201).json(response);
     } catch (error) {
         res.status(400).json({ msg: error.message });
     }
