@@ -31,9 +31,9 @@ app.use(express.urlencoded({ extended: true }));
 //connect without erasing data!!!!!!!!!!
 
 /*
-  db.sequelize.sync()
-  .then(() => {
-    console.log("Synced db.");
+db.sequelize.sync()
+    .then(() => {
+        console.log("Synced db.");
 */
 //connect by erasing data
 
@@ -185,12 +185,12 @@ app.use("/publi", publi);
 const invoice = require('./routes/Invoice')
 app.use("/in", invoice)
 
-const payment  = require('./routes/Invoice')
+const payment = require('./routes/Invoice')
 app.use("/pay", payment)
 
 const PurchaseAdvert = require('./routes/PurchaseAdvert')
-app.use("/padvert",PurchaseAdvert)
-// set port, listen for requests
+app.use("/padvert", PurchaseAdvert)
+    // set port, listen for requests
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

@@ -44,6 +44,7 @@ const Header = () => {
   const logout = () => {
     cookies.remove("token");
     cookies.remove('userId');
+    cookies.remove('userID');
     cookies.remove('fullname');
     cookies.remove('email');
     cookies.remove('hashedPassword');

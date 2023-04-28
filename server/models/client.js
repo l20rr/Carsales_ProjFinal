@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        userId: {
+        userID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             unique: true,
@@ -59,6 +59,7 @@ module.exports = (sequelize, Sequelize) => {
         Client.belongsToMany(models.Vehicle, {
             through: 'publishAD',
             foreignKey: 'clientID',
+            otherKey: 'vehicleID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
             hooks: true,
