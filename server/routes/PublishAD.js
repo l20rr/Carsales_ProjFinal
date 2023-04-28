@@ -6,9 +6,6 @@ const vehicle = db.vehicle;
 const client = db.client;
 const { where } = require("sequelize");
 
-const PublishAD = db.publishAD;
-const Vehicle = db.vehicle
-const Client = db.client
 
 
 router.post("/publishad", async(req, res) => {
@@ -100,8 +97,8 @@ router.get('/all', async(req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-}); *
-/
+});
+
 
 router.get('/all', async(req, res) => {
     try {
