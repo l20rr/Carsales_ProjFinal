@@ -28,7 +28,7 @@ function SideBar() {
             <Link to="/UserProfile" >
               <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
             </Link >
-            <Link to="/Faturas" >
+            <Link to="/Invoice" >
               <CDBSidebarMenuItem icon="chart-line">Faturas</CDBSidebarMenuItem>
             </Link >
             <Link to="/analytics" >
