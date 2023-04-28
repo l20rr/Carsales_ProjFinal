@@ -27,12 +27,13 @@ router.post("/publishad", async(req, res) => {
     }
 
 });
-router.get("/listAll", async(req, res) => {
+
+router.get("/listAllAD", async(req, res) => {
     const { QueryTypes } = require('sequelize');
 
-    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , 
+    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
     vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
-    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade'   
+    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date  
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -41,118 +42,34 @@ router.get("/listAll", async(req, res) => {
     res.status(200).json(response);
 });
 
-router.get('/all', async(req, res) => {
-    try {
-        const response = await PublishAD.findAll({
-            attributes: ['id', 'vehicleID', 'clientID', 'publishAD_date']
-        });
-        res.status(200).json(response);
-        const publishads = await PublishAD.findAll({
-            include: [{
-                    model: Vehicle,
-                    attributes: [
-                        'model',
-                        'brand',
-                        'kms',
-                        'year',
-                        'num_seats',
-                        'price',
-                        'description',
-                        'image',
-                        'subcategoryID',
-                        'license',
-                        'fuel',
-                        'power',
-                    ],
-                },
-                {
-                    model: Client,
-                    attributes: ['locality', 'telem'],
-                },
-            ],
-        });
+router.get("/listAllADPriceASC", async(req, res) => {
+    const { QueryTypes } = require('sequelize');
 
-        res.status(200).json(publishads);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
+    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
+    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date   
+    from vehicle 
+    inner join subcategory on vehicle.subcategoryID=subcategory.ID
+    inner join category on subcategory.categoryID=category.ID
+    inner join publishAD on  vehicle.ID=publishAD.vehicleID
+    inner join client on  publishAD.clientID=client.ID
+    order by vehicle.price asc;`, { type: QueryTypes.SELECT });
+    res.status(200).json(response);
 });
 
-router.get("/ListPricePublishDesc", async(req, res) => {
-    const db = require('../models');
-    const Vehicle = db.vehicle
-    const Client = db.client
-    const list = await Vehicle.findAll({
-        attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
-        include: [{
-            model: vehicle,
-            include: [
-                client
-            ]
-        }],
-        order: [
-            [PublishAD, 'publishAD_date', 'DESC']
-        ]
-    });
-    res.status(200).json(list);
-});
+router.get("/listAllADDateASC", async(req, res) => {
+    const { QueryTypes } = require('sequelize');
 
-/*
-router.get("/ListPricePublishAsc", async(req, res) => {
-    const list = await vehicle.findAll({
-        attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
-        include: [{
-            model: client,
-            attributes: ['locality', 'telem'],
-            through: {
-                model: db.publishAD
-            }
-        }],
-        order: [
-            [db.vehicle, '$vehicle.price$', 'ASC']
-        ]
-    });
-    res.status(200).json(list);
+    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
+    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
+    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date   
+    from vehicle 
+    inner join subcategory on vehicle.subcategoryID=subcategory.ID
+    inner join category on subcategory.categoryID=category.ID
+    inner join publishAD on  vehicle.ID=publishAD.vehicleID
+    inner join client on  publishAD.clientID=client.ID
+    order by publishad.publishAD_date asc;`, { type: QueryTypes.SELECT });
+    res.status(200).json(response);
 });
-
-router.get("/ListDatePublishDesc", async(req, res) => {
-    const list = await vehicle.findAll({
-        attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
-        include: [{
-
-                      model: db.client,
-          
-                      attributes: ['locality', 'telem'],
-          
-                  }, {
-          
-                      model: db.publishAD
-          
-                  }],
-        order: [
-            [db.publishAD, 'publishAD_date', 'DESC']
-        ]
-    });
-    res.status(200).json(list);
-});
-
-router.get("/ListDatePublishAsc", async(req, res) => {
-    const list = await vehicle.findAll({
-        attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
-        include: [{
-            model: db.client,
-            attributes: ['locality', 'telem'],
-            through: {
-                model: db.publishAD,
-                attributes: ['publishAD_date']
-            }
-        }],
-        order: [
-            [db.publishAD, '$publishAD.publishAD_date$', 'ASC']
-        ]
-    });
-    res.status(200).json(list);
-});
-*/
 
 module.exports = router;
