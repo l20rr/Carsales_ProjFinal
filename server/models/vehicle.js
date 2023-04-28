@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             references: {
                 model: "subcategory",
-                key: "ID",
+                key: "id",
             },
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
@@ -100,6 +100,7 @@ module.exports = (sequelize, Sequelize) => {
         Vehicle.belongsToMany(models.client, {
             through: 'publishAD',
             foreignKey: 'vehicleID',
+            otherKey: 'clientID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
             hooks: true,
