@@ -6,6 +6,8 @@ const vehicle = db.vehicle;
 const client = db.client;
 const { where } = require("sequelize");
 
+const Vehicle = db.vehicle
+const Client = db.client
 
 
 router.post("/publishad", async(req, res) => {
@@ -77,7 +79,11 @@ router.get('/all', async(req, res) => {
 });
 
 router.get("/ListPricePublishDesc", async(req, res) => {
-    const list = await PublishAD.findAll({
+    const db = require('../models');
+    const Vehicle = db.vehicle
+    const Client = db.client
+    const list = await Vehicle.findAll({
+        attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
         include: [{
             model: vehicle,
             include: [
@@ -85,13 +91,13 @@ router.get("/ListPricePublishDesc", async(req, res) => {
             ]
         }],
         order: [
-            [db.publishAD, 'publishAD_date', 'DESC']
+            [PublishAD, 'publishAD_date', 'DESC']
         ]
     });
     res.status(200).json(list);
 });
 
-
+/*
 router.get("/ListPricePublishAsc", async(req, res) => {
     const list = await vehicle.findAll({
         attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
@@ -113,13 +119,16 @@ router.get("/ListDatePublishDesc", async(req, res) => {
     const list = await vehicle.findAll({
         attributes: ['model', 'brand', 'kms', 'year', 'num_seats', 'price', 'description', 'image', 'subcategoryID', 'license', 'fuel', 'power'],
         include: [{
-            model: db.client,
-            attributes: ['locality', 'telem'],
-            through: {
-                model: db.publishAD,
-                attributes: ['publishAD_date']
-            }
-        }],
+
+                      model: db.client,
+          
+                      attributes: ['locality', 'telem'],
+          
+                  }, {
+          
+                      model: db.publishAD
+          
+                  }],
         order: [
             [db.publishAD, 'publishAD_date', 'DESC']
         ]
@@ -144,6 +153,6 @@ router.get("/ListDatePublishAsc", async(req, res) => {
     });
     res.status(200).json(list);
 });
-
+*/
 
 module.exports = router;

@@ -19,7 +19,7 @@ import RegisterClient from "../components/Header/RegisterClient"
 import UserProfile from "../Admin/UserProfile"
 
 import Dash from "../Admin/Dash";
-
+import Invoice from "../Admin/Invoice";
 
 
 const Routers = () => {
@@ -50,6 +50,7 @@ const Routers = () => {
        <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
        <Route path="/Registeradverts/RegisterInvoice" element={<RegisterInvoice />} />
        <Route path="/RegisterCli" element={<RegisterClient />} />
+       <Route path="/Invoice" element={<Invoice />} />
     </Routes>
   );
 };
