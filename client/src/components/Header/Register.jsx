@@ -53,7 +53,7 @@ const Register = () => {
         cookies.set('fullname', fullname);
         cookies.set('userId', userId);
         cookies.set('userID', userID);
-        
+
         
 
         if(isSignup) {

@@ -103,7 +103,7 @@ router.post('/login', async(req, res) => {
 router.get("/AllUsers", async(req, res) => {
     try {
         const response = await Users.findAll({
-            attributes: ['id', 'fullname', 'email', 'createdAt']
+            attributes: ['id', 'fullname', 'email', 'admin', 'createdAt']
         });
         res.status(200).json(response);
     } catch (error) {
@@ -112,11 +112,11 @@ router.get("/AllUsers", async(req, res) => {
 });
 
 router.get("/Users/:id", async(req, res) => {
-    const id = req.params.id;
-    Users.findByPk(id)
+    const id = 1;
+    Users.findByPk(id, { attributes: ['email'] })
         .then(data => {
             if (data) {
-                res.send(data);
+                res.send(data.email);
             } else {
                 console.log("error")
                 res.status(404).send({
@@ -132,12 +132,23 @@ router.get("/Users/:id", async(req, res) => {
 });
 
 
-
 const client = StreamChat.getInstance(api_key, api_secret);
 
 router.delete("/Users/:id", async(req, res) => {
 
     const id = req.params.id;
+  if (id === '1') {
+    try {
+      const user = await Users.findByPk(id, { attributes: ['email'] });
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      return res.json({ email: user.email });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  } else {
 
     const user = await Users.findByPk(id);
     if (!user) {
@@ -162,7 +173,16 @@ router.delete("/Users/:id", async(req, res) => {
             message: "Could not delete User with id=" + id
         });
     }
+}});
+
+// This is not asynchronous cause it's important for security
+router.get('/validate', validateToken, (req, res) => {
+
+    res.json({
+        email: req.user.email, 
+        id: req.user.id, 
+        status: true,
+    });
+
 });
-
-
 module.exports = router;

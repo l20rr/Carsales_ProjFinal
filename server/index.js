@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 //connect without erasing data!!!!!!!!!!
 
 
-db.sequelize.sync()
+db.sequelize.sync({force:true})
     .then(() => {
         console.log("Synced db.");
 
@@ -293,7 +293,7 @@ db.sequelize.sync()
             console.log("Already exists");
             console.log(err)
         });*/
-    });
+    
 
 
 
