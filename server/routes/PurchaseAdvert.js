@@ -8,11 +8,11 @@ router.post("/purchaseadvert", async(req, res) => {
 
     try {
         console.log(req.body);
-        await PurchaseAdvert.create({
+       const response = await PurchaseAdvert.create({
             publishadID: publishadID
         });
 
-        res.status(201).json({ msg: "Register Berhasil" });
+        res.status(201).json(response);
     } catch (error) {
         res.status(400).json({ msg: error.message });
     }

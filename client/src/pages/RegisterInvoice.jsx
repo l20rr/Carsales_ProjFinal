@@ -33,9 +33,11 @@ if(authToken) {
     }, authToken)
 }
 function RegisterInvoice() {
+  const {publishadID} = useParams()
+  const {purchaseID} = useParams()
   const [email, setEmail] = useState('');
   const [NIF, setNIF] = useState('');
-  const [invoice_date, setInvoiceDate] = useState('');
+  const [invoice_date, setInvoiceDate] = useState(moment().format('YYYY-MM-DD'));
   const [postalCode, setPostalCode] = useState('');
   const [creditCardDate, setCreditCardDate] = useState('');
   const [creditCard, setCreditCard] = useState('');
@@ -45,25 +47,42 @@ function RegisterInvoice() {
     const data = {
       email: email,
       invoice_date: invoice_date,
-      Postal_code: postalCode,
       NIF: NIF,
+      Postal_code: postalCode,
       amount: 40,
       tax_amount: 0.28,
       total: 900,
-      purchaseID: 1
+      purchaseID: purchaseID
     };
 
     try {
       const response = await api.post('/in/invoice', data);
-    
-      
+      const invoiceID = response.data.ID
+     console.log("invoice:"+invoiceID)
 
+      const paymentdata = {
+        CredCard:creditCard,
+        CredCard_date:creditCardDate,
+        invoiceID:invoiceID,
+      }
+      const responsepay = await api.post('/pay/payment', paymentdata);
+      console.log(responsepay)
+
+      const priority = {
+        publishadID:publishadID,
+        invoiceID:invoiceID,
+        priorityAD_date:moment().format('YYYY-MM-DD'),
+      }
+      const responsepri = await api.post('/pri/priorityadvert', priority);
+
+      window.location.href = '/home'
 
     } catch (error) {
       console.log(error);
       alert('Erro ao registrar fatura!');
     }
   }
+  
 
   return (
     <div style={{ display: "flex", margin: "0 auto", padding: 30, height: 800 }}>
@@ -106,8 +125,9 @@ function RegisterInvoice() {
                         <label>Data da compra</label>
                         <Form.Control
                           value={invoice_date}
-                          onChange={e => setInvoiceDate(e.target.value)}
+                          onChange={e => setInvoiceDate(moment().format('YYYY-MM-DD'))}
                           type='date'
+                          disabled
                           required
                         ></Form.Control>
                       </Form.Group>
@@ -127,9 +147,10 @@ function RegisterInvoice() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
+                    
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>NIF</label>
+                        <label>creditCardDate</label>
                         <Form.Control
                           id='creditCardDate'
                           value={creditCardDate}
@@ -141,7 +162,7 @@ function RegisterInvoice() {
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>NIF</label>
+                        <label>creditCard</label>
                         <Form.Control
                           id='creditCard'
                           value={creditCard}
@@ -151,6 +172,10 @@ function RegisterInvoice() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
+
+
+
+
                   </Row>
                   <br />
                   <Button

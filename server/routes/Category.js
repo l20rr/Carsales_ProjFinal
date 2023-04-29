@@ -36,12 +36,12 @@ router.get("/Cat/:id", async(req, res) => {
         });
 });
 
-router.get("/listsubcat/:id", async(req, res) => {
+router.get("/listBYcat/:id", async(req, res) => {
     const { QueryTypes } = require('sequelize');
     const id = req.params.id;
 
     const response = await db.sequelize.query(`Select category.categoryName, subcategory.SubcategoryName 
-    from category inner join subcategory on category.id=subcategory.categoryID where subcategory.ID=${id}`, { type: QueryTypes.SELECT });
+    from category inner join subcategory on category.id=subcategory.categoryID where category.ID=${id}`, { type: QueryTypes.SELECT });
     res.status(200).json(response);
 });
 

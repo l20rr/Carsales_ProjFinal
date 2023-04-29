@@ -59,7 +59,6 @@ module.exports = (sequelize, Sequelize) => {
         Client.belongsToMany(models.Vehicle, {
             through: 'publishAD',
             foreignKey: 'clientID',
-            otherKey: 'vehicleID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
             hooks: true,

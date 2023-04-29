@@ -321,8 +321,11 @@ app.use("/publi", publi);
 const invoice = require('./routes/Invoice')
 app.use("/in", invoice)
 
-const payment = require('./routes/Invoice')
+const payment = require('./routes/Payment')
 app.use("/pay", payment)
+
+const priority = require('./routes/PriorityAdvert')
+app.use("/pri", priority)
 
 const PurchaseAdvert = require('./routes/PurchaseAdvert')
 app.use("/padvert", PurchaseAdvert)
