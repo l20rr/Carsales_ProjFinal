@@ -40,12 +40,12 @@ let navLinks = [
 if (email === "admin@gmail.com") {
   navLinks = [
     {
-      path: "/users",
-      display: "Users",
+      path: "/AdminUsers",
+      display: "Utilizadores",
     },
     {
       path: "/anuncios",
-      display: "Anuncios",
+      display: "Anúncios",
     },
   ];
 }
