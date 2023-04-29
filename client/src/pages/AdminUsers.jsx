@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api'
 import Table from 'react-bootstrap/Table';
-
+import Cookies from 'universal-cookie';
+import Home from './Home';
+const cookies = new Cookies();
 function AdminUsers() {
   const [users, setUsers] = useState([]);
+
+  const email = cookies.get('email')
 
   useEffect(() => {
     async function fetchUsers() {
@@ -13,6 +17,7 @@ function AdminUsers() {
     fetchUsers();
   }, []);
 
+  if (email != 'admin@gmail.com') return <Home />;
   return (
     <div>
       <h1>Admin Page</h1>

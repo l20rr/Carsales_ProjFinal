@@ -175,14 +175,4 @@ router.delete("/Users/:id", async(req, res) => {
     }
 }});
 
-// This is not asynchronous cause it's important for security
-router.get('/validate', validateToken, (req, res) => {
-
-    res.json({
-        email: req.user.email, 
-        id: req.user.id, 
-        status: true,
-    });
-
-});
 module.exports = router;
