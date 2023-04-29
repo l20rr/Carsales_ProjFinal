@@ -17,14 +17,20 @@ import RegisterVhicle from "../pages/RegisterVhicle";
 import Register from "../components/Header/Register";
 import RegisterClient from "../components/Header/RegisterClient"
 import UserProfile from "../Admin/UserProfile"
+import AdminUsers from "../pages/AdminUsers";
 
 import Dash from "../Admin/Dash";
 import Invoice from "../Admin/Invoice";
+import {useState, useEffect } from 'react';
+import api from '../services/api'
+import Cookies from "universal-cookie";
+import { AuthContext } from '../components/AuthContext'
 
 
 const Routers = () => {
   return (
     <Routes>
+      <Route path="/AdminUsers" element={<AdminUsers />} />
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />} />
       <Route path="/about" element={<About />} />

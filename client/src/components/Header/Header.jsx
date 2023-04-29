@@ -14,7 +14,11 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
 
-const navLinks = [
+
+const cookies = new Cookies();
+const email = cookies.get('email');
+
+let navLinks = [
   {
     path: "/home",
     display: "Home",
@@ -32,6 +36,19 @@ const navLinks = [
     display: "Contact",
   },
 ];
+
+if (email === "admin@gmail.com") {
+  navLinks = [
+    {
+      path: "/AdminUsers",
+      display: "Utilizadores",
+    },
+    {
+      path: "/anuncios",
+      display: "Anúncios",
+    },
+  ];
+}
 
 
 const Header = () => {

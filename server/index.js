@@ -4,6 +4,8 @@ const { and } = require("sequelize");
 const db = require("./models");
 const subcategory = db.subcategory;
 const Category = db.category;
+const bcrypt = require('bcrypt');
+const User = db.user;
 
 
 
@@ -30,17 +32,25 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
-
-db.sequelize.sync()
-    .then(() => {
-        console.log("Synced db.");
-
-        //connect by erasing data
-        /*
-        db.sequelize.sync({ force: true }).then(() => {
-            console.log("Drop and re-sync db.");
         
+db.sequelize.sync({ }).then(() => {
+    console.log("Drop and re-sync db.");
+
+})
         // create the admin, if they do not already exist
+        const password="1234";
+        bcrypt.hash(password, 10).then((hash)=>{
+            User.create({
+                fullname: "admin",
+                email: 'admin@gmail.com',
+                password: hash,
+                name: "admin",
+                admin: true,
+            }).catch(err => {
+                console.log("Already exists");
+            });
+        });
+        
         Category.create({
             categoryName: "Carro"
         }).catch(err => {
@@ -156,8 +166,8 @@ db.sequelize.sync()
         }).catch(err => {
             console.log("Already exists");
             console.log(err)
-        });*/
-    });
+        });
+    
 
 
 

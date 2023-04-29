@@ -86,9 +86,9 @@ export default function  Registeradverts() {
   
       // Exibe mensagem de sucesso
       const purchaseID = purchaseAdResponse.data.ID
-      console.log(purchaseID)
+      
   
-      //window.location.href = `/${publishadID}/${purchaseID}/RegisterInvoice`
+      window.location.href = `/${publishadID}/${purchaseID}/RegisterInvoice`
     } catch (error) {
       console.error(error);
     

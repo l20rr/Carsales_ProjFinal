@@ -57,15 +57,16 @@ function RegisterInvoice() {
 
     try {
       const response = await api.post('/in/invoice', data);
-      const invoiceID = response.data.id
-      cookies.set('invoiceID',invoiceID)
+      const invoiceID = response.data.ID
+     console.log("invoice:"+invoiceID)
 
       const paymentdata = {
-        creditCard:creditCard,
-        creditCardDate:creditCardDate,
+        CredCard:creditCard,
+        CredCard_date:creditCardDate,
         invoiceID:invoiceID,
       }
       const responsepay = await api.post('/pay/payment', paymentdata);
+      console.log(responsepay)
 
       const priority = {
         publishadID:publishadID,
@@ -73,6 +74,9 @@ function RegisterInvoice() {
         priorityAD_date:moment().format('YYYY-MM-DD'),
       }
       const responsepri = await api.post('/pri/priorityadvert', priority);
+
+      window.location.href = '/home'
+
     } catch (error) {
       console.log(error);
       alert('Erro ao registrar fatura!');
