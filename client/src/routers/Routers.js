@@ -20,7 +20,7 @@ import UserProfile from "../Admin/UserProfile"
 import AdminUsers from "../pages/AdminUsers";
 
 import Dash from "../Admin/Dash";
-
+import Invoice from "../Admin/Invoice";
 import {useState, useEffect } from 'react';
 import api from '../services/api'
 import Cookies from "universal-cookie";
@@ -65,6 +65,7 @@ const Routers = () => {
             <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
             <Route path="/Registeradverts/RegisterInvoice" element={<RegisterInvoice />} />
             <Route path="/RegisterCli" element={<RegisterClient />} />
+       <Route path="/Invoice" element={<Invoice />} />
           </>
         ) : (
           <>

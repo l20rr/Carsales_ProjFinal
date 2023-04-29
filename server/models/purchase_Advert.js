@@ -27,12 +27,12 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     purchase_Advert.associate = function(models) {
-        purchase_Advert.belongsTo(models.publishAD, {
+        purchase_Advert.belongsTo(models.PublishAD, {
             foreignKey: 'publishadID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
         })
-        purchase_Advert.hasMany(models.invoice, {
+        purchase_Advert.hasMany(models.Invoice, {
             foreignKey: 'invoiceID',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',

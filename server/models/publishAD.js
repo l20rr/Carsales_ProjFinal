@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             references: {
                 model: "client",
-                key: "ID",
+                key: "id",
             },
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',

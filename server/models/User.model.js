@@ -2,45 +2,44 @@
 //const { User } = require("../../models");
 const { INTEGER } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define("User", {
-        id: {
-            type: Sequelize.INTEGER,
-            autoIncrement: true,
-            primaryKey: true
-        },
-        fullname: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                len: [3, 100]
-            }
-        },
-        email: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                isEmail: true
-            }
-        },
-        password: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
+  const User = sequelize.define("User", {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    fullname: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+            len: [3, 100]
+        }
+    },
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+            isEmail: true
+        }
+    },
+    password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
+    },
 
         admin: { 
           type: Sequelize.BOOLEAN,
           defaultValue: false,
       }
 
-    }, {
-        freezeTableName: true
-    });
-
+}, {
+    freezeTableName: true
+});
     User.associate = function(models) {
         User.hasMany(models.client, {
             foreignKey: 'userId',
