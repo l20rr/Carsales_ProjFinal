@@ -2,12 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require('../models');
 const PublishAD = db.publishAD;
-const vehicle = db.vehicle;
-const client = db.client;
 const { where } = require("sequelize");
-
-const Vehicle = db.vehicle
-const Client = db.client
 
 
 router.post("/publishad", async(req, res) => {
@@ -15,7 +10,7 @@ router.post("/publishad", async(req, res) => {
 
     try {
         console.log(req.body);
-       const response = await PublishAD.create({
+        const response = await PublishAD.create({
             vehicleID: vehicleID,
             clientID: clientID,
             publishAD_date: publishAD_date
