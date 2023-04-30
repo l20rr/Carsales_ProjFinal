@@ -4,12 +4,12 @@ import { Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
 
-const CarItem = () => {
+const CarItemPremium = () => {
   const [Ads , setAds] = useState([])
 
   useEffect(() => {
     async function fetchAds() {
-      const response = await api.get('/publi/listAllAD');
+      const response = await api.get('/publi/listAllPriority');
       setAds(response.data);
     }
     fetchAds();
@@ -55,4 +55,4 @@ const CarItem = () => {
   );
 };
 
-export default CarItem;
+export default CarItemPremium;

@@ -21,6 +21,7 @@ import AdminUsers from "../pages/AdminUsers";
 
 import Dash from "../Admin/Dash";
 import Invoice from "../Admin/Invoice";
+import Anuncios from "../pages/Anuncios";
 import {useState, useEffect } from 'react';
 import api from '../services/api'
 import Cookies from "universal-cookie";
@@ -31,6 +32,7 @@ const Routers = () => {
   return (
     <Routes>
       <Route path="/AdminUsers" element={<AdminUsers />} />
+      <Route path="/anuncios" element={<Anuncios/>} />
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />} />
       <Route path="/about" element={<About />} />
@@ -41,7 +43,7 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/chat" element={<ChatApi />} />
       <Route path="/Admin" element={<Dash />} />
-      <Route path="/UserProfile" element={<UserProfile />} /> Ver ex com /:userID
+      <Route path="/UserProfile" element={<UserProfile />} /> 
       <Route path="cars/registerCategory" element={
         <PrivateRoute redirectTo="register">
           <RegisterCat/> 

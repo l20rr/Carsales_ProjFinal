@@ -149,9 +149,9 @@ function UserProfile() {
   }, [userID]);
 
 
-  async function handleDeleteAccount(id) {
+  async function handleDeleteAccount() {
     try {
-      const response = await api.delete(`/auth/Users/${id}`);
+      const response = await api.delete(`/auth/Users/2`  );
       if (response.status === 200) {
         console.log('User deleted successfully')
         cookies.remove("token");
@@ -167,7 +167,7 @@ function UserProfile() {
     } catch (error) {
       console.error('Error deleting user:', error);
     }
-    window.location.reload();
+    
     window.location.href= '/home';
 
  
@@ -297,7 +297,7 @@ function UserProfile() {
         </MDBModalBody>
         <MDBModalFooter>
           <MDBBtn color="secondary" onClick={() => setDeleteConfirmationModalOpen(false)}>Cancelar</MDBBtn>
-          <MDBBtn class='deleteButton' color="danger" onClick={() => handleDeleteAccount(userId)}>Apagar</MDBBtn>
+          <MDBBtn class='deleteButton' color="danger" onClick={() => handleDeleteAccount()}>Apagar</MDBBtn>
         </MDBModalFooter>
       </MDBModal>
     </form>

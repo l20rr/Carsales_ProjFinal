@@ -13,6 +13,7 @@ import BecomeDriverSection from "../components/UI/BecomeDriverSection";
 import Testimonial from "../components/UI/Testimonial";
 
 import BlogList from "../components/UI/BlogList";
+import CarItemPremium from "../components/UI/CarItemPremium"
 
 const Home = () => {
   return (
@@ -48,9 +49,9 @@ const Home = () => {
               <h2 className="section__title">Melhores ofertas</h2>
             </Col>
 
-            {carData.slice(0, 6).map((item) => (
-              <CarItem item={item} key={item.id} />
-            ))}
+           
+              <CarItemPremium/>
+           
           </Row>
         </Container>
       </section>

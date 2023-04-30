@@ -37,6 +37,29 @@ router.get("/listAllAD", async(req, res) => {
     res.status(200).json(response);
 });
 
+ 
+router.get("/listAD/:id", async(req, res) => {
+    const { QueryTypes } = require('sequelize');
+  
+    const response = await db.sequelize.query(`
+      SELECT vehicle.image, category.categoryName, subcategory.SubcategoryName, vehicle.price,
+        vehicle.license, vehicle.year, vehicle.kms, vehicle.brand AS 'Marca', vehicle.model AS 'Modelo',
+        vehicle.fuel AS 'Combustivel', vehicle.power, vehicle.num_seats AS 'n. lugares',
+        client.locality AS 'Localidade', publishad.publishAD_date
+      FROM vehicle 
+      INNER JOIN subcategory ON vehicle.subcategoryID = subcategory.ID
+      INNER JOIN category ON subcategory.categoryID = category.ID
+      INNER JOIN publishAD ON vehicle.ID = publishAD.vehicleID
+      INNER JOIN client ON publishAD.clientID = client.ID
+      WHERE vehicle.ID = :id;
+    `, {
+      type: QueryTypes.SELECT,
+      replacements: { id: req.params.id } // pass the ID from the request parameters
+    });
+  
+    res.status(200).json(response);
+  });
+
 router.get("/listAllADPriceASC", async(req, res) => {
     const { QueryTypes } = require('sequelize');
 

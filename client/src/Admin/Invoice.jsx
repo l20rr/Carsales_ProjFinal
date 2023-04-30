@@ -1,5 +1,5 @@
 import  SideBar from "./SideBar";
-import React,{useState,useEffect}from 'react';
+import React,{useState , useEffect}from 'react';
 import api from '../services/api';
 // react-bootstrap components
 import {
@@ -35,7 +35,7 @@ if(authToken) {
 }
 const Invoice = () => {
 
-  const [locality, setLocality] = useState(localStorage.getItem('locality'));
+  
   const userId = cookies.get('userId');
   const userID = cookies.get('userID');
   const fullname = cookies.get('fullname');
@@ -48,6 +48,8 @@ const Invoice = () => {
   const [total,setTotal] = useState('')
   const [creditCardDate, setCreditCardDate] = useState('');
   const [creditCard, setCreditCard] = useState('');
+  const [locality, setLocality] = useState('');
+  const [telem , setTelem] = useState('');
 
   useEffect(() => {
     api.get(`/in/${invoiceID}`)
@@ -69,14 +71,27 @@ const Invoice = () => {
     api.get(`/pay/${invoiceID}`)
       .then(response => {
         const CardData = response.data;
-        setCreditCardDate(CardData.creditCardDate)
-        setCreditCard(CardData.creditCard)
+        setCreditCardDate(CardData.CredCard_date)
+        setCreditCard(CardData.CredCard)
+        console.log(CardData)
       })
       .catch(error => {
         console.log(error);
       });
   }, [invoiceID]);
 
+  useEffect(() => {
+    api.get(`/cl/client/${userID}`)
+      .then(response => {
+        const CliData = response.data;
+        setTelem(CliData.telem)
+        setLocality(CliData.locality)
+        console.log(CliData)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div style={{display: 'flex'}}>
@@ -106,7 +121,7 @@ const Invoice = () => {
                         <label>Endereço</label>
                         <Form.Control
                        type="text" 
-                       
+                       value={locality}
                        disabled
                         ></Form.Control>
                       </Form.Group>
@@ -115,7 +130,8 @@ const Invoice = () => {
                       <Form.Group>
                         <label>tel</label>
                         <Form.Control
-                      
+                        type="number"
+                      value={telem}
                       disabled
                         ></Form.Control>
                       </Form.Group>

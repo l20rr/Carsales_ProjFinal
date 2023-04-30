@@ -37,7 +37,7 @@ app.delete('/auth/Users/:id', (req, res) => {
 
 //connect without erasing data!!!!!!!!!!
 
- db.sequelize.sync().then(() => {
+ db.sequelize.sync({force:true}).then(() => {
 async function createUserAndClient() {
     try {
       // Cria o usuário

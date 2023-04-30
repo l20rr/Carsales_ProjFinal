@@ -112,7 +112,7 @@ router.get("/AllUsers", async(req, res) => {
 });
 
 router.get("/Users/:id", async(req, res) => {
-    const id = 1;
+    
     Users.findByPk(id, { attributes: ['email'] })
         .then(data => {
             if (data) {
@@ -130,49 +130,36 @@ router.get("/Users/:id", async(req, res) => {
             });
         });
 });
-
-
 const client = StreamChat.getInstance(api_key, api_secret);
 
-router.delete("/Users/:id", async(req, res) => {
+router.delete("/Users/:id", async (req, res) => {
+  const id = req.params.id;
 
-    const id = req.params.id;
-  if (id === '1') {
-    try {
-      const user = await Users.findByPk(id, { attributes: ['email'] });
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      return res.json({ email: user.email });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-  } else {
-
+  try {
     const user = await Users.findByPk(id);
     if (!user) {
-        return res.status(404).send({
-            message: `Cannot find User with id=${id}.`
-        });
+      return res.status(404).send({
+        message: `Cannot find User with id=${id}.`
+      });
     }
 
-    try {
-        const destroy = await client.deleteUser(id, {
-            delete_conversation_channels: true,
-            mark_messages_deleted: true,
-            hard_delete: true,
-        });
-        await Users.destroy({ where: { id: id } });
-        res.send({
-            message: "User was deleted successfully!"
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            message: "Could not delete User with id=" + id
-        });
-    }
-}});
+    let destroyOptions = {
+      delete_conversation_channels: true,
+      mark_messages_deleted: true,
+      hard_delete: true,
+    };
+
+    await client.deleteUser(id, destroyOptions);
+    await Users.destroy({ where: { id: id } });
+
+    return res.send({
+      message: "User was deleted successfully!"
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 module.exports = router;
