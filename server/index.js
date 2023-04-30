@@ -32,9 +32,12 @@ app.use(express.urlencoded({ extended: true }));
 
 
 //connect without erasing data!!!!!!!!!!
+db.sequelize.sync({})
+    .then(() => {
+        console.log("Synced db.");
 
         
-db.sequelize.sync({force:true}).then(() => {
+db.sequelize.sync().then(() => {
     console.log("Drop and re-sync db.");
       // create the admin, if they do not already exist
    

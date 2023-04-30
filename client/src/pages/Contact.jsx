@@ -28,7 +28,7 @@ const socialLinks = [
 const Contact = () => {
   return (
     <Helmet title="Contact">
-      <CommonSection title="Contact" />
+      <CommonSection title="Contatos" />
       <section>
         <Container>
           <Row>
@@ -37,7 +37,7 @@ const Contact = () => {
 
               <Form>
                 <FormGroup className="contact__form">
-                  <Input placeholder="Your Name" type="text" />
+                  <Input placeholder="Seu nome" type="text" />
                 </FormGroup>
                 <FormGroup className="contact__form">
                   <Input placeholder="Email" type="email" />
@@ -58,12 +58,12 @@ const Contact = () => {
 
             <Col lg="5" md="5">
               <div className="contact__info">
-                <h6 className="fw-bold">Contact Information</h6>
+                <h6 className="fw-bold">Informação de contato</h6>
                 <p className="section__description mb-0">
                   Av. Comandante 123, Lisboa
                 </p>
                 <div className=" d-flex align-items-center gap-2">
-                  <h6 className="fs-6 mb-0">Phone:</h6>
+                  <h6 className="fs-6 mb-0">Telemóvel:</h6>
                   <p className="section__description mb-0">(+351)985447213</p>
                 </div>
 
@@ -72,7 +72,7 @@ const Contact = () => {
                   <p className="section__description mb-0">example@gmail.com</p>
                 </div>
 
-                <h6 className="fw-bold mt-4">Follow Us</h6>
+                <h6 className="fw-bold mt-4">Siga-nos</h6>
 
                 <div className=" d-flex align-items-center gap-4 mt-3">
                   {socialLinks.map((item, index) => (

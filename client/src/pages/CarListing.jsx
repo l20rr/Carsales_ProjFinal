@@ -11,7 +11,7 @@ const CarListing = () => {
   return (
     <Helmet title="Cars">
       
-      <CommonSection title="veículo" />
+      <CommonSection title="Veículos" />
       <section className="p-3 hero__slider-section">
         <div className="hero__form">
             <Container>
