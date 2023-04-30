@@ -38,10 +38,44 @@ const Invoice = () => {
   const [locality, setLocality] = useState(localStorage.getItem('locality'));
   const userId = cookies.get('userId');
   const userID = cookies.get('userID');
-  const email = cookies.get('email');
   const fullname = cookies.get('fullname');
+  const invoiceID = cookies.get('invoiceID')
+  const [email, setEmail] = useState('');
+  const [NIF, setNif] = useState('');
+  const[invoice_date, setInvoice_date] = useState('')
+  const [Postal_code, setPostal_code] = useState('')
+  const [amount, setAmount] = useState('')
+  const [total,setTotal] = useState('')
+  const [creditCardDate, setCreditCardDate] = useState('');
+  const [creditCard, setCreditCard] = useState('');
 
- 
+  useEffect(() => {
+    api.get(`/in/${invoiceID}`)
+      .then(response => {
+        const invoiceData = response.data;
+        setEmail(invoiceData.email);
+        setNif(invoiceData.NIF);
+        setInvoice_date(invoiceData.invoice_date)
+        setPostal_code(invoiceData.Postal_code)
+        setAmount(invoiceData.amount)
+        setTotal(invoiceData.total)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [invoiceID]);
+
+  useEffect(() => {
+    api.get(`/pay/${invoiceID}`)
+      .then(response => {
+        const CardData = response.data;
+        setCreditCardDate(CardData.creditCardDate)
+        setCreditCard(CardData.creditCard)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [invoiceID]);
 
 
   return (
@@ -63,6 +97,7 @@ const Invoice = () => {
                         <label>Nome</label>
                         <Form.Control
                         value={fullname}
+                        disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -71,7 +106,8 @@ const Invoice = () => {
                         <label>Endereço</label>
                         <Form.Control
                        type="text" 
-                       placeholder={locality}
+                       
+                       disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -80,6 +116,7 @@ const Invoice = () => {
                         <label>tel</label>
                         <Form.Control
                       
+                      disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -91,7 +128,8 @@ const Invoice = () => {
                       <Form.Group>
                         <label>Email</label>
                         <Form.Control
-                         
+                         value={email}
+                         disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -99,7 +137,8 @@ const Invoice = () => {
                       <Form.Group>
                         <label>Código Postal</label>
                         <Form.Control
-                        
+                        value={Postal_code}
+                        disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -107,7 +146,8 @@ const Invoice = () => {
                       <Form.Group>
                         <label>Data da compra</label>
                         <Form.Control
-                         
+                         value={invoice_date}
+                         disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -118,7 +158,17 @@ const Invoice = () => {
                       <Form.Group>
                         <label>NIF</label>
                         <Form.Control
-                          
+                          value={NIF}
+                          disabled
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pl-1" md="4">
+                      <Form.Group>
+                        <label>Preço</label>
+                        <Form.Control
+                          value={amount}
+                          disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -126,15 +176,20 @@ const Invoice = () => {
                       <Form.Group>
                         <label>Preço (IVA)</label>
                         <Form.Control
-                          
+                          value={total}
+                          disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="4">
+                  </Row>
+                  <hr/>
+                  <Row>
+                  <Col className="pl-1" md="4">
                       <Form.Group>
                         <label>validade cartao</label>
                         <Form.Control
-                        
+                        value={creditCardDate}
+                        disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -142,7 +197,8 @@ const Invoice = () => {
                       <Form.Group>
                         <label>Num cartao</label>
                         <Form.Control
-                         
+                         value={creditCard}
+                         disabled
                         ></Form.Control>
                       </Form.Group>
                     </Col>

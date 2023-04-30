@@ -21,27 +21,27 @@ router.post("/payment", async(req, res) => {
 
 });
 
-router.get("/:id", async(req, res) => {
-    const id = req.params.id;
 
-    Payment.findByPk(id)
+router.get("/:invoiceID", async(req, res) => {
+    const invoiceID = req.params.invoiceID;
+
+    Payment.findOne({ where: { invoiceID: invoiceID } })
         .then(data => {
             if (data) {
                 res.send(data);
             } else {
                 console.log("error")
                 res.status(404).send({
-                    message: `Cannot find with id=${id}.`
+                    message: `Cannot find with invoiceID=${invoiceID}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving  with id=" + id
+                message: "Error retrieving  with invoiceID=" + invoiceID
             });
         });
 });
-
 
 router.get("/All", async(req, res) => {
     try {

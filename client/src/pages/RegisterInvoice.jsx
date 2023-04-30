@@ -58,7 +58,10 @@ function RegisterInvoice() {
     try {
       const response = await api.post('/in/invoice', data);
       const invoiceID = response.data.ID
-     console.log("invoice:"+invoiceID)
+      cookies.set('invoiceID', invoiceID, {
+        path: '/',
+        expires: new Date('9999-12-31'),
+      });
 
       const paymentdata = {
         CredCard:creditCard,

@@ -82,6 +82,7 @@ export default function  Registeradverts() {
       const purchaseAdData = {
         publishadID: publishadID,
      };
+     
       const purchaseAdResponse = await api.post('/padvert/purchaseadvert', purchaseAdData);
   
       // Exibe mensagem de sucesso
