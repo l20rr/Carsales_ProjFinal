@@ -15,7 +15,7 @@ const app = express();
 
 var corsOptions = {
     origin: "http://localhost:3001",
-    methods: ["POST, GET", "PUT"],
+    methods: ["POST, GET", "PUT", "DELETE"],
     credentials: true
 };
 
@@ -27,7 +27,11 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-
+// Allow DELETE requests to /auth/Users/:id
+app.options('/auth/Users/:id', cors());
+app.delete('/auth/Users/:id', (req, res) => {
+  // Handle the DELETE request here
+});
 
 
 //connect without erasing data!!!!!!!!!!
@@ -37,6 +41,8 @@ db.sequelize.sync({ }).then(() => {
     console.log("Drop and re-sync db.");
 
 })
+
+/*
         // create the admin, if they do not already exist
         const password="1234";
         bcrypt.hash(password, 10).then((hash)=>{
@@ -168,7 +174,7 @@ db.sequelize.sync({ }).then(() => {
             console.log(err)
         });
     
-
+*/
 
 
 const usersRouter = require("./routes/Users");
