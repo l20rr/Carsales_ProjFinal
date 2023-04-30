@@ -25,15 +25,15 @@ let navLinks = [
   },
   {
     path: "/about",
-    display: "About",
+    display: "Sobre",
   },
   {
     path: "/cars",
-    display: "Cars",
+    display: "Veiculos",
   },
   {
     path: "/contact",
-    display: "Contact",
+    display: "Contatos",
   },
 ];
 
@@ -109,7 +109,7 @@ const Header = () => {
 
             <div className="nav__right">
               <div className="search__box">
-                <input type="text" placeholder="Search" />
+                <input type="text" placeholder="Pesquisa" />
                 <span>
                   <i class="ri-search-line"></i>
                 </span>
