@@ -16,7 +16,7 @@ const app = express();
 
 var corsOptions = {
     origin: "http://localhost:3001",
-    methods: ["POST, GET", "PUT"],
+    methods: ["POST, GET", "PUT", "DELETE"],
     credentials: true
 };
 
@@ -28,7 +28,11 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-
+// Allow DELETE requests to /auth/Users/:id
+app.options('/auth/Users/:id', cors());
+app.delete('/auth/Users/:id', (req, res) => {
+  // Handle the DELETE request here
+});
 
 
 //connect without erasing data!!!!!!!!!!
