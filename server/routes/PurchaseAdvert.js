@@ -8,7 +8,7 @@ router.post("/purchaseadvert", async(req, res) => {
 
     try {
         console.log(req.body);
-       const response = await PurchaseAdvert.create({
+        const response = await PurchaseAdvert.create({
             publishadID: publishadID
         });
 
@@ -19,7 +19,7 @@ router.post("/purchaseadvert", async(req, res) => {
 
 });
 
-router.get("/:id", async(req, res) => {
+router.get("/purchase/:id", async(req, res) => {
     const id = req.params.id;
 
     PurchaseAdvert.findByPk(id)

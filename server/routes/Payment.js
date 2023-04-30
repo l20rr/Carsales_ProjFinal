@@ -22,7 +22,7 @@ router.post("/payment", async(req, res) => {
 });
 
 
-router.get("/:invoiceID", async(req, res) => {
+router.get("/Pay/:invoiceID", async(req, res) => {
     const invoiceID = req.params.invoiceID;
 
     Payment.findOne({ where: { invoiceID: invoiceID } })

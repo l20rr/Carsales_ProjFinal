@@ -8,7 +8,7 @@ router.post("/invoice", async(req, res) => {
 
     try {
         console.log(req.body);
-       const response = await Invoice.create({
+        const response = await Invoice.create({
             email: email,
             invoice_date: invoice_date,
             NIF: NIF,
@@ -26,7 +26,7 @@ router.post("/invoice", async(req, res) => {
 
 });
 
-router.get("/:id", async(req, res) => {
+router.get("/Invoice/:id", async(req, res) => {
     const id = req.params.id;
 
     Invoice.findByPk(id)
