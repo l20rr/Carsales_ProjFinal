@@ -35,12 +35,11 @@ app.delete('/auth/Users/:id', (req, res) => {
 
 
 //connect without erasing data!!!!!!!!!!
+db.sequelize.sync({})
+    .then(() => {
+        console.log("Synced db.");
 
         //connect by erasing data
-
-        /*
-        db.sequelize.sync({ force: true }).then(() => {
-            console.log("Drop and re-sync db.");
 
 })
 
@@ -54,6 +53,29 @@ app.delete('/auth/Users/:id', (req, res) => {
                 password: hash,
                 name: "admin",
                 admin: true,
+        /*
+        db.sequelize.sync({ force: true }).then(() => {
+            console.log("Drop and re-sync db.");
+
+})
+
+/*
+            // create the admin, if they do not already exist
+        const password="1234";
+        bcrypt.hash(password, 10).then((hash)=>{
+                User.create({
+                    fullname: "admin",
+                    email: 'admin@gmail.com',
+                    password: hash,
+                    name: "admin",
+                    admin: true,
+                }).catch(err => {
+                    console.log("Already exists");
+                });
+            });
+
+            Category.create({
+                categoryName: "Carro"
             }).catch(err => {
                 console.log("Already exists");
                 console.log(err)
