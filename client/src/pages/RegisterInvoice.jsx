@@ -56,7 +56,7 @@ function RegisterInvoice() {
     };
 
     try {
-      const response = await api.post('/in/invoice', data);
+      const response = await api.post('/in/invoice', +data);
       const invoiceID = response.data.ID
       cookies.set('invoiceID', invoiceID, {
         path: '/',
@@ -68,7 +68,7 @@ function RegisterInvoice() {
         CredCard_date:creditCardDate,
         invoiceID:invoiceID,
       }
-      const responsepay = await api.post('/pay/payment', paymentdata);
+      const responsepay = await api.post('/pay/payment', +paymentdata);
       console.log(responsepay)
 
       const priority = {
@@ -76,7 +76,7 @@ function RegisterInvoice() {
         invoiceID:invoiceID,
         priorityAD_date:moment().format('YYYY-MM-DD'),
       }
-      const responsepri = await api.post('/pri/priorityadvert', priority);
+      const responsepri = await api.post('/pri/priorityadvert', +priority);
 
       window.location.href = '/home'
 

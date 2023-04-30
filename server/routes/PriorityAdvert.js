@@ -21,7 +21,7 @@ router.post("/priorityadvert", async(req, res) => {
 
 });
 
-router.get("/:id", async(req, res) => {
+router.get("/listPriority/:id", async(req, res) => {
     const id = req.params.id;
 
     PriorityAdvert.findByPk(id)
@@ -101,8 +101,5 @@ router.get("/listAllPriorityDateASC", async(req, res) => {
     order by priorityadvert.ID, publishad.publishAD_date asc;`, { type: QueryTypes.SELECT });
     res.status(200).json(response);
 });
-
-module.exports = router;
-
 
 module.exports = router;
