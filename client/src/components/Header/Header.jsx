@@ -25,15 +25,15 @@ let navLinks = [
   },
   {
     path: "/about",
-    display: "About",
+    display: "Sobre",
   },
   {
     path: "/cars",
-    display: "Cars",
+    display: "Veiculos",
   },
   {
     path: "/contact",
-    display: "Contact",
+    display: "Contatos",
   },
 ];
 
