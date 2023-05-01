@@ -37,8 +37,8 @@ app.delete('/auth/Users/:id', (req, res) => {
 
 //connect without erasing data!!!!!!!!!!
 
- db.sequelize.sync({force:true}).then(() => {
-async function createUserAndClient() {
+ db.sequelize.sync().then(() => {
+/*async function createUserAndClient() {
     try {
       // Cria o usuário
       const password = "1234";
@@ -186,7 +186,7 @@ async function createUserAndClient() {
   }).catch(err => {
       console.log("Already exists");
       console.log(err)
-  });
+  });*/
 
 })
 
