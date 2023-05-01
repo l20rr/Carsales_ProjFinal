@@ -1,9 +1,11 @@
 import React,{useState,useEffect}from 'react';
 import api from '../../services/api'
 import {  FormGroup } from "reactstrap";
+import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import "../../styles/find-car-form.css";
 import DatePicker, { DateObject } from "react-multi-date-picker";
+import { RiHeartLine, RiHeartFill } from 'react-icons/ri';
 
 
 const FindCarForm = () => {
@@ -103,7 +105,11 @@ const FindCarForm = () => {
         </FormGroup>
 
         <FormGroup className="form__group">
-          <button className="btn find__car-btn">Procurar</button>
+          <button className="btn find__car-btn">
+          <Link to="registerCategory" className="btn find__car-btn">
+                  Procurar
+                </Link>
+            </button>
         </FormGroup>
       </div>
     </Form>

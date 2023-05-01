@@ -77,12 +77,12 @@ router.get("/listAllPriorityPriceASC", async(req, res) => {
     vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
     vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date   
     from vehicle 
-    inner join subcategory on vehicle.subcategoryID=subcategory.ID
-    inner join category on subcategory.categoryID=category.ID
-    inner join publishAD on  vehicle.ID=publishAD.vehicleID
-    inner join priorityadvert on  publishAD.ID=priorityadvert.publishadID
-    inner join client on  publishAD.clientID=client.ID
-    order by priorityadvert.ID, vehicle.price asc;`, { type: QueryTypes.SELECT });
+    left join subcategory on vehicle.subcategoryID=subcategory.ID
+    left join category on subcategory.categoryID=category.ID
+    left join publishAD on  vehicle.ID=publishAD.vehicleID
+    left join client on  publishAD.clientID=client.ID
+    left join priorityadvert  on  publishAD.ID=priorityadvert.publishadID
+    order by priorityadvert.ID desc, vehicle.price desc;`, { type: QueryTypes.SELECT });
     res.status(200).json(response);
 });
 
@@ -93,12 +93,12 @@ router.get("/listAllPriorityDateASC", async(req, res) => {
     vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
     vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date   
     from vehicle 
-    inner join subcategory on vehicle.subcategoryID=subcategory.ID
-    inner join category on subcategory.categoryID=category.ID
-    inner join publishAD on  vehicle.ID=publishAD.vehicleID
-    inner join priorityadvert on  publishAD.ID=priorityadvert.publishadID
-    inner join client on  publishAD.clientID=client.ID
-    order by priorityadvert.ID, publishad.publishAD_date asc;`, { type: QueryTypes.SELECT });
+    left join subcategory on vehicle.subcategoryID=subcategory.ID
+    left join category on subcategory.categoryID=category.ID
+    left join publishAD on  vehicle.ID=publishAD.vehicleID
+    left join client on  publishAD.clientID=client.ID
+    left join priorityadvert  on  publishAD.ID=priorityadvert.publishadID
+    order by priorityadvert.ID desc, publishad.publishAD_date desc;`, { type: QueryTypes.SELECT });
     res.status(200).json(response);
 });
 
