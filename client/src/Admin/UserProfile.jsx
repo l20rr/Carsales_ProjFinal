@@ -101,6 +101,7 @@ function UserProfile() {
       cookies.remove('fullname');
       cookies.remove('email');
       cookies.remove('hashedPassword');
+      cookies.remove('invoiceID');
       localStorage.clear();
       window.location.reload();
       window.location.href= '/home';
@@ -160,7 +161,9 @@ function UserProfile() {
         cookies.remove('fullname');
         cookies.remove('email');
         cookies.remove('hashedPassword');
-        localStorage.clear();    
+        cookies.remove('invoiceID');
+        localStorage.clear();
+            
       } else {
         console.error('Failed to delete user');
       }
