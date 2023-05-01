@@ -52,7 +52,7 @@ const Invoice = () => {
   const [telem , setTelem] = useState('');
 
   useEffect(() => {
-    api.get(`/in/${invoiceID}`)
+    api.get(`/in/Invoice/${invoiceID}`)
       .then(response => {
         const invoiceData = response.data;
         setEmail(invoiceData.email);
@@ -68,7 +68,7 @@ const Invoice = () => {
   }, [invoiceID]);
 
   useEffect(() => {
-    api.get(`/pay/${invoiceID}`)
+    api.get(`/pay/Pay/${invoiceID}`)
       .then(response => {
         const CardData = response.data;
         setCreditCardDate(CardData.CredCard_date)
