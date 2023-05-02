@@ -9,9 +9,10 @@ import { RiHeartLine, RiHeartFill } from 'react-icons/ri';
 const CarItemPremium = () => {
   const [Ads , setAds] = useState([]);
   const [likedList, setLikedList] = useState({});
+ 
 
   useEffect(() => {
-    async function fetchAds() {
+    async function fetchAds() {  
       const response = await api.get('/pri/listAllPriorityPriceASC');
       setAds(response.data);
     }
