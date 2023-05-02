@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import { Button } from 'react-bootstrap';
+import { NavLink, Link } from 'react-router-dom';
 
 const cookies = new Cookies();
 function AdminUsers() {
@@ -33,6 +34,8 @@ function AdminUsers() {
     }
   }
 
+
+
   if (email != 'admin@gmail.com') return <Home />;
   return (
     <form>
@@ -59,7 +62,7 @@ function AdminUsers() {
                 <td>{user.createdAt}</td>
                 <td>
                   <Button variant="danger" onClick={() => handleDelete(user.id)}>Eliminar</Button>{' '}
-                  <Button variant="primary">Editar</Button>
+                  <Link to={`/edit/${user.id}`}><Button variant="primary">Editar</Button></Link>
               </td>
               </tr>
             ))}

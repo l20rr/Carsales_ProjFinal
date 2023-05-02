@@ -19,27 +19,18 @@ const app_id = process.env.STREAM_APP_ID;
 router.post('/signup', async(req, res) => {
     try {
         const { fullname, email, password } = req.body;
-
         const userExists = await Users.findOne({ where: { email } });
-
         if (userExists) {
             return res.status(400).json({ message: 'User already exists' });
         }
-
         const serverClient = connect(api_key, api_secret, app_id);
-        
-        
-        
-
         const hashedPassword = await bcrypt.hash(password, 10);
-
         // criando o usuário
         const user = await Users.create({
             fullname: fullname,
             email: email,
             password: hashedPassword
         });
-
         const userId = crypto.randomBytes(16).toString('hex');
         const token = serverClient.createUserToken(userId);
         const userID = parseInt(user.id);
@@ -99,6 +90,34 @@ router.post('/login', async(req, res) => {
     }
 });
 
+router.put('/users/:id', async (req, res) => {
+    try {
+        const { fullname, email, password } = req.body;
+        const id = req.params.id;
+        const user = await Users.findOne({ where: { id } });
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+        if (email && user.email !== email) {
+            const userExists = await Users.findOne({ where: { email } });
+            if (userExists) {
+                return res.status(400).json({ message: 'Email already exists' });
+            }
+        }
+        const hashedPassword = password ? await bcrypt.hash(password, 10) : user.password;
+        // atualizando o usuário
+        await user.update({
+            fullname: fullname || user.fullname,
+            email: email || user.email,
+            password: hashedPassword
+        });
+        res.status(200).json({ message: 'User updated successfully' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+    }
+});
+
 
 router.get("/AllUsers", async(req, res) => {
     try {
@@ -110,25 +129,19 @@ router.get("/AllUsers", async(req, res) => {
         res.status(500).json({ msg: error.message });
     }
 });
+router.get("/users/:id", async(req, res) => {
+    const id = req.params.id;
 
-router.get("/Users/:id", async(req, res) => {
-    
-    Users.findByPk(id, { attributes: ['email'] })
-        .then(data => {
-            if (data) {
-                res.send(data.email);
-            } else {
-                console.log("error")
-                res.status(404).send({
-                    message: `Cannot find User with id=${id}.`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving User with id=" + id
-            });
-        });
+    try {
+        const user = await Users.findOne({ where: { id } });
+        if (!user) {
+            return res.status(404).json({ message: `Cannot find User with id=${id}.` });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error retrieving User with id=" + id });
+    }
 });
 const client = StreamChat.getInstance(api_key, api_secret);
 

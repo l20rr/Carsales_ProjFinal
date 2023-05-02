@@ -26,6 +26,7 @@ import {useState, useEffect } from 'react';
 import api from '../services/api'
 import Cookies from "universal-cookie";
 import { AuthContext } from '../components/AuthContext'
+import EditUser from "../pages/EditUser";
 
 
 const Routers = () => {
@@ -58,6 +59,8 @@ const Routers = () => {
        <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
        <Route path="/:publishadID/:purchaseID/RegisterInvoice" element={<RegisterInvoice />} />
        <Route path="/Invoice" element={<Invoice />} />
+
+       <Route path="/edit/:id" element={<EditUser />} />
     </Routes>
   );
 };
