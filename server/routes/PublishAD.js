@@ -51,7 +51,7 @@ router.get("/listAD/:id", async(req, res) => {
       INNER JOIN category ON subcategory.categoryID = category.ID
       INNER JOIN publishAD ON vehicle.ID = publishAD.vehicleID
       INNER JOIN client ON publishAD.clientID = client.ID
-      WHERE vehicle.ID = :id;
+      WHERE vehicle.ID = ${id};
     `, {
       type: QueryTypes.SELECT,
       replacements: { id: req.params.id } // pass the ID from the request parameters
