@@ -38,7 +38,7 @@ function RegisterInvoice() {
   const [email, setEmail] = useState('');
   const [NIF, setNIF] = useState('');
   const [invoice_date, setInvoiceDate] = useState(moment().format('YYYY-MM-DD'));
-  const [postalCode, setPostalCode] = useState('');
+  const [PostalCode, setPostalCode] = useState('');
   const [creditCardDate, setCreditCardDate] = useState('');
   const [creditCard, setCreditCard] = useState('');
 
@@ -48,7 +48,7 @@ function RegisterInvoice() {
       email: email,
       invoice_date: invoice_date,
       NIF: NIF,
-      Postal_code: postalCode,
+      Postal_code: PostalCode,
       amount: 11,
       tax_amount: 0.28,
       total: 40,
@@ -119,7 +119,7 @@ function RegisterInvoice() {
                           id='postalCode'
                           type='number'
                           required
-                          value={postalCode}
+                          value={PostalCode}
                           onChange={e => setPostalCode(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
