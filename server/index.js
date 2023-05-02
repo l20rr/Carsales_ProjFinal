@@ -6,7 +6,7 @@ const subcategory = db.subcategory;
 const Category = db.category;
 const bcrypt = require('bcrypt');
 const User = db.user;
-
+const crypto = require('crypto');
 const Client = db.client;
 
 
@@ -30,8 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
- db.sequelize.sync({}).then(() => {})
-
+ db.sequelize.sync({force:true}).then(() => {
 
 async function createUserAndClient() {
 
@@ -39,12 +38,14 @@ async function createUserAndClient() {
       // Cria o usuário
       const password = "1234";
       const hash = await bcrypt.hash(password, 10);
+      const userId = crypto.randomBytes(16).toString('hex');
       const user = await User.create({
         fullname: "admin",
         email: "admin@gmail.com",
         password: hash,
         name: "admin",
         admin: true,
+        streamChatUserId: userId
       }).catch(err =>{
         console.log("Erro:", err.message);
       })
@@ -184,6 +185,8 @@ async function createUserAndClient() {
       console.log(err)
   });
 
+
+ })
 
 
 

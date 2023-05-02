@@ -76,7 +76,7 @@ const Register = () => {
         window.location.reload();
         window.location.href= '/home'
     }
-
+  
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
     }
@@ -141,7 +141,10 @@ const Register = () => {
               <div className='d-flex flex-row justify-content-center mb-4'>
                 <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
               </div>
-              <button className="btn-cadastrar"> {isSignup ? 'Registar' : 'Entrar'} </button>
+              <button className="btn-cadastrar"> 
+              
+              {isSignup ? 'Registar' : 'Entrar'}
+               </button>
             
             </form>
           <div className='auth__form-container_fields-account'>
