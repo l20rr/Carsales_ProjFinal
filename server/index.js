@@ -28,17 +28,13 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// Allow DELETE requests to /auth/Users/:id
-app.options('/auth/Users/:id', cors());
-app.delete('/auth/Users/:id', (req, res) => {
-  // Handle the DELETE request here
-});
-
-
 //connect without erasing data!!!!!!!!!!
 
- db.sequelize.sync().then(() => {
-/*async function createUserAndClient() {
+ db.sequelize.sync({}).then(() => {})
+
+/*
+async function createUserAndClient() {
+
     try {
       // Cria o usuário
       const password = "1234";
@@ -188,7 +184,7 @@ app.delete('/auth/Users/:id', (req, res) => {
       console.log(err)
   });*/
 
-})
+*/
 
 
 const usersRouter = require("./routes/Users");

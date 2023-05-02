@@ -24,13 +24,17 @@ router.post('/signup', async(req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
         const serverClient = connect(api_key, api_secret, app_id);
+        
         const hashedPassword = await bcrypt.hash(password, 10);
+
         // criando o usuário
         const user = await Users.create({
             fullname: fullname,
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            streamChatUserId: userId
         });
+
         const userId = crypto.randomBytes(16).toString('hex');
         const token = serverClient.createUserToken(userId);
         const userID = parseInt(user.id);
@@ -48,7 +52,7 @@ router.post('/login', async(req, res) => {
     try {
         const { email, password, token } = req.body;
 
-        const user = await Users.findOne({ where: { email }, attributes: ['id', 'email', 'fullname', 'password'] });
+        const user = await Users.findOne({ where: { email }, attributes: ['id', 'email', 'fullname', 'password', 'streamChatUserId'] });
 
         console.log(user);
 
@@ -61,18 +65,7 @@ router.post('/login', async(req, res) => {
             const client = StreamChat.getInstance(api_key, api_secret);
 
             
-            let userId;
-            if (token) {
-                try {
-                    const decodedToken = jwt.verify(token, api_secret);
-                    userId = decodedToken.user.id;
-                } catch (err) {
-                    console.error(err);
-                    return res.status(401).json({ message: 'Invalid token' });
-                }
-            } else {
-                userId = crypto.randomBytes(16).toString('hex');
-            }
+            let userId = user.streamChatUserId;
 
             const newToken = serverClient.createUserToken(userId);
 
@@ -145,34 +138,36 @@ router.get("/users/:id", async(req, res) => {
 });
 const client = StreamChat.getInstance(api_key, api_secret);
 
-router.delete("/Users/:id", async (req, res) => {
-  const id = req.params.id;
-
-  try {
-    const user = await Users.findByPk(id);
-    if (!user) {
-      return res.status(404).send({
-        message: `Cannot find User with id=${id}.`
+router.delete("/Users/:id/:streamChatUserId", async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const user = await Users.findByPk(id);
+      if (!user) {
+        return res.status(404).send({
+          message: `Cannot find User with id=${id}.`
+        });
+      }
+  
+      const { streamChatUserId } = user;
+  
+      let destroyOptions = {
+        delete_conversation_channels: true,
+        mark_messages_deleted: true,
+        hard_delete: true,
+      };
+  
+      await client.deleteUser(streamChatUserId, destroyOptions);
+      await Users.destroy({ where: { id: id } });
+  
+      return res.send({
+        message: "User was deleted successfully!"
       });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
-
-    let destroyOptions = {
-      delete_conversation_channels: true,
-      mark_messages_deleted: true,
-      hard_delete: true,
-    };
-
-    await client.deleteUser(id, destroyOptions);
-    await Users.destroy({ where: { id: id } });
-
-    return res.send({
-      message: "User was deleted successfully!"
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+  });
 
 
 module.exports = router;

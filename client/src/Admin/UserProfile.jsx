@@ -150,30 +150,25 @@ function UserProfile() {
   }, [userID]);
 
 
-  async function handleDeleteAccount() {
-    try {
-      const response = await api.delete(`/auth/Users/2`  );
-      if (response.status === 200) {
-        console.log('User deleted successfully')
-        cookies.remove("token");
-        cookies.remove("userID");
-        cookies.remove('userId');
-        cookies.remove('fullname');
-        cookies.remove('email');
-        cookies.remove('hashedPassword');
-        cookies.remove('invoiceID');
-        localStorage.clear();
-            
-      } else {
-        console.error('Failed to delete user');
-      }
-    } catch (error) {
-      console.error('Error deleting user:', error);
-    }
-    
-    window.location.href= '/home';
-
- 
+  async function handleDeleteAccount(id, streamChatUserId) {
+    const response = await api.delete(`/auth/Users/${id}/${streamChatUserId}`);
+    console.log('User deleted successfully');
+  
+    localStorage.clear();
+  
+    console.log('Cookies before removal:', cookies.get());
+  
+    cookies.remove("token");
+    cookies.remove("userID");
+    cookies.remove('userId');
+    cookies.remove('fullname');
+    cookies.remove('email');
+    cookies.remove('hashedPassword');
+  
+    console.log('Cookies after removal:', cookies.get());
+  
+    console.log('Redirecting to /home');
+    window.location.href = '/home';
   }
 
     /*const handleDeleteAccount = (id) => {
@@ -300,7 +295,7 @@ function UserProfile() {
         </MDBModalBody>
         <MDBModalFooter>
           <MDBBtn color="secondary" onClick={() => setDeleteConfirmationModalOpen(false)}>Cancelar</MDBBtn>
-          <MDBBtn class='deleteButton' color="danger" onClick={() => handleDeleteAccount()}>Apagar</MDBBtn>
+          <MDBBtn class='deleteButton' color="danger" onClick={() => handleDeleteAccount(userID, userId)}>Apagar</MDBBtn>
         </MDBModalFooter>
       </MDBModal>
     </form>

@@ -24,7 +24,7 @@
     "mysql2": "^3.2.0",
     "nodemon": "^2.0.22",
     "sequelize": "^6.30.0",
-    "stream-chat": "^8.5.0",
+    "stream-chat": "^8.6.0",
     "twilio": "^4.10.0"
   }
 }

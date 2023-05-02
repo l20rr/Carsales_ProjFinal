@@ -38,7 +38,7 @@
     "ri": "^0.0.0",
     "semantic-ui-react": "^2.1.4",
     "slick-carousel": "^1.8.1",
-    "stream-chat": "^8.5.0",
+    "stream-chat": "^8.6.0",
     "stream-chat-react": "^9.5.2",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"
