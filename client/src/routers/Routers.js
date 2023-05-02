@@ -15,7 +15,7 @@ import RegisterSub from "../pages/RegisterSub";
 import Registeradverts from "../pages/Registeradverts";
 import RegisterVhicle from "../pages/RegisterVhicle";
 import Register from "../components/Header/Register";
-import RegisterClient from "../components/Header/RegisterClient"
+
 import UserProfile from "../Admin/UserProfile"
 import AdminUsers from "../pages/AdminUsers";
 
@@ -37,7 +37,7 @@ const Routers = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/cars" element={<CarListing />} />
-      <Route path="/cars/:slug" element={<CarDetails />} />
+      <Route path="/cars/:ID" element={<CarDetails />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="*" element={<NotFound />} />
       <Route path="/register" element={<Register />} />
@@ -57,7 +57,6 @@ const Routers = () => {
     }/>
        <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
        <Route path="/:publishadID/:purchaseID/RegisterInvoice" element={<RegisterInvoice />} />
-       <Route path="/RegisterCli" element={<RegisterClient />} />
        <Route path="/Invoice" element={<Invoice />} />
     </Routes>
   );

@@ -30,6 +30,9 @@ const initialState = {
 const Register = () => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(true);
+    const [locality , setLocality] = useState('');
+    const [telem , setTelem] = useState('');
+    const [birthdate , setBirthdate] = useState('');
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -60,8 +63,18 @@ const Register = () => {
             cookies.set('hashedPassword', hashedPassword);
         }
 
+        const clientData = {
+          locality: locality,
+          telem: telem,
+          birthdate: birthdate,
+          userID: userID,
+        };
+        if(form.locality!=='' && form.telem!=='' && form.birthdate!=='') {
+          await api.post('/cl/userData', clientData);
+        }
+
         window.location.reload();
-        window.location.href= '/RegisterCli'
+        window.location.href= '/home'
     }
 
     const switchMode = () => {
@@ -115,6 +128,15 @@ const Register = () => {
                 
                 onChange={handleChange}
               />
+              )}
+               {isSignup && (
+                  <MDBInput type="number" required value={telem} onChange={(e) => setTelem(e.target.value)} label="Telemóvel" />
+              )}
+              {isSignup && (
+                  <MDBInput type="date" required value={birthdate} onChange={(e) => setBirthdate(e.target.value)} label="Data de nascimento" />
+              )}
+              {isSignup && (
+                <MDBInput type="text" required value={locality} onChange={(e) => setLocality(e.target.value)} label="Morada" />
               )}
               <div className='d-flex flex-row justify-content-center mb-4'>
                 <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />

@@ -44,7 +44,7 @@ function RegisterVhicle() {
   useEffect(() => {
     async function fetchSubcategory() {
     try {
-    const response = await api.get('subcat/subcat/' +subcategoryID);
+    const response = await api.get('subcat/subcat/' + subcategoryID);
     setSelectedSubcategory(response.data.ID)
     console.log(response.data);
     } catch (error) {

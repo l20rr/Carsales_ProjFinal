@@ -182,7 +182,7 @@ async function createUserAndClient() {
   }).catch(err => {
       console.log("Already exists");
       console.log(err)
-  });
+  });*/
 
 */
 
