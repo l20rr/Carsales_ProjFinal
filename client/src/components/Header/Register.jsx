@@ -69,7 +69,7 @@ const Register = () => {
           birthdate: birthdate,
           userID: userID,
         };
-        if(form.locality!=='' && form.telem!=='' && form.birthdate!=='') {
+        if(isSignup && form.locality!=='' && form.telem!=='' && form.birthdate!=='') {
           await api.post('/cl/userData', clientData);
         }
 

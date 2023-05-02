@@ -152,24 +152,19 @@ function UserProfile() {
 
   async function handleDeleteAccount(id, streamChatUserId) {
     const response = await api.delete(`/auth/Users/${id}/${streamChatUserId}`);
-    console.log('User deleted successfully');
-  
-    localStorage.clear();
-  
-    console.log('Cookies before removal:', cookies.get());
-  
-    cookies.remove("token");
-    cookies.remove("userID");
-    cookies.remove('userId');
-    cookies.remove('fullname');
-    cookies.remove('email');
-    cookies.remove('hashedPassword');
-  
-    console.log('Cookies after removal:', cookies.get());
-  
-    console.log('Redirecting to /home');
-    window.location.href = '/home';
-  }
+      const cookies = new Cookies();
+      try {
+        cookies.remove("token", { path: '/register' });
+        cookies.remove("userID", { path: '/register' });
+        cookies.remove("userId", { path: '/register' });
+        cookies.remove("fullname", { path: '/register' });
+        cookies.remove("email", { path: '/register' });
+        cookies.remove("hashedPassword", { path: '/register' });
+        localStorage.clear();
+      } catch (error) {
+        console.error('Error removing cookies:', error);
+      }
+    }
 
     /*const handleDeleteAccount = (id) => {
       fetch(`http://localhost:3000/auth/Users/${id}`, {

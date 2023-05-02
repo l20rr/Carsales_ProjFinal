@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
  db.sequelize.sync({}).then(() => {})
 
-/*
+
 async function createUserAndClient() {
 
     try {
@@ -182,9 +182,9 @@ async function createUserAndClient() {
   }).catch(err => {
       console.log("Already exists");
       console.log(err)
-  });*/
+  });
 
-*/
+
 
 
 const usersRouter = require("./routes/Users");
