@@ -8,6 +8,11 @@ module.exports = (sequelize, Sequelize) => {
         autoIncrement: true,
         primaryKey: true
     },
+
+    streamChatUserId: {
+      type: Sequelize.STRING,
+    },
+
     fullname: {
         type: Sequelize.STRING,
         allowNull: false,
