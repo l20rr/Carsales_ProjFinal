@@ -17,71 +17,163 @@ const api_secret = process.env.STREAM_API_SECRET;
 const app_id = process.env.STREAM_APP_ID;
 
 router.post('/signup', async(req, res) => {
-    try {
-        const { fullname, email, password } = req.body;
-        const userExists = await Users.findOne({ where: { email } });
-        if (userExists) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
-        const serverClient = connect(api_key, api_secret, app_id);
-        
-        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // criando o usuário
-        const user = await Users.create({
-            fullname: fullname,
-            email: email,
-            password: hashedPassword,
-            streamChatUserId: userId
-        });
-
-        const userId = crypto.randomBytes(16).toString('hex');
-        const token = serverClient.createUserToken(userId);
-        const userID = parseInt(user.id);
-
-        res.status(200).json({ token, userId, userID, fullname, email, hashedPassword });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: error });
-    }
-});
-
+        try {
+    
+            const { fullname, email, password } = req.body;
+    
+    
+    
+    
+            const userExists = await Users.findOne({ where: { email } });
+    
+    
+    
+    
+            if (userExists) {
+    
+                return res.status(400).json({ message: 'User already exists' });
+    
+            }
+    
+    
+    
+    
+            const serverClient = connect(api_key, api_secret, app_id);
+    
+           
+    
+            const hashedPassword = await bcrypt.hash(password, 10);
+    
+            const userId = crypto.randomBytes(16).toString('hex');
+    
+    
+    
+    
+            const token = serverClient.createUserToken(userId);
+    
+            // criando o usuário
+    
+            const user = await Users.create({
+    
+                fullname: fullname,
+    
+                email: email,
+    
+                password: hashedPassword,
+    
+                streamChatUserId: userId
+    
+            });
+    
+    
+    
+    
+           
+    
+            const userID = parseInt(user.id);
+    
+    
+    
+    
+            res.status(200).json({ token, userId, userID, fullname, email, hashedPassword });
+    
+        } catch (error) {
+    
+            console.log(error);
+    
+            res.status(500).json({ message: error });
+    
+        }
+    
+    });
 const jwt = require('jsonwebtoken');
 
+
 router.post('/login', async(req, res) => {
-    try {
-        const { email, password, token } = req.body;
 
-        const user = await Users.findOne({ where: { email }, attributes: ['id', 'email', 'fullname', 'password', 'streamChatUserId'] });
+    try {
 
-        console.log(user);
+        const { email, password, token } = req.body;
 
-        if (!user) return res.status(400).json({ message: 'User not found' });
 
-        const success = await bcrypt.compare(password, user.password);
 
-        if (success) {
-            const serverClient = connect(api_key, api_secret, app_id);
-            const client = StreamChat.getInstance(api_key, api_secret);
 
-            
-            let userId = user.streamChatUserId;
+        const user = await Users.findOne({ where: { email }, attributes: ['id', 'email', 'fullname', 'password', 'streamChatUserId'] });
 
-            const newToken = serverClient.createUserToken(userId);
 
-            const userID = parseInt(user.id);
 
-            res.status(200).json({ token: newToken, fullname: user.fullname, email, userID, userId });
-        } else {
-            res.status(500).json({ message: 'Incorrect password' });
-        }
-    } catch (error) {
 
-        console.log(error);
+        console.log(user);
 
-        res.status(500).json({ message: error });
-    }
+
+
+
+        if (!user) return res.status(400).json({ message: 'User not found' });
+
+
+
+
+        const success = await bcrypt.compare(password, user.password);
+
+
+
+
+        if (success) {
+
+            const serverClient = connect(api_key, api_secret, app_id);
+
+            const client = StreamChat.getInstance(api_key, api_secret);
+
+
+
+
+           
+
+            let userId = user.streamChatUserId;
+
+
+
+
+            const newToken = serverClient.createUserToken(userId);
+
+
+
+
+            const userID = parseInt(user.id);
+
+
+
+
+            res.status(200).json({ token: newToken, fullname: user.fullname, email, userID, userId });
+
+        } else {
+
+            res.status(500).json({ message: 'Incorrect password' });
+
+        }
+
+    } catch (error) {
+
+
+
+
+        console.log(error);
+
+
+
+
+        res.status(500).json({ message: error });
+
+    }
+
 });
+
+
+
+
+
+
 
 router.put('/users/:id', async (req, res) => {
     try {
