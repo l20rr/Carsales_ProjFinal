@@ -72,51 +72,10 @@ const CarDetails = () => {
                   className=" d-flex align-items-center mt-3"
                   style={{ columnGap: "4rem" }}
                 >
+
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i
                       class="ri-roadster-line"
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {Ad.kms}
-                  </span>
-
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i
-                      class="ri-settings-2-line"
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {Ad.power}
-                  </span>
-
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i
-                      class="ri-timer-flash-line"
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {Ad.Combustivel}
-                  </span>
-
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i
-                      class="ri-timer-flash-line"
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {Ad.num_seats}
-                  </span>
-                </div>
-
-                <div
-                  className=" d-flex align-items-center mt-3"
-                  style={{ columnGap: "2.8rem" }}
-                >
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {Ad.Localidade}
-                  </span>
-
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i
-                      class="ri-wheelchair-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
                     {Ad.categoryName}
@@ -124,10 +83,53 @@ const CarDetails = () => {
 
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i
-                      class="ri-building-2-line"
+                      class="ri-steering-2-fill"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
                     {Ad.SubcategoryName}
+                  </span>
+                  <span className=" d-flex align-items-center gap-1 section__description">
+                    <i
+                      class="ri-dashboard-3-line"
+                      style={{ color: "#f9a826" }}
+                    ></i>{" "}
+                    {Ad.kms}{" Kms"}
+                  </span>
+                         
+                </div>
+
+                <div
+                  className=" d-flex align-items-center mt-3"
+                  style={{ columnGap: "2.8rem" }}
+                >
+                  
+                  <span className=" d-flex align-items-center gap-1 section__description">
+                    <i
+                      class="ri-gas-station-fill"
+                      style={{ color: "#f9a826" }}
+                    ></i>{" "}
+                    {Ad.Combustivel}
+                  </span>
+
+                  <span className=" d-flex align-items-center gap-1 section__description">
+                    <i
+                      class="ri-settings-2-line"
+                      style={{ color: "#f9a826" }}
+                    ></i>{" "}
+                    {Ad.power}{" kWs"}
+                  </span>
+
+                  <span className=" d-flex align-items-center gap-1 section__description">
+                    <i
+                      class="ri-timer-flash-line"
+                      style={{ color: "#f9a826" }}
+                    ></i>{" "}
+                    {Ad.num_seats}{" Lugares"}
+                  </span>
+
+                  <span className=" d-flex align-items-center gap-1 section__description">
+                    <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "}
+                    {Ad.Localidade}
                   </span>
                 
                 </div>

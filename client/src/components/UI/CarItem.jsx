@@ -58,10 +58,10 @@ const CarItem = () => {
                   <i class="ri-car-line"></i> {ad.categoryName}
                 </span>
                 <span className=" d-flex align-items-center gap-1">
-                  <i class="ri-settings-2-line"></i> {ad.year}
+                  <i class="ri-calendar-check-line"></i> {ad.year}
                 </span>
                 <span className=" d-flex align-items-center gap-1">
-                  <i class="ri-timer-flash-line"></i> {ad.Combustivel}
+                  <i class="ri-gas-station-fill"></i> {ad.Combustivel}
                 </span>
               </div>
 
