@@ -63,9 +63,7 @@ const CarItemPremium = () => {
                   <i class="ri-timer-flash-line"></i> {ad.Combustivel}
                 </span>
               </div>
-    
-              
-    
+
               <button className=" w-50 car__item-btn car__btn-details">
                 <Link to={`/cars/${ad.id}`}>Detalhes</Link>
               </button>
