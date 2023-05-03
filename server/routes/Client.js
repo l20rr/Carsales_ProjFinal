@@ -61,7 +61,7 @@ router.put("/:id", async(req, res) => {
 
     try {
         const num = await Client.update(req.body, {
-            where: { ID: id },
+            where: { id: id },
         });
 
         if (num == 1) {

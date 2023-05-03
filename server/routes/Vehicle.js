@@ -2,10 +2,23 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const Vehicle = db.vehicle;
+const path = require('path');
+const fs = require('fs')
+const multer = require('multer');
+const storage = multer.diskStorage({
 
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+});
+
+const upload = multer({ storage: storage });
 
 router.post("/addvehicle", async(req, res) => {
-    const { price, description, image, image2, image3, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats } = req.body;
+    const { price, description, image, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats } = req.body;
 
     try {
         const response = await Vehicle.create({
@@ -28,7 +41,18 @@ router.post("/addvehicle", async(req, res) => {
     } catch (error) {
         res.status(400).json({ msg: error.message });
     }
+});
 
+router.get("/lastImagePath", async(req, res) => {
+    try {
+        const dirPath = path.join(__dirname, "../uploads");
+        const files = await fs.promises.readdir(dirPath);
+        const lastFile = files[files.length - 1];
+        const lastImagePath = `${lastFile}`; // ou outro caminho de acordo com sua configuração
+        res.status(200).json({ lastImagePath });
+    } catch (error) {
+        res.status(400).json({ msg: error.message });
+    }
 });
 
 router.get("/vehicle", async(req, res) => {

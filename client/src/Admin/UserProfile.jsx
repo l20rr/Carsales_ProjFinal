@@ -116,6 +116,9 @@ function UserProfile() {
   const [selectedUserId , setSelectedUserId] = useState('');
   const userId = cookies.get('userId');
   const userID = cookies.get('userID');
+    
+  const { id } = useParams();
+
   
   useEffect(() => {
     const storedData = localStorage.getItem(`userData_${userID}`);
@@ -185,37 +188,22 @@ function UserProfile() {
       });  }
 
       */
-    
-
+  
   if(!authToken) return <Register />
   async function handleSubmit(e) {
     e.preventDefault();
-
+   
     const data = {
       locality: locality,
       telem: telem,
       birthdate: birthdate,
-      userID: userID
+      
     };
-    
-      
-      console.log(data);
-
-      if(locality!==''&&telem!==''&&birthdate!==''){
-        const response = await api.post('/cl/userData',data);
-
-        if(response.status===201){
-          toggleModalChange();
-        }else{
-          alert('Erro ao cadastrar !');
-        }    
-      }else{
-        alert('Por favor, preencha todos os dados!'); 
-      }
-      
-    }
   
-
+      await api.put(`/cl/${userID}`,data);
+      window.location.href= '/UserProfile';
+  }
+  
   return (
     <>
 

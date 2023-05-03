@@ -37,13 +37,12 @@ const CarDetails = () => {
   <Helmet title={Ad.Marca}>
       <section>
         <Container>
-          <Row>
-            <h1>Usuario: {Ad.fullname}</h1>
-            <Col lg="6">
-              <img  alt="" className="w-100" />
-            </Col>
-
-            <Col lg="6">
+          <Row style={{width:'110%'}}>
+            <h1>Usuario: {Ad.fullname}</h1> 
+            <br/>
+            <Col lg="5">
+           <img style={{width:'110%'}} src={`http://localhost:3000/uploads/${Ad.image}`} alt="" /></Col>
+         <Col lg="6" style={{marginLeft:'110px'}}>
               <div className="car__info">
                 <h2 className="section__title">{Ad.Marca}-{Ad.Modelo}</h2>
 

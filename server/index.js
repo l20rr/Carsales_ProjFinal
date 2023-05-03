@@ -16,7 +16,7 @@ const app = express();
 
 var corsOptions = {
     origin: "http://localhost:3001",
-    methods: ["POST, GET", "PUT", "DELETE"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true
 };
 
@@ -30,9 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
-db.sequelize.sync({}).then(() => {
-    /*
-    async function createUserAndClient() {
+db.sequelize.sync().then(() => {
+    
+    /*async function createUserAndClient() {
 
         try {
           // Cria o usuário
@@ -183,12 +183,12 @@ db.sequelize.sync({}).then(() => {
       }).catch(err => {
           console.log("Already exists");
           console.log(err)
-      });
+      });*/
 
-    */
+    
 })
 
-
+app.use('/uploads', express.static('./uploads'));
 
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
