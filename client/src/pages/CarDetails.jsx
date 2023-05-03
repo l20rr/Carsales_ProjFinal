@@ -8,44 +8,51 @@ import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
 
 const CarDetails = () => {
- 
-  const [year, setYear] = useState('');
-  const [kms, setKms] = useState('');
-  const [brand, setBrand] = useState('');
-  const [model, setModel] = useState('');
-  const [fuel, setFuel] = useState('');
-  const [price, setPrice] = useState('');
-  const [power, setPower] = useState('');
-  const [numSeats, setNumSeats] = useState('');
-  const [Localidade, setLocalidade] = useState('');
-  const [image, setImage] = useState(null);
-  const [category, setCategory] = useState('');
-  const [Subcategory, setSubCategory] = useState('');
-  const [date, setDate] = useState('');
 
-  useEffect(() => {
-    api.get(`/publi/listAD/4`)
-      .then(response => {
-        const VeiculData = response.data;
-        console.log(VeiculData)
-        setYear(VeiculData.year);
-        setKms(VeiculData.kms);
-        setBrand(VeiculData.Marca)
-        setFuel(VeiculData.Combustivel)
-        setModel(VeiculData.Modelo)
-        setPrice(VeiculData.price)
-        setPower(VeiculData.power)
-        //setNumSeats(VeiculData.n.lugares)
-        setLocalidade(VeiculData.Localidade)
-        setImage(VeiculData.image)
-        setCategory(VeiculData.categoryName)
-        setSubCategory(VeiculData.SubcategoryName)
-        setDate(VeiculData.publishAD_date)
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+const [userID, setClientID] = useState('');
+const [year, setYear] = useState('');
+  const [kms, setKms] = useState('');
+ const [brand, setBrand] = useState('');
+ const [model, setModel] = useState('');
+ const [fuel, setFuel] = useState('');
+ const [price, setPrice] = useState('');
+const [power, setPower] = useState('');
+ const [numSeats, setNumSeats] = useState('');
+const [Localidade, setLocalidade] = useState('');
+const [image, setImage] = useState(null);
+const [category, setCategory] = useState('');
+const [Subcategory, setSubCategory] = useState('');
+const [date, setDate] = useState('');
+const [streamChatUserId, setStreamChatUserId] = useState('');
+  
+  
+useEffect(() => {
+ api.get(`/publi/listAD/${userID}`)
+  
+ .then(response => {
+const VeiculData = response.data;
+ const UserData = response.data;
+
+console.log(VeiculData)
+ setYear(VeiculData.year);
+setKms(VeiculData.kms);
+setBrand(VeiculData.Marca)
+ setFuel(VeiculData.Combustivel)
+setModel(VeiculData.Modelo)
+ setPrice(VeiculData.price)
+ setPower(VeiculData.power)
+ setNumSeats(VeiculData.numSeats)
+ setLocalidade(VeiculData.Localidade)
+setImage(VeiculData.image)
+setCategory(VeiculData.categoryName)
+ setSubCategory(VeiculData.SubcategoryName)
+setDate(VeiculData.publishAD_date)
+setStreamChatUserId(UserData.streamChatUserId)
+ })
+ .catch(error => {
+ console.log(error);
+ });
+}, []);
 
   return (
     <Helmet title={brand}>

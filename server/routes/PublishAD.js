@@ -43,7 +43,7 @@ router.get("/listAD/:id", async(req, res) => {
     const id = req.params.id;
 
     const response = await db.sequelize.query(`
-    Select user.fullname, vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
+    Select user.fullname, user.streamChatUserId, vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
     vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
     vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date   
     from vehicle 
@@ -52,7 +52,7 @@ router.get("/listAD/:id", async(req, res) => {
     inner join publishAD on  vehicle.ID=publishAD.vehicleID
     inner join client on  publishAD.clientID=client.ID
     inner join User on User.id=client.userID
-    where client.id=${id};`, { type: QueryTypes.SELECT });
+    where vehicle.id=${id};`, { type: QueryTypes.SELECT });
 
     res.status(200).json(response);
 });
