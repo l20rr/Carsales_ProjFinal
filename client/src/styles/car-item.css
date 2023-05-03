@@ -48,8 +48,13 @@
 
 .car__img {
     border: 1px solid #7c8a9736;
-    padding: 20px;
+    padding: 45px;
     border-radius: 5px;
+    background-image: url("https://previews.123rf.com/images/mopc95/mopc951612/mopc95161200078/69768739-vector-illustration-of-background-template-web-page-concept-error-404-page-not-found-in-flat-line.jpg");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: 70px 0;
+
 }
 
 @media only screen and (max-width: 992px) {
