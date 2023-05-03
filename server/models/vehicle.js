@@ -69,7 +69,6 @@ module.exports = (sequelize, Sequelize) => {
         image: {
             type: Sequelize.STRING,
             allowNull: false,
-            defaultValue: "id",
         },
 
         description: {

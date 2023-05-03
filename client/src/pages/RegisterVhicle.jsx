@@ -26,18 +26,18 @@ if(authToken) {
     }, authToken)
 }
 function RegisterVhicle() {
+  const [image, setImage] = useState(null);
   const [license, setLicense] = useState('');
   const [year, setYear] = useState('');
   const [kms, setKms] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [fuel, setFuel] = useState('');
+  const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [power, setPower] = useState('');
   const [numSeats, setNumSeats] = useState('');
-  const [description, setDescription] = useState('');
-  const [image, setImage] = useState(null);
-  const [selectedSubcategory, setSelectedSubcategory] = useState([]);
+  const [selectedSubcategory, setSelectedSubcategory] = useState('');
   
   const { subcategoryID } = useParams();
 
@@ -60,61 +60,49 @@ function RegisterVhicle() {
  
   
   if(!authToken) return <Register />
-  
   async function handleSubmit() {
-  const data = {
-  license:license,
-  year:year,
-  kms:kms,
-  brand:brand,
-  model:model,
-  fuel:fuel,
-  description:description,
-  price:price,
-  power:power,
-  num_seats: numSeats,
-  image:image,
-  subcategoryID:selectedSubcategory,
-  };
-  if (
-    license !== '' &&
-    year !== '' &&
-    kms !== '' &&
-    brand !== '' &&
-    model !== '' &&
-    fuel !== '' &&
-    price !== '' &&
-    power !== '' &&
-    numSeats !== ''
-  ) {
-    try {
-      const response = await api.post('/vehicle/addvehicle', data);
+    const formData = new FormData();
+    formData.append('license', license);
+    formData.append('year', year);
+    formData.append('kms', kms);
+    formData.append('brand', brand);
+    formData.append('model', model);
+    formData.append('fuel', fuel);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('power', power);
+    formData.append('num_seats', numSeats);
+    formData.append('subcategoryID', selectedSubcategory);
+    formData.append('image', image);
   
-       const vehicleID = response.data.id
-
-       window.location.href = `/Registeradverts/${vehicleID}`;
-    
+    try {
+      const response = await api.post('/vehicle/addvehicle', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+  
+      const vehicleID = response.data.id;
+      window.location.href = `/Registeradverts/${vehicleID}`;
     } catch (error) {
       console.error(error);
       alert('Erro ao cadastrar!');
     }
-  } 
   }
-  
-  function handleImageChange(event) {
-  if (event.target.files && event.target.files[0]) {
-  setImage(URL.createObjectURL(event.target.files[0]));
-  }
-  }
+  const handleImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
   
   if (!authToken) return <Register />;
 
   return (
       
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-<div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
-<Form>
-<Row className="mb-3">
+  <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
+  <Form  encType="multipart/form-data">
+  <Row className="mb-3">
             <Form.Group  controlId="formGridCity">
                 <Form.Label>Marca</Form.Label>
                 <Form.Control id='name'
@@ -135,13 +123,13 @@ function RegisterVhicle() {
               </Form.Group>
 </Row>
 <Row className="mb-3">
-              <Form.Group  controlId="formGridCity">
-               <div>
-               <input type="file" onChange={handleImageChange} className="filetype" />
-                <img alt="preview image" src={image}/>
-               </div>
-              </Form.Group>             
-</Row>         
+            <Form.Group controlId="formGridCity">
+              <div>
+                <input type="file" onChange={handleImageChange} className="filetype" />
+                <img alt="preview image" src={image ? URL.createObjectURL(image) : null} />
+              </div>
+            </Form.Group>
+          </Row>      
 <Row className="mb-3">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Matricula</Form.Label>
@@ -216,7 +204,7 @@ function RegisterVhicle() {
                         onChange={e => setDescription(e.target.value)} />
                     </Form.Group>
                     </Row>
-                  <Button variant="primary" onClick={handleSubmit} style={{ display: 'flex', justifyContent: 'flex-end' }}>next</Button>
+                  <Button variant="primary" onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>next</Button>
             </Form>
           </div>
           </div>
