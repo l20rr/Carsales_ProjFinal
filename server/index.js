@@ -16,7 +16,7 @@ const app = express();
 
 var corsOptions = {
     origin: "http://localhost:3001",
-    methods: ["POST, GET", "PUT", "DELETE"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true
 };
 
@@ -30,9 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
-db.sequelize.sync({force:true}).then(() => {
+db.sequelize.sync().then(() => {
     
-    async function createUserAndClient() {
+    /*async function createUserAndClient() {
 
         try {
           // Cria o usuário
@@ -183,7 +183,7 @@ db.sequelize.sync({force:true}).then(() => {
       }).catch(err => {
           console.log("Already exists");
           console.log(err)
-      });
+      });*/
 
     
 })
