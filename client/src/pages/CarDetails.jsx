@@ -41,7 +41,10 @@ const CarDetails = () => {
             <h1>Usuario: {Ad.fullname}</h1> 
             <br/>
             <Col lg="5">
-           <img style={{width:'110%'}} src={`http://localhost:3000/uploads/${Ad.image}`} alt="" /></Col>
+           <img style={{width:'110%'}} src={`http://localhost:3000/uploads/${Ad.image}`} alt="" />
+           <img style={{width:'110%'}} src={`http://localhost:3000/uploads/${Ad.image2}`} alt="" />
+           <img style={{width:'110%'}} src={`http://localhost:3000/uploads/${Ad.image3}`} alt="" />
+           </Col>
          <Col lg="6" style={{marginLeft:'110px'}}>
               <div className="car__info">
                 <h2 className="section__title">{Ad.Marca}-{Ad.Modelo}</h2>
