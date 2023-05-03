@@ -43,7 +43,6 @@ router.get("/client/:id", async(req, res) => {
         });
 });
 
-
 router.get("/All", async(req, res) => {
     try {
         const response = await Client.findAll({
