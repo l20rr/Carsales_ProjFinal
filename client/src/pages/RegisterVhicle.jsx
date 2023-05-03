@@ -26,14 +26,12 @@ if(authToken) {
     }, authToken)
 }
 function RegisterVhicle() {
-  const [image, setImage] = useState(null);
   const [license, setLicense] = useState('');
   const [year, setYear] = useState('');
   const [kms, setKms] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [fuel, setFuel] = useState('');
-  const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [power, setPower] = useState('');
   const [numSeats, setNumSeats] = useState('');
@@ -78,6 +76,8 @@ function RegisterVhicle() {
     formData.append('num_seats', numSeats);
     formData.append('subcategoryID', selectedSubcategory);
     formData.append('image', image);
+    formData.append('image2', image2);
+    formData.append('image3', image3);
   
     try {
       const response = await api.post('/vehicle/addvehicle', formData, {
@@ -96,6 +96,8 @@ function RegisterVhicle() {
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
+      setImage2(event.target.files[0]);
+      setImage3(event.target.files[0]);
     }
   };
   
@@ -128,10 +130,8 @@ function RegisterVhicle() {
 </Row>
 <Row className="mb-3">
             <Form.Group controlId="formGridCity">
-              <div>
-                <input type="file" onChange={handleImageChange} className="filetype" />
-                <img alt="preview image" src={image ? URL.createObjectURL(image) : null} />
-              </div>
+                <Form.Control type="file" onChange={handleImageChange} className="filetype" multiple/>
+                <img alt="preview image" src={image ? URL.createObjectURL(image) : null} />     
             </Form.Group>
           </Row>      
 <Row className="mb-3">
