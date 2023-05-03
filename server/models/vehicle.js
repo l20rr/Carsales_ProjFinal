@@ -69,7 +69,19 @@ module.exports = (sequelize, Sequelize) => {
         image: {
             type: Sequelize.STRING,
             allowNull: false,
-            defaultValue: "id",
+            defaultValue: "img",
+        },
+
+        image2: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: "img2",
+        },
+
+        image3: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: "img3",
         },
 
         description: {

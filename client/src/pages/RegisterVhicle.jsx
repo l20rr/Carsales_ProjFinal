@@ -37,6 +37,8 @@ function RegisterVhicle() {
   const [numSeats, setNumSeats] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState([]);
   
   const { subcategoryID } = useParams();
@@ -74,6 +76,8 @@ function RegisterVhicle() {
   power:power,
   num_seats: numSeats,
   image:image,
+  image2: image2,
+  image3: image3,
   subcategoryID:selectedSubcategory,
   };
   if (
@@ -104,6 +108,8 @@ function RegisterVhicle() {
   function handleImageChange(event) {
   if (event.target.files && event.target.files[0]) {
   setImage(URL.createObjectURL(event.target.files[0]));
+  setImage2(URL.createObjectURL(event.target.files[0]));
+  setImage3(URL.createObjectURL(event.target.files[0]));
   }
   }
   
@@ -136,10 +142,8 @@ function RegisterVhicle() {
 </Row>
 <Row className="mb-3">
               <Form.Group  controlId="formGridCity">
-               <div>
-               <input type="file" onChange={handleImageChange} className="filetype" />
-                <img alt="preview image" src={image}/>
-               </div>
+              <Form.Label>3 Fotos</Form.Label>
+              <Form.Control type="file" onChange={handleImageChange} className="filetype" multiple />
               </Form.Group>             
 </Row>         
 <Row className="mb-3">

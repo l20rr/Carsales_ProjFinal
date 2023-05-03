@@ -56,9 +56,10 @@ router.get("/All", async(req, res) => {
 router.get("/listAllFavPriceASC", async(req, res) => {
     const { QueryTypes } = require('sequelize');
 
-    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
-    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
-    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
+    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
+    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
+    client.locality as 'Localidade', publishad.publishAD_date   
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -71,9 +72,10 @@ router.get("/listAllFavPriceASC", async(req, res) => {
 router.get("/listAllFavDateASC", async(req, res) => {
     const { QueryTypes } = require('sequelize');
 
-    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
-    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
-    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName,
+    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
+    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
+    client.locality as 'Localidade', publishad.publishAD_date   
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
