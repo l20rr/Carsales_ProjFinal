@@ -6,6 +6,10 @@ import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
 import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
+import CreateChannel from "../components/Layout/CreateChannel";
+import { Chat, Channel, ChannelHeader, Thread, Window, ChannelList, ChannelListMessenger, ChannelPreviewMessenger, ChannelPreviewCompact, ChannelPreviewLastMessage, ChannelSearch, ChatDown, LoadingIndicator, MessageInput, MessageList, MessageSimple } from 'stream-chat-react';
+import { StreamChat } from 'stream-chat';
+import { useChatContext } from 'stream-chat-react';
 
 
 
@@ -21,6 +25,7 @@ const CarDetails = () => {
   }
   fetchUsers();
 }, []);
+
 
 
   return (
@@ -123,7 +128,7 @@ const CarDetails = () => {
 
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-                <a href="/chat"><button style={{ background: "#f9a826", border:"none", borderRadius:12, padding:10, width:150 }}>Message</button></a>
+              <button >Create Channel</button>
               </div>
             </Col>
 
