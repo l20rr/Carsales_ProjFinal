@@ -12,67 +12,40 @@ import { StreamChat } from 'stream-chat';
 import { useChatContext } from 'stream-chat-react';
 
 const CarDetails = () => {
+ const [Ads, setAds] = useState([])
 
-  const [clientID, setClientID] = useState('');
- 
-  const [year, setYear] = useState('');
-  const [kms, setKms] = useState('');
-  const [brand, setBrand] = useState('');
-  const [model, setModel] = useState('');
-  const [fuel, setFuel] = useState('');
-  const [price, setPrice] = useState('');
-  const [power, setPower] = useState('');
-  const [numSeats, setNumSeats] = useState('');
-  const [Localidade, setLocalidade] = useState('');
-  const [image, setImage] = useState(null);
-  const [category, setCategory] = useState('');
-  const [Subcategory, setSubCategory] = useState('');
-  const [date, setDate] = useState('');
-  const [streamChatUserId, setStreamChatUserId] = useState('');
+ useEffect(() => {
+  async function fetchUsers() {
+    const response = await api.get('/publi/listAD/1');
+    console.log(response)
+    setAds(response.data);
+  }
+  fetchUsers();
+}, []);
 
-  useEffect(() => {
-    api.get(`/publi/listAD/2`)
-      .then(response => {
-        const VeiculData = response.data;
-        const UserData = response.data; 
-        console.log(VeiculData)
-        setYear(VeiculData.year);
-        setKms(VeiculData.kms);
-        setBrand(VeiculData.Marca)
-        setFuel(VeiculData.Combustivel)
-        setModel(VeiculData.Modelo)
-        setPrice(VeiculData.price)
-        setPower(VeiculData.power)
-        //setNumSeats(VeiculData.n.lugares)
-        setLocalidade(VeiculData.Localidade)
-        setImage(VeiculData.image)
-        setCategory(VeiculData.categoryName)
-        setSubCategory(VeiculData.SubcategoryName)
-        setDate(VeiculData.publishAD_date)
-        setStreamChatUserId(UserData.streamChatUserId)
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
 
 
   return (
-    <Helmet title={brand}>
+    <>
+   {
+    Ads.map(Ad => (
+    <div key={Ad.id}>
+      
+  <Helmet title={Ad.Marca}>
       <section>
         <Container>
           <Row>
             <Col lg="6">
-              <img src={image} alt="" className="w-100" />
+              <img src={Ad.image} alt="" className="w-100" />
             </Col>
 
             <Col lg="6">
               <div className="car__info">
-                <h2 className="section__title">{model}</h2>
+                <h2 className="section__title">{Ad.Modelo}</h2>
 
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
                   <h6 className="rent__price fw-bold fs-4">
-                    {price}.00 €
+                    {Ad.price}.00 €
                   </h6>
 
                   <span className=" d-flex align-items-center gap-2">
@@ -83,12 +56,12 @@ const CarDetails = () => {
                       <i class="ri-star-s-fill"></i>
                       <i class="ri-star-s-fill"></i>
                     </span>
-                    ({year} )
+                    ({Ad.year} )
                   </span>
                 </div>
 
                 <p className="section__description">
-                  {Localidade}
+                  {Ad.Localidade}
                 </p>
 
                 <div
@@ -100,7 +73,7 @@ const CarDetails = () => {
                       class="ri-roadster-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
-                    {kms}
+                    {Ad.kms}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
@@ -108,7 +81,7 @@ const CarDetails = () => {
                       class="ri-settings-2-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
-                    {power}
+                    {Ad.power}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
@@ -116,7 +89,7 @@ const CarDetails = () => {
                       class="ri-timer-flash-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
-                    {fuel}
+                    {Ad.Combustivel}
                   </span>
                 </div>
 
@@ -126,7 +99,7 @@ const CarDetails = () => {
                 >
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {numSeats}
+                    {}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
@@ -134,7 +107,7 @@ const CarDetails = () => {
                       class="ri-wheelchair-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
-                    {category}
+                    {Ad.categoryName}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
@@ -142,15 +115,9 @@ const CarDetails = () => {
                       class="ri-building-2-line"
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
-                    {Subcategory}
+                    {Ad.SubcategoryName}
                   </span>
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i
-                      class="ri-building-2-line"
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {date}
-                  </span>
+                
                 </div>
               </div>
             </Col>
@@ -164,7 +131,10 @@ const CarDetails = () => {
           </Row>
         </Container>
       </section>
-    </Helmet>
+  </Helmet>
+    </div>
+    ))}
+    </>
   );
 };
 

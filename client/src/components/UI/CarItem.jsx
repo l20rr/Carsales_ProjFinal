@@ -12,6 +12,7 @@ const CarItem = () => {
   useEffect(() => {
     async function fetchAds() {
       const response = await api.get('/publi/listAllAD');
+      console.log(response)
       setAds(response.data);
     }
     fetchAds();
@@ -65,7 +66,7 @@ const CarItem = () => {
               </div>
 
               <button className=" w-50 car__item-btn car__btn-details">
-                <Link to={`/cars`}>Detalhes</Link>
+                <Link to={`/cars/${ad.id}`}>Detalhes</Link>
               </button>
             </div>
           </div>
