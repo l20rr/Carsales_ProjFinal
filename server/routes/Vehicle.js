@@ -4,9 +4,9 @@ const db = require("../models");
 const Vehicle = db.vehicle;
 const path = require('path');
 const fs = require('fs')
+
 const multer = require('multer');
 const storage = multer.diskStorage({
-
     destination: function(req, file, cb) {
         cb(null, 'uploads/')
     },
@@ -17,15 +17,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/addvehicle", async(req, res) => {
+router.post("/addvehicle", upload.array('images', 3), async(req, res) => {
     const { price, description, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats } = req.body;
 
     try {
         const response = await Vehicle.create({
             subcategoryID: subcategoryID,
-            image: req.file.filename, // Use req.file.filename para salvar o caminho da imagem no banco de dados
-            image2: req.file.filename,
-            image3: req.file.filename,
+            image: req.files[0].filename, // Salve o nome do arquivo da primeira imagem
+            image2: req.files[1].filename, // Salve o nome do arquivo da segunda imagem
+            image3: req.files[2].filename, // Salve o nome do arquivo da terceira imagem
             description: description,
             license: license,
             year: year,
@@ -37,11 +37,12 @@ router.post("/addvehicle", async(req, res) => {
             power: power,
             num_seats: num_seats
         });
-        res.status(200).json(response)
+        res.status(200).json(response);
     } catch (error) {
         res.status(400).json({ msg: error.message });
     }
 });
+
 
 router.get("/lastImagePath", async(req, res) => {
     try {
@@ -54,7 +55,6 @@ router.get("/lastImagePath", async(req, res) => {
         res.status(400).json({ msg: error.message });
     }
 });
-
 router.get("/vehicle", async(req, res) => {
     try {
         const response = await Vehicle.findAll({

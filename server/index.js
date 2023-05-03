@@ -30,9 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({force:true}).then(() => {
     
-    /*async function createUserAndClient() {
+    async function createUserAndClient() {
 
         try {
           // Cria o usuário
@@ -183,7 +183,7 @@ db.sequelize.sync().then(() => {
       }).catch(err => {
           console.log("Already exists");
           console.log(err)
-      });*/
+      });
 
     
 })

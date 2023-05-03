@@ -71,9 +71,9 @@ function RegisterVhicle() {
     formData.append('power', power);
     formData.append('num_seats', numSeats);
     formData.append('subcategoryID', selectedSubcategory);
-    formData.append('image', image);
-    formData.append('image2', image2);
-    formData.append('image3', image3);
+    formData.append('images', image);
+    formData.append('images', image2);
+    formData.append('images', image3);
   
     try {
       const response = await api.post('/vehicle/addvehicle', formData, {
@@ -92,7 +92,15 @@ function RegisterVhicle() {
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
+    }
+  };
+  const handleImageChange2 = (event) => {
+    if (event.target.files && event.target.files[0]) {
       setImage2(event.target.files[0]);
+    }
+  };
+  const handleImageChange3 = (event) => {
+    if (event.target.files && event.target.files[0]) {
       setImage3(event.target.files[0]);
     }
   };
@@ -126,7 +134,16 @@ function RegisterVhicle() {
 </Row>
 <Row className="mb-3">
             <Form.Group controlId="formGridCity">
-                <Form.Control type="file" onChange={handleImageChange} className="filetype" multiple/>   
+                <Form.Control type="file" onChange={handleImageChange} className="filetype" multiple/>
+                <img alt="preview image" src={image ? URL.createObjectURL(image) : null} />       
+            </Form.Group>
+            <Form.Group controlId="formGridCity">
+                <Form.Control type="file" onChange={handleImageChange2} className="filetype" multiple/>
+                <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} />       
+            </Form.Group>
+            <Form.Group controlId="formGridCity">
+                <Form.Control type="file" onChange={handleImageChange3} className="filetype" multiple/>
+                <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} />       
             </Form.Group>
           </Row>      
 <Row className="mb-3">

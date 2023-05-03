@@ -32,19 +32,8 @@ const CarItemPremium = () => {
         <Col key={ad.id} lg="4" md="4" sm="6" className="mb-5">
           <div className="car__item">
             <div className="car__img">
-            <img src={ad.image} alt=""/>
-            <div>
-                {likedList[ad.id] ? (
-                  <RiHeartFill
-                    onClick={() => handleLikeClick(ad.id)}
-                  />
-                ) : (
-                  <RiHeartLine
-                    onClick={() => handleLikeClick(ad.id)}
-                  />
-                )}
-              </div>
-            </div>
+             <img src={`http://localhost:3000/uploads/${ad.image}`} alt="" />
+          </div>
     
             <div className="car__item-content mt-4">
               <h4 className="section__title text-center">{ad.Marca}-{ad.Modelo}</h4>
