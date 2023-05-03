@@ -6,8 +6,14 @@ import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
 import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
+import CreateChannel from "../components/Layout/CreateChannel";
+import { Chat, Channel, ChannelHeader, Thread, Window, ChannelList, ChannelListMessenger, ChannelPreviewMessenger, ChannelPreviewCompact, ChannelPreviewLastMessage, ChannelSearch, ChatDown, LoadingIndicator, MessageInput, MessageList, MessageSimple } from 'stream-chat-react';
+import { StreamChat } from 'stream-chat';
+import { useChatContext } from 'stream-chat-react';
 
 const CarDetails = () => {
+
+  const [clientID, setClientID] = useState('');
  
   const [year, setYear] = useState('');
   const [kms, setKms] = useState('');
@@ -22,11 +28,13 @@ const CarDetails = () => {
   const [category, setCategory] = useState('');
   const [Subcategory, setSubCategory] = useState('');
   const [date, setDate] = useState('');
+  const [streamChatUserId, setStreamChatUserId] = useState('');
 
   useEffect(() => {
-    api.get(`/publi/listAD/4`)
+    api.get(`/publi/listAD/2`)
       .then(response => {
         const VeiculData = response.data;
+        const UserData = response.data; 
         console.log(VeiculData)
         setYear(VeiculData.year);
         setKms(VeiculData.kms);
@@ -41,11 +49,13 @@ const CarDetails = () => {
         setCategory(VeiculData.categoryName)
         setSubCategory(VeiculData.SubcategoryName)
         setDate(VeiculData.publishAD_date)
+        setStreamChatUserId(UserData.streamChatUserId)
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
+
 
   return (
     <Helmet title={brand}>
@@ -147,7 +157,7 @@ const CarDetails = () => {
 
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-                <a href="/chat"><button style={{ background: "#f9a826", border:"none", borderRadius:12, padding:10, width:150 }}>Message</button></a>
+              <button >Create Channel</button>
               </div>
             </Col>
 
