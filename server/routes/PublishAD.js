@@ -37,7 +37,6 @@ router.get("/listAllAD", async(req, res) => {
     res.status(200).json(response);
 });
 
-
 router.get("/listAD/:id", async(req, res) => {
     const { QueryTypes } = require('sequelize');
     const id = req.params.id;

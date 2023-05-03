@@ -1,4 +1,4 @@
-import React,{useState,useEffect}from 'react';
+import React,{useState}from 'react';
 import api from '../services/api';
 // react-bootstrap components
 import {
@@ -49,9 +49,9 @@ function RegisterInvoice() {
       invoice_date: invoice_date,
       NIF: NIF,
       Postal_code: PostalCode,
-      amount: 1,
-      tax_amount: 1,
-      total: 1,
+      amount: 11,
+      tax_amount: 0.28,
+      total: 40,
       purchaseID: purchaseID
     };
 
@@ -63,6 +63,7 @@ function RegisterInvoice() {
         expires: new Date('9999-12-31'),
       });
 
+      
       const paymentdata = {
         CredCard:creditCard,
         CredCard_date:creditCardDate,
