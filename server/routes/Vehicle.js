@@ -18,14 +18,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/addvehicle", async(req, res) => {
-    const { price, description, image, image2, image3, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats } = req.body;
+    const { price, description, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats } = req.body;
 
     try {
         const response = await Vehicle.create({
             subcategoryID: subcategoryID,
-            image: image,
-            image2: image2,
-            image3: image3,
+            image: req.file.filename, // Use req.file.filename para salvar o caminho da imagem no banco de dados
+            image2: req.file.filename,
+            image3: req.file.filename,
             description: description,
             license: license,
             year: year,

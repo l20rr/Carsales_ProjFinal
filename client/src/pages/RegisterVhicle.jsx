@@ -54,12 +54,8 @@ function RegisterVhicle() {
     }
     }
     fetchSubcategory();
-    }, []);
+  }, []);
     
-  
- 
-
- 
   
   if(!authToken) return <Register />
   async function handleSubmit() {
@@ -130,8 +126,7 @@ function RegisterVhicle() {
 </Row>
 <Row className="mb-3">
             <Form.Group controlId="formGridCity">
-                <Form.Control type="file" onChange={handleImageChange} className="filetype" multiple/>
-                <img alt="preview image" src={image ? URL.createObjectURL(image) : null} />     
+                <Form.Control type="file" onChange={handleImageChange} className="filetype" multiple/>   
             </Form.Group>
           </Row>      
 <Row className="mb-3">
