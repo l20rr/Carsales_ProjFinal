@@ -7,12 +7,15 @@ import { useParams } from "react-router-dom";
 import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
 
+
+
+
 const CarDetails = () => {
  const [Ads, setAds] = useState([])
-
+ const {id} = useParams()
  useEffect(() => {
   async function fetchUsers() {
-    const response = await api.get('/publi/listAD/1');
+    const response = await api.get(`/publi/listAD/${id}`);
     console.log(response)
     setAds(response.data);
   }
@@ -30,13 +33,14 @@ const CarDetails = () => {
       <section>
         <Container>
           <Row>
+            <h1>Usuario: {Ad.fullname}</h1>
             <Col lg="6">
-              <img src={Ad.image} alt="" className="w-100" />
+              <img  alt="" className="w-100" />
             </Col>
 
             <Col lg="6">
               <div className="car__info">
-                <h2 className="section__title">{Ad.Modelo}</h2>
+                <h2 className="section__title">{Ad.Marca}-{Ad.Modelo}</h2>
 
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
                   <h6 className="rent__price fw-bold fs-4">
@@ -56,7 +60,7 @@ const CarDetails = () => {
                 </div>
 
                 <p className="section__description">
-                  {Ad.Localidade}
+                  {Ad.description}
                 </p>
 
                 <div
@@ -94,7 +98,7 @@ const CarDetails = () => {
                 >
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {}
+                    {Ad.Localidade}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
