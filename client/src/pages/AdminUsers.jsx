@@ -19,11 +19,11 @@ function AdminUsers() {
     }
     fetchUsers();
   }, []);
-
-  async function handleDelete(id) {
+  
+  async function handleDelete(id,streamChatUserId) {
     console.log('Deleting user with ID:', id);
     try {
-      const response = await api.delete(`/auth/Users/${id}`);
+      const response = await api.delete(`/auth/Users/${id}/${streamChatUserId}`);
       if (response.status === 200) {
         console.log('User deleted successfully')
       }
@@ -33,6 +33,8 @@ function AdminUsers() {
       console.log('Error deleting user:', error);
     }
   }
+  
+  
 
 
 
@@ -61,7 +63,7 @@ function AdminUsers() {
                 <td>{user.email}</td>
                 <td>{user.createdAt}</td>
                 <td>
-                  <Button variant="danger" onClick={() => handleDelete(user.id)}>Eliminar</Button>{' '}
+                  <Button variant="danger" onClick={() => handleDelete(user.id, user.streamChatUserId)}>Eliminar</Button>{' '}
                   <Link to={`/edit/${user.id}`}><Button variant="primary">Editar</Button></Link>
               </td>
               </tr>

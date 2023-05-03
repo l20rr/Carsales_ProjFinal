@@ -6,18 +6,26 @@ import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
 import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
+import CreateChannel from "../components/Layout/CreateChannel";
+import { Chat, Channel, ChannelHeader, Thread, Window, ChannelList, ChannelListMessenger, ChannelPreviewMessenger, ChannelPreviewCompact, ChannelPreviewLastMessage, ChannelSearch, ChatDown, LoadingIndicator, MessageInput, MessageList, MessageSimple } from 'stream-chat-react';
+import { StreamChat } from 'stream-chat';
+import { useChatContext } from 'stream-chat-react';
+
+
+
 
 const CarDetails = () => {
  const [Ads, setAds] = useState([])
-
+ const {id} = useParams()
  useEffect(() => {
   async function fetchUsers() {
-    const response = await api.get('/publi/listAD/1');
+    const response = await api.get(`/publi/listAD/${id}`);
     console.log(response)
     setAds(response.data);
   }
   fetchUsers();
 }, []);
+
 
 
   return (
@@ -30,13 +38,14 @@ const CarDetails = () => {
       <section>
         <Container>
           <Row>
+            <h1>Usuario: {Ad.fullname}</h1>
             <Col lg="6">
-              <img src={Ad.image} alt="" className="w-100" />
+              <img  alt="" className="w-100" />
             </Col>
 
             <Col lg="6">
               <div className="car__info">
-                <h2 className="section__title">{Ad.Modelo}</h2>
+                <h2 className="section__title">{Ad.Marca}-{Ad.Modelo}</h2>
 
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
                   <h6 className="rent__price fw-bold fs-4">
@@ -49,14 +58,14 @@ const CarDetails = () => {
                       <i class="ri-star-s-fill"></i>
                       <i class="ri-star-s-fill"></i>
                       <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
+                    
                     </span>
                     ({Ad.year} )
                   </span>
                 </div>
 
                 <p className="section__description">
-                  {Ad.Localidade}
+                  {Ad.description}
                 </p>
 
                 <div
@@ -86,6 +95,14 @@ const CarDetails = () => {
                     ></i>{" "}
                     {Ad.Combustivel}
                   </span>
+
+                  <span className=" d-flex align-items-center gap-1 section__description">
+                    <i
+                      class="ri-timer-flash-line"
+                      style={{ color: "#f9a826" }}
+                    ></i>{" "}
+                    {Ad.num_seats}
+                  </span>
                 </div>
 
                 <div
@@ -94,7 +111,7 @@ const CarDetails = () => {
                 >
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {}
+                    {Ad.Localidade}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
@@ -119,7 +136,7 @@ const CarDetails = () => {
 
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-                <a href="/chat"><button style={{ background: "#f9a826", border:"none", borderRadius:12, padding:10, width:150 }}>Message</button></a>
+              <button >Create Channel</button>
               </div>
             </Col>
 

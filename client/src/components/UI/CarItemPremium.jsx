@@ -67,7 +67,7 @@ const CarItemPremium = () => {
               
     
               <button className=" w-50 car__item-btn car__btn-details">
-                <Link to={`/cars`}>Detalhes</Link>
+                <Link to={`/cars/${ad.id}`}>Detalhes</Link>
               </button>
             </div>
           </div>

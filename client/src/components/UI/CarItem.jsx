@@ -12,6 +12,7 @@ const CarItem = () => {
   useEffect(() => {
     async function fetchAds() {
       const response = await api.get('/publi/listAllAD');
+      console.log(response)
       setAds(response.data);
     }
     fetchAds();
@@ -30,7 +31,7 @@ const CarItem = () => {
         <Col key={ad.id} lg="4" md="4" sm="6" className="mb-5">
           <div className="car__item">
             <div className="car__img">
-              <img src={ad.image} alt="" />
+            <img src={`${ad.image}?${Date.now()}`} alt="" />
               <div>
                 {likedList[ad.id] ? (
                   <RiHeartFill
@@ -65,7 +66,7 @@ const CarItem = () => {
               </div>
 
               <button className=" w-50 car__item-btn car__btn-details">
-                <Link to={`/cars`}>Detalhes</Link>
+                <Link to={`/cars/${ad.id}`}>Detalhes</Link>
               </button>
             </div>
           </div>

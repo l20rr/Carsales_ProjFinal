@@ -39,14 +39,12 @@ const EditVei = () => {
     const [numSeats, setNumSeats] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
-    const [selectedSubcategory, setSelectedSubcategory] = useState([]);
     
-    const { subcategoryID } = useParams();
   
     useEffect(() => {
       async function fetchSubcategory() {
       try {
-      const response = await api.get('subcat/subcat/' + subcategoryID);
+      const response = await api.get();
       setSelectedSubcategory(response.data.ID)
       console.log(response.data);
       } catch (error) {

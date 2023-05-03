@@ -264,7 +264,8 @@ router.get("/users/:id", async(req, res) => {
 const client = StreamChat.getInstance(api_key, api_secret);
 
 router.delete("/Users/:id/:streamChatUserId", async(req, res) => {
-    const id = req.params.id;
+      const id = req.params.id;
+     const streamChatUserId = req.params.streamChatUserId;
 
     try {
         const user = await Users.findByPk(id);

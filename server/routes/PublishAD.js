@@ -25,15 +25,29 @@ router.post("/publishad", async(req, res) => {
 
 router.get("/listAllAD", async(req, res) => {
     const { QueryTypes } = require('sequelize');
-
-    const response = await db.sequelize.query(`Select vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
-    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
-    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date  
-    from vehicle 
-    inner join subcategory on vehicle.subcategoryID=subcategory.ID
-    inner join category on subcategory.categoryID=category.ID
-    inner join publishAD on  vehicle.ID=publishAD.vehicleID
-    inner join client on  publishAD.clientID=client.ID;`, { type: QueryTypes.SELECT });
+    const id = req.params.id;
+    const response = await db.sequelize.query(`SELECT 
+    vehicle.image, 
+    vehicle.id AS id, 
+    category.categoryName, 
+    subcategory.SubcategoryName, 
+    vehicle.price,
+    vehicle.license, 
+    vehicle.year, 
+    vehicle.kms, 
+    vehicle.brand AS Marca, 
+    vehicle.model AS Modelo, 
+    vehicle.fuel AS Combustivel, 
+    vehicle.power, 
+    vehicle.num_seats AS "n. lugares", 
+    client.locality, 
+    publishAD.publishAD_date  
+  FROM 
+    vehicle 
+    INNER JOIN subcategory ON vehicle.subcategoryID = subcategory.ID
+    INNER JOIN category ON subcategory.categoryID = category.ID
+    INNER JOIN publishAD ON vehicle.ID = publishAD.vehicleID
+    INNER JOIN client ON publishAD.clientID = client.ID;`, { type: QueryTypes.SELECT });
     res.status(200).json(response);
 });
 
@@ -41,20 +55,22 @@ router.get("/listAD/:id", async(req, res) => {
     const { QueryTypes } = require('sequelize');
     const id = req.params.id;
 
-    const response = await db.sequelize.query(`
-    Select user.fullname, user.streamChatUserId, vehicle.image, category.categoryName , subcategory.SubcategoryName , vehicle.price,
-    vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', 
-    vehicle.power, vehicle.num_seats as 'n. lugares', client.locality as 'Localidade', publishad.publishAD_date   
-    from vehicle 
-    inner join subcategory on vehicle.subcategoryID=subcategory.ID
-    inner join category on subcategory.categoryID=category.ID
-    inner join publishAD on  vehicle.ID=publishAD.vehicleID
-    inner join client on  publishAD.clientID=client.ID
-    inner join User on User.id=client.userID
-    where vehicle.id=${id};`, { type: QueryTypes.SELECT });
+    const response = await db.sequelize.query(
+        `SELECT User.id AS user_id, User.streamChatUserId AS user_idChat ,user.fullname, vehicle.image, category.categoryName, subcategory.SubcategoryName, vehicle.price,
+     vehicle.description, vehicle.id AS 'id', vehicle.year, vehicle.kms, vehicle.brand AS 'Marca', vehicle.model AS 'Modelo',
+      vehicle.fuel AS 'Combustivel', vehicle.power, vehicle.num_seats AS 'num_seats', client.locality AS 'Localidade',
+      publishad.publishAD_date   
+      FROM vehicle 
+      INNER JOIN subcategory ON vehicle.subcategoryID = subcategory.ID
+      INNER JOIN category ON subcategory.categoryID = category.ID
+      INNER JOIN publishAD ON vehicle.ID = publishAD.vehicleID
+      INNER JOIN client ON publishAD.clientID = client.ID
+      INNER JOIN User ON User.id = client.userID
+      WHERE vehicle.id = ${id}`, { type: QueryTypes.SELECT });
 
     res.status(200).json(response);
 });
+
 
 router.get("/listAllADPriceASC", async(req, res) => {
     const { QueryTypes } = require('sequelize');
