@@ -58,7 +58,7 @@ const CarDetails = () => {
                       <i class="ri-star-s-fill"></i>
                       <i class="ri-star-s-fill"></i>
                       <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
+                    
                     </span>
                     ({Ad.year} )
                   </span>
@@ -94,6 +94,14 @@ const CarDetails = () => {
                       style={{ color: "#f9a826" }}
                     ></i>{" "}
                     {Ad.Combustivel}
+                  </span>
+
+                  <span className=" d-flex align-items-center gap-1 section__description">
+                    <i
+                      class="ri-timer-flash-line"
+                      style={{ color: "#f9a826" }}
+                    ></i>{" "}
+                    {Ad.num_seats}
                   </span>
                 </div>
 
