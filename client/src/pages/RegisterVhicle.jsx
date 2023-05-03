@@ -134,15 +134,15 @@ function RegisterVhicle() {
 </Row>
 <Row className="mb-3">
             <Form.Group controlId="formGridCity">
-                <Form.Control type="file" onChange={handleImageChange} className="filetype" multiple/>
-                <img alt="preview image" src={image ? URL.createObjectURL(image) : null} />       
+                <Form.Control type="file" onChange={handleImageChange} className="filetype" />
+                <img alt="preview image" src={image ? URL.createObjectURL(image) : null} />     
             </Form.Group>
             <Form.Group controlId="formGridCity">
-                <Form.Control type="file" onChange={handleImageChange2} className="filetype" multiple/>
+                <Form.Control type="file" onChange={handleImageChange2} className="filetype" />
                 <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} />       
             </Form.Group>
             <Form.Group controlId="formGridCity">
-                <Form.Control type="file" onChange={handleImageChange3} className="filetype" multiple/>
+                <Form.Control type="file" onChange={handleImageChange3} className="filetype" />
                 <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} />       
             </Form.Group>
           </Row>      

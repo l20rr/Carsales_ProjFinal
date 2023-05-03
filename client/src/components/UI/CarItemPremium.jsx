@@ -4,6 +4,8 @@ import { Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
 import { RiHeartLine, RiHeartFill } from 'react-icons/ri';
+import Slider from "react-slick";
+import { Container } from "reactstrap";
 
 
 const CarItemPremium = () => {
@@ -25,16 +27,44 @@ const CarItemPremium = () => {
       [id]: !likedList[id]
     });
   }
+  const settings = {
+    fade: true,
+    speed: 2000,
+    autoplaySpeed: 3000,
+    infinite: true,
+    autoplay: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    pauseOnHover: false,
+  };
 
   return (
     <>
       {Ads.map((ad) => (
         <Col key={ad.id} lg="4" md="4" sm="6" className="mb-5">
           <div className="car__item">
-            <div className="car__img">
-             <img src={`http://localhost:3000/uploads/${ad.image}`} alt="" />
-          </div>
-    
+                  <Slider {...settings} className="hero__slider">
+                   <div className="car__img">
+                    <img src={`http://localhost:3000/uploads/${ad.image}`} alt="" />
+                  <Container>
+                
+                  </Container>
+                   </div>
+
+                   <div className="car__img">
+                    <img src={`http://localhost:3000/uploads/${ad.image2}`} alt="" />
+                  <Container>
+                
+                  </Container>
+                   </div>
+
+                   <div className="car__img">
+                    <img src={`http://localhost:3000/uploads/${ad.image3}`} alt="" />
+                  <Container>
+                
+                  </Container>
+                   </div>
+                  </Slider>
             <div className="car__item-content mt-4">
               <h4 className="section__title text-center">{ad.Marca}-{ad.Modelo}</h4>
               <h6 className="rent__price text-center mt-">

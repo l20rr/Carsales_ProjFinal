@@ -9,7 +9,7 @@ import "../../styles/header.css";
 
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
-
+import api from '../../services/api'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
@@ -73,12 +73,10 @@ const Header = () => {
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
   const fullname = () => cookies.get('fullname');
-        
+  
 
-  return (
-
-    
-    
+return (
+ 
     <header className="header">
       
       {/* ========== main navigation =========== */}
