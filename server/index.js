@@ -185,9 +185,11 @@ db.sequelize.sync({}).then(() => {})
           console.log(err)
       });
 
-    
+    */
 })
-*/
+
+
+
 app.use('/uploads', express.static('./uploads'));
 
 const usersRouter = require("./routes/Users");
