@@ -11,11 +11,46 @@ import { Chat, Channel, ChannelHeader, Thread, Window, ChannelList, ChannelListM
 import { StreamChat } from 'stream-chat';
 import { useChatContext } from 'stream-chat-react';
 import Slider from "react-slick";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
+const authToken = cookies.get("token");
+const userId = cookies.get('userId');
+const otherUserId = '5763a23d840f19226038ee12a683fabc';
+
+const apiKey = 'vxwzb46w7drg';
+
+const chatClient = new StreamChat(apiKey);
+
+const createChannel = async () => {
+  // autenticar usuário
+  await chatClient.setUser(
+    {
+      id: userId,
+    },
+    authToken,
+  );
+
+  // obter informações do usuário com quem você quer iniciar um chat
+  const otherUser = await chatClient.queryUsers({ id: otherUserId });
+
+  // criar canal de chat
+  const channel = chatClient.channel('messaging', {
+    members: [userId, otherUserId],
+  });
+
+  await channel.create();
+
+  // retornar o ID do canal para que você possa redirecionar o usuário para a página de chat
+  return channel.id;
+};
+
+const GoMassage = async () => {
+  const channelId = await createChannel();
+  window.location.href = `/chat/${channelId}`;
+};
 
 
-const GoMassage = () =>{
-  window.location.href = '/chat'
-}
 
 const CarDetails = () => {
  const [Ads, setAds] = useState([])
@@ -23,7 +58,7 @@ const CarDetails = () => {
  useEffect(() => {
   async function fetchUsers() {
     const response = await api.get(`/publi/listAD/${id}`);
-    console.log(response)
+    console.log(response.data.user_idChat)
     setAds(response.data);
   }
   fetchUsers();
