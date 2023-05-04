@@ -68,6 +68,7 @@ function UserProfile() {
   const [modalOpenA, setModalOpenA] = useState(false);
   const [modalOpenB, setModalOpenB] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [deleteConfirmationModalOpen, setDeleteConfirmationModalOpen] = useState(false);
   
 
@@ -81,6 +82,10 @@ function UserProfile() {
 
   const togglePasswordModal = () => {
     setPasswordModalOpen(!passwordModalOpen);
+  };
+
+  const toggleEmailModal = () => {
+    setEmailModalOpen(!emailModalOpen);
   };
 
     const handleClickA = () => {
@@ -113,6 +118,8 @@ function UserProfile() {
   const [locality , setLocality] = useState(null);
   const [telem , setTelem] = useState(null);
   const [birthdate , setBirthdate] = useState(null);
+  const [emaill, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [selectedUserId , setSelectedUserId] = useState('');
   const userId = cookies.get('userId');
   const userID = cookies.get('userID');
@@ -188,8 +195,22 @@ function UserProfile() {
       });  }
 
       */
-  
+  useEffect(() => {
+    api.get(`/auth/Users/${id}`)
+      .then(response => {
+        const UserData = response.data;
+        setEmail(UserData.email)
+        setPassword(UserData.password)
+       
+        console.log(UserData)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
   if(!authToken) return <Register />
+
   async function handleSubmit(e) {
     e.preventDefault();
    
@@ -199,11 +220,28 @@ function UserProfile() {
       birthdate: birthdate,
       
     };
-  
+
       await api.put(`/cl/${userID}`,data);
       window.location.href= '/UserProfile';
   }
+
   
+
+  async function changePassword(e) {
+    e.preventDefault();
+
+    const userData = {
+      email:emaill ,
+      password: password,
+
+    }
+
+    document.cookie = `email=${emaill};`;
+
+    await api.put(`/auth/users/${userID}`, userData);
+    window.location.href= '/UserProfile';
+
+  }
   return (
     <>
 
@@ -241,7 +279,7 @@ function UserProfile() {
           Mudar Password
         </Button>
         )}
-        <Button >
+        <Button onClick={toggleEmailModal}>
           Mudar Email
         </Button>
         <Button onClick={() => setDeleteConfirmationModalOpen(true)} >
@@ -259,11 +297,27 @@ function UserProfile() {
         <MDBModalHeader toggle={togglePasswordModal}>Alterar Password</MDBModalHeader>
       <DialogContent dividers>
         
-          <MDBInput type="text" name="fullname" label="Antiga password" />
-          <MDBInput type="text" name="fullname" label="Nova password" />
+          <MDBInput label="Insira a nova password" type="password" required value={password} onChange={e => setPassword(e.target.value)} name="password"  />
+          
       </DialogContent>
       <DialogActions>
-        <MDBBtn color="primary" type="submit" form="change-name-form">Alterar</MDBBtn>
+        <MDBBtn  color="primary" onClick={changePassword} >Alterar</MDBBtn>
+      </DialogActions>
+      </MDBModal>
+    </form>
+
+    {/* Alterar Email */}
+
+    <form >
+      <MDBModal isOpen={emailModalOpen} toggle={toggleEmailModal}>
+        <MDBModalHeader toggle={toggleEmailModal}>Alterar Email</MDBModalHeader>
+      <DialogContent dividers>
+        
+          <MDBInput label="Insira o novo email" type="text" required value={emaill} onChange={e => setEmail(e.target.value)} name="email"  />
+          
+      </DialogContent>
+      <DialogActions>
+        <MDBBtn  color="primary" onClick={changePassword} >Alterar</MDBBtn>
       </DialogActions>
       </MDBModal>
     </form>
@@ -304,37 +358,10 @@ function UserProfile() {
                         className="rounded-circle"
                         style={{ width: '150px' }}
                         fluid />
-                      <p className="text-muted mb-1">Full Stack Developer</p>
-                      <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                      <p className="text-muted mb-1">{fullname()}</p>
+                      
                       <div className="d-flex justify-content-center mb-2">
                       </div>
-                    </MDBCardBody>
-                  </MDBCard>
-
-                  <MDBCard className="mb-4 mb-lg-0">
-                    <MDBCardBody className="p-0">
-                      <MDBListGroup flush className="rounded-3">
-                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                          <MDBIcon fas icon="globe fa-lg text-warning" />
-                          <MDBCardText>https://mdbootstrap.com</MDBCardText>
-                        </MDBListGroupItem>
-                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                          <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                          <MDBCardText>mdbootstrap</MDBCardText>
-                        </MDBListGroupItem>
-                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                          <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                          <MDBCardText>@mdbootstrap</MDBCardText>
-                        </MDBListGroupItem>
-                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                          <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                          <MDBCardText>mdbootstrap</MDBCardText>
-                        </MDBListGroupItem>
-                        <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                          <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                          <MDBCardText>mdbootstrap</MDBCardText>
-                        </MDBListGroupItem>
-                      </MDBListGroup>
                     </MDBCardBody>
                   </MDBCard>
                 </MDBCol>
@@ -390,72 +417,6 @@ function UserProfile() {
                       </MDBRow>
                     </MDBCardBody>
                   </MDBCard>
-
-                  <MDBRow>
-                    <MDBCol md="6">
-                      <MDBCard className="mb-4 mb-md-0">
-                        <MDBCardBody>
-                          <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                          <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-
-                          <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-
-                          <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-
-                          <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-
-                          <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-                        </MDBCardBody>
-                      </MDBCard>
-                    </MDBCol>
-
-                    <MDBCol md="6">
-                      <MDBCard className="mb-4 mb-md-0">
-                        <MDBCardBody>
-                          <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                          <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-
-                          <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-
-                          <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-
-                          <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-
-                          <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                          <MDBProgress className="rounded">
-                            <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                          </MDBProgress>
-                        </MDBCardBody>
-                      </MDBCard>
-                    </MDBCol>
-                  </MDBRow>
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
