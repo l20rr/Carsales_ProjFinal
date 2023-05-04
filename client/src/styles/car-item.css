@@ -8,6 +8,14 @@
     color: #f9a826;
     font-size: 1.1rem;
 }
+.heart-btn {
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
 .car__item-btn {
     border-radius: 0;
