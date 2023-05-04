@@ -14,7 +14,7 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 const cookies = new Cookies();
 const authToken = cookies.get("token");
 
-const apiKey = 'cd4bcsnrt3ej';
+const apiKey = 'vxwzb46w7drg';
 const client = StreamChat.getInstance(apiKey);
 
 if(authToken) {
