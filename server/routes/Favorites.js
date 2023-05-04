@@ -42,6 +42,22 @@ router.get("/Fav/:id", async(req, res) => {
 });
 
 
+router.delete("/favorites/:id", async (req, res) => {
+    const favoriteId = req.params.id;
+  
+    try {
+      const favorite = await Favorites.findByIdAndDelete(favoriteId);
+  
+      if (!favorite) {
+        return res.status(404).json({ msg: "Favorite not found" });
+      }
+  
+      res.status(200).json({ msg: "Favorite deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ msg: error.message });
+    }
+  });
+
 router.get("/All", async(req, res) => {
     try {
         const response = await Favorites.findAll({

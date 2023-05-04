@@ -205,6 +205,9 @@ app.use("/cat", cat);
 const subcat = require("./routes/subcategory");
 app.use("/subcat", subcat);
 
+const fav   = require("./routes/Favorites");
+app.use("/fav", fav);
+
 const client_user = require("./routes/Client");
 app.use("/cl", client_user);
 

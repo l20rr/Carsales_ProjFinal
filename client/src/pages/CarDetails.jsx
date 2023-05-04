@@ -13,7 +13,9 @@ import { useChatContext } from 'stream-chat-react';
 import Slider from "react-slick";
 
 
-
+const GoMassage = () =>{
+  window.location.href = '/chat'
+}
 
 const CarDetails = () => {
  const [Ads, setAds] = useState([])
@@ -122,7 +124,7 @@ const settings = {
             </Col>
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-              <button >Create Channel</button>
+              <button onClick={GoMassage} >Messagem</button>
               </div>
             </Col>
           </Row>
