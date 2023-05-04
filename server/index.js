@@ -30,8 +30,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
-db.sequelize.sync({force:true}).then(() => {
-    
+db.sequelize.sync({}).then(() => {})
+    /*
     async function createUserAndClient() {
 
         try {
@@ -187,7 +187,7 @@ db.sequelize.sync({force:true}).then(() => {
 
     
 })
-
+*/
 app.use('/uploads', express.static('./uploads'));
 
 const usersRouter = require("./routes/Users");
