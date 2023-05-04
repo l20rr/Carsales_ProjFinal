@@ -13,7 +13,7 @@ const CarItem = () => {
   
   useEffect(() => {
     async function fetchAds() {
-      const response = await api.get('/publi/listAllAD');
+      const response = await api.get('/pri/listAllPriorityPriceASC');
       setAds(response.data);
     }
     fetchAds();
