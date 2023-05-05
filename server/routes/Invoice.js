@@ -59,5 +59,19 @@ router.get("/All", async(req, res) => {
     }
 });
 
+router.get("/listInvoice/:id", async(req, res) => {
+    const { QueryTypes } = require('sequelize');
+    const id = req.params.id;
+
+    const response = await db.sequelize.query(`select *   
+    from client
+    inner join publishAD on  client.ID=publishad.clientID
+    inner join purchase_advert on  publishAD.ID=purchase_advert.publishadID
+    inner join invoice on purchase_advert.ID=invoice.purchaseID
+    inner join payment on invoice.ID=payment.invoiceID
+    where client.id='${id}';`, { type: QueryTypes.SELECT });
+    res.status(200).json(response);
+});
+
 
 module.exports = router;

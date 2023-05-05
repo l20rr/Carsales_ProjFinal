@@ -144,10 +144,7 @@ router.get("/listAno/:id", async(req, res) => {
     const { QueryTypes } = require('sequelize');
     const id = req.params.id;
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date  
+    const response = await db.sequelize.query(`Select *  
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -163,10 +160,7 @@ router.get("/listKms/:id-:id2", async(req, res) => {
     const id = req.params.id;
     const id2 = req.params.id2;
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select *  
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -182,10 +176,7 @@ router.get("/listPower/:id-:id2", async(req, res) => {
     const id = req.params.id;
     const id2 = req.params.id2;
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select *   
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -201,10 +192,7 @@ router.get("/listRangePriceASC/:id-:id2", async(req, res) => {
     const id = req.params.id;
     const id2 = req.params.id2;
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select *  
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -220,10 +208,7 @@ router.get("/listRangeSeatsASC/:id-:id2", async(req, res) => {
     const id = req.params.id;
     const id2 = req.params.id2;
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date 
+    const response = await db.sequelize.query(`Select * 
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -239,10 +224,7 @@ router.get("/listByBrandASC/:id", async(req, res) => {
     const id = req.params.id;
 
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select *   
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -258,10 +240,7 @@ router.get("/listByModeldASC/:id", async(req, res) => {
     const id = req.params.id;
 
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select *   
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID

@@ -2,12 +2,10 @@ import React,{useState}from 'react';
 import api from '../services/api';
 // react-bootstrap components
 import {
-  Badge,
+
   Button,
   Card,
   Form,
-  Navbar,
-  Nav,
   Container,
   Row,
   Col
@@ -16,7 +14,6 @@ import moment from 'moment';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 import {useParams} from 'react-router-dom'
-import Register from "../components/Header/Register"
 
 const cookies = new Cookies();
 const authToken = cookies.get("token");
@@ -141,7 +138,7 @@ function RegisterInvoice() {
                   <Row>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>NIF</label>
+                        <label>Numero Fiscal (NIF)</label>
                         <Form.Control
                           id='NIF'
                           value={NIF}
@@ -154,7 +151,7 @@ function RegisterInvoice() {
                     
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>creditCardDate</label>
+                        <label>Validade do cartão de crédito</label>
                         <Form.Control
                           id='creditCardDate'
                           value={creditCardDate}
@@ -166,7 +163,7 @@ function RegisterInvoice() {
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>creditCard</label>
+                        <label>Número de cartão de crédito</label>
                         <Form.Control
                           id='creditCard'
                           value={creditCard}

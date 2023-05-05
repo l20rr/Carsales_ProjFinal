@@ -1,14 +1,8 @@
 import React,{useState , useEffect}from 'react';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
 import moment from 'moment';
-import Row from 'react-bootstrap/Row';
 import api from '../services/api';
-//import queryString from 'query-string';
 import {
   MDBContainer,
-  MDBBtnGroup,
   MDBBtn,
   MDBRow,
   MDBCol,
@@ -19,11 +13,9 @@ import {
   MDBIcon,
   MDBCardTitle,
 } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 import {useParams} from 'react-router-dom'
-import Register from "../components/Header/Register"
 
 const cookies = new Cookies();
 const authToken = cookies.get("token");

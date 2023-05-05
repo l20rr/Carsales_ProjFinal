@@ -1,20 +1,17 @@
-import React from "react";
+import { useState, useEffect }  from "react";
 import  SideBar from "./SideBar";
-
-import { useParams } from 'react-router-dom';
-
+import Table from 'react-bootstrap/Table';
+import { useParams, Link} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencil } from '@fortawesome/free-solid-svg-icons'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
+import { faPencil, faPlus} from '@fortawesome/free-solid-svg-icons'
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
-import { useState, useEffect } from 'react';
-
 import { StreamChat } from 'stream-chat';
 import api from '../services/api';
 import Register from "../components/Header/Register"
 import Form from 'react-bootstrap/Form';
+
+
 
 
 // react-bootstrap components
@@ -32,6 +29,7 @@ import {
   MDBIcon,
   MDBListGroup,
   MDBListGroupItem
+  
 } from 'mdb-react-ui-kit';
 
 
@@ -211,6 +209,17 @@ function UserProfile() {
       });
   }, []);
 
+  const [Ads , setAds] = useState([])
+
+
+  useEffect(() => {
+    async function fetchAds() {
+      const response = await api.get(`/cl/listclient/${userID}`);
+      setAds(response.data);
+    }
+    fetchAds();
+  }, []);
+
   if(!authToken) return <Register />
 
   async function handleSubmit(e) {
@@ -243,6 +252,23 @@ function UserProfile() {
     window.location.href= '/UserProfile';
 
   }
+
+  
+
+  async function handleDelete(publishADID) {
+    console.log('Deleting user with ID:', publishADID);
+    try {
+      const response = await api.delete(`/vehicle/vehicle/${publishADID}`);
+      if (response.status === 200) {
+        console.log('User deleted successfully')
+      }
+      
+  
+    } catch (error) {
+      console.log('Error deleting user:', error);
+    }
+  }
+
   return (
     <>
 
@@ -276,16 +302,16 @@ function UserProfile() {
         <MDBModalBody>
       <DialogActions sx={{ flexDirection: 'column', gap: 2, my: 2 }}>
       { (
-        <Button onClick={togglePasswordModal}>
+        <MDBBtn onClick={togglePasswordModal}>
           Mudar Password
-        </Button>
+        </MDBBtn>
         )}
-        <Button onClick={toggleEmailModal}>
+        <MDBBtn onClick={toggleEmailModal}>
           Mudar Email
-        </Button>
-        <Button onClick={() => setDeleteConfirmationModalOpen(true)} >
+        </MDBBtn>
+        <MDBBtn onClick={() => setDeleteConfirmationModalOpen(true)} >
           Apagar  Conta
-        </Button>
+        </MDBBtn>
       </DialogActions>
         </MDBModalBody>
       </MDBModal>
@@ -420,6 +446,35 @@ function UserProfile() {
                   </MDBCard>
                 </MDBCol>
               </MDBRow>
+            </MDBContainer>
+            <MDBContainer>
+            <form>
+              <h3>Os seus anúncios</h3>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Matricula</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Ano/Mês fabrico</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Ads.map(Ad => (
+              <tr key={Ad.ID}>
+                <td>{Ad.license}</td>
+                <td>{Ad.brand}</td>
+                <td>{Ad.model}</td>
+                <td>{Ad.year}</td>
+                <td>
+                  <MDBBtn color="danger" onClick={() => handleDelete(Ad.ID)}  >Eliminar</MDBBtn>{' '}
+                  <Link to={`/editV/${Ad.ID}`}><MDBBtn variant="primary" >Editar</MDBBtn></Link>
+              </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+    </form>
             </MDBContainer>
 
           </div>
