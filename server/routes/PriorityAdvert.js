@@ -57,10 +57,7 @@ router.get("/All", async(req, res) => {
 router.get("/listAllPriority", async(req, res) => {
     const { QueryTypes } = require('sequelize');
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date  
+    const response = await db.sequelize.query(`Select *
     from vehicle 
     inner join subcategory on vehicle.subcategoryID=subcategory.ID
     inner join category on subcategory.categoryID=category.ID
@@ -74,10 +71,7 @@ router.get("/listAllPriority", async(req, res) => {
 router.get("/listAllPriorityPriceASC", async(req, res) => {
     const { QueryTypes } = require('sequelize');
 
-    const response = await db.sequelize.query(`Select vehicle.id AS id, vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select *
     from vehicle 
     left join subcategory on vehicle.subcategoryID=subcategory.ID
     left join category on subcategory.categoryID=category.ID
@@ -91,10 +85,7 @@ router.get("/listAllPriorityPriceASC", async(req, res) => {
 router.get("/listAllPriorityDateASC", async(req, res) => {
     const { QueryTypes } = require('sequelize');
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
-    subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
-    vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'n. lugares', 
-    client.locality as 'Localidade', publishad.publishAD_date   
+    const response = await db.sequelize.query(`Select *
     from vehicle 
     left join subcategory on vehicle.subcategoryID=subcategory.ID
     left join category on subcategory.categoryID=category.ID
@@ -104,5 +95,6 @@ router.get("/listAllPriorityDateASC", async(req, res) => {
     order by priorityadvert.ID desc, publishad.publishAD_date desc;`, { type: QueryTypes.SELECT });
     res.status(200).json(response);
 });
+
 
 module.exports = router;

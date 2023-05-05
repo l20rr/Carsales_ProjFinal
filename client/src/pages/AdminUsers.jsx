@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import { Button } from 'react-bootstrap';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const cookies = new Cookies();
 function AdminUsers() {

@@ -201,6 +201,8 @@ app.use("/vehicle", vehicleRouter);
 const cat = require("./routes/Category");
 app.use("/cat", cat);
 
+const fav = require("./routes/Favorites");
+app.use("/fav", fav);
 
 const subcat = require("./routes/subcategory");
 app.use("/subcat", subcat);

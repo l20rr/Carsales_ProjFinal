@@ -4,12 +4,10 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import api from '../services/api';
-import { Link } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 import {useParams} from 'react-router-dom'
 import Register from "../components/Header/Register"
-import DatePicker, { DateObject } from "react-multi-date-picker";
 import Home from './Home';
 const cookies = new Cookies();
 const authToken = cookies.get("token");
