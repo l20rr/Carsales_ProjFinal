@@ -25,28 +25,8 @@ router.post("/publishad", async(req, res) => {
 
 router.get("/listAllAD", async(req, res) => {
     const { QueryTypes } = require('sequelize');
-    const response = await db.sequelize.query(`SELECT 
-    vehicle.image,
-    vehicle.image2, 
-    vehicle.image3, 
-    vehicle.id AS id, 
-    category.categoryName, 
-    subcategory.SubcategoryName, 
-    vehicle.price,
-    vehicle.license, 
-    vehicle.year, 
-    vehicle.kms, 
-    vehicle.brand AS Marca, 
-    vehicle.model AS Modelo, 
-    vehicle.fuel AS Combustivel, 
-    vehicle.power, 
-    vehicle.num_seats AS "n. lugares", 
-    client.locality, 
-    publishAD.publishAD_date ,
-    publishad.ID AS 'ID'
-    
-  FROM 
-    vehicle 
+    const response = await db.sequelize.query(`SELECT * 
+  FROM vehicle 
     INNER JOIN subcategory ON vehicle.subcategoryID = subcategory.ID
     INNER JOIN category ON subcategory.categoryID = category.ID
     INNER JOIN publishAD ON vehicle.ID = publishAD.vehicleID
