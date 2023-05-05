@@ -3,21 +3,15 @@ import React,{useState , useEffect}from 'react';
 import api from '../services/api';
 // react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
   Form,
-  Navbar,
-  Nav,
   Container,
   Row,
   Col
 } from "react-bootstrap";
-import moment from 'moment';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
-import {useParams} from 'react-router-dom'
-import Register from "../components/Header/Register"
 
 const cookies = new Cookies();
 const authToken = cookies.get("token");
@@ -35,8 +29,6 @@ if(authToken) {
 }
 const Invoice = () => {
 
-  
-  const userId = cookies.get('userId');
   const userID = cookies.get('userID');
   const fullname = cookies.get('fullname');
   const invoiceID = cookies.get('invoiceID')
@@ -202,7 +194,7 @@ const Invoice = () => {
                   <Row>
                   <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>validade cartao</label>
+                        <label>Validade cartão crédito</label>
                         <Form.Control
                         value={creditCardDate}
                         disabled
@@ -211,7 +203,7 @@ const Invoice = () => {
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>Num cartao</label>
+                        <label>Número cartão crédito</label>
                         <Form.Control
                          value={creditCard}
                          disabled
@@ -220,7 +212,6 @@ const Invoice = () => {
                     </Col>
                   </Row>
                   <br />
-                 
                   <div className="clearfix"></div>
                 </Form>
               </Card.Body>

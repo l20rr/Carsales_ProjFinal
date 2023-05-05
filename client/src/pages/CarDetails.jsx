@@ -1,17 +1,12 @@
 import React, {useState ,useEffect } from "react";
 import api from "../services/api";
-import carData from "../assets/data/carData";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
-import BookingForm from "../components/UI/BookingForm";
-import PaymentMethod from "../components/UI/PaymentMethod";
-import CreateChannel from "../components/Layout/CreateChannel";
-import { Chat, Channel, ChannelHeader, Thread, Window, ChannelList, ChannelListMessenger, ChannelPreviewMessenger, ChannelPreviewCompact, ChannelPreviewLastMessage, ChannelSearch, ChatDown, LoadingIndicator, MessageInput, MessageList, MessageSimple } from 'stream-chat-react';
-import { StreamChat } from 'stream-chat';
-import { useChatContext } from 'stream-chat-react';
 import Slider from "react-slick";
 import Cookies from 'universal-cookie';
+import { StreamChat } from 'stream-chat';
+
 const cookies = new Cookies();
 
 
@@ -84,7 +79,7 @@ const settings = {
     Ads.map(Ad => (
     <div key={Ad.id}>
       
-      <Helmet title={Ad.Marca}>
+      <Helmet title={Ad.brand}>
       <section>
         <Container>
           <Row>
@@ -115,7 +110,7 @@ const settings = {
              </Col>
             <Col lg="6">
               <div className="car__info">
-                <h2 className="section__title">{Ad.Marca}-{Ad.Modelo}</h2>
+                <h2 className="section__title">{Ad.brand}-{Ad.model}</h2>
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
                   <h6 className="rent__price fw-bold fs-4">
                     {Ad.price}.00 €
@@ -146,7 +141,7 @@ const settings = {
                 </div>
                 <div className=" d-flex align-items-center mt-3" style={{ columnGap: "2.8rem" }}>
                   <span className=" d-flex align-items-center gap-1 section__description">
-                    <i class="ri-gas-station-fill" style={{ color: "#f9a826" }}></i>{" "}{Ad.Combustivel}
+                    <i class="ri-gas-station-fill" style={{ color: "#f9a826" }}></i>{" "}{Ad.fuel}
                   </span>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-settings-2-line" style={{ color: "#f9a826" }}></i>{" "}{Ad.power}{" kWs"}
@@ -155,7 +150,7 @@ const settings = {
                     <i class="ri-timer-flash-line" style={{ color: "#f9a826" }}></i>{" "} {Ad.num_seats}{" Lugares"}
                   </span>
                   <span className=" d-flex align-items-center gap-1 section__description">
-                    <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "} {Ad.Localidade}
+                    <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "} {Ad.locality}
                   </span>
                 </div>
               </div>

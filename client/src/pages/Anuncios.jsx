@@ -56,8 +56,8 @@ function Anuncios() {
             {Ads.map(Ad => (
               <tr key={Ad.ID}>
                 <td>{Ad.ID}</td>
-                <td>{Ad.Marca}</td>
-                <td>{Ad.Modelo}</td>
+                <td>{Ad.brand}</td>
+                <td>{Ad.model}</td>
                 <td>{Ad.year}</td>
                 <td>
                   <Button variant="danger" onClick={() => handleDelete(Ad.ID)}  >Eliminar</Button>{' '}
