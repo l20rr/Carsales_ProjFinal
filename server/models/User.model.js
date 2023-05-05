@@ -11,6 +11,12 @@ module.exports = (sequelize, Sequelize) => {
 
     streamChatUserId: {
       type: Sequelize.STRING,
+      allowNull: true,
+    },
+
+    googleID: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
 
     fullname: {
@@ -30,17 +36,27 @@ module.exports = (sequelize, Sequelize) => {
         }
     },
     password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
+      type: Sequelize.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: function(value) {
+          if (!this.is_google_user && !value) {
+            throw new Error("Password is required");
+          }
         }
-    },
-
-        admin: { 
-          type: Sequelize.BOOLEAN,
-          defaultValue: false,
       }
+    },
+    admin: { 
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+
+    is_google_user: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
 
 }, {
     freezeTableName: true
@@ -52,6 +68,12 @@ module.exports = (sequelize, Sequelize) => {
             onUpdate: 'CASCADE',
         })
     };
+
+    User.beforeCreate(async (user) => {
+      if (!user.is_google_user && !user.password) {
+        throw new Error("Password is required");
+      }
+    });
 
     return User;
 };

@@ -141,6 +141,8 @@ function UserProfile() {
     }
   }, [locality, telem, birthdate, userID]);
 
+  
+
   useEffect(() => {
     async function fetchUserData() {
       try {
@@ -227,14 +229,13 @@ function UserProfile() {
       locality: locality,
       telem: telem,
       birthdate: birthdate,
+      userID: userID
       
     };
 
-      await api.put(`/cl/${userID}`,data);
+      await api.post(`/cl/userData`,data);
       window.location.href= '/UserProfile';
   }
-
-  
 
   async function changePassword(e) {
     e.preventDefault();

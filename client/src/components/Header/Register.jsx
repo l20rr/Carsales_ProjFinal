@@ -84,7 +84,7 @@ const Register = () => {
     const handleGoogleSuccess = async (res) => {
       const { tokenId } = res;
     
-      const { data: { token, userId, email, name } } = await api.post('/auth/google/', {
+      const { data: { token, userId, userID, email, name } } = await api.post('/auth/google/', {
         tokenId: tokenId,
       });
     
@@ -93,7 +93,7 @@ const Register = () => {
       cookies.set('email', email);
       cookies.set('fullname', name);
       cookies.set('userId', userId);
-      
+      cookies.set('userID', userID);
     
       
       window.location.reload();
@@ -168,6 +168,7 @@ const Register = () => {
               
               {isSignup ? 'Registar' : 'Entrar'}
                </button>
+               
                <GoogleLogin
                   clientId={clientId}
                   buttonText="Login with Google"
