@@ -15,7 +15,7 @@ import RegisterSub from "../pages/RegisterSub";
 import Registeradverts from "../pages/Registeradverts";
 import RegisterVhicle from "../pages/RegisterVhicle";
 import Register from "../components/Header/Register";
-
+import ListInvoice from "../Admin/ListInvoice";
 import UserProfile from "../Admin/UserProfile"
 import AdminUsers from "../pages/AdminUsers";
 
@@ -60,7 +60,7 @@ const Routers = () => {
        <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
        <Route path="/:publishadID/:purchaseID/RegisterInvoice" element={<RegisterInvoice />} />
        <Route path="/Invoice" element={<Invoice />} />
-
+       <Route path="/ListInvoice" element={<ListInvoice />} />
        <Route path="/edit/:id" element={<EditUser />} />
 
        <Route path="/editV/:id" element={<EditVei/>} />
