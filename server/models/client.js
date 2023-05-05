@@ -71,11 +71,7 @@ module.exports = (sequelize, Sequelize) => {
             hooks: true,
         })
 
-        Client.hasMany(models.googleAuth, {
-            foreignKey: 'clientID',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-        })
+
     };
-    return Client;
+     return Client;
 };

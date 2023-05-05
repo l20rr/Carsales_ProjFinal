@@ -69,7 +69,7 @@ router.post('/login', async(req, res) => {
 
     try {
 
-        const { email, password, token } = req.body;
+        const { email, password } = req.body;
 
         const user = await Users.findOne({ where: { email }, attributes: ['id', 'email', 'fullname', 'password', 'streamChatUserId'] });
 
@@ -117,7 +117,8 @@ const client2 = new OAuth2Client(CLIENT_ID, CLIENT_SECRET);
 const secret = 'vxwzb46w7drg';
 
 router.post('/google', async (req, res) => {
-    const { tokenId, userID } = req.body;
+
+    const { tokenId } = req.body;
 
     try {
         const ticket = await client2.verifyIdToken({
@@ -127,22 +128,43 @@ router.post('/google', async (req, res) => {
 
         const payload = ticket.getPayload();
         const { email, name } = payload;
-
-        const user = await googleAuth.findOne({ email });
+        const userId = crypto.randomBytes(16).toString('hex');
+        const user = await Users.findOne({ where: { email }});
+        
 
         if (!user) {
             
-            const newUser = new googleAuth({
+            const newUser = new Users({
                 email: email,
                 fullname: name,
+                is_google_user: true, 
                 googleID: payload.sub,
+                streamChatUserId: userId
 
             });
             await newUser.save();
-        }
-        
-        const token = jwt.sign({ name, email }, secret); 
-        res.status(200).json({ token, userID, name, email });
+
+            const userID = newUser.id;
+
+            const serverClient = connect(api_key, api_secret, app_id);
+            
+            const token = serverClient.createUserToken(userId);
+
+            
+
+            const jwtToken = jwt.sign({ name, email }, secret); 
+
+            res.status(200).json({ token, userID, userId, name, email, jwtToken });
+        }else {
+            // User already exists, return token
+            const serverClient = connect(api_key, api_secret, app_id);
+            const userId = crypto.randomBytes(16).toString('hex');
+            const token = serverClient.createUserToken(userId);
+
+            const userID = user.id;
+          
+            res.status(200).json({ token, userID, name, email });
+          }
     } catch (error) {
         console.log(error);
         res.status(401).json({ message: 'Authentication failed' });

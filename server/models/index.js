@@ -33,7 +33,7 @@ db.purchase_Advert = require("./purchase_Advert")(sequelize, Sequelize);
 db.invoice = require("./invoice")(sequelize, Sequelize);
 db.payment = require("./payment")(sequelize, Sequelize);
 db.priorityAdvert = require("./priorityAdvert")(sequelize, Sequelize);
-db.googleAuth = require("./googleAuth")(sequelize, Sequelize);
+
 
 
 module.exports = db;
