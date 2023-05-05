@@ -81,6 +81,29 @@ const Register = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
     }
 
+    const handleGoogleSuccess = async (res) => {
+      const { tokenId } = res;
+    
+      const { data: { token, userId, email, name } } = await api.post('/auth/google/', {
+        tokenId: tokenId,
+      });
+    
+      
+      cookies.set('token', token);
+      cookies.set('email', email);
+      cookies.set('fullname', name);
+      cookies.set('userId', userId);
+      
+    
+      
+      window.location.reload();
+      window.location.href= '/home'
+    };
+    
+    const handleGoogleFailure = (error) => {
+      console.log(error);
+    };
+
    
   return (
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' >
@@ -145,6 +168,13 @@ const Register = () => {
               
               {isSignup ? 'Registar' : 'Entrar'}
                </button>
+               <GoogleLogin
+                  clientId={clientId}
+                  buttonText="Login with Google"
+                  onSuccess={handleGoogleSuccess}
+                  onFailure={handleGoogleFailure}
+                  cookiePolicy={'single_host_origin'}
+                />
             
             </form>
           <div className='auth__form-container_fields-account'>

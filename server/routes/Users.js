@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const Users = db.user;
+const Client = db.client
+const googleAuth = db.googleAuth
 
 
 const bcrypt = require('bcrypt');
@@ -18,87 +20,45 @@ const app_id = process.env.STREAM_APP_ID;
 
 router.post('/signup', async(req, res) => {
 
-      
     try {
 
-            
         const { fullname, email, password } = req.body;
-
-
-
-
-            
         const userExists = await Users.findOne({ where: { email } });
-
-
-
-
-            
         if (userExists) {
 
-                   return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({ message: 'User already exists' });
 
-                 }
+            }
 
-
-
-
-            
         const serverClient = connect(api_key, api_secret, app_id);
 
-            
-
-            
         const hashedPassword = await bcrypt.hash(password, 10);
 
-            
         const userId = crypto.randomBytes(16).toString('hex');
 
-
-
-
-            
         const token = serverClient.createUserToken(userId);
 
-             // criando o usuário
+        // criando o usuário
 
-            
         const user = await Users.create({
 
-                   fullname: fullname,
+            fullname: fullname,
+            email: email,
+            password: hashedPassword,
+            streamChatUserId: userId
 
-                  email: email,
+            });
 
-                  password: hashedPassword,
-
-                  streamChatUserId: userId
-
-                 });
-
-
-
-
-            
-
-            
         const userID = parseInt(user.id);
 
-
-
-
-            
         res.status(200).json({ token, userId, userID, fullname, email, hashedPassword });
 
-          
     } catch (error) {
 
-            
         console.log(error);
 
-            
         res.status(500).json({ message: error });
 
-          
     }
 
 });
@@ -107,103 +67,87 @@ const jwt = require('jsonwebtoken');
 
 router.post('/login', async(req, res) => {
 
-      
     try {
 
-            
         const { email, password, token } = req.body;
 
-
-
-
-            
         const user = await Users.findOne({ where: { email }, attributes: ['id', 'email', 'fullname', 'password', 'streamChatUserId'] });
 
-
-
-
-            
         console.log(user);
 
-
-
-
-            
         if (!user) return res.status(400).json({ message: 'User not found' });
 
-
-
-
-            
         const success = await bcrypt.compare(password, user.password);
 
-
-
-
-            
         if (success) {
-
-                  
+            
             const serverClient = connect(api_key, api_secret, app_id);
 
-                  
             const client = StreamChat.getInstance(api_key, api_secret);
 
-
-
-
-                  
-
-                  
             let userId = user.streamChatUserId;
 
-
-
-
-                  
             const newToken = serverClient.createUserToken(userId);
 
-
-
-
-                  
             const userID = parseInt(user.id);
 
-
-
-
-                  
             res.status(200).json({ token: newToken, fullname: user.fullname, email, userID, userId });
 
-                
         } else {
 
-                   res.status(500).json({ message: 'Incorrect password' });
+            res.status(500).json({ message: 'Incorrect password' });
 
-                 }
+            }
 
-          
     } catch (error) {
 
-
-
-
-            
         console.log(error);
 
-
-
-
-            
         res.status(500).json({ message: error });
 
-          
     }
 
 });
 
+const { OAuth2Client } = require('google-auth-library');
+const CLIENT_ID = '574474093326-klu8iamgt3rupvjhnstb3o5jcju58h9l.apps.googleusercontent.com';
+const CLIENT_SECRET = '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';
+const client2 = new OAuth2Client(CLIENT_ID, CLIENT_SECRET);
 
+const secret = 'vxwzb46w7drg';
 
+router.post('/google', async (req, res) => {
+    const { tokenId, userID } = req.body;
+
+    try {
+        const ticket = await client2.verifyIdToken({
+            idToken: tokenId,
+            audience: CLIENT_ID,
+        });
+
+        const payload = ticket.getPayload();
+        const { email, name } = payload;
+
+        const user = await googleAuth.findOne({ email });
+
+        if (!user) {
+            
+            const newUser = new googleAuth({
+                email: email,
+                fullname: name,
+                googleID: payload.sub,
+
+            });
+            await newUser.save();
+        }
+        
+        const token = jwt.sign({ name, email }, secret); 
+        res.status(200).json({ token, userID, name, email });
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+});
 
 
 

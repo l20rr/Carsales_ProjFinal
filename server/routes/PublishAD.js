@@ -42,7 +42,9 @@ router.get("/listAllAD", async(req, res) => {
     vehicle.power, 
     vehicle.num_seats AS "n. lugares", 
     client.locality, 
-    publishAD.publishAD_date  
+    publishAD.publishAD_date ,
+    publishad.ID AS 'ID'
+    
   FROM 
     vehicle 
     INNER JOIN subcategory ON vehicle.subcategoryID = subcategory.ID

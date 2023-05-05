@@ -4,21 +4,60 @@ import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 
+const authToken = cookies.get("token");
+const userId = cookies.get('userId');
+const apiKey = 'vxwzb46w7drg';
+
+const chatClient = new StreamChat(apiKey);
+
+const createChannel = async (otherUserId) => {
+  // autenticar usuário
+  await chatClient.setUser(
+    {
+      id: userId,
+    },
+    authToken,
+  );
+
+  // obter informações do usuário com quem você quer iniciar um chat
+  const otherUser = await chatClient.queryUsers({ id: otherUserId });
+
+  // criar canal de chat
+  const channel = chatClient.channel('messaging', {
+    members: [userId, otherUserId],
+  });
+
+  await channel.create();
+
+  // retornar o ID do canal para que você possa redirecionar o usuário para a página de chat
+  return channel.id;
+};
+
+const GoMassage = async (otherUserId) => {
+  const channelId = await createChannel(otherUserId);
+  window.location.href = `/chat/${channelId}`;
+};
 
 
 const CarDetails = () => {
- const [Ads, setAds] = useState([])
- const {id} = useParams()
- useEffect(() => {
-  async function fetchUsers() {
-    const response = await api.get(`/publi/listAD/${id}`);
-    console.log(response)
-    setAds(response.data);
-  }
-  fetchUsers();
-}, []);
+  const [Ads, setAds] = useState([]);
+  const [otherUserId, setOtherUserId] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    async function fetchAd() {
+      const response = await api.get(`/publi/listAD/${id}`);
+      console.log(response);
+      setAds(response.data);
+      setOtherUserId(response.data[0].user_idChat);
+    }
+    fetchAd();
+  }, [id]);
+
 
 const settings = {
   fade: true,
@@ -116,7 +155,7 @@ const settings = {
             </Col>
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-              <button >Create Channel</button>
+              <button onClick={() => GoMassage(otherUserId)}>Messagem</button>
               </div>
             </Col>
           </Row>

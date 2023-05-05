@@ -30,9 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
-db.sequelize.sync({}).then(() => {})
-    /*
-    async function createUserAndClient() {
+db.sequelize.sync().then(() => {
+    
+  /*  async function createUserAndClient() {
 
         try {
           // Cria o usuário
@@ -183,11 +183,13 @@ db.sequelize.sync({}).then(() => {})
       }).catch(err => {
           console.log("Already exists");
           console.log(err)
-      });
+      });*/
 
-    
+  
 })
-*/
+
+
+
 app.use('/uploads', express.static('./uploads'));
 
 const usersRouter = require("./routes/Users");
@@ -206,6 +208,9 @@ app.use("/fav", fav);
 
 const subcat = require("./routes/subcategory");
 app.use("/subcat", subcat);
+
+const fav   = require("./routes/Favorites");
+app.use("/fav", fav);
 
 const client_user = require("./routes/Client");
 app.use("/cl", client_user);

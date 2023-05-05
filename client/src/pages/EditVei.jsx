@@ -37,25 +37,7 @@ const EditVei = () => {
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
     
-  
-    useEffect(() => {
-      async function fetchSubcategory() {
-      try {
-      const response = await api.get();
-      setSelectedSubcategory(response.data.ID)
-      console.log(response.data);
-      } catch (error) {
-      console.error(error);
-      }
-      }
-      fetchSubcategory();
-      }, []);
-      
-    
-   
-  
-   
-    
+
     if(!authToken) return <Register />
     
   if (email != 'admin@gmail.com') return <Home />;
@@ -72,7 +54,7 @@ const EditVei = () => {
     power:power,
     num_seats: numSeats,
     image:image,
-    subcategoryID:selectedSubcategory,
+  
     };
     if (
       license !== '' &&

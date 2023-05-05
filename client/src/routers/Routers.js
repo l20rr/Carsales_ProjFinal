@@ -27,7 +27,7 @@ import api from '../services/api'
 import Cookies from "universal-cookie";
 import { AuthContext } from '../components/AuthContext'
 import EditUser from "../pages/EditUser";
-
+import EditVei from "../pages/EditVei";
 
 const Routers = () => {
   return (
@@ -43,6 +43,7 @@ const Routers = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/register" element={<Register />} />
       <Route path="/chat" element={<ChatApi />} />
+      <Route path="/chat/:channelId" element={<ChatApi />} />
       <Route path="/Admin" element={<Dash />} />
       <Route path="/UserProfile" element={<UserProfile />} /> 
       <Route path="cars/registerCategory" element={
@@ -61,6 +62,8 @@ const Routers = () => {
        <Route path="/Invoice" element={<Invoice />} />
 
        <Route path="/edit/:id" element={<EditUser />} />
+
+       <Route path="/editV/:id" element={<EditVei/>} />
     </Routes>
   );
 };
