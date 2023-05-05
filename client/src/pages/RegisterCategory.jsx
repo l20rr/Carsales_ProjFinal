@@ -45,28 +45,31 @@ function RegisterCategory() {
   }
 
   return (
-    <div className="container">
-      <Form>
-        <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>Categoria</Form.Label>
-            <Form.Select
-              defaultValue=""
-              value={selectedCategory}
-              onChange={(event) => setSelectedCategory(event.target.value)}
-            >
-              <option value="">Escolha a categoria...</option>
-              {categoryOptions.map((category) => (
-                <option key={category.ID} value={category.ID}>
-                  {category.categoryName}
-                </option>
-              ))}
-            </Form.Select>
-            <Button variant="primary" onClick={handleSubmit}>Ir para a URL</Button>
-          </Form.Group>
-        </Row>
-      </Form>
-    </div>
+<div className="container" style={{ height: '75vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+  <Form style={{ width: '60vw' }}>
+    <Row className="mb-3">
+      <Form.Group as={Col} controlId="formGridState">
+        <Form.Label>Categoria</Form.Label>
+        <Form.Select
+          defaultValue=""
+          value={selectedCategory}
+          onChange={(event) => setSelectedCategory(event.target.value)}
+          style={{ width: '100%' }}
+        >
+          <option value="">Escolha a categoria...</option>
+          {categoryOptions.map((category) => (
+            <option key={category.ID} value={category.ID}>
+              {category.categoryName}
+            </option>
+          ))}
+        </Form.Select>
+        <br/>
+        <br/>
+        <Button variant="primary" onClick={handleSubmit}> Selecionar</Button>
+      </Form.Group>
+    </Row>
+  </Form>
+</div>
   );
 }
 

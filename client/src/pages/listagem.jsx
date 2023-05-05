@@ -39,7 +39,7 @@ function Listagem(){
   <div style={{display:'flex', margin:'0 auto'}}>
 
       {Ads.map((ad) => (
-        <Col key={ad.id} lg="2" md="4" sm="6" className="mb-5">
+        <Col key={ad.id} lg="3" md="4" sm="6" className="mb-5">
           <div className="car__item">
           <Slider {...settings} className="hero__slider">
                    <div className="car__img">

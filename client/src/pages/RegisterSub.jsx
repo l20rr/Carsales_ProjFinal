@@ -46,8 +46,8 @@ function RegisterSub() {
   }
 
   return (
-    <div className="container">
-      <Form>
+    <div className="container" style={{ height: '75vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+  <Form style={{ width: '60vw' }}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridState">
             <Form.Label>Sub-categoria</Form.Label>
@@ -63,7 +63,9 @@ function RegisterSub() {
                 </option>
               ))}
             </Form.Select>
-            <Button variant="primary" onClick={handleSubmit}>Ir para a URL</Button>
+            <br/>
+            <br/>
+            <Button variant="primary" onClick={handleSubmit}>Selecionar</Button>
           </Form.Group>
         </Row>
       </Form>

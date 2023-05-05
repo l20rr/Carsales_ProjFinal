@@ -24,9 +24,9 @@ function ListInvoice() {
   return (
     <div style={{display: 'flex'}}>
     < SideBar/>
-    <form>
+    <form style={{ margin: '50px auto', maxWidth: '800px' }}>
       
-        <Table striped bordered hover>
+        <Table>
           <thead>
             <tr>
               <th>Nº da fatura</th>

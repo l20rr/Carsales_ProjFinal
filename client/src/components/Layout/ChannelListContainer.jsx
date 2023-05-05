@@ -15,7 +15,7 @@ const cookies = new Cookies();
 
 const SideBar = ({ logout }) => (
 
-    <div className="channel-list__sidebar">
+    <div className="channel-list__sidebar" style={{ height: '80vh' }}>
         <div className="channel-list__sidebar__icon1">
             <div className="icon1__inner">
                 <FontAwesomeIcon icon={faCar} />
