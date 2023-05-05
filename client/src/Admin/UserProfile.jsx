@@ -301,16 +301,16 @@ function UserProfile() {
         <MDBModalBody>
       <DialogActions sx={{ flexDirection: 'column', gap: 2, my: 2 }}>
       { (
-        <Button onClick={togglePasswordModal}>
+        <MDBBtn onClick={togglePasswordModal}>
           Mudar Password
-        </Button>
+        </MDBBtn>
         )}
-        <Button onClick={toggleEmailModal}>
+        <MDBBtn onClick={toggleEmailModal}>
           Mudar Email
-        </Button>
-        <Button onClick={() => setDeleteConfirmationModalOpen(true)} >
+        </MDBBtn>
+        <MDBBtn onClick={() => setDeleteConfirmationModalOpen(true)} >
           Apagar  Conta
-        </Button>
+        </MDBBtn>
       </DialogActions>
         </MDBModalBody>
       </MDBModal>
@@ -448,6 +448,7 @@ function UserProfile() {
             </MDBContainer>
             <MDBContainer>
             <form>
+              <h3>Os seus anúncios</h3>
         <Table striped bordered hover>
           <thead>
             <tr>
