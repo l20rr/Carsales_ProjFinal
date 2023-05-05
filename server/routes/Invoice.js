@@ -66,10 +66,12 @@ router.get("/listInvoice/:id", async(req, res) => {
     const response = await db.sequelize.query(`select *   
     from client
     inner join publishAD on  client.ID=publishad.clientID
+    inner join vehicle on publishad.vehicleID=vehicle.id
     inner join purchase_advert on  publishAD.ID=purchase_advert.publishadID
     inner join invoice on purchase_advert.ID=invoice.purchaseID
     inner join payment on invoice.ID=payment.invoiceID
-    where client.id='${id}';`, { type: QueryTypes.SELECT });
+    where client.id='${id}'
+    order by invoice.invoice_date;`, { type: QueryTypes.SELECT });
     res.status(200).json(response);
 });
 

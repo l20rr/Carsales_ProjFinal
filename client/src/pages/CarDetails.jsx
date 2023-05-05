@@ -83,7 +83,7 @@ const settings = {
       <section>
         <Container>
           <Row>
-            <h1>Usuario: {Ad.fullname}</h1>
+            <h1>Usuário: {Ad.fullname}</h1>
             <Col lg="4" md="7" sm="6">
             <Slider {...settings} className="hero__slider">
                    <div className="car__img">
