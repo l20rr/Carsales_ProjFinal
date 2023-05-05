@@ -76,20 +76,31 @@ const [model, setModel] = useState("");
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
   const fullname = () => cookies.get('fullname');
-
   const handleSearch = async () => {
     // Extrair a marca e o modelo da busca
     const [brandSearch, modelSearch] = searchTerm.split(" ");
     
     try {
       const response = await api.get(`/publi/listAllAD/${brandSearch}/${modelSearch}`);
-      console.log(response.data);
+      const brand = response.data[0].Marca
+      console.log(brand)
+      cookies.set('brand', brand, {
+        path: '/',
+        expires: new Date('9999-12-31'),
+      });
+
+      const model =  response.data[0].Modelo
+      console.log(model)
+      cookies.set('model', model, {
+        path: '/',
+        expires: new Date('9999-12-31'),
+      });
+
+      window.location.href = `/listagem/pesquisa`
     } catch (error) {
       console.log(error);
     }
   };
-  
-
 return (
  
     <header className="header">
@@ -128,7 +139,21 @@ return (
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button onClick={handleSearch}>Buscar</button>
+      <button
+  onClick={handleSearch}
+  style={{
+    borderRadius: "10px",
+    backgroundColor: "#000d6b",
+    color: "#FFFFFF",
+    padding: "2px 3px",
+    transition: "background-color 0.3s ease",
+    border: "none"
+  }}
+  onMouseOver={(e) => e.target.style.backgroundColor = "#f9a826"}
+  onMouseOut={(e) => e.target.style.backgroundColor = "#000d6b"}
+>
+  Buscar
+</button>
               </div>
               
             </div>

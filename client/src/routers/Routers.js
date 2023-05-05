@@ -18,7 +18,7 @@ import Register from "../components/Header/Register";
 import ListInvoice from "../Admin/ListInvoice";
 import UserProfile from "../Admin/UserProfile"
 import AdminUsers from "../pages/AdminUsers";
-
+import Listagem from "../pages/listagem";
 import Dash from "../Admin/Dash";
 import Invoice from "../Admin/Invoice";
 import Anuncios from "../pages/Anuncios";
@@ -62,7 +62,7 @@ const Routers = () => {
        <Route path="/Invoice" element={<Invoice />} />
        <Route path="/ListInvoice" element={<ListInvoice />} />
        <Route path="/edit/:id" element={<EditUser />} />
-
+       <Route path="/listagem/pesquisa" element={<Listagem/>} />
        <Route path="/editV/:id" element={<EditVei/>} />
     </Routes>
   );
