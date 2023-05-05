@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
+import { useParams, Link} from 'react-router-dom';
 
 const cookies = new Cookies();
 const authToken = cookies.get("token");
@@ -29,9 +30,9 @@ if(authToken) {
 }
 const Invoice = () => {
 
+  const { ID } = useParams();
   const userID = cookies.get('userID');
   const fullname = cookies.get('fullname');
-  const invoiceID = cookies.get('invoiceID')
   const [email, setEmail] = useState('');
   const [NIF, setNif] = useState('');
   const[invoice_date, setInvoice_date] = useState('')
@@ -44,7 +45,7 @@ const Invoice = () => {
   const [telem , setTelem] = useState('');
 
   useEffect(() => {
-    api.get(`/in/Invoice/${invoiceID}`)
+    api.get(`/in/Invoice/${ID}`)
       .then(response => {
         const invoiceData = response.data;
         setEmail(invoiceData.email);
@@ -57,10 +58,10 @@ const Invoice = () => {
       .catch(error => {
         console.log(error);
       });
-  }, [invoiceID]);
+  }, [ID]);
 
   useEffect(() => {
-    api.get(`/pay/Pay/${invoiceID}`)
+    api.get(`/pay/Pay/${ID}`)
       .then(response => {
         const CardData = response.data;
         setCreditCardDate(CardData.CredCard_date)
@@ -70,7 +71,7 @@ const Invoice = () => {
       .catch(error => {
         console.log(error);
       });
-  }, [invoiceID]);
+  }, [ID]);
 
   useEffect(() => {
     api.get(`/cl/client/${userID}`)
