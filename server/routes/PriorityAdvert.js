@@ -57,7 +57,7 @@ router.get("/All", async(req, res) => {
 router.get("/listAllPriority", async(req, res) => {
     const { QueryTypes } = require('sequelize');
 
-    const response = await db.sequelize.query(`Select vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
+    const response = await db.sequelize.query(`Select vehicle.id AS id, vehicle.image, vehicle.image2, vehicle.image3, category.categoryName, 
     subcategory.SubcategoryName , vehicle.price, vehicle.license, vehicle.year, vehicle.kms, vehicle.brand as'Marca', 
     vehicle.model as 'Modelo', vehicle.fuel as 'Combustivel', vehicle.power, vehicle.num_seats as 'num_seats', 
     client.locality as 'Localidade', publishad.publishAD_date 

@@ -53,6 +53,9 @@ if (email === "admin@gmail.com") {
 
 const Header = () => {
   const menuRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
+const [brand, setBrand] = useState("");
+const [model, setModel] = useState("");
 
   const cookies = new Cookies();
 
@@ -73,6 +76,18 @@ const Header = () => {
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
   const fullname = () => cookies.get('fullname');
+
+  const handleSearch = async () => {
+    // Extrair a marca e o modelo da busca
+    const [brandSearch, modelSearch] = searchTerm.split(" ");
+    
+    try {
+      const response = await api.get(`/publi/listAllAD/${brandSearch}/${modelSearch}`);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   
 
 return (
@@ -107,11 +122,15 @@ return (
 
             <div className="nav__right">
               <div className="search__box">
-                <input type="text" placeholder="Pesquisa" />
-                <span>
-                  <i class="ri-search-line"></i>
-                </span>
+              <input
+        type="text"
+        id="searchTerm"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <button onClick={handleSearch}>Buscar</button>
               </div>
+              
             </div>
             
             <Col lg="5" md="6" sm="6">
