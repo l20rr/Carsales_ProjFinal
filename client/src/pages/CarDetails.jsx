@@ -14,15 +14,14 @@ import Slider from "react-slick";
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
+
 const authToken = cookies.get("token");
 const userId = cookies.get('userId');
-const otherUserId = '5763a23d840f19226038ee12a683fabc';
-
 const apiKey = 'vxwzb46w7drg';
 
 const chatClient = new StreamChat(apiKey);
 
-const createChannel = async () => {
+const createChannel = async (otherUserId) => {
   // autenticar usuário
   await chatClient.setUser(
     {
@@ -45,24 +44,27 @@ const createChannel = async () => {
   return channel.id;
 };
 
-const GoMassage = async () => {
-  const channelId = await createChannel();
+const GoMassage = async (otherUserId) => {
+  const channelId = await createChannel(otherUserId);
   window.location.href = `/chat/${channelId}`;
 };
 
 
-
 const CarDetails = () => {
- const [Ads, setAds] = useState([])
- const {id} = useParams()
- useEffect(() => {
-  async function fetchUsers() {
-    const response = await api.get(`/publi/listAD/${id}`);
-    console.log(response.data.user_idChat)
-    setAds(response.data);
-  }
-  fetchUsers();
-}, []);
+  const [Ads, setAds] = useState([]);
+  const [otherUserId, setOtherUserId] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    async function fetchAd() {
+      const response = await api.get(`/publi/listAD/${id}`);
+      console.log(response);
+      setAds(response.data);
+      setOtherUserId(response.data[0].user_idChat);
+    }
+    fetchAd();
+  }, [id]);
+
 
 const settings = {
   fade: true,
@@ -160,7 +162,7 @@ const settings = {
             </Col>
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-              <button onClick={GoMassage} >Messagem</button>
+              <button onClick={() => GoMassage(otherUserId)}>Messagem</button>
               </div>
             </Col>
           </Row>
