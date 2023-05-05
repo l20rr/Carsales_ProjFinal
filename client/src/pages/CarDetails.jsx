@@ -5,6 +5,8 @@ import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
 import Cookies from 'universal-cookie';
+import { StreamChat } from 'stream-chat';
+
 const cookies = new Cookies();
 
 
