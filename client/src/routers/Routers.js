@@ -59,7 +59,7 @@ const Routers = () => {
     }/>
        <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
        <Route path="/:publishadID/:purchaseID/RegisterInvoice" element={<RegisterInvoice />} />
-       <Route path="/Invoice" element={<Invoice />} />
+       <Route path="/Invoice/:ID" element={<Invoice />} />
        <Route path="/ListInvoice" element={<ListInvoice />} />
        <Route path="/edit/:id" element={<EditUser />} />
        <Route path="/listagem/pesquisa" element={<Listagem/>} />
