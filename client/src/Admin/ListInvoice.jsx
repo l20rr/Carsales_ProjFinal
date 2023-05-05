@@ -9,12 +9,12 @@ import  SideBar from "./SideBar";
 const cookies = new Cookies();
 function ListInvoice() {
     const [Ads , setAds] = useState([])
-    const clientID = cookies.get('clientID');
+    const userID = cookies.get('userID');
 
 
   useEffect(() => {
     async function fetchAds() {
-      const response = await api.get(`/in/listInvoice/${clientID}`);
+      const response = await api.get(`/in/listInvoice/${userID}`);
       setAds(response.data);
     }
     fetchAds();
@@ -29,22 +29,29 @@ function ListInvoice() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Nº da fatura</th>
+              <th>Data da fatura</th>
+              <th>Email</th>
+              <th>Matricula</th>
               <th>Marca</th>
               <th>Modelo</th>
-              <th>year</th>
+              <th>Cartão de Crédito</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody>
             {Ads.map(Ad => (
               <tr key={Ad.ID}>
                 <td>{Ad.ID}</td>
+                <td>{Ad.invoice_date}</td>
+                <td>{Ad.email}</td>
+                <td>{Ad.license}</td>
                 <td>{Ad.brand}</td>
                 <td>{Ad.model}</td>
-                <td>{Ad.year}</td>
+                <td>{Ad.CredCard}</td>
+                <td>{Ad.total}</td>
                 <td>
-                  <Button variant="danger" >Eliminar</Button>{' '}
-                  <Link to={`/editV/${Ad.ID}`}><Button variant="primary" >Editar</Button></Link>
+                  <Link to={`/Invoice/${Ad.ID}`}><Button variant="primary" >Emitir</Button></Link>
               </td>
               </tr>
             ))}

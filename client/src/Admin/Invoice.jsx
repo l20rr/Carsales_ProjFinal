@@ -84,6 +84,7 @@ const Invoice = () => {
         console.log(error);
       });
   }, []);
+  
 
   return (
     <div style={{display: 'flex'}}>
