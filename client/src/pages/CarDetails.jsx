@@ -74,38 +74,33 @@ const settings = {
 };
 
   return (
-    <div style={{height:'80vh'}}>
+    <>
    {
     Ads.map(Ad => (
     <div key={Ad.id}>
       
       <Helmet title={Ad.brand}>
-        <br/>
-      <section >
+      <section>
         <Container>
           <Row>
             <h1>Usuário: {Ad.fullname}</h1>
-            <br/>
-            <br/>
-            <div className="detalhe_info">
-            <Col lg="7" md="7" sm="6" >
+            <Col lg="4" md="7" sm="6">
             <Slider {...settings} className="hero__slider">
-          
-                   <div className="car__img_detalhe ">
+                   <div className="car__img">
                     <img src={`http://localhost:3000/uploads/${Ad.image}`} alt="" />
                   <Container>
                 
                   </Container>
                    </div>
 
-                   <div className="car__img_detalhe ">
+                   <div className="car__img">
                     <img src={`http://localhost:3000/uploads/${Ad.image2}`} alt="" />
                   <Container>
                 
                   </Container>
                    </div>
 
-                   <div className="car__img_detalhe ">
+                   <div className="car__img">
                     <img src={`http://localhost:3000/uploads/${Ad.image3}`} alt="" />
                   <Container>
                 
@@ -113,7 +108,7 @@ const settings = {
                    </div>
                   </Slider>
              </Col>
-            <Col lg="6">
+            <Col lg="8">
               <div className="car__info">
                 <h2 className="section__title">{Ad.brand}-{Ad.model}</h2>
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
@@ -133,7 +128,7 @@ const settings = {
                 <p className="section__description">
                   {Ad.description}
                 </p>
-                <div className=" d-flex align-items-center mt-3" style={{ columnGap: "4rem" }}>
+                <div className=" d-flex align-items-center mt-4" style={{ columnGap: "4rem" }}>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-roadster-line"style={{ color: "#f9a826" }}></i>{" "}{Ad.categoryName}
                   </span>
@@ -144,7 +139,7 @@ const settings = {
                     <i class="ri-dashboard-3-line" style={{ color: "#f9a826" }}></i>{" "}{Ad.kms}{" Kms"}
                   </span>
                 </div>
-                <div className=" d-flex align-items-center mt-3" style={{ columnGap: "2.8rem" }}>
+                <div className=" d-flex align-items-center mt-4" style={{ columnGap: "2.8rem" }}>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-gas-station-fill" style={{ color: "#f9a826" }}></i>{" "}{Ad.fuel}
                   </span>
@@ -171,7 +166,7 @@ const settings = {
   </Helmet>
     </div>
     ))}
-    </div>
+    </>
   );
 };
 
