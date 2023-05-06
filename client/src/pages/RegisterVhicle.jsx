@@ -133,15 +133,15 @@ function RegisterVhicle() {
 <Row className="mb-3">
   <Form.Group controlId="formGridCity">
     <Form.Control type="file" onChange={handleImageChange} className="filetype" />
-    <img alt="preview image" src={image ? URL.createObjectURL(image) : null} style={{ width: "40vw", height: "40vh" }} />     
+    <img alt="preview image" src={image ? URL.createObjectURL(image) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />     
   </Form.Group>
   <Form.Group controlId="formGridCity">
     <Form.Control type="file" onChange={handleImageChange2} className="filetype" />
-    <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} style={{ width: "40vw", height: "40vh" }} />       
+    <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
   </Form.Group>
   <Form.Group controlId="formGridCity">
     <Form.Control type="file" onChange={handleImageChange3} className="filetype" />
-    <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "40vw", height: "40vh" }} />       
+    <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
   </Form.Group>
 </Row>   
 <Row className="mb-3">

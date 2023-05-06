@@ -74,33 +74,38 @@ const settings = {
 };
 
   return (
-    <>
+    <div style={{height:'80vh'}}>
    {
     Ads.map(Ad => (
     <div key={Ad.id}>
       
       <Helmet title={Ad.brand}>
-      <section>
+        <br/>
+      <section >
         <Container>
           <Row>
             <h1>Usuário: {Ad.fullname}</h1>
-            <Col lg="4" md="7" sm="6">
+            <br/>
+            <br/>
+            <div className="detalhe_info">
+            <Col lg="7" md="7" sm="6" >
             <Slider {...settings} className="hero__slider">
-                   <div className="car__img">
+          
+                   <div className="car__img_detalhe ">
                     <img src={`http://localhost:3000/uploads/${Ad.image}`} alt="" />
                   <Container>
                 
                   </Container>
                    </div>
 
-                   <div className="car__img">
+                   <div className="car__img_detalhe ">
                     <img src={`http://localhost:3000/uploads/${Ad.image2}`} alt="" />
                   <Container>
                 
                   </Container>
                    </div>
 
-                   <div className="car__img">
+                   <div className="car__img_detalhe ">
                     <img src={`http://localhost:3000/uploads/${Ad.image3}`} alt="" />
                   <Container>
                 
@@ -155,10 +160,11 @@ const settings = {
                 </div>
               </div>
             </Col>
-            <Col lg="7" className="mt-5">
-              <div className="booking-info mt-5">
-              <button onClick={() => GoMassage(otherUserId)}>Messagem</button>
-              </div>
+            </div>
+            <Col lg="7" >
+              
+              <button className="btn_message" onClick={() => GoMassage(otherUserId)} >Messagem</button>
+           
             </Col>
           </Row>
         </Container>
@@ -166,7 +172,7 @@ const settings = {
   </Helmet>
     </div>
     ))}
-    </>
+    </div>
   );
 };
 

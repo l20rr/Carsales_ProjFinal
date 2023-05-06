@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 db.sequelize.sync().then(() => {
     
 
-/*
+
       async function createUserAndClient() {
 
           try {
@@ -185,7 +185,7 @@ db.sequelize.sync().then(() => {
         }).catch(err => {
             console.log("Already exists");
             console.log(err)
-        });*/
+        });
 
 
 })
