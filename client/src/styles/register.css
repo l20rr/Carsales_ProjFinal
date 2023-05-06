@@ -7,6 +7,7 @@
   
   .google-icon {
     margin-right: 0.5rem;
+    margin-bottom: 0.4rem;
   }
   
   .button-text {
@@ -34,6 +35,4 @@
     font-size: 30px;
   }
 
-  body {
-    background-color: #cee8e9; 
-  }
+  
