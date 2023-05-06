@@ -1,6 +1,6 @@
 import React, {useState ,useEffect } from "react";
 import api from "../services/api";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
@@ -157,7 +157,7 @@ const settings = {
             </Col>
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-              <button onClick={() => GoMassage(otherUserId)}>Messagem</button>
+              <Button color="info" onClick={() => GoMassage(otherUserId)}>Messagem</Button>
               </div>
             </Col>
           </Row>
