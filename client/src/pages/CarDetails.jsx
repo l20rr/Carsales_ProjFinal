@@ -30,7 +30,7 @@ const createChannel = async (otherUserId) => {
 
   // criar canal de chat
   const channel = chatClient.channel('messaging', {
-    members: [userId, otherUserId],
+    members: [userId, otherUserId].sort(),
   });
 
   await channel.create();
@@ -55,7 +55,7 @@ const CarDetails = () => {
       const response = await api.get(`/publi/listAD/${id}`);
       console.log(response);
       setAds(response.data);
-      setOtherUserId(response.data[0].user_idChat);
+      setOtherUserId(response.data[0].streamChatUserId);
     }
     fetchAd();
   }, [id]);
