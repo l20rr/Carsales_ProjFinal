@@ -159,7 +159,7 @@ const Register = () => {
                   <MDBInput  wrapperClass='mb-2' size='medium' type="number" required value={telem} onChange={(e) => setTelem(e.target.value)} label="Telemóvel" />
               )}
               {isSignup && (
-                  <MDBInput type="date" required value={birthdate} onChange={(e) => setBirthdate(e.target.value)} label="Data de nascimento" />
+                  <MDBInput wrapperClass='mb-2' size='medium' type="date" required value={birthdate} onChange={(e) => setBirthdate(e.target.value)} label="Data de nascimento" />
               )}
               {isSignup && (
                 <MDBInput wrapperClass='mb-2' size='medium' type="text" required value={locality} onChange={(e) => setLocality(e.target.value)} label="Morada" />
@@ -168,7 +168,7 @@ const Register = () => {
                 <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
               </div>
               <div className="d-grid gap-2">
-                <Button variant="outline-primary" size="sm"> 
+                <Button variant="outline-primary" size="sm" className="button-text" onClick={handleSubmit}> 
                   <span className="button-text">{isSignup ? 'Registar' : 'Entrar'}</span>
                 </Button>
               <div class="hr-container">
