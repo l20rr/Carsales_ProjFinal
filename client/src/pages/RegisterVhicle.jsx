@@ -131,19 +131,19 @@ function RegisterVhicle() {
               </Form.Group>
 </Row>
 <Row className="mb-3">
-            <Form.Group controlId="formGridCity">
-                <Form.Control type="file" onChange={handleImageChange} className="filetype" />
-                <img alt="preview image" src={image ? URL.createObjectURL(image) : null} />     
-            </Form.Group>
-            <Form.Group controlId="formGridCity">
-                <Form.Control type="file" onChange={handleImageChange2} className="filetype" />
-                <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} />       
-            </Form.Group>
-            <Form.Group controlId="formGridCity">
-                <Form.Control type="file" onChange={handleImageChange3} className="filetype" />
-                <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} />       
-            </Form.Group>
-          </Row>      
+  <Form.Group controlId="formGridCity">
+    <Form.Control type="file" onChange={handleImageChange} className="filetype" />
+    <img alt="preview image" src={image ? URL.createObjectURL(image) : null} style={{ width: "40vw", height: "40vh" }} />     
+  </Form.Group>
+  <Form.Group controlId="formGridCity">
+    <Form.Control type="file" onChange={handleImageChange2} className="filetype" />
+    <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} style={{ width: "40vw", height: "40vh" }} />       
+  </Form.Group>
+  <Form.Group controlId="formGridCity">
+    <Form.Control type="file" onChange={handleImageChange3} className="filetype" />
+    <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "40vw", height: "40vh" }} />       
+  </Form.Group>
+</Row>   
 <Row className="mb-3">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Matricula</Form.Label>

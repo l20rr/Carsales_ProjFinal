@@ -19,7 +19,7 @@ import ListInvoice from "../Admin/ListInvoice";
 import UserProfile from "../Admin/UserProfile"
 import AdminUsers from "../pages/AdminUsers";
 import Listagem from "../pages/listagem";
-import Dash from "../Admin/Dash";
+
 import Invoice from "../Admin/Invoice";
 import Anuncios from "../pages/Anuncios";
 import {useState, useEffect } from 'react';
@@ -44,7 +44,6 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/chat" element={<ChatApi />} />
       <Route path="/chat/:channelId" element={<ChatApi />} />
-      <Route path="/Admin" element={<Dash />} />
       <Route path="/UserProfile" element={<UserProfile />} /> 
       <Route path="cars/registerCategory" element={
         <PrivateRoute redirectTo="register">

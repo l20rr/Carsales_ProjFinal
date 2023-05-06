@@ -38,7 +38,7 @@ const Footer = () => {
       
           <Col lg="12">
             <div className="footer__bottom">
-              <p className="section__description d-flex align-items-center justify-content-center gap-1 pt-4">
+              <p className="section__description d-flex align-items-center justify-content-center gap-1 pt-4" style={{color:'#fff'}}>
                 <i class="ri-copyright-line"></i>Copyright {year}, Developed by
                Daniel, Lucas e Pedro
               </p>

@@ -5,7 +5,7 @@ import { useParams, Link} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faPlus} from '@fortawesome/free-solid-svg-icons'
-import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
+import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBBadge } from 'mdbreact';
 import { StreamChat } from 'stream-chat';
 import api from '../services/api';
 import Register from "../components/Header/Register"
@@ -385,9 +385,31 @@ function UserProfile() {
                         className="rounded-circle"
                         style={{ width: '150px' }}
                         fluid />
-                      <p className="text-muted mb-1">{fullname()}</p>
-                      
+                      <p className="text-muted mb-5">{fullname()}</p>
                       <div className="d-flex justify-content-center mb-2">
+                        <MDBBtn style={{ backgroundColor: '#3b5998' }} href='#'>
+                          <MDBIcon fab icon='facebook-f' />
+                          <MDBBadge color='danger' className='ms-2'>
+                          </MDBBadge>
+                        </MDBBtn>
+                        <button
+                          type='button'
+                          className='btn btn-primary position-relative mx-3'
+                          style={{ backgroundColor: '#ac2bac' }}
+                        >
+                          <i className='fab fa-instagram'></i>
+                          <MDBBadge pill color='danger' className='position-absolute top-0 start-100 translate-middle'>
+                          </MDBBadge>
+                        </button>
+                        <button type='button' className='btn btn-primary position-relative' style={{ backgroundColor: '#55acee' }}>
+                          Twitter <i className='fab fa-twitter ms-1'></i>
+                          <MDBBadge
+                            pill
+                            color='danger'
+                            className='position-absolute top-0 start-100 translate-middle border border-light p-2'
+                          >
+                          </MDBBadge>
+                        </button>
                       </div>
                     </MDBCardBody>
                   </MDBCard>

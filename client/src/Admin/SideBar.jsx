@@ -11,7 +11,7 @@ import { NavLink, Link } from 'react-router-dom';
 
 function SideBar() {
   return (
-    <div style={{ display: 'flex', overflow: 'scroll initial' }}>
+    <div style={{ display: 'flex', overflow: 'scroll initial', height:'80vh' }}>
       <CDBSidebar textColor="#fff" backgroundColor="#000d6b">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
@@ -21,18 +21,15 @@ function SideBar() {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-        
+          <Link to="/UserProfile" >
+              <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
+            </Link >
             <Link to="/tables" >
               <CDBSidebarMenuItem icon="heart">Favoritos</CDBSidebarMenuItem>
             </Link >
-            <Link to="/UserProfile" >
-              <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
-            </Link >
+           
             <Link to="/ListInvoice" >
               <CDBSidebarMenuItem icon="chart-line">Faturas</CDBSidebarMenuItem>
-            </Link >
-            <Link to="/analytics" >
-              <CDBSidebarMenuItem icon="comment">Chat</CDBSidebarMenuItem>
             </Link >
           </CDBSidebarMenu>
         </CDBSidebarContent>
