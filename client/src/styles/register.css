@@ -1,0 +1,39 @@
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .google-icon {
+    margin-right: 0.5rem;
+  }
+  
+  .button-text {
+    font-size: 20px;
+  }
+
+  .hr-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .hr-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: black;
+  }
+  
+  .hr-text {
+    margin: 0 10px;
+    font-weight: bold;
+  }
+
+  .custom-text {
+    padding-top: 15px;
+    font-size: 30px;
+  }
+
+  body {
+    background-color: #cee8e9; 
+  }
