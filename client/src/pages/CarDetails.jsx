@@ -1,6 +1,6 @@
 import React, {useState ,useEffect } from "react";
 import api from "../services/api";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
@@ -108,7 +108,7 @@ const settings = {
                    </div>
                   </Slider>
              </Col>
-            <Col lg="6">
+            <Col lg="8">
               <div className="car__info">
                 <h2 className="section__title">{Ad.brand}-{Ad.model}</h2>
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
@@ -128,7 +128,7 @@ const settings = {
                 <p className="section__description">
                   {Ad.description}
                 </p>
-                <div className=" d-flex align-items-center mt-3" style={{ columnGap: "4rem" }}>
+                <div className=" d-flex align-items-center mt-4" style={{ columnGap: "4rem" }}>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-roadster-line"style={{ color: "#f9a826" }}></i>{" "}{Ad.categoryName}
                   </span>
@@ -139,7 +139,7 @@ const settings = {
                     <i class="ri-dashboard-3-line" style={{ color: "#f9a826" }}></i>{" "}{Ad.kms}{" Kms"}
                   </span>
                 </div>
-                <div className=" d-flex align-items-center mt-3" style={{ columnGap: "2.8rem" }}>
+                <div className=" d-flex align-items-center mt-4" style={{ columnGap: "2.8rem" }}>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-gas-station-fill" style={{ color: "#f9a826" }}></i>{" "}{Ad.fuel}
                   </span>
@@ -157,7 +157,7 @@ const settings = {
             </Col>
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
-              <button onClick={() => GoMassage(otherUserId)}>Messagem</button>
+              <Button color="info" onClick={() => GoMassage(otherUserId)}>Messagem</Button>
               </div>
             </Col>
           </Row>

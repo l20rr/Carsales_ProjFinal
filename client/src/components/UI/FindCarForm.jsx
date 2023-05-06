@@ -73,15 +73,16 @@ const FindCarForm = () => {
               </Form.Select>
           </FormGroup>
           <FormGroup className="select__group">
-            <select>
+            <Form.Select>
               <option value="" disabled selected>Combustivel</option>
               <option value="Gasolina">Gasolina</option>
               <option value="Gasoleo">Gasoleo</option>
               <option value="Hibrido">Hibrido</option>
               <option value="Eletrico">Elétrico</option>
               <option value="GPL">GPL</option>
-            </select>
+            </Form.Select>
           </FormGroup>
+
           <FormGroup className="form__group">
             <input type="text" placeholder="Marca" />
           </FormGroup>

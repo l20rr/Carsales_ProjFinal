@@ -46,7 +46,7 @@ function RegisterSub() {
   }
 
   return (
-    <div className="container" style={{ height: '75vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <div className="container" style={{ height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
   <Form style={{ width: '60vw' }}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridState">

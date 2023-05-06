@@ -49,7 +49,7 @@ function Anuncios() {
               <th>ID</th>
               <th>Marca</th>
               <th>Modelo</th>
-              <th>year</th>
+              <th>Ano</th>
             </tr>
           </thead>
           <tbody>

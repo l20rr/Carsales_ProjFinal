@@ -490,7 +490,7 @@ function UserProfile() {
                 <td>{Ad.year}</td>
                 <td>
                   <MDBBtn color="danger" onClick={() => handleDelete(Ad.ID)}  >Eliminar</MDBBtn>{' '}
-                  <Link to={`/editV/${Ad.ID}`}><MDBBtn variant="primary" >Editar</MDBBtn></Link>
+                  <Link to={`/editV/${Ad.vehicleID}`}><MDBBtn variant="primary" >Editar</MDBBtn></Link>
               </td>
               </tr>
             ))}
