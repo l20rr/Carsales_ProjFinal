@@ -153,13 +153,13 @@ const Register = () => {
               />
               )}
                {isSignup && (
-                  <MDBInput type="number" required value={telem} onChange={(e) => setTelem(e.target.value)} label="Telemóvel" />
+                  <MDBInput wrapperClass='mb-4' size='lg' type="number" required value={telem} onChange={(e) => setTelem(e.target.value)} label="Telemóvel" />
               )}
               {isSignup && (
-                  <MDBInput type="date" required value={birthdate} onChange={(e) => setBirthdate(e.target.value)} label="Data de nascimento" />
+                  <MDBInput wrapperClass='mb-4' size='lg' type="date" required value={birthdate} onChange={(e) => setBirthdate(e.target.value)} label="Data de nascimento" />
               )}
               {isSignup && (
-                <MDBInput type="text" required value={locality} onChange={(e) => setLocality(e.target.value)} label="Morada" />
+                <MDBInput wrapperClass='mb-4' size='lg' type="text" required value={locality} onChange={(e) => setLocality(e.target.value)} label="Morada" />
               )}
               <div className='d-flex flex-row justify-content-center mb-4'>
                 <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />

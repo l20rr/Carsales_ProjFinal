@@ -8,7 +8,6 @@ import Slider from "react-slick";
 
 const CarItemPremium = () => {
   const [Ads , setAds] = useState([]);
-  const [likedList, setLikedList] = useState({});
  
 
   useEffect(() => {
@@ -19,12 +18,6 @@ const CarItemPremium = () => {
     fetchAds();
   }, []);
 
-  const handleLikeClick = (id) => {
-    setLikedList({
-      ...likedList,
-      [id]: !likedList[id]
-    });
-  }
   const settings = {
     fade: true,
     speed: 2000,

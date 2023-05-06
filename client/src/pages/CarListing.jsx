@@ -19,7 +19,7 @@ const CarListing = () => {
                   
                 </Col>
 
-                <Col lg="10" md="10" sm="12">
+                <Col lg="10" md="10">
                   <FindCarForm />
                 </Col>
               </Row>
@@ -28,7 +28,7 @@ const CarListing = () => {
         </section>
       <section>
         <Container>
-          <Row>
+          <Row className="mb-4">
             <Col lg="12">
             <button className="btn-cadastrar">
             <Link to="registerCategory" className=" d-flex align-items-center gap-1 btn-cadastrar">
@@ -37,11 +37,11 @@ const CarListing = () => {
             </button>
             <br/>
             </Col>
-          
-            
-              <CarItem/>
-            
           </Row>
+          <Row> 
+              <CarItem/>
+          </Row>   
+          
         </Container>
       </section>
     </Helmet>

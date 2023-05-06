@@ -3,7 +3,6 @@ const router = express.Router();
 const db = require('../models');
 const Users = db.user;
 const Client = db.client
-const googleAuth = db.googleAuth
 
 
 const bcrypt = require('bcrypt');
@@ -28,7 +27,7 @@ router.post('/signup', async(req, res) => {
 
             return res.status(400).json({ message: 'User already exists' });
 
-            }
+        }
 
         const serverClient = connect(api_key, api_secret, app_id);
 
@@ -47,7 +46,7 @@ router.post('/signup', async(req, res) => {
             password: hashedPassword,
             streamChatUserId: userId
 
-            });
+        });
 
         const userID = parseInt(user.id);
 
@@ -80,7 +79,7 @@ router.post('/login', async(req, res) => {
         const success = await bcrypt.compare(password, user.password);
 
         if (success) {
-            
+
             const serverClient = connect(api_key, api_secret, app_id);
 
             const client = StreamChat.getInstance(api_key, api_secret);
@@ -97,7 +96,7 @@ router.post('/login', async(req, res) => {
 
             res.status(500).json({ message: 'Incorrect password' });
 
-            }
+        }
 
     } catch (error) {
 
@@ -116,7 +115,7 @@ const client2 = new OAuth2Client(CLIENT_ID, CLIENT_SECRET);
 
 const secret = 'vxwzb46w7drg';
 
-router.post('/google', async (req, res) => {
+router.post('/google', async(req, res) => {
 
     const { tokenId } = req.body;
 
@@ -129,15 +128,15 @@ router.post('/google', async (req, res) => {
         const payload = ticket.getPayload();
         const { email, name } = payload;
         const userId = crypto.randomBytes(16).toString('hex');
-        const user = await Users.findOne({ where: { email }});
-        
+        const user = await Users.findOne({ where: { email } });
+
 
         if (!user) {
-            
+
             const newUser = new Users({
                 email: email,
                 fullname: name,
-                is_google_user: true, 
+                is_google_user: true,
                 googleID: payload.sub,
                 streamChatUserId: userId
 
@@ -147,24 +146,24 @@ router.post('/google', async (req, res) => {
             const userID = newUser.id;
 
             const serverClient = connect(api_key, api_secret, app_id);
-            
+
             const token = serverClient.createUserToken(userId);
 
-            
 
-            const jwtToken = jwt.sign({ name, email }, secret); 
+
+            const jwtToken = jwt.sign({ name, email }, secret);
 
             res.status(200).json({ token, userID, userId, name, email, jwtToken });
-        }else {
+        } else {
             // User already exists, return token
             const serverClient = connect(api_key, api_secret, app_id);
             const userId = crypto.randomBytes(16).toString('hex');
             const token = serverClient.createUserToken(userId);
 
             const userID = user.id;
-          
+
             res.status(200).json({ token, userID, name, email });
-          }
+        }
     } catch (error) {
         console.log(error);
         res.status(401).json({ message: 'Authentication failed' });
@@ -230,8 +229,8 @@ router.get("/users/:id", async(req, res) => {
 const client = StreamChat.getInstance(api_key, api_secret);
 
 router.delete("/Users/:id/:streamChatUserId", async(req, res) => {
-      const id = req.params.id;
-     const streamChatUserId = req.params.streamChatUserId;
+    const id = req.params.id;
+    const streamChatUserId = req.params.streamChatUserId;
 
     try {
         const user = await Users.findByPk(id);
