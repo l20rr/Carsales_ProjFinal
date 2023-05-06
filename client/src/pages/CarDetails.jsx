@@ -163,7 +163,7 @@ const settings = {
             </div>
             <Col lg="7" >
               
-              <button className="btn_message" onClick={() => GoMassage(otherUserId)} >Messagem</button>
+              <button onClick={() => GoMassage(otherUserId)} >Messagem</button>
            
             </Col>
           </Row>
