@@ -168,7 +168,7 @@ const Register = () => {
                 <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
               </div>
               <div className="d-grid gap-2">
-                <Button variant="outline-primary" size="sm" className="button-text" onClick={handleSubmit}> 
+                <Button variant="outline-primary" size="sm" className="button-text" type="submit"> 
                   <span className="button-text">{isSignup ? 'Registar' : 'Entrar'}</span>
                 </Button>
               <div class="hr-container">
