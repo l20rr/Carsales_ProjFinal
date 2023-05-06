@@ -83,7 +83,7 @@ const CarItem = () => {
                 </span>
               </div>
               <button className=" w-50 car__item-btn car__btn-details">
-                <Link to={`/cars/${ad.id}`}>Detalhes</Link>
+                <Link to={`/cars/${ad.vehicleID}`}>Detalhes</Link>
               </button>
             </div>
           </div>
