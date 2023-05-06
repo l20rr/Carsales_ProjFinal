@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //connect without erasing data!!!!!!!!!!
 
-db.sequelize.sync({}).then(() => {
+db.sequelize.sync().then(() => {
     
 
 /*

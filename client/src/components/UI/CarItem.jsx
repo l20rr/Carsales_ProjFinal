@@ -14,6 +14,7 @@ const CarItem = () => {
     async function fetchAds() {
       const response = await api.get('/pri/listAllPriorityPriceASC');
       setAds(response.data);
+      console.log(response.data)
     }
     fetchAds();
   }, []);
