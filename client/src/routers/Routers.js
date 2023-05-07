@@ -20,6 +20,8 @@ import UserProfile from "../Admin/UserProfile"
 import AdminUsers from "../pages/AdminUsers";
 import Listagem from "../pages/listagem";
 import Fav from "../Admin/Fav";
+import AnunciosExternos from "../pages/AnunciosExternos";
+import AdminAnuncio from "../pages/adminAnuncio";
 import Invoice from "../Admin/Invoice";
 import Anuncios from "../pages/Anuncios";
 import {useState, useEffect } from 'react';
@@ -64,6 +66,9 @@ const Routers = () => {
        <Route path="/listagem/pesquisa" element={<Listagem/>} />
        <Route path="/editV/:id" element={<EditVei/>} />
        <Route path="/fav" element={<Fav/>} />
+
+       <Route path="/anExternos/anuncioadm" element={<AdminAnuncio/>} />
+       <Route path="/anExternos" element={<AnunciosExternos/>} />
     </Routes>
   );
 };

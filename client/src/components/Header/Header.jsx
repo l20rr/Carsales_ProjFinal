@@ -47,6 +47,10 @@ if (email === "admin@gmail.com") {
       path: "/anuncios",
       display: "Anúncios",
     },
+    {
+      path: "/anExternos",
+      display: "AnúnciosExternos",
+    },
   ];
 }
 

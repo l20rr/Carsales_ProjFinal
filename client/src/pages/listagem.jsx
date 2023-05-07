@@ -10,9 +10,27 @@ import Cookies from 'universal-cookie';
 
 function Listagem(){
   const [Ads, setAds] = useState([]);
-  const cookies = new Cookies();
+ const cookies = new Cookies();
   const brand = cookies.get('brand');
   const model = cookies.get('model');
+ 
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  
+  useEffect(() => {
+    async function fetchFavorites() {
+      const userID = cookies.get("userID");
+      const response = await api.get(`fav/favorites/${userID}`);
+      const vehicleID = response.data.vehicleID;
+      const favorites = response.data;
+      const isAdFavorited = favorites.some(
+        (favorite) => favorite.publishadID === vehicleID
+      );
+      setIsFavorited(isAdFavorited);
+    }
+    fetchFavorites();
+  }, []);
+
   useEffect(() => {
     async function fetchAds() {
         const response = await api.get(`/publi/listAllAD/${brand}/${model}`)
@@ -21,6 +39,47 @@ function Listagem(){
     fetchAds();
   }, []);
   
+  
+  async function toggleFavorite(vehicleID) {
+    try {
+      const userID = cookies.get('userID');
+      const postData = {
+        clientID: userID,
+        publishadID: vehicleID,
+      };
+      const isFavorited = await checkFav(vehicleID);
+  
+      if (isFavorited) {
+        const response = await api.delete(`fav/favorites/${vehicleID}`);
+        setIsFavorited(false);
+      } else {
+        const response = await api.post('fav/favorites', postData);
+        setIsFavorited(true);
+      }
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  
+async function checkFav(vehicleID) {
+  try {
+    const userID = cookies.get('userID');
+    const response = await api.get(`fav/favorites/${userID}`);
+
+    for (const fav of response.data) {
+      if (fav.publishadID === vehicleID) {
+        return true;
+      }
+    }
+
+    return false;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
 
   const settings = {
     fade: true,
@@ -63,6 +122,12 @@ function Listagem(){
                   </Container>
                    </div>
           </Slider>
+          
+                {isFavorited ? (
+              <button style={{border:'none'}}   onClick={() => toggleFavorite(ad.vehicleID)}> DisFav</button>
+              ) : (
+               <button style={{border:'none'}} onClick={() => toggleFavorite(ad.vehicleID)}>Fav</button>
+                )}
             <div className="car__item-content mt-4">
               <h4 className="section__title text-center">
                 {ad.Marca}-{ad.Modelo}
