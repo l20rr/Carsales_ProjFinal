@@ -175,7 +175,7 @@ return (
                   <Dropdown.Header>A tua conta</Dropdown.Header>
                   <Dropdown.Item href="UserProfile">Geral</Dropdown.Item>
                   <Dropdown.Item href="/chat">Mensagens</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Favoritos</Dropdown.Item>
+                  <Dropdown.Item href="/fav">Favoritos</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={logout}>Sair</Dropdown.Item>
                 </Dropdown.Menu>

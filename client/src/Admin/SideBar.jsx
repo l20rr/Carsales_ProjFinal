@@ -14,9 +14,7 @@ function SideBar() {
     <div style={{ display: 'flex', overflow: 'scroll initial'}}>
       <CDBSidebar textColor="#fff" backgroundColor="#000d6b">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-            Sidebar
-          </a>
+         <h2>Geral</h2>
         </CDBSidebarHeader>
 
         <CDBSidebarContent className="sidebar-content">
@@ -24,7 +22,7 @@ function SideBar() {
           <Link to="/UserProfile" >
               <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
             </Link >
-            <Link to="/tables" >
+            <Link to="/fav" >
               <CDBSidebarMenuItem icon="heart">Favoritos</CDBSidebarMenuItem>
             </Link >
            
