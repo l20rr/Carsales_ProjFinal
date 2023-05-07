@@ -176,25 +176,6 @@ function UserProfile() {
       }
     }
 
-    /*const handleDeleteAccount = (id) => {
-      fetch(`http://localhost:3000/auth/Users/${id}`, {
-        method: 'DELETE'
-       
-      })
-      console.log
-      .then(response => {
-        if (response.ok) {
-          console.log('User deleted successfully');
-          logout(true);
-        } else {
-          console.error('Failed to delete user');
-        }
-      })
-      .catch(error => {
-        console.error('Error deleting user:', error);
-      });  }
-
-      */
   useEffect(() => {
     api.get(`/auth/Users/${id}`)
       .then(response => {

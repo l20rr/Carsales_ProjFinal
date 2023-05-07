@@ -36,26 +36,30 @@ const EditVei = () => {
     const [numSeats, setNumSeats] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
+    const [image2, setImage2] = useState(null);
+    const [image3, setImage3] = useState(null);
     
 
     if(!authToken) return <Register />
     
-  if (email != 'admin@gmail.com') return <Home />;
+
     async function handleSubmit() {
-    const data = {
-    license:license,
-    year:year,
-    kms:kms,
-    brand:brand,
-    model:model,
-    fuel:fuel,
-    description:description,
-    price:price,
-    power:power,
-    num_seats: numSeats,
-    image:image,
+      const formData = new FormData();
+      formData.append('license', license);
+      formData.append('year', year);
+      formData.append('kms', kms);
+      formData.append('brand', brand);
+      formData.append('model', model);
+      formData.append('fuel', fuel);
+      formData.append('description', description);
+      formData.append('price', price);
+      formData.append('power', power);
+      formData.append('num_seats', numSeats);
+      formData.append('images', image);
+      formData.append('images', image2);
+      formData.append('images', image3);
   
-    };
+    
     if (
       license !== '' &&
       year !== '' &&
@@ -68,9 +72,9 @@ const EditVei = () => {
       numSeats !== ''
     ) {
       try {
-        const response = await api.post('/vehicle/addvehicle', data);
+        const response = await api.put('/vehicle/addvehicle', formData);
     
-         const vehicleID = response.data.id
+         const vehicleID = response.formData.id
   
          window.location.href = `/Registeradverts/${vehicleID}`;
       
@@ -79,127 +83,143 @@ const EditVei = () => {
         alert('Erro ao cadastrar!');
       }
     } 
-    }
+    };
     
-    function handleImageChange(event) {
-    if (event.target.files && event.target.files[0]) {
-    setImage(URL.createObjectURL(event.target.files[0]));
-    }
-    }
+    const handleImageChange = (event) => {
+      if (event.target.files && event.target.files[0]) {
+        setImage(event.target.files[0]);
+      }
+    };
+    const handleImageChange2 = (event) => {
+      if (event.target.files && event.target.files[0]) {
+        setImage2(event.target.files[0]);
+      }
+    };
+    const handleImageChange3 = (event) => {
+      if (event.target.files && event.target.files[0]) {
+        setImage3(event.target.files[0]);
+      }
+    };
     
     if (!authToken) return <Register />;
   
     return (
         
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-  <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
-  <Form>
-  <Row className="mb-3">
-              <Form.Group  controlId="formGridCity">
-                  <Form.Label>Marca</Form.Label>
-                  <Form.Control id='name'
-                    type='text'
-                    required
-                    value={brand}
-                    onChange={e => setBrand(e.target.value)} />
-                </Form.Group>
-  </Row>
-  <Row className="mb-3">
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
+      <Form  encType="multipart/form-data">
+      <Row className="mb-3">
                 <Form.Group  controlId="formGridCity">
-                  <Form.Label>Modelo</Form.Label>
-                  <Form.Control id='model'
-                    type='text'
-                    required
-                    value={model}
-                    onChange={e => setModel(e.target.value)} />
-                </Form.Group>
-  </Row>
-  <Row className="mb-3">
-                <Form.Group  controlId="formGridCity">
-                 <div>
-                 <input type="file" onChange={handleImageChange} className="filetype" />
-                  <img alt="preview image" src={image}/>
-                 </div>
-                </Form.Group>             
-  </Row>         
-  <Row className="mb-3">
+                    <Form.Label>Marca</Form.Label>
+                    <Form.Control id='name'
+                      type='text'
+                      required
+                      value={brand}
+                      onChange={e => setBrand(e.target.value)} />
+                  </Form.Group>
+    </Row>
+    <Row className="mb-3">
+                  <Form.Group  controlId="formGridCity">
+                    <Form.Label>Modelo</Form.Label>
+                    <Form.Control id='model'
+                      type='text'
+                      required
+                      value={model}
+                      onChange={e => setModel(e.target.value)} />
+                  </Form.Group>
+    </Row>
+    <Row className="mb-3">
+      <Form.Group controlId="formGridCity">
+        <Form.Control type="file" onChange={handleImageChange} className="filetype" />
+        <img alt="preview image" src={image ? URL.createObjectURL(image) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />     
+      </Form.Group>
+      <Form.Group controlId="formGridCity">
+        <Form.Control type="file" onChange={handleImageChange2} className="filetype" />
+        <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
+      </Form.Group>
+      <Form.Group controlId="formGridCity">
+        <Form.Control type="file" onChange={handleImageChange3} className="filetype" />
+        <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
+      </Form.Group>
+    </Row>   
+    <Row className="mb-3">
+                          <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Label>Matricula</Form.Label>
+                            <Form.Control id='license'
+                              type='text'
+                              required
+                              value={license}
+                              onChange={e => setLicense(e.target.value)} />
+                          </Form.Group>        
+                          <Form.Group as={Col} controlId="formGridZip">
+                            <Form.Label>Mês e Ano de construção</Form.Label>
+                            <Form.Control id='year' 
+                              type='month'
+                              required
+                              value={year}
+                              onChange={e => setYear(e.target.value)} />
+                          </Form.Group>
+    </Row>
+    <Row className="mb-3">
+                          <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Label>Kms rodados</Form.Label>
+                            <Form.Control id='kms'
+                              type='number'
+                              required
+                              value={kms}
+                              onChange={e => setKms(e.target.value)} />
+                          </Form.Group>
+                          <Form.Group as={Col} controlId="formGridZip">
+                            <Form.Label>Combustivel</Form.Label>
+                            <Form.Control id='fuel'
+                              type='text'
+                              required
+                              value={fuel}
+                              onChange={e => setFuel(e.target.value)} />
+                          </Form.Group>
+    </Row>
+    <Row className="mb-3">
+                          <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Label>Preço</Form.Label>
+                            <Form.Control id='price'
+                              type='number'
+                              required
+                              value={price}
+                              onChange={e => setPrice(e.target.value)} />
+                          </Form.Group>
+              
+                          <Form.Group as={Col} controlId="formGridZip">
+                            <Form.Label>Potência (Kwatts)</Form.Label>
+                            <Form.Control id='power'
+                              type='number'
+                              required
+                              value={power}
+                              onChange={e => setPower(e.target.value)} />
+                          </Form.Group>
+              
+                          <Form.Group as={Col} controlId="formGridZip">
+                            <Form.Label>Numero de lugares</Form.Label>
+                            <Form.Control id='num_seats'
+                              type='number'
+                              required
+                              value={numSeats}
+                              onChange={e => setNumSeats(e.target.value)} />
+                          </Form.Group>
+                        </Row>
+                        <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridCity">
-                          <Form.Label>Matricula</Form.Label>
-                          <Form.Control id='license'
+                          <Form.Label>Descrição Adicional</Form.Label>
+                          <Form.Control id='description'
                             type='text'
                             required
-                            value={license}
-                            onChange={e => setLicense(e.target.value)} />
-                        </Form.Group>        
-                        <Form.Group as={Col} controlId="formGridZip">
-                          <Form.Label>Mês e Ano de construção</Form.Label>
-                          <Form.Control id='year' 
-                            type='month'
-                            required
-                            value={year}
-                            onChange={e => setYear(e.target.value)} />
+                            value={description}
+                            onChange={e => setDescription(e.target.value)} />
                         </Form.Group>
-  </Row>
-  <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formGridCity">
-                          <Form.Label>Kms rodados</Form.Label>
-                          <Form.Control id='kms'
-                            type='number'
-                            required
-                            value={kms}
-                            onChange={e => setKms(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group as={Col} controlId="formGridZip">
-                          <Form.Label>Combustivel</Form.Label>
-                          <Form.Control id='fuel'
-                            type='text'
-                            required
-                            value={fuel}
-                            onChange={e => setFuel(e.target.value)} />
-                        </Form.Group>
-  </Row>
-  <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formGridCity">
-                          <Form.Label>Preço</Form.Label>
-                          <Form.Control id='price'
-                            type='number'
-                            required
-                            value={price}
-                            onChange={e => setPrice(e.target.value)} />
-                        </Form.Group>
-            
-                        <Form.Group as={Col} controlId="formGridZip">
-                          <Form.Label>Potência (Kwatts)</Form.Label>
-                          <Form.Control id='power'
-                            type='number'
-                            required
-                            value={power}
-                            onChange={e => setPower(e.target.value)} />
-                        </Form.Group>
-            
-                        <Form.Group as={Col} controlId="formGridZip">
-                          <Form.Label>Numero de lugares</Form.Label>
-                          <Form.Control id='num_seats'
-                            type='number'
-                            required
-                            value={numSeats}
-                            onChange={e => setNumSeats(e.target.value)} />
-                        </Form.Group>
-                      </Row>
-                      <Row className="mb-3">
-                      <Form.Group as={Col} controlId="formGridCity">
-                        <Form.Label>Descrição Adicional</Form.Label>
-                        <Form.Control id='description'
-                          type='text'
-                          required
-                          value={description}
-                          onChange={e => setDescription(e.target.value)} />
-                      </Form.Group>
-                      </Row>
-                    <Button variant="primary" onClick={handleSubmit} style={{ display: 'flex', justifyContent: 'flex-end' }}>next</Button>
-              </Form>
-            </div>
-            </div>
+                        </Row>
+                      <Button variant="primary" onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>next</Button>
+                </Form>
+              </div>
+              </div>
           );
 };
 
