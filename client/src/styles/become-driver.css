@@ -1,11 +1,30 @@
 .become__driver {
-  background: linear-gradient(rgb(0, 13, 107, 0.9), rgb(0, 13, 107, 0.9)),
-    url("../assets/all-images/drive.jpg");
+  background-color: #1b32ff;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 80px 0px;
+  padding: 30px 0px;
 }
+
+.become__driver_img{
+  width: 60vw;
+  height: 40vh;
+}
+
+.EXCat {
+  background-color: #1b32ff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 220px;
+  height: 55vh;
+}
+
+.EXCat_img{
+  width: 30vw;
+  height: 40vh;
+}
+
 
 .become__driver button {
   background: #fff;

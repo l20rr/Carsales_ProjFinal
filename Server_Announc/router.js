@@ -48,6 +48,16 @@ router.get('/', async (req, res) => {
     }
   });
 
+  router.get('/nivel-servico/:nivelServico', async (req, res) => {
+    const nivelServico = req.params.nivelServico;
+    try {
+      const anuncios = await Anuncio.find({ nivelServico: nivelServico });
+      res.send(anuncios);
+    } catch (err) {
+      res.status(500).send({ error: 'Erro ao buscar anúncios' });
+    }
+  });
+
   router.delete('/:id', async (req, res) => {
     try {
       const anuncio = await Anuncio.findByIdAndDelete(req.params.id);

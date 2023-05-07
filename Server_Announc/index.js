@@ -7,6 +7,7 @@ const anuncioRouter = require('./router');
 
 app.use(bodyParser.json());
 
+app.use('/uploads', express.static('./uploads'));
 
 var corsOptions = {
     origin: "http://localhost:3001",
