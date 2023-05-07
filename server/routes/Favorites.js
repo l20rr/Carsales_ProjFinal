@@ -20,6 +20,26 @@ router.post("/favorites", async(req, res) => {
 
 });
 
+router.get('/favorites/:id', async (req, res) => {
+    const { QueryTypes } = require('sequelize');
+    const userID = req.params.id;
+  
+    const response = await db.sequelize.query(`
+      SELECT *
+      FROM vehicle
+      INNER JOIN subcategory ON vehicle.subcategoryID = subcategory.ID
+      INNER JOIN category ON subcategory.categoryID = category.ID
+      INNER JOIN publishAD ON vehicle.ID = publishAD.vehicleID
+      INNER JOIN favorites ON publishAD.ID = favorites.publishadID
+      INNER JOIN client ON publishAD.clientID = client.ID
+      INNER JOIN user ON user.id = client.userID
+      WHERE favorites.clientID = '${userID}'
+      ORDER BY vehicle.price DESC;
+    `, { type: QueryTypes.SELECT });
+  
+    res.status(200).json(response);
+  });
+
 router.get("/Fav/:id", async(req, res) => {
     const id = req.params.id;
 
@@ -42,21 +62,22 @@ router.get("/Fav/:id", async(req, res) => {
 });
 
 
-router.delete("/favorites/:id", async (req, res) => {
-    const favoriteId = req.params.id;
+router.delete("/favorites/:vehicleID", async (req, res) => {
+    const vehicleID = req.params.vehicleID;
   
     try {
-      const favorite = await Favorites.findByIdAndDelete(favoriteId);
-  
-      if (!favorite) {
-        return res.status(404).json({ msg: "Favorite not found" });
-      }
-  
-      res.status(200).json({ msg: "Favorite deleted successfully" });
+      await Favorites.destroy({
+        where: { publishadID: vehicleID }
+      });
+      res.send({
+        message: "Favorite was deleted successfully!"
+      });
     } catch (error) {
-      res.status(500).json({ msg: error.message });
+      res.status(500).send({
+        message: "Could not delete Favorite with publishadID=" + vehicleID
+      });
     }
-  });
+});
 
 router.get("/All", async(req, res) => {
     try {
