@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 
 import Register from "../components/Header/Register"
+import EXCategory from '../components/UI/EXCategory';
 
 
 const cookies = new Cookies();
@@ -45,8 +46,9 @@ function RegisterCategory() {
   }
 
   return (
-<div className="container" style={{ height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-  <Form style={{ width: '60vw' }}>
+<div className="container" style={{ height: '80vh', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+<EXCategory/>
+  <Form style={{ width: '60vw', margin:'250px' }}>
     <Row className="mb-3">
       <Form.Group as={Col} controlId="formGridState">
         <Form.Label>Categoria</Form.Label>
@@ -69,6 +71,7 @@ function RegisterCategory() {
       </Form.Group>
     </Row>
   </Form>
+  <EXCategory/>
 </div>
   );
 }
