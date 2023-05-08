@@ -25,8 +25,7 @@ if(authToken) {
 }
 
 const EditVei = () => {
-  
- const { vehicleID } = useParams();
+const {vehicleID } = useParams()
     const email = cookies.get('email')
     const [license, setLicense] = useState('');
     const [year, setYear] = useState('');
@@ -38,12 +37,10 @@ const EditVei = () => {
     const [power, setPower] = useState('');
     const [numSeats, setNumSeats] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState(null);
-    const [image2, setImage2] = useState(null);
-    const [image3, setImage3] = useState(null);
+
     
     useEffect(()=>{
-      api.get(`vehicle/vehicle/${id}`)
+      api.get(`vehicle/vehicle/${vehicleID}`)
       .then(response=>{
         const VeiData=response.data;
         setLicense(VeiData.license)
@@ -56,9 +53,7 @@ const EditVei = () => {
         setPower(VeiData.power)
         setNumSeats(VeiData.numSeats)
         setDescription(VeiData.description)
-        setImage(VeiData.image)
-        setImage2(VeiData.image2)
-        setImage3(VeiData.image3)
+
       })
       .catch(error => {
         console.log(error);
