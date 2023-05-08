@@ -46,9 +46,9 @@ function RegisterCategory() {
   }
 
   return (
-<div className="container" style={{ height: '80vh', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+<div className="container" style={{ height: '80vh', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
 <EXCategory/>
-  <Form style={{ width: '60vw', margin:'250px' }}>
+<Form style={{ width: '100vw', margin:'50px' }}>
     <Row className="mb-3">
       <Form.Group as={Col} controlId="formGridState">
         <Form.Label>Categoria</Form.Label>
@@ -71,7 +71,7 @@ function RegisterCategory() {
       </Form.Group>
     </Row>
   </Form>
-  <EXCategory/>
+ 
 </div>
   );
 }

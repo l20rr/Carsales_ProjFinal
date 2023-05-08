@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "../styles/car-item.css";
 import Slider from "react-slick";
 import Cookies from 'universal-cookie';
+import EXPesquisa from '../components/UI/EXPesquisa';
 
 
 
@@ -94,7 +95,7 @@ async function checkFav(vehicleID) {
   
   return (
     <>
-   
+   <EXPesquisa/>
   <div style={{display:'flex', margin:'0 auto'}}>
 
       {Ads.map((ad) => (

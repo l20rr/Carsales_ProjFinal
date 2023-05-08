@@ -3,6 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
+import BecomeDriverSection2 from "../components/UI/BecomeDriverSection2";
 import { Link } from "react-router-dom";
 import FindCarForm from "../components/UI/FindCarForm";
 
@@ -27,11 +28,12 @@ const CarListing = () => {
           </div>
         </section>
       <section>
+      <BecomeDriverSection2 />
         <Container>
           <Row className="mb-4">
             <Col lg="12">
-            <button className="btn-cadastrar">
-            <Link to="registerCategory" className=" d-flex align-items-center gap-1 btn-cadastrar">
+            <button className="btn-cadastrar" style={{marginTop:'50px'}}>
+            <Link style={{textDecoration:'none', color:'white'}} to="registerCategory" className=" d-flex align-items-center gap-1 btn-cadastrar">
                   Cadastrar veículo
                 </Link>
             </button>
