@@ -3,9 +3,15 @@ import api from '../services/api'
 import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
 import Home from './Home';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import {
+  Button,
+  Card,
+  Container,
+  Row,
+  Col
+} from "react-bootstrap";
 
 const cookies = new Cookies();
 function AnunciosExternos() {
@@ -30,21 +36,22 @@ function AnunciosExternos() {
   if (email != 'admin@gmail.com') return <Home />;
   return (
     <>
-        <Link to={'anuncioadm'} ><Button variant="primary">cadastrar</Button></Link>
-   
-    <form>
-      <div>
-        <h1>Admin Page</h1>
-        <br />
-        <br />
-        
+    <Container>
+      <div className="d-grid gap-3">
+      <Card.Header className="d-grid gap-2">
+      <Card.Title as="h1">Admin Page</Card.Title>
+      <Card.Title as="h3">Anuncios Externos</Card.Title>
+      </Card.Header>
+      <div style={{ display: 'flex', justifyContent:'flex-end' }}>
+        <Link to={'anuncioadm'} ><Button  variant="primary">cadastrar</Button></Link>
+      </div>
         <Table striped bordered hover>
           <thead>
             <tr>
               <th>ID</th>
-              <th>descricao</th>
-              <th>imagem</th>
-              <th>link At</th>
+              <th>Descricao</th>
+              <th>Imagem</th>
+              <th>Link At</th>
               <th>Serviço</th>
             </tr>
           </thead>
@@ -65,7 +72,7 @@ function AnunciosExternos() {
           </tbody>
         </Table>
       </div>
-    </form>
+    </Container>
     </>
   );
   

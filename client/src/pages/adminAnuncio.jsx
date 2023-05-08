@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
-import { useParams } from 'react-router-dom';
-import Register from '../components/Header/Register';
+import {
+  Button,
+  Card,
+  Form,
+  Container,
+  Row,
+  Col
+} from "react-bootstrap";
+import { CardBody } from 'reactstrap';
+
 
 const cookies = new Cookies();
 const authToken = cookies.get('token');
@@ -62,52 +66,57 @@ function AdminAnuncio() {
   
 
   return (
-<Form  encType="multipart/form-data">
-      <Form.Group as={Row}>
-      <Form.Control
-  type="number"
-  style={{ display: 'none' }}
-  value={anuncianteId}
-  onChange={(e) => setAnuncianteId((prevId) => prevId + 1)}
-/>
-        <Form.Label column sm="2">
-          Descrição:
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control type="text" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
-        </Col>
-      </Form.Group>
-
-      <Form.Group controlId="formGridCity">
-    <Form.Control type="file" onChange={handleImageChange} className="filetype" />
-    <img alt="preview image" src={imagem ? URL.createObjectURL(imagem) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />     
-  </Form.Group>
-
-      <Form.Group as={Row}>
-        <Form.Label column sm="2">
-          Link:
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control type="text" value={link} onChange={(e) => setLink(e.target.value)} />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row}>
-        <Form.Label column sm="2">
-          Nível de serviço:
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control as="select" value={nivelServico} onChange={(e) => setNivelServico(parseInt(e.target.value))}>
-            <option value={1}>Normal</option>
-            <option value={2}>Bom</option>
-            <option value={3}>Muito bom</option>
-            <option value={4}>Premium</option>
-          </Form.Control>
-        </Col>
-      </Form.Group>
-
-      <Button type="submit" onClick={handleSubmit}>Enviar</Button>
-    </Form>
+    <Container className="d-grid gap-3">
+      <Card.Header>
+      <Card.Title as="h3">Introduza os dados</Card.Title>
+      </Card.Header>
+      <CardBody>
+        <Form encType="multipart/form-data" className="d-grid gap-3">
+          <Form.Group as={Row}>
+            <Form.Control
+                type="number"
+                style={{ display: 'none' }}
+                value={anuncianteId}
+                onChange={(e) => setAnuncianteId((prevId) => prevId + 1)}
+            />
+            <Form.Label column sm="2">Descrição:</Form.Label>
+            <Col className="pl-1" md="8">
+            <Form.Control type="text" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Col className="ms-5" md="7">
+            <Form.Control type="file" onChange={handleImageChange} className="filetype" />
+            <img alt="preview image" src={imagem ? URL.createObjectURL(imagem) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />     
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm="2">
+              Link:
+            </Form.Label>
+            <Col className="pl-1" md="8">
+              <Form.Control type="text" value={link} onChange={(e) => setLink(e.target.value)} />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm="2">
+              Nível de serviço:
+            </Form.Label>
+            <Col className="pl-1" md="8">
+              <Form.Control as="select" value={nivelServico} onChange={(e) => setNivelServico(parseInt(e.target.value))}>
+                <option value={1}>Normal</option>
+                <option value={2}>Bom</option>
+                <option value={3}>Muito bom</option>
+                <option value={4}>Premium</option>
+              </Form.Control>
+            </Col>
+          </Form.Group >
+          <Col className="pl-1" md="8">
+          <Button type="submit" onClick={handleSubmit}>Submeter</Button>
+          </Col>
+        </Form>
+      </CardBody>
+    </Container>
   );
 }
 
