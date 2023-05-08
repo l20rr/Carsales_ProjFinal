@@ -80,15 +80,14 @@ const { vehicleID } = useParams();
       }
      
       try {
-        const response = await api.put(`/vehicle/${id}`, formData);
+        const response = await api.put(`vehicle/vehicle/${id}`, formData);
     
-        console.log(response);
-  
-         if(email != 'admin@gmail.com') {
+        if(email != 'admin@gmail.com') {
           window.location.href = '/UserProfile'
          }else{
           window.location.href = '/anuncios'
          }
+  
       
       } catch (error) {
         console.error(error);
