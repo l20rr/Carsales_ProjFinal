@@ -144,7 +144,7 @@ function RegisterVhicle() {
     <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
   </Form.Group>
 </Row>   
-<Row className="mb-3">
+            <Row className="mb-3">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Matricula</Form.Label>
                         <Form.Control id='license'
@@ -161,7 +161,7 @@ function RegisterVhicle() {
                           value={year}
                           onChange={e => setYear(e.target.value)} />
                       </Form.Group>
-</Row>
+                      </Row>
 <Row className="mb-3">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Kms rodados</Form.Label>

@@ -64,7 +64,7 @@ const Routers = () => {
        <Route path="/ListInvoice" element={<ListInvoice />} />
        <Route path="/edit/:id" element={<EditUser />} />
        <Route path="/listagem/pesquisa" element={<Listagem/>} />
-       <Route path="/editV/:id" element={<EditVei/>} />
+       <Route path="/editV/:vehicleID" element={<EditVei/>} />
        <Route path="/fav" element={<Fav/>} />
 
        <Route path="/anExternos/anuncioadm" element={<AdminAnuncio/>} />
