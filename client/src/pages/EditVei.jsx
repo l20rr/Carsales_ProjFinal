@@ -26,7 +26,7 @@ if(authToken) {
 }
 
 const EditVei = () => {
-const { vehicleID } = useParams()
+const { vehicleID } = useParams();
     const email = cookies.get('email')
     const [license, setLicense] = useState('');
     const [year, setYear] = useState('');
@@ -40,27 +40,7 @@ const { vehicleID } = useParams()
     const [description, setDescription] = useState('');
     const [id, setId] = useState('');
     
-    useEffect(()=>{
-      api.get(`vehicle/vehicle/${vehicleID}`)
-      .then(response=>{
-        const VeiData=response.data;
-        setLicense(VeiData.license)
-        setYear(VeiData.year)
-        setKms(VeiData.kms)
-        setBrand(VeiData.brand)
-        setModel(VeiData.model)
-        setFuel(VeiData.fuel)
-        setPrice(VeiData.price)
-        setPower(VeiData.power)
-        setNumSeats(VeiData.numSeats)
-        setDescription(VeiData.description)
-        setId(VeiData.id)
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-
+   
  useEffect(() => {
   api.get(`/vehicle/vehicle/${vehicleID}`)
     .then(response => {
@@ -99,13 +79,10 @@ const { vehicleID } = useParams()
         description:description,
       }
      
-  
-    
-
       try {
-        const response = await api.put('/vehicle/', formData);
+        const response = await api.put(`/vehicle/${id}`, formData);
     
-         
+        console.log(response);
   
          if(email != 'admin@gmail.com') {
           window.location.href = '/UserProfile'
