@@ -6,8 +6,8 @@ import Row from 'react-bootstrap/Row';
 import api from '../services/api';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
-import Register from "../components/Header/Register"
-import Home from './Home';
+import Register from "../components/Header/Register";
+import {useParams} from 'react-router-dom';
 const cookies = new Cookies();
 const authToken = cookies.get("token");
 
@@ -24,7 +24,6 @@ if(authToken) {
 }
 
 const EditVei = () => {
-    const email = cookies.get('email')
     const [license, setLicense] = useState('');
     const [year, setYear] = useState('');
     const [kms, setKms] = useState('');
@@ -38,10 +37,32 @@ const EditVei = () => {
     const [image, setImage] = useState(null);
     const [image2, setImage2] = useState(null);
     const [image3, setImage3] = useState(null);
+    const { id } = useParams();
     
+    useEffect(()=>{
+      api.get(`vehicle/vehicle/${id}`)
+      .then(response=>{
+        const VeiData=response.data;
+        setLicense(VeiData.license)
+        setYear(VeiData.year)
+        setKms(VeiData.kms)
+        setBrand(VeiData.brand)
+        setModel(VeiData.model)
+        setFuel(VeiData.fuel)
+        setPrice(VeiData.price)
+        setPower(VeiData.power)
+        setNumSeats(VeiData.numSeats)
+        setDescription(VeiData.description)
+        setImage(VeiData.image)
+        setImage2(VeiData.image2)
+        setImage3(VeiData.image3)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
     if(!authToken) return <Register />
-    
 
     async function handleSubmit() {
       const formData = new FormData();
@@ -72,7 +93,7 @@ const EditVei = () => {
       numSeats !== ''
     ) {
       try {
-        const response = await api.put('/vehicle/addvehicle', formData);
+        const response = await api.post('/vehicle/addvehicle', formData);
     
          const vehicleID = response.formData.id
   
