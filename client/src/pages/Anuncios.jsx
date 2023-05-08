@@ -54,14 +54,14 @@ function Anuncios() {
           </thead>
           <tbody>
             {Ads.map(Ad => (
-              <tr key={Ad.ID}>
-                <td>{Ad.ID}</td>
+              <tr key={Ad.vehicleID}>
+                <td>{Ad.vehicleID}</td>
                 <td>{Ad.brand}</td>
                 <td>{Ad.model}</td>
                 <td>{Ad.year}</td>
                 <td>
-                  <Button variant="danger" onClick={() => handleDelete(Ad.ID)}  >Eliminar</Button>{' '}
-                  <Link to={`/editV/${Ad.ID}`}><Button variant="primary" >Editar</Button></Link>
+                  <Button variant="danger" onClick={() => handleDelete(Ad.vehicleID)}  >Eliminar</Button>{' '}
+                  <Link to={`/editV/${Ad.vehicleID}`}><Button variant="primary" >Editar</Button></Link>
               </td>
               </tr>
             ))}
