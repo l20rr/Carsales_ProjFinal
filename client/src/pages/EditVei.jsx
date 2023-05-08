@@ -1,14 +1,15 @@
 import React,{useState,useEffect}from 'react';
 import Button from 'react-bootstrap/Button';
-import {useParams} from 'react-router-dom'
+
 import Col from 'react-bootstrap/Col';
+import {useParams} from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import api from '../services/api';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 import Register from "../components/Header/Register";
-import {useParams} from 'react-router-dom';
+
 const cookies = new Cookies();
 const authToken = cookies.get("token");
 
@@ -25,7 +26,7 @@ if(authToken) {
 }
 
 const EditVei = () => {
-const {vehicleID } = useParams()
+const { vehicleID } = useParams()
     const email = cookies.get('email')
     const [license, setLicense] = useState('');
     const [year, setYear] = useState('');
@@ -37,7 +38,7 @@ const {vehicleID } = useParams()
     const [power, setPower] = useState('');
     const [numSeats, setNumSeats] = useState('');
     const [description, setDescription] = useState('');
-
+    const [id, setId] = useState('');
     
     useEffect(()=>{
       api.get(`vehicle/vehicle/${vehicleID}`)
@@ -53,7 +54,7 @@ const {vehicleID } = useParams()
         setPower(VeiData.power)
         setNumSeats(VeiData.numSeats)
         setDescription(VeiData.description)
-
+        setId(VeiData.id)
       })
       .catch(error => {
         console.log(error);
@@ -102,11 +103,15 @@ const {vehicleID } = useParams()
     
 
       try {
-        const response = await api.put('/vehicle/addvehicle', formData);
+        const response = await api.put('/vehicle/', formData);
     
-         const vehicleID = response.formData.id
+         
   
-         window.location.href = `/Registeradverts/${vehicleID}`;
+         if(email != 'admin@gmail.com') {
+          window.location.href = '/UserProfile'
+         }else{
+          window.location.href = '/anuncios'
+         }
       
       } catch (error) {
         console.error(error);
