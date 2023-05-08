@@ -37,10 +37,10 @@ const EditVei = () => {
     const [image, setImage] = useState(null);
     const [image2, setImage2] = useState(null);
     const [image3, setImage3] = useState(null);
-    const { id } = useParams();
+    const { vehicleID } = useParams();
     
     useEffect(()=>{
-      api.get(`vehicle/vehicle/${id}`)
+      api.get(`vehicle/vehicle/${vehicleID}`)
       .then(response=>{
         const VeiData=response.data;
         setLicense(VeiData.license)
@@ -93,9 +93,9 @@ const EditVei = () => {
       numSeats !== ''
     ) {
       try {
-        const response = await api.post('/vehicle/addvehicle', formData);
+        const response = await api.put('/vehicle/addvehicle', formData);
     
-         const vehicleID = response.formData.id
+       
   
          window.location.href = `/Registeradverts/${vehicleID}`;
       

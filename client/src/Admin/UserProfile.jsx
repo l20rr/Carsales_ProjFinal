@@ -5,7 +5,7 @@ import { useParams, Link} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faPlus} from '@fortawesome/free-solid-svg-icons'
-import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBBadge } from 'mdbreact';
+import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
 import { StreamChat } from 'stream-chat';
 import api from '../services/api';
 import Register from "../components/Header/Register"

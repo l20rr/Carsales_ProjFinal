@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
 import Slider from "react-slick";
 import Cookies from "universal-cookie";
+import {
+  MDBBtn,
+  MDBIcon,
+} from 'mdb-react-ui-kit';
 
 const CarItemPremium = () => {
   const [Ads , setAds] = useState([]);
@@ -114,12 +118,17 @@ async function checkFav(vehicleID) {
                       </Container>
                       </div>
                 </Slider>
-
+                <div onClick={() => toggleFavorite(ad.vehicleID)}>
                 {isFavorited ? (
-              <button style={{border:'none'}}   onClick={() => toggleFavorite(ad.vehicleID)}> DisFav</button>
+                  <>
+                   <MDBIcon style={{ color: 'red' }}  fas icon="heart" />
+                  </>
               ) : (
-               <button style={{border:'none'}} onClick={() => toggleFavorite(ad.vehicleID)}>Fav</button>
+                  <>
+                   <MDBIcon style={{ color: 'red' }}  far icon="heart" />
+                  </>          
                 )}
+                </div>
               <div className="car__item-content mt-4">
                   <h4 className="section__title text-center">{ad.brand}-{ad.model}</h4>
                   <h6 className="rent__price text-center mt-">
