@@ -22,7 +22,7 @@ router.post("/favorites", async(req, res) => {
 
 router.get('/favorites/:id', async (req, res) => {
     const { QueryTypes } = require('sequelize');
-    const userID = req.params.id;
+    const id = req.params.id;
   
     const response = await db.sequelize.query(`
       SELECT *
@@ -33,7 +33,7 @@ router.get('/favorites/:id', async (req, res) => {
       INNER JOIN favorites ON publishAD.ID = favorites.publishadID
       INNER JOIN client ON publishAD.clientID = client.ID
       INNER JOIN user ON user.id = client.userID
-      WHERE favorites.clientID = '${userID}'
+      WHERE favorites.clientID = '${id}'
       ORDER BY vehicle.price DESC;
     `, { type: QueryTypes.SELECT });
   
