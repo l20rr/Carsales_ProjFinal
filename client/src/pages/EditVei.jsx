@@ -223,7 +223,7 @@ const { vehicleID } = useParams()
                             onChange={e => setDescription(e.target.value)} />
                         </Form.Group>
                         </Row>
-                      <Button variant="primary"  onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>next</Button>
+                      <Button variant="primary"  onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>Editar</Button>
                 </Form>
               </div>
               </div>
