@@ -7,8 +7,8 @@ import Row from 'react-bootstrap/Row';
 import api from '../services/api';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
-import Register from "../components/Header/Register"
-import Home from './Home';
+import Register from "../components/Header/Register";
+import {useParams} from 'react-router-dom';
 const cookies = new Cookies();
 const authToken = cookies.get("token");
 
@@ -37,9 +37,33 @@ const EditVei = () => {
     const [price, setPrice] = useState('');
     const [power, setPower] = useState('');
     const [numSeats, setNumSeats] = useState('');
-    const [description, setDescription] = useState('')
-    const [id , setId] = useState('')
+    const [description, setDescription] = useState('');
+    const [image, setImage] = useState(null);
+    const [image2, setImage2] = useState(null);
+    const [image3, setImage3] = useState(null);
     
+    useEffect(()=>{
+      api.get(`vehicle/vehicle/${id}`)
+      .then(response=>{
+        const VeiData=response.data;
+        setLicense(VeiData.license)
+        setYear(VeiData.year)
+        setKms(VeiData.kms)
+        setBrand(VeiData.brand)
+        setModel(VeiData.model)
+        setFuel(VeiData.fuel)
+        setPrice(VeiData.price)
+        setPower(VeiData.power)
+        setNumSeats(VeiData.numSeats)
+        setDescription(VeiData.description)
+        setImage(VeiData.image)
+        setImage2(VeiData.image2)
+        setImage3(VeiData.image3)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
  useEffect(() => {
   api.get(`/vehicle/vehicle/${vehicleID}`)
@@ -64,7 +88,6 @@ const EditVei = () => {
 }, []);
 
     if(!authToken) return <Register />
-    
 
     async function handleSubmit() {
       const formData = {
@@ -84,9 +107,11 @@ const EditVei = () => {
     
 
       try {
-        const response = await api.put(`vehicle/vehicle/${id}`, formData);
-
-        console.log(response)
+        const response = await api.put('/vehicle/addvehicle', formData);
+    
+         const vehicleID = response.formData.id
+  
+         window.location.href = `/Registeradverts/${vehicleID}`;
       
       } catch (error) {
         console.error(error);
