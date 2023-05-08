@@ -138,7 +138,7 @@ const { vehicleID } = useParams();
                           <Form.Group as={Col} controlId="formGridZip">
                             <Form.Label>Mês e Ano de construção</Form.Label>
                             <Form.Control id='year' 
-                              type='month'
+                              type='date'
                               required
                               value={year}
                               onChange={e => setYear(e.target.value)} />
