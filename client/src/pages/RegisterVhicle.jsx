@@ -29,7 +29,6 @@ function RegisterVhicle() {
   const [kms, setKms] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
-  const [fuel, setFuel] = useState('');
   const [price, setPrice] = useState('');
   const [power, setPower] = useState('');
   const [numSeats, setNumSeats] = useState('');
@@ -38,7 +37,17 @@ function RegisterVhicle() {
   const [image2, setImage2] = useState(null);
   const [image3, setImage3] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState([]);
-  
+
+  const [negotiable, setNegotiable] = useState('');
+  const [fuel, setFuel] = useState("");
+  const handleFuelChange = (event) => {
+    setFuel(event.target.value);
+  };
+
+  const handleNegotiableChange = (event) => {
+    setNegotiable(event.target.value);
+  };
+
   const { subcategoryID } = useParams();
 
   useEffect(() => {
@@ -67,6 +76,7 @@ function RegisterVhicle() {
     formData.append('description', description);
     formData.append('price', price);
     formData.append('power', power);
+    formData.append('negotiable', negotiable);
     formData.append('num_seats', numSeats);
     formData.append('subcategoryID', selectedSubcategory);
     formData.append('images', image);
@@ -171,16 +181,20 @@ function RegisterVhicle() {
                           value={kms}
                           onChange={e => setKms(e.target.value)} />
                       </Form.Group>
-                      <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>Combustivel</Form.Label>
-                        <Form.Control id='fuel'
-                          type='text'
-                          required
-                          value={fuel}
-                          onChange={e => setFuel(e.target.value)} />
-                      </Form.Group>
-</Row>
-<Row className="mb-3">
+                      <Form.Group className="select__group">
+          <Form.Select value={fuel} onChange={handleFuelChange}>
+            <option value="" disabled>
+              Combustível
+            </option>
+            <option value="Gasolina">Gasolina</option>
+            <option value="Gasoleo">Gasóleo</option>          
+              <option value="Híbrido">Híbrido</option>
+              <option value="Elétrico">Elétrico</option>
+              <option value="GPL">GPL</option>
+              </Form.Select>
+              </Form.Group>
+                        </Row>
+                        <Row className="mb-3">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Preço</Form.Label>
                         <Form.Control id='price'
@@ -207,6 +221,15 @@ function RegisterVhicle() {
                           value={numSeats}
                           onChange={e => setNumSeats(e.target.value)} />
                       </Form.Group>
+                      <Form.Group className="select__group">
+                      <Form.Select value={ negotiable } onChange={handleNegotiableChange}>
+                        <option value="" disabled>
+                         Negociavel?
+                        </option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>          
+                          </Form.Select>
+                          </Form.Group>
                     </Row>
                     <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridCity">

@@ -19,101 +19,139 @@ const FindCarForm = () => {
     fetchCategories();
   }, []);
 
-  const [SubcategoryOptions, setSubCategoryOptions] = useState([]);
-  const [selectedSubCategory, setSelectedSubCategory] = useState([]);
-  
+  const [subCategoryOptions, setSubCategoryOptions] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
 
   useEffect(() => {
     async function fetchSubcategories() {
-      const response = await api.get('subcat/subcat')
+      const response = await api.get("subcat/subcat");
       setSubCategoryOptions(response.data);
     }
     fetchSubcategories();
   }, []);
 
-  const [valuePrice, setPrice]=useState(0);
-
-  const setValuePrice = (event) => {
-    setPrice(event.target.value);
+  const [fuel, setFuel] = useState("");
+  const handleFuelChange = (event) => {
+    setFuel(event.target.value);
   };
 
-  const [values, setValues] = useState([
-    new DateObject().subtract(4, "days"),
-    new DateObject().add(4, "days")
-  ])
+  const [brand, setBrand] = useState("");
+  const handleBrandChange = (event) => {
+    setBrand(event.target.value);
+  };
 
-  
+  const [model, setModel] = useState("");
+  const handleModelChange = (event) => {
+    setModel(event.target.value);
+  };
+
+  const [maxKms, setMaxKms] = useState("");
+  const handleMaxKmsChange = (event) => {
+    setMaxKms(event.target.value);
+  };
+
+  const [orderBy, setOrderBy] = useState("");
+  const handleOrderByChange = (event) => {
+    setOrderBy(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await api.get("publi/filter", {
+      params: {
+        category: selectedCategory,
+        subcategory: selectedSubCategory,
+        fuel: fuel,
+        brand: brand,
+        model: model,
+        maxKms: maxKms,
+        orderBy: orderBy,
+      },
+    });
+   console.log(response.data)
+  };
+
   return (
-    <Form className="form">
+    <Form className="form" >
       <div className=" d-flex align-items-center justify-content-between flex-wrap">
         <Form.Group className="select__group">
-              <Form.Select
-                defaultValue=""
-                value={selectedCategory}
-                onChange={(event) => setSelectedCategory(event.target.value)}>
-                <option value="">Escolha a categoria...</option>
-                {categoryOptions.map((category) => (
-                  <option key={category.ID} value={category.ID}>
-                    {category.categoryName}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-          <FormGroup className="select__group">
           <Form.Select
-                defaultValue=""
-                value={selectedSubCategory}
-                onChange={(event) => setSelectedSubCategory(event.target.value)}>
-                <option value="">Escolha a subcategoria...</option>
-                {SubcategoryOptions.map((Subcategory) => (
-                  <option key={Subcategory.ID} value={Subcategory.ID}>
-                    {Subcategory.SubcategoryName}
-                  </option>
-                ))}
-              </Form.Select>
-          </FormGroup>
-          <FormGroup className="select__group">
-            <Form.Select>
-              <option value="" disabled selected>Combustivel</option>
-              <option value="Gasolina">Gasolina</option>
-              <option value="Gasoleo">Gasoleo</option>
-              <option value="Hibrido">Hibrido</option>
-              <option value="Eletrico">Elétrico</option>
+            value={selectedCategory}
+            onChange={(event) => setSelectedCategory(event.target.value)}
+          >
+            <option value="">Escolha a categoria...</option>
+            {categoryOptions.map((category) => (
+              <option key={category.ID} value={category.ID}>
+                {category.categoryName}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+        <FormGroup className="select__group">
+          <Form.Select
+            value={selectedSubCategory}
+            onChange={(event) => setSelectedSubCategory(event.target.value)}
+          >
+            <option value="">Escolha a subcategoria...</option>
+            {subCategoryOptions.map((subcategory) => (
+              <option key={subcategory.ID} value={subcategory.ID}>
+                {subcategory.subcategoryName}
+              </option>
+            ))}
+          </Form.Select>
+        </FormGroup>
+        <FormGroup className="select__group">
+          <Form.Select value={fuel} onChange={handleFuelChange}>
+            <option value="" disabled>
+              Combustível
+            </option>
+            <option value="Gasolina">Gasolina</option>
+            <option value="Gasoleo">Gasóleo</option>
+                          
+              <option value="Híbrido">Híbrido</option>
+              <option value="Elétrico">Elétrico</option>
               <option value="GPL">GPL</option>
-            </Form.Select>
-          </FormGroup>
-
-          <FormGroup className="form__group">
-            <input type="text" placeholder="Marca" />
-          </FormGroup>
-
-          <FormGroup className="form__group">
-            <input type="text" placeholder="Modelo" />
-          </FormGroup>
-
-          <FormGroup className="form__group">
-          <DatePicker  onlyYearPicker range value={values} onChange={setValues} dateSeparator=" até "/>
-          </FormGroup>
-
-          <FormGroup className="form__group">
-            <input type="number" placeholder="kms" />
-          </FormGroup>
-          
-          <FormGroup className="form__group">  
-            <input type="range" onChange={setValuePrice} value={valuePrice} name="price" min="0" max="500000" step={1000}/>
-            <label for="price">Preço Máximo: {valuePrice} €</label>
-          </FormGroup>
-
-          <FormGroup className="form__group">
-            <button className="btn find__car-btn">
-            <Link to="registerCategory" className="btn find__car-btn">
-                    Procurar
-                  </Link>
+              </Form.Select>
+              </FormGroup>
+              <FormGroup className="form__group">
+              <input
+              type="text"
+              placeholder="Marca"
+              value={brand}
+              onChange={(event) => setBrand(event.target.value)}
+              />
+              </FormGroup>
+              <FormGroup className="form__group">
+              <input
+              type="text"
+              placeholder="Modelo"
+              value={model}
+              onChange={(event) => setModel(event.target.value)}
+              />
+              </FormGroup>
+              <FormGroup className="form__group">
+              <input
+              type="number"
+              placeholder="Até kms"
+              value={maxKms}
+              onChange={(event) => setMaxKms(event.target.value)}
+              />
+              </FormGroup>
+             <FormGroup className="form__group">
+                <Form.Select value={orderBy} onChange={handleOrderByChange}>
+                  <option value="">Ordenar por...</option>
+                  <option value="price-asc">Valor crescente</option>
+                  <option value="price-desc">Valor decrescente</option>
+                </Form.Select>
+              </FormGroup>
+              <FormGroup className="form__group">
+              <button onClick={handleSubmit} className="btn find__car-btn">
+              Procurar
               </button>
-          </FormGroup>
-      </div>
-    </Form>
-  );
+              </FormGroup>
+              </div>
+              </Form>
+);
 };
 
 export default FindCarForm;

@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/addvehicle", upload.array('images', 3), async(req, res) => {
-    const { price, description, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats } = req.body;
+    const { price, description, license, subcategoryID, year, kms, brand, model, fuel, power, num_seats , negotiable } = req.body;
 
     try {
         const response = await Vehicle.create({
@@ -35,7 +35,8 @@ router.post("/addvehicle", upload.array('images', 3), async(req, res) => {
             fuel: fuel,
             price: price,
             power: power,
-            num_seats: num_seats
+            num_seats: num_seats,
+            negotiable: negotiable
         });
         res.status(200).json(response);
     } catch (error) {
