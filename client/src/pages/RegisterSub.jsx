@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 import {useParams} from 'react-router-dom';
-
+import EXCategory from '../components/UI/EXCategory';
 import Register from "../components/Header/Register"
 
 const cookies = new Cookies();
@@ -46,8 +46,8 @@ function RegisterSub() {
   }
 
   return (
-    <div className="container" style={{ height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-  <Form style={{ width: '60vw' }}>
+    <div className="container" style={{ width: '100vw',height: '80vh', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+  <Form style={{ width: '100vw', margin:'50px' }}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridState">
             <Form.Label>Sub-categoria</Form.Label>
@@ -69,6 +69,7 @@ function RegisterSub() {
           </Form.Group>
         </Row>
       </Form>
+      <EXCategory/>
     </div>
   );
 }

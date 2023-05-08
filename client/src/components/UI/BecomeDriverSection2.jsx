@@ -8,12 +8,12 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const EXCategory = () => {
+const BecomeDriverSection2 = () => {
   const [anunc, setAnunc] = useState([]);
 
   useEffect(() => {
     async function fetchAd() {
-      const response = await axios.get('http://localhost:3002/anuncios/nivel-servico/2');
+      const response = await axios.get('http://localhost:3002/anuncios/nivel-servico/3');
       console.log(response.data);
       setAnunc(response.data);
     }
@@ -32,23 +32,22 @@ const EXCategory = () => {
   };
 
   return (
-    <section className="EXCat">
+    <section className="become__driver">
       <Container>
         {anunc.length > 1 ? (
           <Slider {...settings}>
             {anunc.map((anc) => (
               <div key={anc.id} style={{ display: 'flex' }}>
-                <img className="EXCat_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" />
-               
+                <img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" />
+                
               </div>
             ))}
           </Slider>
         ) : (
           anunc.map((anc) => (
             <div key={anc.id} style={{ display: 'flex' }}>
-              <img className="EXCat_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" />
-             
-            </div>
+              <img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" />
+               </div>
           ))
         )}
       </Container>
@@ -56,4 +55,4 @@ const EXCategory = () => {
   );
 };
 
-export default EXCategory;
+export default BecomeDriverSection2;
