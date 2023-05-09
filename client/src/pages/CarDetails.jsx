@@ -110,20 +110,25 @@ const settings = {
             </Col>
             <Col  lg="6">
               <div className="car__info">
-                <h2 className="section__title">{Ad.brand}-{Ad.model}</h2>
+                <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
+                    <h2 className="section__title">{Ad.brand}-{Ad.model}</h2>
+                    <span className=" d-flex align-items-right gap-2">
+                        <span style={{ color: "#f9a826" }}>
+                          <i class="ri-star-s-fill"></i>
+                          <i class="ri-star-s-fill"></i>
+                          <i class="ri-star-s-fill"></i>
+                          <i class="ri-star-s-fill"></i>
+                        </span>
+                        ({Ad.year} )
+                      </span>
+                </div>
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
                   <h6 className="rent__price fw-bold fs-4">
                     {Ad.price}.00 €
                   </h6>
-                  <span className=" d-flex align-items-center gap-2">
-                    <span style={{ color: "#f9a826" }}>
-                      <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
-                      <i class="ri-star-s-fill"></i>
-                    </span>
-                    ({Ad.year} )
-                  </span>
+                  <h6 className="rent__price fw-bold fs-4">
+                    Local: {Ad.locality}
+                  </h6>
                 </div>
                 <p className="section__description">
                   {Ad.description}

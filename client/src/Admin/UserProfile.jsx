@@ -207,7 +207,7 @@ function UserProfile() {
       
     };
 
-      await api.post(`/cl/userData`,data);
+      await api.put(`/cl/${userID}`,data);
       window.location.href= '/UserProfile';
   }
 

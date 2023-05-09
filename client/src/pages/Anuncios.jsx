@@ -39,6 +39,19 @@ function Anuncios() {
     }
   }
 
+  const options = {
+    onSizePerPageChange: (sizePerPage, page) => {
+      console.log('Size per page change!!!');
+      console.log('Newest size per page:' + sizePerPage);
+      console.log('Newest page:' + page);
+    },
+    onPageChange: (page, sizePerPage) => {
+      console.log('Page change!!!');
+      console.log('Newest size per page:' + sizePerPage);
+      console.log('Newest page:' + page);
+    }
+  };
+
   if (email != 'admin@gmail.com') return <Home />;
   return (
     <Container>
