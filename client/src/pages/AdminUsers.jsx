@@ -3,8 +3,12 @@ import api from '../services/api'
 import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
 import Home from './Home';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import {
+  Button,
+  Card,
+  Container,
+} from "react-bootstrap";
 
 const cookies = new Cookies();
 function AdminUsers() {
@@ -40,11 +44,12 @@ function AdminUsers() {
 
   if (email != 'admin@gmail.com') return <Home />;
   return (
-    <form>
-      <div>
-        <h1>Admin Page</h1>
-        <br />
-        <br />
+    <Container>
+      <div className="d-grid gap-3">
+      <Card.Header className="d-grid gap-2">
+      <Card.Title as="h1">Admin Page</Card.Title>
+      <Card.Title as="h3">Clientes</Card.Title>
+      </Card.Header>
         
         <Table striped bordered hover>
           <thead>
@@ -71,7 +76,7 @@ function AdminUsers() {
           </tbody>
         </Table>
       </div>
-    </form>
+    </Container>
   );
   
 }

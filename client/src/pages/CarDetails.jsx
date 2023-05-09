@@ -84,8 +84,7 @@ const settings = {
         <Container>
           <Row>
             <h1>Usuário: {Ad.fullname}</h1>
-            <div className="detalhe_info">
-            <Col lg="7" md="7" sm="6" >
+            <Col  lg="6">
             <Slider {...settings} className="hero__slider">
                    <div className="car__img_detalhe">
                     <img src={`http://localhost:3000/uploads/${Ad.image}`} alt="" />
@@ -108,8 +107,8 @@ const settings = {
                   </Container>
                    </div>
                   </Slider>
-             </Col>
-            <Col lg="8">
+            </Col>
+            <Col  lg="6">
               <div className="car__info">
                 <h2 className="section__title">{Ad.brand}-{Ad.model}</h2>
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
@@ -156,13 +155,15 @@ const settings = {
                 </div>
               </div>
             </Col>
-            </div>
+          
+        </Row>
+        <Row>
             <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
               <Button color="info" onClick={() => GoMassage(otherUserId)}>Messagem</Button>
               </div>
             </Col>
-          </Row>
+         </Row>
         </Container>
       </section>
   </Helmet>

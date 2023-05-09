@@ -49,7 +49,7 @@ Seja você um comprador pela primeira vez ou um colecionador experiente, estamos
         </Container>
       </section>
 
-      <BecomeDriverSection />
+    
 
       <section className="membros">
         <Container>

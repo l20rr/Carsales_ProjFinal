@@ -45,7 +45,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
-
+        negotiable: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
         model: {
             type: Sequelize.STRING,
             allowNull: false,

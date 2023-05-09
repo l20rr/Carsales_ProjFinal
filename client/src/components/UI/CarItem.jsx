@@ -6,7 +6,10 @@ import "../../styles/car-item.css";
 import Slider from "react-slick";
 import Cookies from "universal-cookie";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { HeartFill,Heart } from 'react-bootstrap-icons';
+import {
+  MDBBtn,
+  MDBIcon,
+} from 'mdb-react-ui-kit';
 
 const CarItem = () => {
   const [Ads, setAds] = useState([]);
@@ -124,12 +127,17 @@ async function checkFav(vehicleID) {
                   </Container>
                    </div>
           </Slider>
-         
-            {isFavorited ? (
-              <button style={{border:'none'}}   onClick={() => toggleFavorite(ad.vehicleID)}> DisFav</button>
+                <div onClick={() => toggleFavorite(ad.vehicleID)}>
+                {isFavorited ? (
+                  <>
+                   <MDBIcon style={{ color: 'red' }}  fas icon="heart" />
+                  </>
               ) : (
-               <button style={{border:'none'}} onClick={() => toggleFavorite(ad.vehicleID)}>Fav</button>
+                  <>
+                   <MDBIcon style={{ color: 'red' }}  far icon="heart" />
+                  </>          
                 )}
+                </div>
             <div className="car__item-content mt-4">
               <h4 className="section__title text-center">
                 {ad.brand}-{ad.model}

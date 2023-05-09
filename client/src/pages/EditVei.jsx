@@ -1,13 +1,15 @@
 import React,{useState,useEffect}from 'react';
 import Button from 'react-bootstrap/Button';
+
 import Col from 'react-bootstrap/Col';
+import {useParams} from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import api from '../services/api';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
-import Register from "../components/Header/Register"
-import Home from './Home';
+import Register from "../components/Header/Register";
+
 const cookies = new Cookies();
 const authToken = cookies.get("token");
 
@@ -24,6 +26,7 @@ if(authToken) {
 }
 
 const EditVei = () => {
+const { vehicleID } = useParams();
     const email = cookies.get('email')
     const [license, setLicense] = useState('');
     const [year, setYear] = useState('');
@@ -35,71 +38,64 @@ const EditVei = () => {
     const [power, setPower] = useState('');
     const [numSeats, setNumSeats] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState(null);
-    const [image2, setImage2] = useState(null);
-    const [image3, setImage3] = useState(null);
+    const [id, setId] = useState('');
     
+   
+ useEffect(() => {
+  api.get(`/vehicle/vehicle/${vehicleID}`)
+    .then(response => {
+      const Veih = response.data;
+      console.log(response)
+      setLicense(Veih.license)
+      setYear(Veih.year)
+      setKms(Veih.kms)
+      setBrand(Veih.brand)
+      setModel(Veih.model)
+      setFuel(Veih.fuel)
+      setPrice(Veih.price)
+      setPower(Veih.power)
+      setNumSeats(Veih.num_seats)
+      setDescription(Veih.description)
+      setId(Veih.id)
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}, []);
 
     if(!authToken) return <Register />
-    
 
     async function handleSubmit() {
-      const formData = new FormData();
-      formData.append('license', license);
-      formData.append('year', year);
-      formData.append('kms', kms);
-      formData.append('brand', brand);
-      formData.append('model', model);
-      formData.append('fuel', fuel);
-      formData.append('description', description);
-      formData.append('price', price);
-      formData.append('power', power);
-      formData.append('num_seats', numSeats);
-      formData.append('images', image);
-      formData.append('images', image2);
-      formData.append('images', image3);
-  
-    
-    if (
-      license !== '' &&
-      year !== '' &&
-      kms !== '' &&
-      brand !== '' &&
-      model !== '' &&
-      fuel !== '' &&
-      price !== '' &&
-      power !== '' &&
-      numSeats !== ''
-    ) {
+      const formData = {
+        license:license,
+        year:year,
+        kms:kms,
+        brand:brand,
+        model:model,
+        fuel:fuel,
+        price:price,
+        power:power,
+        numSeats:numSeats,
+        description:description,
+      }
+     
       try {
-        const response = await api.put('/vehicle/addvehicle', formData);
+        const response = await api.put(`vehicle/vehicle/${id}`, formData);
     
-         const vehicleID = response.formData.id
+        if(email != 'admin@gmail.com') {
+          window.location.href = '/UserProfile'
+         }else{
+          window.location.href = '/anuncios'
+         }
   
-         window.location.href = `/Registeradverts/${vehicleID}`;
       
       } catch (error) {
         console.error(error);
         alert('Erro ao cadastrar!');
       }
-    } 
+  
     };
     
-    const handleImageChange = (event) => {
-      if (event.target.files && event.target.files[0]) {
-        setImage(event.target.files[0]);
-      }
-    };
-    const handleImageChange2 = (event) => {
-      if (event.target.files && event.target.files[0]) {
-        setImage2(event.target.files[0]);
-      }
-    };
-    const handleImageChange3 = (event) => {
-      if (event.target.files && event.target.files[0]) {
-        setImage3(event.target.files[0]);
-      }
-    };
     
     if (!authToken) return <Register />;
   
@@ -128,20 +124,7 @@ const EditVei = () => {
                       onChange={e => setModel(e.target.value)} />
                   </Form.Group>
     </Row>
-    <Row className="mb-3">
-      <Form.Group controlId="formGridCity">
-        <Form.Control type="file" onChange={handleImageChange} className="filetype" />
-        <img alt="preview image" src={image ? URL.createObjectURL(image) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />     
-      </Form.Group>
-      <Form.Group controlId="formGridCity">
-        <Form.Control type="file" onChange={handleImageChange2} className="filetype" />
-        <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
-      </Form.Group>
-      <Form.Group controlId="formGridCity">
-        <Form.Control type="file" onChange={handleImageChange3} className="filetype" />
-        <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
-      </Form.Group>
-    </Row>   
+    
     <Row className="mb-3">
                           <Form.Group as={Col} controlId="formGridCity">
                             <Form.Label>Matricula</Form.Label>
@@ -154,7 +137,7 @@ const EditVei = () => {
                           <Form.Group as={Col} controlId="formGridZip">
                             <Form.Label>Mês e Ano de construção</Form.Label>
                             <Form.Control id='year' 
-                              type='month'
+                              type='date'
                               required
                               value={year}
                               onChange={e => setYear(e.target.value)} />
@@ -216,7 +199,7 @@ const EditVei = () => {
                             onChange={e => setDescription(e.target.value)} />
                         </Form.Group>
                         </Row>
-                      <Button variant="primary" onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>next</Button>
+                      <Button variant="primary"  onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>Editar</Button>
                 </Form>
               </div>
               </div>

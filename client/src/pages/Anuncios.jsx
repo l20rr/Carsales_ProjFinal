@@ -3,8 +3,12 @@ import api from '../services/api'
 import Table from 'react-bootstrap/Table';
 import Cookies from 'universal-cookie';
 import Home from './Home';
-import { Button } from 'react-bootstrap';
 import { NavLink, Link } from 'react-router-dom';
+import {
+  Button,
+  Card,
+  Container,
+} from "react-bootstrap";
 
 const cookies = new Cookies();
 function Anuncios() {
@@ -37,16 +41,18 @@ function Anuncios() {
 
   if (email != 'admin@gmail.com') return <Home />;
   return (
-    <form>
-      <div>
-        <h1>Admin Page</h1>
-        <br />
-        <br />
-        
+    <Container>
+      <div className="d-grid gap-3">
+      <Card.Header className="d-grid gap-2">
+      <Card.Title as="h1">Admin Page</Card.Title>
+      <Card.Title as="h3">Anuncios de Clientes</Card.Title>
+      </Card.Header>
         <Table striped bordered hover>
           <thead>
             <tr>
               <th>ID</th>
+              <th>Categoria</th>
+              <th>Matricula</th>
               <th>Marca</th>
               <th>Modelo</th>
               <th>Ano</th>
@@ -54,21 +60,23 @@ function Anuncios() {
           </thead>
           <tbody>
             {Ads.map(Ad => (
-              <tr key={Ad.ID}>
-                <td>{Ad.ID}</td>
+              <tr key={Ad.vehicleID}>
+                <td>{Ad.vehicleID}</td>
+                <td>{Ad.categoryName}</td>
+                <td>{Ad.license}</td>
                 <td>{Ad.brand}</td>
                 <td>{Ad.model}</td>
                 <td>{Ad.year}</td>
                 <td>
-                  <Button variant="danger" onClick={() => handleDelete(Ad.ID)}  >Eliminar</Button>{' '}
-                  <Link to={`/editV/${Ad.ID}`}><Button variant="primary" >Editar</Button></Link>
+                  <Button variant="danger" onClick={() => handleDelete(Ad.vehicleID)}  >Eliminar</Button>{' '}
+                  <Link to={`/editV/${Ad.vehicleID}`}><Button variant="primary" >Editar</Button></Link>
               </td>
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
-    </form>
+    </Container>
   );
   
 }
