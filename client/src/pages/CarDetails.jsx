@@ -126,14 +126,14 @@ const settings = {
                   <h6 className="rent__price fw-bold fs-4">
                     {Ad.price}.00 €
                   </h6>
-                  <h6 className="rent__price fw-bold fs-4">
-                    Local: {Ad.locality}
-                  </h6>
+                  <h4 className="rent__price fw-bold fs-5">
+                    <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "} {Ad.locality}
+                  </h4>
                 </div>
                 <p className="section__description">
                   {Ad.description}
                 </p>
-                <div className=" d-flex align-items-center mt-4" style={{ columnGap: "4rem" }}>
+                <div className=" d-flex align-items-center mt-4" style={{ columnGap: "3rem" }}>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-roadster-line"style={{ color: "#f9a826" }}></i>{" "}{Ad.categoryName}
                   </span>
@@ -144,7 +144,7 @@ const settings = {
                     <i class="ri-dashboard-3-line" style={{ color: "#f9a826" }}></i>{" "}{Ad.kms}{" Kms"}
                   </span>
                 </div>
-                <div className=" d-flex align-items-center mt-4" style={{ columnGap: "2.8rem" }}>
+                <div className=" d-flex align-items-center mt-4" style={{ columnGap: "3rem" }}>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-gas-station-fill" style={{ color: "#f9a826" }}></i>{" "}{Ad.fuel}
                   </span>
@@ -153,9 +153,6 @@ const settings = {
                   </span>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-timer-flash-line" style={{ color: "#f9a826" }}></i>{" "} {Ad.num_seats}{" Lugares"}
-                  </span>
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "} {Ad.locality}
                   </span>
                 </div>
               </div>
