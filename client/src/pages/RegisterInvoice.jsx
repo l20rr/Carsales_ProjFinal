@@ -174,9 +174,6 @@ function RegisterInvoice() {
                       </Form.Group>
                     </Col>
 
-
-
-
                   </Row>
                   <br />
                   <Button

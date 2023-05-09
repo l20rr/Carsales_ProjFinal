@@ -120,7 +120,7 @@ function RegisterVhicle() {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
   <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
   <Form  encType="multipart/form-data">
-  <Row className="mb-3">
+  <Row className="mb-4">
             <Form.Group  controlId="formGridCity">
                 <Form.Label>Marca</Form.Label>
                 <Form.Control id='name'
@@ -130,7 +130,7 @@ function RegisterVhicle() {
                   onChange={e => setBrand(e.target.value)} />
               </Form.Group>
 </Row>
-<Row className="mb-3">
+<Row className="mb-4">
               <Form.Group  controlId="formGridCity">
                 <Form.Label>Modelo</Form.Label>
                 <Form.Control id='model'
@@ -140,7 +140,7 @@ function RegisterVhicle() {
                   onChange={e => setModel(e.target.value)} />
               </Form.Group>
 </Row>
-<Row className="mb-3">
+<Row className="mb-4">
   <Form.Group controlId="formGridCity">
     <Form.Control type="file" onChange={handleImageChange} className="filetype" />
     <img alt="preview image" src={image ? URL.createObjectURL(image) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />     
@@ -154,7 +154,7 @@ function RegisterVhicle() {
     <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
   </Form.Group>
 </Row>   
-            <Row className="mb-3">
+            <Row className="mb-4">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Matricula</Form.Label>
                         <Form.Control id='license'
@@ -172,7 +172,7 @@ function RegisterVhicle() {
                           onChange={e => setYear(e.target.value)} />
                       </Form.Group>
                       </Row>
-<Row className="mb-3">
+                      <Row className="mb-4">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Kms rodados</Form.Label>
                         <Form.Control id='kms'
@@ -181,20 +181,31 @@ function RegisterVhicle() {
                           value={kms}
                           onChange={e => setKms(e.target.value)} />
                       </Form.Group>
-                      <Form.Group className="select__group">
-          <Form.Select value={fuel} onChange={handleFuelChange}>
-            <option value="" disabled>
-              Combustível
-            </option>
-            <option value="Gasolina">Gasolina</option>
-            <option value="Gasoleo">Gasóleo</option>          
-              <option value="Híbrido">Híbrido</option>
-              <option value="Elétrico">Elétrico</option>
-              <option value="GPL">GPL</option>
-              </Form.Select>
-              </Form.Group>
+                      <Form.Group className="select__group" as={Col} controlId="formGridCity">
+                      <Form.Label>Combustível</Form.Label>
+                        <Form.Select value={fuel} onChange={handleFuelChange}>
+                          <option value="" disabled>
+                            Escolha um...
+                          </option>
+                          <option value="Gasolina">Gasolina</option>
+                          <option value="Gasoleo">Gasóleo</option>          
+                            <option value="Híbrido">Híbrido</option>
+                            <option value="Elétrico">Elétrico</option>
+                            <option value="GPL">GPL</option>
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group className="select__group" as={Col} controlId="formGridCity">
+                        <Form.Label>Negociável?</Form.Label>
+                          <Form.Select value={ negotiable } onChange={handleNegotiableChange}>
+                        <option value="" disabled>
+                         Escolha se é ou não
+                        </option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>          
+                          </Form.Select>
+                          </Form.Group>
                         </Row>
-                        <Row className="mb-3">
+                        <Row className="mb-4">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Preço</Form.Label>
                         <Form.Control id='price'
@@ -220,18 +231,9 @@ function RegisterVhicle() {
                           required
                           value={numSeats}
                           onChange={e => setNumSeats(e.target.value)} />
-                      </Form.Group>
-                      <Form.Group className="select__group">
-                      <Form.Select value={ negotiable } onChange={handleNegotiableChange}>
-                        <option value="" disabled>
-                         Negociavel?
-                        </option>
-                        <option value="Sim">Sim</option>
-                        <option value="Não">Não</option>          
-                          </Form.Select>
-                          </Form.Group>
+                      </Form.Group>  
                     </Row>
-                    <Row className="mb-3">
+                    <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridCity">
                       <Form.Label>Descrição Adicional</Form.Label>
                       <Form.Control id='description'
@@ -241,7 +243,7 @@ function RegisterVhicle() {
                         onChange={e => setDescription(e.target.value)} />
                     </Form.Group>
                     </Row>
-                  <Button variant="primary" onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>next</Button>
+                  <Button variant="primary" onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>Seguinte</Button>
             </Form>
           </div>
           </div>

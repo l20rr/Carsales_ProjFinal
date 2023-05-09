@@ -139,6 +139,7 @@ const Register = () => {
             <form onSubmit={handleSubmit(handleFormSubmit)}>
             {isSignup && (
               <div>
+                <label>Nome</label>
                 <Controller
                   name="fullname"
                   control={control}
@@ -150,10 +151,10 @@ const Register = () => {
                   render={({ field }) => (
                     <>
                       <MDBInput
-                        wrapperClass='mb-4'
+                        wrapperClass='mb-3'
                         size='medium'
                         htmlFor="fullname"
-                        placeholder='Nome/Apelido *'
+                        placeholder='Nome + Apelido *'
                         id='fullname'
                         value={fullname}
                         type='text'
@@ -169,6 +170,7 @@ const Register = () => {
                 </div>
               )}
                   <div>
+                  <label>Email</label>
                   <Controller
                     name="email"
                     control={control}
@@ -183,10 +185,10 @@ const Register = () => {
                     render={({ field }) => (
                       <>
                         <MDBInput
-                          wrapperClass='mb-4'
+                          wrapperClass='mb-3'
                           size='medium'
                           htmlFor="email"
-                          placeholder='Email *'
+                          placeholder='exemplo@mail.com'
                           id='email'
                           type='text'
                           {...field}
@@ -199,8 +201,7 @@ const Register = () => {
                   />
                   
                 </div>
-            
-              
+                <label>Palavra-passe</label>
                 <div>
                   <Controller
                     name="password"
@@ -216,12 +217,12 @@ const Register = () => {
                     render={({ field }) => (
                       <>
                         <MDBInput
-                          wrapperClass='mb-4'
+                          wrapperClass='mb-3'
                           size='medium'
                           htmlFor="password"
-                          placeholder='Password *'
+                          placeholder='<6,A,a,nº,simb($*&@#)'
                           id='password'
-                          type='text'
+                          type='password'
                           {...field}
                           label={errors.password ? errors.password.message : ''}
                           labelClass={errors.password ? 'error-label' : 'default-label'}
@@ -232,6 +233,7 @@ const Register = () => {
                   />
                   
                 </div>
+                <label>Confirmar palavra-passe</label>
 
                 {isSignup && (
               <div>
@@ -248,12 +250,12 @@ const Register = () => {
                   render={({ field }) => (
                     <>
                       <MDBInput
-                        wrapperClass='mb-4'
+                        wrapperClass='mb-3'
                         size='medium'
                         htmlFor="confPassword"
                         placeholder='Confirmar password *'
                         id='confPassword'
-                        type='text'
+                        type='password'
 
                         {...field}
                         label={errors.confPassword ? errors.confPassword.message : ''}
@@ -268,6 +270,7 @@ const Register = () => {
               )}
                {isSignup && (
               <div>
+                <label>Telemóvel</label>
                 <Controller
                   name="telem"
                   control={control}
@@ -282,10 +285,10 @@ const Register = () => {
                   render={({ field }) => (
                     <>
                       <MDBInput
-                        wrapperClass='mb-4'
+                        wrapperClass='mb-3'
                         size='medium'
                         htmlFor="telem"
-                        placeholder='Telemóvel *'
+                        placeholder='9 digitos'
                         id='telem'
                         type='number'
                         value={telem}
@@ -303,6 +306,7 @@ const Register = () => {
               )}
               {isSignup && (
               <div>
+                <label>Data de aniversário</label>
                 <Controller
                   name="birthdate"
                   control={control}
@@ -311,7 +315,7 @@ const Register = () => {
                   render={({ field }) => (
                     <>
                       <MDBInput
-                        wrapperClass='mb-4'
+                        wrapperClass='mb-3'
                         size='medium'
                         htmlFor="birthdate"
                         value={birthdate}
@@ -331,6 +335,7 @@ const Register = () => {
               )}
               {isSignup && (
               <div>
+                <label>Localidade</label>
                 <Controller
                   name="locality"
                   control={control}
@@ -339,7 +344,7 @@ const Register = () => {
                   render={({ field }) => (
                     <>
                       <MDBInput
-                        wrapperClass='mb-4'
+                        wrapperClass='mb-3'
                         size='medium'
                         htmlFor="locality"
                         placeholder='Cidade *'
