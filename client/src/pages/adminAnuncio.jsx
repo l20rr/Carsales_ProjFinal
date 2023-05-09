@@ -50,7 +50,7 @@ function AdminAnuncio() {
         }
       });
   
-    window.location.href = 'anExternos'
+    window.location.href = '/anExternos'
 
     } catch (error) {
       console.error(error);

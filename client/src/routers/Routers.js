@@ -47,17 +47,10 @@ const Routers = () => {
       <Route path="/chat" element={<ChatApi />} />
       <Route path="/chat/:channelId" element={<ChatApi />} />
       <Route path="/UserProfile" element={<UserProfile />} /> 
-      <Route path="cars/registerCategory" element={
-        <PrivateRoute redirectTo="register">
-          <RegisterCat/> 
-        </PrivateRoute>
-    }/>
-  <Route path="cars/registerCategory/RegisterSub/:IDCategory" element={<RegisterSub />} />
-     <Route path="cars/registerCategory/RegisterSub/registerVhicle/:subcategoryID" element={
-        <PrivateRoute redirectTo="register">
-          <RegisterVhicle/> 
-        </PrivateRoute>
-    }/>
+      <Route path="cars/registerCategory" element={<RegisterCat/> } />
+   
+     <Route path="cars/registerCategory/RegisterSub/:IDCategory" element={<RegisterSub />} />
+     <Route path="cars/registerCategory/RegisterSub/registerVhicle/:subcategoryID" element={<RegisterVhicle/> }/>
        <Route path="/Registeradverts/:vehicleID" element={<Registeradverts />} />
        <Route path="/:publishadID/:purchaseID/RegisterInvoice" element={<RegisterInvoice />} />
        <Route path="/Invoice/:ID" element={<Invoice />} />

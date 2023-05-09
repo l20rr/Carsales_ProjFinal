@@ -7,8 +7,12 @@ import BecomeDriverSection from "../components/UI/BecomeDriverSection";
 import driveImg from "../assets/all-images/drive.jpg";
 import OurMembers from "../components/UI/OurMembers";
 import "../styles/about.css";
-
+import Cookies from "universal-cookie";
+import AdminUsers from "./AdminUsers";
 const About = () => {
+  const cookies = new Cookies();
+  const email = cookies.get('email');
+  if (email === "admin@gmail.com") return <AdminUsers/>
   return (
     <Helmet title="About">
       <CommonSection title="Sobre nós" />

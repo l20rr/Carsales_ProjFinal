@@ -7,6 +7,8 @@ import BecomeDriverSection2 from "../components/UI/BecomeDriverSection2";
 import { Link } from "react-router-dom";
 import CarItemSearch from '../components/UI/CarItemSearch';
 import FindCarForm from "../components/UI/FindCarForm";
+import Cookies from "universal-cookie";
+import AdminUsers from './AdminUsers';
 
 const CarListing = () => {
 
@@ -17,7 +19,9 @@ const CarListing = () => {
     setSearchResults(responseData);
     setShowSearchResults(true);
   };
-
+  const cookies = new Cookies();
+  const email = cookies.get('email');
+  if (email === "admin@gmail.com") return <AdminUsers/>
   return (
     <Helmet title="Cars">
       

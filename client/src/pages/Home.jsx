@@ -6,8 +6,13 @@ import FindCarForm from "../components/UI/FindCarForm";
 import BecomeDriverSection from "../components/UI/BecomeDriverSection";
 import Testimonial from "../components/UI/Testimonial";
 import CarItemPremium from "../components/UI/CarItemPremium"
-
+import Cookies from "universal-cookie";
+import AdminUsers from "./AdminUsers";
 const Home = () => {
+  const cookies = new Cookies();
+  const email = cookies.get('email');
+  if (email === "admin@gmail.com") return <AdminUsers/>
+
   return (
     <Helmet title="Home">
       {/* ============= hero section =========== */}

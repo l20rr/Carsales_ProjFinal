@@ -22,12 +22,27 @@ function AnunciosExternos() {
   useEffect(() => {
     async function fetchUsers() {
       const response = await axios.get('http://localhost:3002/anuncios');
+      console.log(response.data)
       setAnuncio(response.data);
     }
     fetchUsers();
   }, []);
   
-
+ 
+  
+  async function handleDelete(_id) {
+    console.log('Deleting user with ID:', _id);
+    try {
+      const response = await axios.delete(`http://localhost:3002/anuncios/${_id}`);
+      if (response.status === 200) {
+        console.log('User deleted successfully');
+        window.location.reload(); 
+      }
+      console.log(`User with ID ${_id} has been deleted`);
+    } catch (error) {
+      console.log('Error deleting user:', error);
+    }
+  }
   
   
 
@@ -48,7 +63,7 @@ function AnunciosExternos() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>ID</th>
+          
               <th>Descricao</th>
               <th>Imagem</th>
               <th>Link At</th>
@@ -58,14 +73,13 @@ function AnunciosExternos() {
           <tbody>
             {anuncios.map(an => (
               <tr key={an.anuncianteId}>
-                <td>{an.anuncianteId}</td>
                 <td>{an.descricao}</td>
                 <td>{an.imagem}</td>
                 <td>{an.link}</td>
                 <td>{an.nivelServico}</td>
                 <td>
-                  <Button variant="danger" >Eliminar</Button>{' '}
-                  <Link ><Button variant="primary">Editar</Button></Link>
+                   <Button variant="danger" onClick={() => handleDelete(an._id)}>Eliminar</Button>{' '}
+                 
               </td>
               </tr>
             ))}
