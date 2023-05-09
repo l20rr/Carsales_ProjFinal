@@ -51,6 +51,8 @@ function Anuncios() {
           <thead>
             <tr>
               <th>ID</th>
+              <th>Categoria</th>
+              <th>Matricula</th>
               <th>Marca</th>
               <th>Modelo</th>
               <th>Ano</th>
@@ -60,6 +62,8 @@ function Anuncios() {
             {Ads.map(Ad => (
               <tr key={Ad.vehicleID}>
                 <td>{Ad.vehicleID}</td>
+                <td>{Ad.categoryName}</td>
+                <td>{Ad.license}</td>
                 <td>{Ad.brand}</td>
                 <td>{Ad.model}</td>
                 <td>{Ad.year}</td>
