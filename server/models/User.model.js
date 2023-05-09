@@ -22,18 +22,15 @@ module.exports = (sequelize, Sequelize) => {
     fullname: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-            notEmpty: true,
-            len: [3, 100]
-        }
+        
+        
     },
     email: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-            notEmpty: true,
-            isEmail: true
-        }
+        
+            
+        
     },
     password: {
       type: Sequelize.STRING,
