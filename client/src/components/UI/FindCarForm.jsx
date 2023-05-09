@@ -7,7 +7,7 @@ import "../../styles/find-car-form.css";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 
 
-const FindCarForm = () => {
+const FindCarForm = ({ onSubmit }) => {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -68,7 +68,7 @@ const FindCarForm = () => {
         orderBy: orderBy,
       },
     });
-   console.log(response.data)
+    onSubmit(response.data); 
   };
 
   return (
@@ -146,7 +146,7 @@ const FindCarForm = () => {
               </FormGroup>
               <FormGroup className="form__group">
               <button onClick={handleSubmit} className="btn find__car-btn">
-              Procurar
+                Procurar
               </button>
               </FormGroup>
               </div>

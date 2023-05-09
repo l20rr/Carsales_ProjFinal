@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState} from 'react';
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
 import BecomeDriverSection2 from "../components/UI/BecomeDriverSection2";
 import { Link } from "react-router-dom";
+import CarItemSearch from '../components/UI/CarItemSearch';
 import FindCarForm from "../components/UI/FindCarForm";
 
 const CarListing = () => {
+
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSubmit = (responseData) => {
+    setSearchResults(responseData);
+    setShowSearchResults(true);
+  };
+
   return (
     <Helmet title="Cars">
       
@@ -21,7 +31,7 @@ const CarListing = () => {
                 </Col>
 
                 <Col lg="10" md="10">
-                  <FindCarForm />
+                <FindCarForm onSubmit={handleSubmit} />
                 </Col>
               </Row>
             </Container>
@@ -37,14 +47,30 @@ const CarListing = () => {
                   Cadastrar veículo
                 </Link>
             </button>
+            <button className="btn-cadastrar" style={{ marginTop: '50px', backgroundColor: 'gray' }} onClick={() => window.location.reload()}>
+              ver todos
+            </button>
             <br/>
             </Col>
           </Row>
-          <Row> 
-              <CarItem/>
-          </Row>   
-          
-        </Container>
+          {showSearchResults ? (
+        <section>
+          <Container>
+            <Row>
+              <CarItemSearch Ads={searchResults} />
+            </Row>
+          </Container>
+        </section>
+      ) : (
+        <section>
+          <Container>
+            <Row>
+              <CarItem />
+            </Row>
+          </Container>
+        </section>
+      )}
+         </Container>
       </section>
     </Helmet>
   );
