@@ -222,7 +222,7 @@ const Invoice = () => {
         </Row>
       </Container>
       <br/>
-      <Button>Imprimir</Button>
+      <Button onClick={handleClickPrint} >Imprimir</Button>
       <br/>
       <br/>
       <Button>Enviar por email</Button>
