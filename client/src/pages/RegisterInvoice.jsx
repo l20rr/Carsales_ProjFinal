@@ -177,9 +177,6 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                       </Form.Group>
                     </Col>
 
-
-
-
                   </Row>
                   <br />
                   <Button

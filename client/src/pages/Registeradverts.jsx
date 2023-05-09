@@ -188,7 +188,6 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                 className="d-block mb-2 mt-3 text-capitalize"
               onClick={handleSubmitPree}
               >
-       
                     Selecionar
              
               </MDBBtn>
