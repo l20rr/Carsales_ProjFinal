@@ -1,5 +1,6 @@
 import React,{useState}from 'react';
 import api from '../services/api';
+import AdminAnuncio from './adminAnuncio';
 // react-bootstrap components
 import {
 
@@ -84,6 +85,8 @@ function RegisterInvoice() {
     }
   }
   
+
+if (email === "admin@gmail.com") return <AdminAnuncio/>
 
   return (
     <div style={{ display: "flex", margin: "0 auto", padding: 30, height: 800 }}>

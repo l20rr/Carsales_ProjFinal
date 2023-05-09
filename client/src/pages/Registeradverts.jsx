@@ -1,6 +1,7 @@
 import React,{useState , useEffect}from 'react';
 import moment from 'moment';
 import api from '../services/api';
+import AdminAnuncio from './adminAnuncio';
 import {
   MDBContainer,
   MDBBtn,
@@ -89,6 +90,8 @@ export default function  Registeradverts() {
   }
 
 
+  const email = cookies.get('email');
+if (email === "admin@gmail.com") return <AdminAnuncio/>
 
 
   return (

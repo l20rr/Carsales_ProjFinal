@@ -9,7 +9,7 @@ import { StreamChat } from 'stream-chat';
 import {useParams} from 'react-router-dom';
 import EXCategory from '../components/UI/EXCategory';
 import Register from "../components/Header/Register"
-
+import AdminAnuncio from './adminAnuncio';
 const cookies = new Cookies();
 const authToken = cookies.get("token");
 
@@ -44,6 +44,9 @@ function RegisterSub() {
     event.preventDefault();
     window.location.href = `/cars/registerCategory/registerSub/registerVhicle/${selectedSubCategory}`;
   }
+  
+  const email = cookies.get('email');
+if (email === "admin@gmail.com") return <AdminAnuncio/>
 
   return (
     <div className="container" style={{ width: '100vw',height: '80vh', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>

@@ -38,16 +38,17 @@ const EXPesquisa = () => {
           <Slider {...settings}>
             {anunc.map((anc) => (
               <div key={anc.id} style={{ display: 'flex' }}>
-                <img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" />
-                <h3>{anc.descricao}</h3>
+                
+                <a href={anc.link} target="_blank"><img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>
+               
               </div>
             ))}
           </Slider>
         ) : (
           anunc.map((anc) => (
             <div key={anc.id} style={{ display: 'flex' }}>
-              <img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" />
-              <h3>{anc.descricao}</h3>
+              <a href={anc.link} target="_blank"><img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>
+              
             </div>
           ))
         )}

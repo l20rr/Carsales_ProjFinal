@@ -7,8 +7,9 @@ import api from '../services/api';
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 import {useParams} from 'react-router-dom'
-import Register from "../components/Header/Register"
 
+import AdminAnuncio from './adminAnuncio';
+import Register from "../components/Header/Register"
 const cookies = new Cookies();
 const authToken = cookies.get("token");
 
@@ -23,7 +24,11 @@ if(authToken) {
         hashedPassword: cookies.get('hashedPassword'),
     }, authToken)
 }
+
+
 function RegisterVhicle() {
+  
+
   const [license, setLicense] = useState('');
   const [year, setYear] = useState('');
   const [kms, setKms] = useState('');
@@ -114,6 +119,9 @@ function RegisterVhicle() {
   };
   
   if (!authToken) return <Register />;
+  
+  const email = cookies.get('email');
+if (email === "admin@gmail.com") return <AdminAnuncio/>
 
   return (
       

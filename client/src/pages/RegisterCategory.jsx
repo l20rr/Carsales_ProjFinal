@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Cookies from 'universal-cookie';
+import AdminAnuncio from './adminAnuncio';
 import { StreamChat } from 'stream-chat';
 
 import Register from "../components/Header/Register"
@@ -45,6 +46,9 @@ function RegisterCategory() {
     window.location.href = `/cars/registerCategory/registerSub/${selectedCategory}`;
   }
 
+  
+  const email = cookies.get('email');
+if (email === "admin@gmail.com") return <AdminAnuncio/>
   return (
 <div className="container" style={{ height: '80vh', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
 <EXCategory/>

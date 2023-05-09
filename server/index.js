@@ -38,7 +38,7 @@ db.sequelize.sync().then(() => {
 
           try {
             // Cria o usuário
-            const password = "1234";
+            const password = "MyP@ssw0rd";
             const hash = await bcrypt.hash(password, 10);
             const userId = crypto.randomBytes(16).toString('hex');
             const user = await User.create({
@@ -186,8 +186,8 @@ db.sequelize.sync().then(() => {
             console.log("Already exists");
             console.log(err)
         });
-
 */
+
 })
 
 

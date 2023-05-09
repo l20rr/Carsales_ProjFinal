@@ -38,7 +38,7 @@ const BecomeDriverSection2 = () => {
           <Slider {...settings}>
             {anunc.map((anc) => (
               <div key={anc.id} style={{ display: 'flex' }}>
-                <img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" />
+                <a href={anc.link} target="_blank"><img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>
                 
               </div>
             ))}
@@ -46,7 +46,7 @@ const BecomeDriverSection2 = () => {
         ) : (
           anunc.map((anc) => (
             <div key={anc.id} style={{ display: 'flex' }}>
-              <img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" />
+               <a href={anc.link} target="_blank"><img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>
                </div>
           ))
         )}
