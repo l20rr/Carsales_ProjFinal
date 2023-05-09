@@ -18,6 +18,8 @@ import { FaGoogle } from 'react-icons/fa';
 import { gapi } from 'gapi-script';
 import "../../styles/register.css";
 
+import { useForm, Controller } from 'react-hook-form';
+
 const clientId = "574474093326-klu8iamgt3rupvjhnstb3o5jcju58h9l.apps.googleusercontent.com"
 
 const cookies = new Cookies();
@@ -30,55 +32,72 @@ const initialState = {
 }
 
 const Register = () => {
+
+    const { handleSubmit, control, formState: { errors }, watch } = useForm({ defaultValues: initialState });
+
+    const password = watch('password');
+
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(true);
     const [locality , setLocality] = useState('');
     const [telem , setTelem] = useState('');
     const [birthdate , setBirthdate] = useState('');
+    const [fullname, setFullname] = useState('');
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        
-
-        const { email, password } = form;
-
-        
-
-        const { data: { token, userId, userID, hashedPassword, fullname } } = await api.post(`${isSignup ? '/auth/signup' : '/auth/login/'}`, {
-            email, password, fullname: form.fullname,
-        });
-
-        cookies.set('token', token);
-        cookies.set('email', email);
-        cookies.set('fullname', fullname);
-        cookies.set('userId', userId);
-        cookies.set('userID', userID);
-
-        
-
-        if(isSignup) {
-            cookies.set('hashedPassword', hashedPassword);
+    const handleFormSubmit = async (data) => {
+        const { email, password, fullname, locality, birthdate, telem } = data;
+        try {
+          let userId, userID, hashedPassword, token; // Define the variables
+      
+          if (isSignup) {
+            const { data: { token: signupToken, userId: signupUserId, userID: signupUserID, hashedPassword: signupHashedPassword } } = await api.post('/auth/signup', {
+              email, password, fullname,
+            });
+      
+            hashedPassword = signupHashedPassword; // Assign the values
+            userId = signupUserId;
+            userID = signupUserID;
+            token = signupToken
+            cookies.set('fullname', fullname);
+          } else {
+            const { data: { token: loginToken, userId: loginUserId, userID: loginUserID, fullname: loginFullname}} = await api.post('/auth/login', {
+              email, password, fullname,
+            });
+            console.log(loginFullname);
+            userId = loginUserId; // Assign the values
+            userID = loginUserID;
+            token = loginToken
+            setFullname(loginFullname);
+            cookies.set('fullname', loginFullname || fullname);
+          }
+      
+          cookies.set('token', token);
+          cookies.set('email', email);
+          
+          cookies.set('userId', userId);
+          cookies.set('userID', userID);
+      
+          if (isSignup && locality !== '' && telem !== '' && birthdate !== '') {
+            const clientData = {
+              locality: locality,
+              telem: telem,
+              birthdate: birthdate,
+              userID: userID,
+            };
+      
+            await api.post('/cl/userData', clientData);
+          }
+      
+          window.location.reload();
+          window.location.href = '/home';
+        } catch (error) {
+          console.log(error);
         }
-
-        const clientData = {
-          locality: locality,
-          telem: telem,
-          birthdate: birthdate,
-          userID: userID,
-        };
-        if(isSignup && form.locality!=='' && form.telem!=='' && form.birthdate!=='') {
-          await api.post('/cl/userData', clientData);
-        }
-
-        window.location.reload();
-        window.location.href= '/home'
-    }
-  
+      };
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
     }
@@ -107,6 +126,7 @@ const Register = () => {
     };
 
    
+   
   return (
   <div class="page-container">
     <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' >
@@ -116,53 +136,227 @@ const Register = () => {
           <div className="text-uppercase text-center mb-5">
             <h2>{isSignup ? 'Registar' : 'Entrar'}</h2>
             </div>
-            <form onSubmit={handleSubmit}>
-              {isSignup && (
-                <MDBInput wrapperClass='mb-2' size='medium' htmlFor="fullname" label='Nome/Apelido'  
-                required 
-                id='fullname' 
-                type='text' 
-                name='fullname'
-                
-                onChange={handleChange}
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
+            {isSignup && (
+              <div>
+                <Controller
+                  name="fullname"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: 'Nome/Apelido obrigatório',
+                    
+                  }}
+                  render={({ field }) => (
+                    <>
+                      <MDBInput
+                        wrapperClass='mb-4'
+                        size='medium'
+                        htmlFor="fullname"
+                        placeholder='Nome/Apelido *'
+                        id='fullname'
+                        value={fullname}
+                        type='text'
+                        {...field}
+                        label={errors.fullname ? errors.fullname.message : ''}
+                        labelClass={errors.fullname ? 'error-label' : 'default-label'}
+                        
+                      />
+                    </>
+                  )}
                 />
+                
+                </div>
               )}
-                <MDBInput wrapperClass='mb-2' size='medium' htmlFor="email" label='Email' 
-                required
-                id='email' 
-                type='email'
-                name='email'
-                
-                onChange={handleChange}
-                />
+                  <div>
+                  <Controller
+                    name="email"
+                    control={control}
+                    defaultValue=""
+                    rules={{
+                      required: 'Email obrigatório',
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                        message: 'Email inválido!',
+                      },
+                    }}
+                    render={({ field }) => (
+                      <>
+                        <MDBInput
+                          wrapperClass='mb-4'
+                          size='medium'
+                          htmlFor="email"
+                          placeholder='Email *'
+                          id='email'
+                          type='text'
+                          {...field}
+                          label={errors.email ? errors.email.message : ''}
+                          labelClass={errors.email ? 'error-label' : 'default-label'}
+                         
+                        />
+                      </>
+                    )}
+                  />
+                  
+                </div>
+            
               
-                <MDBInput wrapperClass='mb-2' size='medium' htmlFor="password" label='Password' 
-                required 
-                id='password' 
-                type='password'
-                name='password'
-                
-                onChange={handleChange}
-                />
+                <div>
+                  <Controller
+                    name="password"
+                    control={control}
+                    defaultValue=""
+                    rules={{
+                      required: 'Password obrigatório',
+                      pattern: {
+                        value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{6,12}$/i,
+                        message: 'Password inválida!',
+                      },
+                    }}
+                    render={({ field }) => (
+                      <>
+                        <MDBInput
+                          wrapperClass='mb-4'
+                          size='medium'
+                          htmlFor="password"
+                          placeholder='Password *'
+                          id='password'
+                          type='text'
+                          {...field}
+                          label={errors.password ? errors.password.message : ''}
+                          labelClass={errors.password ? 'error-label' : 'default-label'}
+                          
+                        />
+                      </>
+                    )}
+                  />
+                  
+                </div>
 
-              {isSignup && (
-                <MDBInput wrapperClass='mb-2' size='medium' htmlFor="confPassword" label='Repete a password' 
-                required 
-                id='confPassword' 
-                type='password'
-                name='confPassword'
+                {isSignup && (
+              <div>
+                <Controller
+                  name="confPassword"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: 'Confirmar password obrigatório',
+                    validate: (value) =>
+                      value === password || 'Passwords não correspondem',
+                    
+                  }}
+                  render={({ field }) => (
+                    <>
+                      <MDBInput
+                        wrapperClass='mb-4'
+                        size='medium'
+                        htmlFor="confPassword"
+                        placeholder='Confirmar password *'
+                        id='confPassword'
+                        type='text'
+
+                        {...field}
+                        label={errors.confPassword ? errors.confPassword.message : ''}
+                        labelClass={errors.confPassword ? 'error-label' : 'default-label'}
+                        
+                      />
+                    </>
+                  )}
+                />
                 
-                onChange={handleChange}
-              />
+                </div>
               )}
                {isSignup && (
-                  <MDBInput  wrapperClass='mb-2' size='medium' type="number" required value={telem} onChange={(e) => setTelem(e.target.value)} label="Telemóvel" />
+              <div>
+                <Controller
+                  name="telem"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: 'Telemóvel obrigatório',
+                    pattern: {
+                      value: /^\d{9}$/i,
+                      message: 'Número de telemóvel inválido!',
+                    },
+                  }}
+                  render={({ field }) => (
+                    <>
+                      <MDBInput
+                        wrapperClass='mb-4'
+                        size='medium'
+                        htmlFor="telem"
+                        placeholder='Telemóvel *'
+                        id='telem'
+                        type='number'
+                        value={telem}
+                        onChange={(e) => setTelem(e.target.value)}
+                        {...field}
+                        label={errors.telem ? errors.telem.message : ''}
+                        labelClass={errors.telem ? 'error-label' : 'default-label'}
+                        
+                      />
+                    </>
+                  )}
+                />
+                
+                </div>
               )}
               {isSignup && (
-                  <MDBInput wrapperClass='mb-2' size='medium' type="date" required value={birthdate} onChange={(e) => setBirthdate(e.target.value)} label="Data de nascimento" />
+              <div>
+                <Controller
+                  name="birthdate"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: 'Data de nascimento obrigatório' }}
+                  render={({ field }) => (
+                    <>
+                      <MDBInput
+                        wrapperClass='mb-4'
+                        size='medium'
+                        htmlFor="birthdate"
+                        value={birthdate}
+                        onChange={(e) => setBirthdate(e.target.value)}
+                        id='birthdate'
+                        type='date'
+                        {...field}
+                        label={errors.birthdate ? errors.birthdate.message : ''}
+                        labelClass={errors.birthdate ? 'error-label' : 'default-label'}
+                        
+                      />
+                    </>
+                  )}
+                />
+                
+                </div>
               )}
               {isSignup && (
-                <MDBInput wrapperClass='mb-2' size='medium' type="text" required value={locality} onChange={(e) => setLocality(e.target.value)} label="Morada" />
+              <div>
+                <Controller
+                  name="locality"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: 'Cidade obrigatório' }}
+                  render={({ field }) => (
+                    <>
+                      <MDBInput
+                        wrapperClass='mb-4'
+                        size='medium'
+                        htmlFor="locality"
+                        placeholder='Cidade *'
+                        id='locality'
+                        value={locality}
+                        onChange={(e) => setLocality(e.target.value)}
+                        type='text'
+                        {...field}
+                        label={errors.locality ? errors.locality.message : ''}
+                        labelClass={errors.locality ? 'error-label' : 'default-label'}
+                        
+                      />
+                    </>
+                  )}
+                />
+                
+                </div>
               )}
               <div className='d-flex flex-row justify-content-center mb-4'>
                 <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
@@ -205,6 +399,7 @@ const Register = () => {
       </MDBCard>
     </MDBContainer>
   </div>
+  
   );
 }
 
