@@ -211,6 +211,21 @@ function UserProfile() {
       window.location.href= '/UserProfile';
   }
 
+  async function handleSubmit1(e) {
+    e.preventDefault();
+   
+    const data = {
+      locality: locality,
+      telem: telem,
+      birthdate: birthdate,
+      userID: userID
+      
+    };
+
+      await api.put(`/cl/${userID}`,data);
+      window.location.href= '/UserProfile';
+  }
+
   async function changePassword(e) {
     e.preventDefault();
 
@@ -261,6 +276,7 @@ function UserProfile() {
           <MDBModalFooter>
             <MDBBtn color="secondary" onClick={toggleModalAdd}>Cancelar</MDBBtn>
             <MDBBtn color="primary" onClick={handleSubmit}  >Adicionar</MDBBtn>
+            <MDBBtn color="primary" onClick={handleSubmit1}  >Alterar</MDBBtn>
           </MDBModalFooter>
         </Form>
         </MDBModalBody>
