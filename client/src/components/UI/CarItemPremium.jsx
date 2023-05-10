@@ -13,22 +13,10 @@ import {
 const CarItemPremium = () => {
   const [Ads , setAds] = useState([]);
   const cookies = new Cookies();
-  const [isFavorited, setIsFavorited] = useState(false);
+  const [favorites, setFavorites] = useState({});
 
   
-  useEffect(() => {
-    async function fetchFavorites() {
-      const userID = cookies.get("userID");
-      const response = await api.get(`fav/favorites/${userID}`);
-      const vehicleID = response.data.vehicleID;
-      const favorites = response.data;
-      const isAdFavorited = favorites.some(
-        (favorite) => favorite.publishadID === vehicleID
-      );
-      setIsFavorited(isAdFavorited);
-    }
-    fetchFavorites();
-  }, []);
+
 
   useEffect(() => {
     async function fetchAds() {  
@@ -38,10 +26,9 @@ const CarItemPremium = () => {
     fetchAds();
   }, []);
 
-  
   async function toggleFavorite(vehicleID) {
     try {
-      const userID = cookies.get('userID');
+      const userID = cookies.get("userID");
       const postData = {
         clientID: userID,
         publishadID: vehicleID,
@@ -50,16 +37,30 @@ const CarItemPremium = () => {
   
       if (isFavorited) {
         const response = await api.delete(`fav/favorites/${vehicleID}`);
-        setIsFavorited(false);
+        setFavorites((prevFavorites) => ({ ...prevFavorites, [vehicleID]: false }));
       } else {
-        const response = await api.post('fav/favorites', postData);
-        setIsFavorited(true);
+        const response = await api.post("fav/favorites", postData);
+        setFavorites((prevFavorites) => ({ ...prevFavorites, [vehicleID]: true }));
       }
     } catch (error) {
       console.error(error);
       return null;
     }
   }
+
+  useEffect(() => {
+    async function fetchFavorites() {
+      const userID = cookies.get("userID");
+      const response = await api.get(`fav/favorites/${userID}`);
+      const favorites = response.data.reduce((acc, fav) => {
+        acc[fav.publishadID] = true;
+        return acc;
+      }, {});
+      setFavorites(favorites);
+    }
+    fetchFavorites();
+  }, []);
+  
   
 async function checkFav(vehicleID) {
   try {
@@ -78,7 +79,6 @@ async function checkFav(vehicleID) {
     return false;
   }
 }
-
 
   const settings = {
     fade: true,
@@ -119,16 +119,12 @@ async function checkFav(vehicleID) {
                       </div>
                 </Slider>
                 <div onClick={() => toggleFavorite(ad.vehicleID)}>
-                {isFavorited ? (
-                  <>
-                   <MDBIcon style={{ color: 'red' }}  fas icon="heart" />
-                  </>
-              ) : (
-                  <>
-                   <MDBIcon style={{ color: 'red' }}  far icon="heart" />
-                  </>          
-                )}
-                </div>
+            {favorites[ad.vehicleID] ? (
+              <MDBIcon style={{ color: "red" }} fas icon="heart" />
+            ) : (
+              <MDBIcon style={{ color: "red" }} far icon="heart" />
+            )}
+          </div>
               <div className="car__item-content mt-4">
                   <h4 className="section__title text-center">{ad.brand}-{ad.model}</h4>
                   <h6 className="rent__price text-center mt-">

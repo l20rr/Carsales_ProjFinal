@@ -37,7 +37,7 @@ const EXCategory = () => {
         {anunc.length > 1 ? (
           <Slider {...settings}>
             {anunc.map((anc) => (
-              <div key={anc.id} style={{ display: 'flex' }}>
+              <div key={anc.id}  className="container_img">
                 <a href={anc.link} target="_blank"><img className="EXCat_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>
                
               </div>
@@ -45,7 +45,7 @@ const EXCategory = () => {
           </Slider>
         ) : (
           anunc.map((anc) => (
-            <div key={anc.id} style={{ display: 'flex' }}>
+            <div key={anc.id}  className="container_img">
                 <a href={anc.link} target="_blank"><img className="EXCat_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>
              
             </div>

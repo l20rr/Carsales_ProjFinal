@@ -44,10 +44,14 @@ const Register = () => {
     const [birthdate , setBirthdate] = useState('');
     const [fullname, setFullname] = useState('');
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
+    const showPass = () => {
+      setShowPassword(!showPassword);
+    };
 
     const handleFormSubmit = async (data) => {
         const { email, password, fullname, locality, birthdate, telem } = data;
@@ -208,7 +212,7 @@ const Register = () => {
                 </div>
                 <label>Palavra-passe</label>
                 <div>
-                  <Controller
+                <Controller
                     name="password"
                     control={control}
                     defaultValue=""
@@ -218,7 +222,9 @@ const Register = () => {
                         value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{6,12}$/i,
                         message: 'Password inválida!',
                       },
+                      
                     }}
+                    
                     render={({ field }) => (
                       <>
                         <MDBInput
@@ -227,12 +233,14 @@ const Register = () => {
                           htmlFor="password"
                           placeholder='<6,A,a,nº,simb($*&@#)'
                           id='password'
-                          type='password'
+                          type={showPassword ? 'text' : 'password'}
                           {...field}
                           label={errors.password ? errors.password.message : ''}
                           labelClass={errors.password ? 'error-label' : 'default-label'}
                           
                         />
+                        <button onClick={showPass} style={{border:'none', borderRadius:'10px', padding:'5px', backgroundColor:'blue', color:'#fff'}}
+                      >Mostrar senha</button>
                       </>
                     )}
                   />
@@ -259,18 +267,20 @@ const Register = () => {
                         htmlFor="confPassword"
                         placeholder='Confirmar password *'
                         id='confPassword'
-                        type='password'
+                        type={showPassword ? 'text' : 'password'}
 
                         {...field}
                         label={errors.confPassword ? errors.confPassword.message : ''}
                         labelClass={errors.confPassword ? 'error-label' : 'default-label'}
                         
                       />
+                      <button onClick={showPass} style={{border:'none', borderRadius:'10px', padding:'5px', backgroundColor:'blue', color:'#fff'}}
+                      >Mostrar senha</button>
                     </>
                   )}
                 />
                 
-                </div>
+              </div>
               )}
                {isSignup && (
               <div>

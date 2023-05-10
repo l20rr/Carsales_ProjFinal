@@ -35,6 +35,7 @@ const CarItem = () => {
     }
     fetchLastImagePath();
   }, []);
+  
   async function toggleFavorite(vehicleID) {
     try {
       const userID = cookies.get("userID");
