@@ -68,6 +68,7 @@ const FindCarForm = ({ onSubmit }) => {
         orderBy: orderBy,
       },
     });
+    console.log(response.data)
     onSubmit(response.data); 
   };
 

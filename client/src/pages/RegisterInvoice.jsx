@@ -171,7 +171,7 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                     <label>Código Postal</label>
                     <Form.Control
                       id='postalCode'
-                      type='number'
+                      type='text'
                       placeholder='xxxx-xxx'
                       required
                       value={PostalCode}

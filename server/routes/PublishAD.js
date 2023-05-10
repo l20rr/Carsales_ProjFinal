@@ -109,65 +109,64 @@ router.get("/listAllADPriceASC", async(req, res) => {
         order by vehicle.price asc;`, { type: QueryTypes.SELECT });
     res.status(200).json(response);
 });
+
 router.get('/filter', async (req, res) => {
-    const { QueryTypes } = require('sequelize');
-    const { brand, model, category, subcategory, fuel, sort } = req.query;
-    
-    let query = `
-      SELECT 
-        vehicle.image,
-        vehicle.image2, 
-        vehicle.image3, 
-        vehicle.id AS id, 
-        category.categoryName, 
-        subcategory.SubcategoryName, 
-        vehicle.price,
-        vehicle.license, 
-        vehicle.year, 
-        vehicle.kms, 
-        vehicle.brand AS Marca, 
-        vehicle.model AS Modelo, 
-        vehicle.fuel AS Combustivel, 
-        vehicle.power, 
-        vehicle.num_seats AS "num_seats", 
-        client.locality, 
-        publishad.publishAD_date,
-        publishad.ID AS 'ID'
-      FROM 
-        vehicle 
-        INNER JOIN subcategory ON vehicle.subcategoryID = subcategory.ID
-        INNER JOIN category ON subcategory.categoryID = category.ID
-        INNER JOIN publishad ON vehicle.ID = publishad.vehicleID
-        INNER JOIN client ON publishad.clientID = client.ID
-      WHERE
-        (:brand IS NULL OR vehicle.brand = :brand)
-        OR (:model IS NULL OR vehicle.model = :model)
-        OR (:category IS NULL OR category.categoryName = :category)
-        OR (:subcategory IS NULL OR subcategory.SubcategoryName = :subcategory)
-        OR (:fuel IS NULL OR vehicle.fuel = :fuel)
-    `;
-    
-    const replacements = { brand, model, category, subcategory, fuel, sort };
-    
-    // atribua o valor padrão null ao parâmetro "fuel" se ele não existir no objeto "req.query"
-    if (!req.query.hasOwnProperty('fuel')) {
-      replacements.fuel = null;
-    }
-    
-    if (sort === 'asc') {
-      query += ` ORDER BY vehicle.price ASC`;
-    } else if (sort === 'desc') {
-      query += ` ORDER BY vehicle.price DESC`;
-    }
-    
-    const response = await db.sequelize.query(query, {
-      type: QueryTypes.SELECT,
-      replacements,
-    });
-    
-    res.status(200).json(response);
+  const { QueryTypes } = require('sequelize');
+  const { brand, model, category, subcategory, fuel, sort } = req.query;
+  
+  let query = `
+    SELECT 
+      vehicle.image,
+      vehicle.image2, 
+      vehicle.image3, 
+      vehicle.id AS id, 
+      category.categoryName, 
+      subcategory.SubcategoryName, 
+      vehicle.price,
+      vehicle.license, 
+      vehicle.year, 
+      vehicle.kms, 
+      vehicle.brand AS Marca, 
+      vehicle.model AS Modelo, 
+      vehicle.fuel AS Combustivel, 
+      vehicle.power, 
+      vehicle.num_seats AS "num_seats", 
+      client.locality, 
+      publishad.publishAD_date,
+      publishad.ID AS 'ID'
+    FROM 
+      vehicle 
+      INNER JOIN subcategory ON vehicle.subcategoryID = subcategory.ID
+      INNER JOIN category ON subcategory.categoryID = category.ID
+      INNER JOIN publishad ON vehicle.ID = publishad.vehicleID
+      INNER JOIN client ON publishad.clientID = client.ID
+    WHERE
+      (:brand IS NULL OR vehicle.brand = :brand)
+      OR (:model IS NULL OR vehicle.model = :model)
+      OR (:category IS NULL OR category.categoryName = :category)
+      OR (:subcategory IS NULL OR subcategory.SubcategoryName = :subcategory)
+      OR (:fuel IS NULL OR vehicle.fuel = :fuel)
+  `;
+  
+  const replacements = { brand, model, category, subcategory, fuel, sort };
+  
+  // atribua o valor padrão null ao parâmetro "fuel" se ele não existir no objeto "req.query"
+  if (!req.query.hasOwnProperty('fuel')) {
+    replacements.fuel = null;
+  }
+  
+  if (sort === 'asc') {
+    query += ` ORDER BY vehicle.price ASC`;
+  } else if (sort === 'desc') {
+    query += ` ORDER BY vehicle.price DESC`;
+  }
+  
+  const response = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements,
   });
-
-
+  
+  res.status(200).json(response);
+})
 
 module.exports = router;
