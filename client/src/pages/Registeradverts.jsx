@@ -95,7 +95,7 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
 
 
   return (
-    <div style={{backgroundColor:"#000d6b", height:900}}>
+    <div style={{backgroundColor:"#000d6b", height:700}}>
       
       <MDBContainer className="py-5  mb-5 rounded bg-white">
       <div className="text-center">
@@ -128,7 +128,14 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
               <MDBBtn
                 href="#"
                 color="warning"
-                className="d-block mb-2 mt-3 text-capitalize"
+                style={{
+                  width: "100%",
+                  height:'30px',
+                  padding:'20px',
+                  display:'flex',
+                  alignItems:'center', 
+                  justifyContent:'center'
+                }}
                 onClick={handleSubmitFree}
               >
                 Selecionar
@@ -185,7 +192,15 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
               <MDBBtn
                 href="#"
                 color="warning"
-                className="d-block mb-2 mt-3 text-capitalize"
+                
+                style={{
+                  width: "100%",
+                  height:'30px',
+                  padding:'20px',
+                  display:'flex',
+                  alignItems:'center', 
+                  justifyContent:'center'
+                }}
               onClick={handleSubmitPree}
               >
                     Selecionar
