@@ -31,7 +31,7 @@ function RegisterVhicle() {
 
   const [license, setLicense] = useState('');
   const [year, setYear] = useState('');
-  const [kms, setKms] = useState('');
+
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [price, setPrice] = useState('');
@@ -43,8 +43,80 @@ function RegisterVhicle() {
   const [image3, setImage3] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState([]);
 
+  const [brandValid, setBrandValid] = useState(true);
+  const [modelValid, setModelValid] = useState(true);
+  
+
+  const brandRegex = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/;
+  const modelRegex = /^[a-zA-Z0-9\s]+$/;
+
+
   const [negotiable, setNegotiable] = useState('');
   const [fuel, setFuel] = useState("");
+
+  const [licenseValid, setLicenseValid] = useState(true);
+
+  const [kms, setKms] = useState('');
+  const [error, setError] = useState('');
+  const [descriptionError, setDescriptionError] = useState(false);
+
+  const handleKmsChange = (event) => {
+    const inputValue = event.target.value;
+    const re = /^[^+-][0-9\b]+$/;
+    if (inputValue < 0 || !(event.target.value === '' || re.test(event.target.value))) {
+      setError('O valor não pode ser negativo!');
+    } else {
+      setError('');
+      setKms(inputValue);
+    }
+  };
+
+  const handleDescriptionBlur = () => {
+    if (description === '') {
+      setDescriptionError(true);
+    } else {
+      setDescriptionError(false);
+    }
+  };
+
+
+
+  const handleSeatsChange = (event) => {
+    const re = /^[^+-][0-9\b]+$/;
+    if (event.target.value === '' || re.test(event.target.value)) {
+      setNumSeats(event.target.value)
+    }
+  }
+
+
+  const handlePriceChange = (event) => {
+    const re = /^[^+-][0-9\b]+$/;
+    if (event.target.value === '' || re.test(event.target.value)) {
+      setPrice(event.target.value)
+    }
+  }
+
+  const handlePowerChange = (event) => {
+    const re = /^[^+-][0-9\b]+$/;
+    if (event.target.value === '' || re.test(event.target.value)) {
+      setPower(event.target.value)
+    }
+  }
+
+  
+
+
+
+  const handleLicenseChange = (event) => {
+    setLicense(event.target.value);
+    setLicenseValid(true);
+  };
+
+  const handleLicenseBlur = () => {
+    const regex = /^(\d{2}-[A-Z]{2}-\d{2}|[A-Z]{2}\s\d{2}\s[A-Z]{2})$/;
+    setLicenseValid(regex.test(license));
+  };
+
   const handleFuelChange = (event) => {
     setFuel(event.target.value);
   };
@@ -70,107 +142,141 @@ function RegisterVhicle() {
     
   
   if(!authToken) return <Register />
-  async function handleSubmit() {
-    const formData = new FormData();
-    formData.append('license', license);
-    formData.append('year', year);
-    formData.append('kms', kms);
-    formData.append('brand', brand);
-    formData.append('model', model);
-    formData.append('fuel', fuel);
-    formData.append('description', description);
-    formData.append('price', price);
-    formData.append('power', power);
-    formData.append('negotiable', negotiable);
-    formData.append('num_seats', numSeats);
-    formData.append('subcategoryID', selectedSubcategory);
-    formData.append('images', image);
-    formData.append('images', image2);
-    formData.append('images', image3);
-  
-    try {
-      const response = await api.post('/vehicle/addvehicle', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-  
-      const vehicleID = response.data.id;
-      window.location.href = `/Registeradverts/${vehicleID}`;
-    } catch (error) {
-      console.error(error);
-      alert('Erro ao cadastrar!');
-    }
-  }
-  const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setImage(event.target.files[0]);
-    }
+            async function handleSubmit() {
+              const formData = new FormData();
+              formData.append('license', license);
+              formData.append('year', year);
+              formData.append('kms', kms);
+              formData.append('brand', brand);
+              formData.append('model', model);
+              formData.append('fuel', fuel);
+              formData.append('description', description);
+              formData.append('price', price);
+              formData.append('power', power);
+              formData.append('negotiable', negotiable);
+              formData.append('num_seats', numSeats);
+              formData.append('subcategoryID', selectedSubcategory);
+              formData.append('images', image);
+              formData.append('images', image2);
+              formData.append('images', image3);
+            
+              try {
+                const response = await api.post('/vehicle/addvehicle', formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                });
+            
+                const vehicleID = response.data.id;
+                window.location.href = `/Registeradverts/${vehicleID}`;
+              } catch (error) {
+                console.error(error);
+                alert('Erro ao cadastrar!');
+              }
+            }
+            const handleImageChange = (event) => {
+              if (event.target.files && event.target.files[0]) {
+                setImage(event.target.files[0]);
+              }
+            };
+            const handleImageChange2 = (event) => {
+              if (event.target.files && event.target.files[0]) {
+                setImage2(event.target.files[0]);
+              }
+            };
+            const handleImageChange3 = (event) => {
+              if (event.target.files && event.target.files[0]) {
+                setImage3(event.target.files[0]);
+              }
+            };
+            
+            if (!authToken) return <Register />;
+            
+            const email = cookies.get('email');
+          if (email === "admin@gmail.com") return <AdminAnuncio/>
+
+
+          
+  const handleBrandChange = (event) => {
+    const value = event.target.value;
+    setBrand(value);
+    setBrandValid(brandRegex.test(value));
   };
-  const handleImageChange2 = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setImage2(event.target.files[0]);
-    }
+
+  const handleModelChange = (event) => {
+    const value = event.target.value;
+    setModel(value);
+    setModelValid(modelRegex.test(value));
   };
-  const handleImageChange3 = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setImage3(event.target.files[0]);
-    }
-  };
-  
-  if (!authToken) return <Register />;
-  
-  const email = cookies.get('email');
-if (email === "admin@gmail.com") return <AdminAnuncio/>
+
 
   return (
       
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-  <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
-  <Form  encType="multipart/form-data">
-  <Row className="mb-4">
-            <Form.Group  controlId="formGridCity">
+        <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
+        <Form  encType="multipart/form-data">
+              <Row className="mb-4">
+              <Form.Group controlId="formGridCity">
                 <Form.Label>Marca</Form.Label>
-                <Form.Control id='name'
-                  type='text'
+                <Form.Control
+                  id="name"
+                  type="text"
                   required
                   value={brand}
-                  onChange={e => setBrand(e.target.value)} />
+                  onChange={handleBrandChange}
+                  isInvalid={!brandValid}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Insira uma marca válida.
+                </Form.Control.Feedback>
               </Form.Group>
-</Row>
-<Row className="mb-4">
-              <Form.Group  controlId="formGridCity">
+            </Row>
+            <Row className="mb-4">
+              <Form.Group controlId="formGridCity">
                 <Form.Label>Modelo</Form.Label>
-                <Form.Control id='model'
-                  type='text'
+                <Form.Control
+                  id="model"
+                  type="text"
                   required
                   value={model}
-                  onChange={e => setModel(e.target.value)} />
+                  onChange={handleModelChange}
+                  isInvalid={!modelValid}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Insira um modelo válido.
+                </Form.Control.Feedback>
               </Form.Group>
-</Row>
-<Row className="mb-4">
-  <Form.Group controlId="formGridCity">
-    <Form.Control type="file" onChange={handleImageChange} className="filetype" />
-    <img alt="preview image" src={image ? URL.createObjectURL(image) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />     
-  </Form.Group>
-  <Form.Group controlId="formGridCity">
-    <Form.Control type="file" onChange={handleImageChange2} className="filetype" />
-    <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
-  </Form.Group>
-  <Form.Group controlId="formGridCity">
-    <Form.Control type="file" onChange={handleImageChange3} className="filetype" />
-    <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
-  </Form.Group>
-</Row>   
+            </Row>
+              <Row className="mb-4">
+                <Form.Group controlId="formGridCity">
+                  <Form.Control type="file" onChange={handleImageChange} className="filetype" />
+                  <img alt="preview image" src={image ? URL.createObjectURL(image) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />     
+                </Form.Group>
+                <Form.Group controlId="formGridCity">
+                  <Form.Control type="file" onChange={handleImageChange2} className="filetype" />
+                  <img alt="preview image" src={image2 ? URL.createObjectURL(image2) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
+                </Form.Group>
+                <Form.Group controlId="formGridCity">
+                  <Form.Control type="file" onChange={handleImageChange3} className="filetype" />
+                  <img alt="preview image" src={image3 ? URL.createObjectURL(image3) : null} style={{ width: "35vw", height: "40vh", margin:'20px' }} />       
+                </Form.Group>
+              </Row>   
             <Row className="mb-4">
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Matricula</Form.Label>
                         <Form.Control id='license'
-                          type='text'
-                          required
+                          type="text"
                           value={license}
-                          onChange={e => setLicense(e.target.value)} />
-                      </Form.Group>        
+                          onChange={handleLicenseChange}
+                          onBlur={handleLicenseBlur}
+                          className={licenseValid ? '' : 'invalid'}
+                          />
+                      </Form.Group>  
+                      {!licenseValid && (
+                      <div className="error-message"  style={{ color: 'red' }}>
+                        Insira uma matrícula válida (00-AA-00 ou AA 00 AA).
+                      </div>
+                    )}      
                       <Form.Group as={Col} controlId="formGridZip">
                         <Form.Label>Mês e Ano de construção</Form.Label>
                         <Form.Control id='year' 
@@ -184,11 +290,15 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Kms rodados</Form.Label>
                         <Form.Control id='kms'
-                          type='number'
+                         pattern="[0-9]*"
+                          type="number"
                           required
                           value={kms}
-                          onChange={e => setKms(e.target.value)} />
+                          onChange={handleKmsChange}
+                          min="0"
+                          />
                       </Form.Group>
+                      {error && <p style={{ color: 'red' }}>{error}</p>}
                       <Form.Group className="select__group" as={Col} controlId="formGridCity">
                       <Form.Label>Combustível</Form.Label>
                         <Form.Select value={fuel} onChange={handleFuelChange}>
@@ -214,22 +324,31 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                           </Form.Group>
                         </Row>
                         <Row className="mb-4">
-                      <Form.Group as={Col} controlId="formGridCity">
+                        <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>Preço</Form.Label>
                         <Form.Control id='price'
-                          type='number'
+                              type='number'
                           required
                           value={price}
-                          onChange={e => setPrice(e.target.value)} />
+                          onChange={handlePriceChange}
+                          pattern="[0-9]*"
+                          placeholder="Digite o preço" />
+                        <Form.Control.Feedback type="invalid">
+                          Insira apenas números positivos.
+                        </Form.Control.Feedback>
                       </Form.Group>
-          
                       <Form.Group as={Col} controlId="formGridZip">
                         <Form.Label>Potência (Kwatts)</Form.Label>
                         <Form.Control id='power'
-                          type='number'
+                              type='number'
                           required
                           value={power}
-                          onChange={e => setPower(e.target.value)} />
+                          onChange={handlePowerChange}
+                          pattern="[0-9]*"
+                          placeholder="Digite a potência" />
+                        <Form.Control.Feedback type="invalid">
+                          Insira apenas números positivos.
+                        </Form.Control.Feedback>
                       </Form.Group>
           
                       <Form.Group as={Col} controlId="formGridZip">
@@ -237,18 +356,27 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                         <Form.Control id='num_seats'
                           type='number'
                           required
+                          pattern="[0-9]*"
                           value={numSeats}
-                          onChange={e => setNumSeats(e.target.value)} />
+                          onChange={handleSeatsChange} />
                       </Form.Group>  
                     </Row>
                     <Row className="mb-4">
-                    <Form.Group as={Col} controlId="formGridCity">
-                      <Form.Label>Descrição Adicional</Form.Label>
-                      <Form.Control id='description'
-                        type='text'
+                    <Form.Group controlId="description">
+                      <Form.Label>Descrição</Form.Label>
+                      <Form.Control
+                        type="text"
                         required
                         value={description}
-                        onChange={e => setDescription(e.target.value)} />
+                        onChange={(e) => setDescription(e.target.value)}
+                        onBlur={handleDescriptionBlur}
+                        style={{ borderColor: descriptionError ? 'red' : '' }}
+                      />
+                      {descriptionError && (
+                        <Form.Text style={{ color: 'red' }}>
+                          Este campo é obrigatório.
+                        </Form.Text>
+                      )}
                     </Form.Group>
                     </Row>
                   <Button variant="primary" onClick={handleSubmit}  style={{ display: 'flex', justifyContent: 'flex-end' }}>Seguinte</Button>
