@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Routers from "../../routers/Routers";
 import { useLocation } from 'react-router-dom';
+import AppregisterPC from "./AppregisterPC";
 const Layout = () => {
   const hideLayout = window.location.pathname === "/register";
 
@@ -13,7 +14,7 @@ const Layout = () => {
   return (
     <Fragment>
       {location.pathname === '/register' ? (
-        <Header style={{display: 'none'}} />
+       <AppregisterPC/>
       ) : (
         <Header />
       )}
