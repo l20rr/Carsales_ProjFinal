@@ -45,21 +45,10 @@ function RegisterInvoice() {
 
 
   function validateNIF(NIF) {
-    const nifRegex = /^[1-9][0-9]{8}$/;
-    if (!nifRegex.test(NIF)) {
-      return false;
-    }
-  
-    const weights = [9, 8, 7, 6, 5, 4, 3, 2];
-    let sum = 0;
-    for (let i = 0; i < weights.length; i++) {
-      sum += NIF[i] * weights[i];
-    }
-  
-    const remainder = sum % 11;
-    const lastDigit = parseInt(NIF[8], 10);
-    return remainder === 0 ? lastDigit === 0 : 11 - remainder === lastDigit;
+    const nifRegex = /^[0-9]{9}$/;
+    return nifRegex.test(NIF);
   }
+  
 
   function handleNifChange(e) {
     const newNif = e.target.value;
@@ -183,12 +172,14 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                     <Form.Control
                       id='postalCode'
                       type='text'
+                      placeholder='xxxx-xxx'
                       required
                       value={PostalCode}
                       pattern='^\d{4}-\d{3}$'
                       onChange={e => setPostalCode(e.target.value)}
+                      min='0'
                     />
-                    <Form.Control.Feedback type='invalid'>
+                                      <Form.Control.Feedback type='invalid'>
                       Por favor, insira um código postal válido no formato XXXX-XXX.
                     </Form.Control.Feedback>
                   </Form.Group>
@@ -210,17 +201,18 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                   <Row>
                     <Col className="pl-1" md="4">
                     <Form.Group>
-                      <Form.Label>Numero Fiscal (NIF)*</Form.Label>
-                      <Form.Control
-                        id='NIF'
-                        value={NIF}
-                        type='number'
-                        required
-                        onChange={handleNifChange}
-                        isInvalid={!nifValid}
-                      />
-                      <Form.Control.Feedback type='invalid'>{nifError}</Form.Control.Feedback>
-                    </Form.Group>
+                    <Form.Label>Numero Fiscal (NIF)*</Form.Label>
+                    <Form.Control
+                      id='NIF'
+                      value={NIF}
+                      type='number'
+                      placeholder='9 digitos'
+                      required
+                      onChange={handleNifChange}
+                      isInvalid={!nifValid}
+                    />
+                    <Form.Control.Feedback type='invalid'>{nifError}</Form.Control.Feedback>
+                  </Form.Group>
 
                     </Col>
                     
@@ -244,6 +236,7 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                         value={creditCard}
                         type='text'
                         required
+                        placeholder='xxxx xxxx xxxx xxxx'
                         onChange={e => setCreditCard(e.target.value)}
                         isInvalid={!validateCreditCardNumber(creditCard)}
                       ></Form.Control>

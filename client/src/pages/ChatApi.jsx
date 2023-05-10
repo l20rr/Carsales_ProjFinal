@@ -24,7 +24,7 @@ if(authToken) {
         id: cookies.get('userId'),
         fullname: cookies.get('fullname'),
         name: cookies.get('email'),
-        hashedPassword: cookies.get('hashedPassword'),
+        
     }, authToken)
 }
 

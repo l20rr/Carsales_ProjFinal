@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 import About from "../pages/About";
 import CarListing from "../pages/CarListing";
 import CarDetails from "../pages/CarDetails";
-
+import RegisterBO from "../components/Header/RegisterBO";
 import NotFound from "../pages/NotFound";
 import Contact from "../pages/Contact";
 import ChatApi from "../pages/ChatApi";
@@ -62,6 +62,7 @@ const Routers = () => {
 
        <Route path="/anExternos/anuncioadm" element={<AdminAnuncio/>} />
        <Route path="/anExternos" element={<AnunciosExternos/>} />
+       <Route path="/RegisterBO" element={<RegisterBO/>} />
     </Routes>
   );
 };

@@ -29,7 +29,7 @@ const Contact = () => {
   return (
     <Helmet title="Contact">
       <CommonSection title="Contatos" />
-      <section>
+      <section style={{height:'70vh'}}>
         <Container>
           <Row>
             <Col lg="7" md="7">
@@ -42,13 +42,7 @@ const Contact = () => {
                 <FormGroup className="contact__form">
                   <Input placeholder="Email" type="email" />
                 </FormGroup>
-                <FormGroup className="contact__form">
-                  <textarea
-                    rows="5"
-                    placeholder="Message"
-                    className="textarea"
-                  ></textarea>
-                </FormGroup>
+                
 
                 <button className=" contact__btn" type="submit">
                   Enviar
