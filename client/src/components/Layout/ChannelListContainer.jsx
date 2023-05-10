@@ -66,30 +66,6 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
             <ChannelSearch setToggleContainer={setToggleContainer} />
             <ChannelList 
                 filters={filters}
-                channelRenderFilterFn={customChannelTeamFilter}
-                List={(listProps) => (
-                    <TeamChannelList 
-                        {...listProps}
-                        type="team"
-                        isCreating={isCreating}
-                        setIsCreating={setIsCreating}
-                        setCreateType={setCreateType} 
-                        setIsEditing={setIsEditing}
-                        setToggleContainer={setToggleContainer}
-                    />
-                )}
-                Preview={(previewProps) => (
-                    <TeamChannelPreview 
-                        {...previewProps}
-                        setIsCreating={setIsCreating}
-                        setIsEditing={setIsEditing}
-                        setToggleContainer={setToggleContainer}
-                        type="team"
-                    />
-                )}
-            />
-            <ChannelList 
-                filters={filters}
                 channelRenderFilterFn={customChannelMessagingFilter}
                 List={(listProps) => (
                     <TeamChannelList 
