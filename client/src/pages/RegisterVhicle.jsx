@@ -271,13 +271,12 @@ function RegisterVhicle() {
                           onChange={handleLicenseChange}
                           onBlur={handleLicenseBlur}
                           className={licenseValid ? '' : 'invalid'}
-                          />
-                      </Form.Group>  
-                      {!licenseValid && (
+                          />{!licenseValid && (
                       <div className="error-message"  style={{ color: 'red' }}>
                         Insira uma matrícula válida (00-AA-00 ou AA 00 AA).
                       </div>
                     )}      
+                      </Form.Group>  
                       <Form.Group as={Col} controlId="formGridZip">
                         <Form.Label>Mês e Ano *</Form.Label>
                         <Form.Control id='year' 
@@ -297,9 +296,8 @@ function RegisterVhicle() {
                           value={kms}
                           onChange={handleKmsChange}
                           min="0"
-                          />
-                      </Form.Group>
-                      {error && <p style={{ color: 'red' }}>{error}</p>}
+                          />{error && <p style={{ color: 'red' }}>{error}</p>}
+                      </Form.Group> 
                       <Form.Group className="select__group" as={Col} controlId="formGridCity">
                       <Form.Label>Combustível *</Form.Label>
                         <Form.Select value={fuel} onChange={handleFuelChange}>
