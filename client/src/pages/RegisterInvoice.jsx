@@ -1,6 +1,7 @@
 import React,{useState}from 'react';
 import api from '../services/api';
 import AdminAnuncio from './adminAnuncio';
+
 // react-bootstrap components
 import {
 
@@ -39,6 +40,67 @@ function RegisterInvoice() {
   const [PostalCode, setPostalCode] = useState('');
   const [creditCardDate, setCreditCardDate] = useState('');
   const [creditCard, setCreditCard] = useState('');
+  const [nifValid, setNifValid] = useState(false);
+  const [nifError, setNifError] = useState('');
+
+
+  function validateNIF(NIF) {
+    const nifRegex = /^[1-9][0-9]{8}$/;
+    if (!nifRegex.test(NIF)) {
+      return false;
+    }
+  
+    const weights = [9, 8, 7, 6, 5, 4, 3, 2];
+    let sum = 0;
+    for (let i = 0; i < weights.length; i++) {
+      sum += NIF[i] * weights[i];
+    }
+  
+    const remainder = sum % 11;
+    const lastDigit = parseInt(NIF[8], 10);
+    return remainder === 0 ? lastDigit === 0 : 11 - remainder === lastDigit;
+  }
+
+  function handleNifChange(e) {
+    const newNif = e.target.value;
+    setNIF(newNif);
+    if (validateNIF(newNif)) {
+      setNifValid(true);
+      setNifError('');
+    } else {
+      setNifValid(false);
+      setNifError('O NIF inserido é inválido.');
+    }
+  }
+
+  function validateCreditCardNumber(creditCardNumber) {
+    // Remover espaços em branco e traços do número
+    creditCardNumber = creditCardNumber.replace(/\s/g, '').replace(/-/g, '');
+  
+    // Verificar se o número contém apenas dígitos
+    if (!/^\d+$/.test(creditCardNumber)) {
+      return false;
+    }
+  
+    // Aplicar o algoritmo de Luhn
+    let sum = 0;
+    let shouldDouble = false;
+    for (let i = creditCardNumber.length - 1; i >= 0; i--) {
+      let digit = parseInt(creditCardNumber.charAt(i));
+  
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) {
+          digit -= 9;
+        }
+      }
+  
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+  
+    return sum % 10 == 0;
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -89,6 +151,7 @@ function RegisterInvoice() {
 if (email === "admin@gmail.com") return <AdminAnuncio/>
 
   return (
+    
     <div style={{ display: "flex", margin: "0 auto", padding: 30, height: 800 }}>
       <Container fluid>
         <Row>
@@ -101,28 +164,34 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                 <Form onSubmit={handleSubmit}>
                   <Row>
                     <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Email</label>
-                        <Form.Control
-                          id='email'
-                          value={email}
-                          type='email'
-                          required
-                          onChange={e => setEmail(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
+                    <Form.Group>
+                      <label>Email</label>
+                      <Form.Control
+                        id='email'
+                        value={email}
+                        type='email'
+                        required
+                        onChange={e => setEmail(e.target.value)}
+                        pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$"
+                        title="Por favor, insira um email válido"
+                      ></Form.Control>
+                    </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Código Postal</label>
-                        <Form.Control
-                          id='postalCode'
-                          type='number'
-                          required
-                          value={PostalCode}
-                          onChange={e => setPostalCode(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
+                    <Form.Group>
+                    <label>Código Postal</label>
+                    <Form.Control
+                      id='postalCode'
+                      type='text'
+                      required
+                      value={PostalCode}
+                      pattern='^\d{4}-\d{3}$'
+                      onChange={e => setPostalCode(e.target.value)}
+                    />
+                    <Form.Control.Feedback type='invalid'>
+                      Por favor, insira um código postal válido no formato XXXX-XXX.
+                    </Form.Control.Feedback>
+                  </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
@@ -140,16 +209,19 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                   <hr />
                   <Row>
                     <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Numero Fiscal (NIF)</label>
-                        <Form.Control
-                          id='NIF'
-                          value={NIF}
-                          type='number'
-                          required
-                          onChange={e => setNIF(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Numero Fiscal (NIF)*</Form.Label>
+                      <Form.Control
+                        id='NIF'
+                        value={NIF}
+                        type='number'
+                        required
+                        onChange={handleNifChange}
+                        isInvalid={!nifValid}
+                      />
+                      <Form.Control.Feedback type='invalid'>{nifError}</Form.Control.Feedback>
+                    </Form.Group>
+
                     </Col>
                     
                     <Col className="pl-1" md="4">
@@ -165,16 +237,20 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Número de cartão de crédito</label>
-                        <Form.Control
-                          id='creditCard'
-                          value={creditCard}
-                          type='number'
-                          required
-                          onChange={e => setCreditCard(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
+                    <Form.Group>
+                      <label>Número de cartão de crédito</label>
+                      <Form.Control
+                        id='creditCard'
+                        value={creditCard}
+                        type='text'
+                        required
+                        onChange={e => setCreditCard(e.target.value)}
+                        isInvalid={!validateCreditCardNumber(creditCard)}
+                      ></Form.Control>
+                      <Form.Control.Feedback type='invalid'>
+                        Por favor insira um número de cartão de crédito válido.
+                      </Form.Control.Feedback>
+                    </Form.Group>
                     </Col>
 
                   </Row>

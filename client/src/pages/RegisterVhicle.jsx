@@ -214,10 +214,11 @@ function RegisterVhicle() {
       
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
         <div style={{ width: '100%', maxWidth: 900, padding: 30 }}>
+          <h2>Por favor, preencha todos os campos obrigatórios (*) para que possamos processar a seu cadastro. Obrigado!</h2>
         <Form  encType="multipart/form-data">
               <Row className="mb-4">
               <Form.Group controlId="formGridCity">
-                <Form.Label>Marca</Form.Label>
+                <Form.Label>Marca *</Form.Label>
                 <Form.Control
                   id="name"
                   type="text"
@@ -233,7 +234,7 @@ function RegisterVhicle() {
             </Row>
             <Row className="mb-4">
               <Form.Group controlId="formGridCity">
-                <Form.Label>Modelo</Form.Label>
+                <Form.Label>Modelo *</Form.Label>
                 <Form.Control
                   id="model"
                   type="text"
@@ -263,7 +264,7 @@ function RegisterVhicle() {
               </Row>   
             <Row className="mb-4">
                       <Form.Group as={Col} controlId="formGridCity">
-                        <Form.Label>Matricula</Form.Label>
+                        <Form.Label>Matricula *</Form.Label>
                         <Form.Control id='license'
                           type="text"
                           value={license}
@@ -278,7 +279,7 @@ function RegisterVhicle() {
                       </div>
                     )}      
                       <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>Mês e Ano de construção</Form.Label>
+                        <Form.Label>Mês e Ano *</Form.Label>
                         <Form.Control id='year' 
                           type='month'
                           required
@@ -288,7 +289,7 @@ function RegisterVhicle() {
                       </Row>
                       <Row className="mb-4">
                       <Form.Group as={Col} controlId="formGridCity">
-                        <Form.Label>Kms rodados</Form.Label>
+                        <Form.Label>Kms rodados *</Form.Label>
                         <Form.Control id='kms'
                          pattern="[0-9]*"
                           type="number"
@@ -300,7 +301,7 @@ function RegisterVhicle() {
                       </Form.Group>
                       {error && <p style={{ color: 'red' }}>{error}</p>}
                       <Form.Group className="select__group" as={Col} controlId="formGridCity">
-                      <Form.Label>Combustível</Form.Label>
+                      <Form.Label>Combustível *</Form.Label>
                         <Form.Select value={fuel} onChange={handleFuelChange}>
                           <option value="" disabled>
                             Escolha um...
@@ -313,7 +314,7 @@ function RegisterVhicle() {
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="select__group" as={Col} controlId="formGridCity">
-                        <Form.Label>Negociável?</Form.Label>
+                        <Form.Label>Negociável? *</Form.Label>
                           <Form.Select value={ negotiable } onChange={handleNegotiableChange}>
                         <option value="" disabled>
                          Escolha se é ou não
@@ -325,7 +326,7 @@ function RegisterVhicle() {
                         </Row>
                         <Row className="mb-4">
                         <Form.Group as={Col} controlId="formGridCity">
-                        <Form.Label>Preço</Form.Label>
+                        <Form.Label>Preço *</Form.Label>
                         <Form.Control id='price'
                               type='number'
                           required
@@ -338,7 +339,7 @@ function RegisterVhicle() {
                         </Form.Control.Feedback>
                       </Form.Group>
                       <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>Potência (Kwatts)</Form.Label>
+                        <Form.Label>Potência (Kwatts) *</Form.Label>
                         <Form.Control id='power'
                               type='number'
                           required
@@ -352,7 +353,7 @@ function RegisterVhicle() {
                       </Form.Group>
           
                       <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>Numero de lugares</Form.Label>
+                        <Form.Label>Numero de lugares *</Form.Label>
                         <Form.Control id='num_seats'
                           type='number'
                           required
@@ -363,7 +364,7 @@ function RegisterVhicle() {
                     </Row>
                     <Row className="mb-4">
                     <Form.Group controlId="description">
-                      <Form.Label>Descrição</Form.Label>
+                      <Form.Label>Descrição *</Form.Label>
                       <Form.Control
                         type="text"
                         required
