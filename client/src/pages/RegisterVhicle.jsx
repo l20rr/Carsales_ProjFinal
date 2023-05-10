@@ -62,7 +62,7 @@ function RegisterVhicle() {
 
   const handleKmsChange = (event) => {
     const inputValue = event.target.value;
-    const re = /^[^+-][0-9\b]+$/;
+    const re = /^[0-9\b]+$/;
     if (inputValue < 0 || !(event.target.value === '' || re.test(event.target.value))) {
       setError('O valor não pode ser negativo!');
     } else {
@@ -82,7 +82,7 @@ function RegisterVhicle() {
 
 
   const handleSeatsChange = (event) => {
-    const re = /^[^+-][0-9\b]+$/;
+    const re = /^[0-9\b]+$/;
     if (event.target.value === '' || re.test(event.target.value)) {
       setNumSeats(event.target.value)
     }
@@ -90,14 +90,14 @@ function RegisterVhicle() {
 
 
   const handlePriceChange = (event) => {
-    const re = /^[^+-][0-9\b]+$/;
+    const re = /^[0-9\b]+$/;
     if (event.target.value === '' || re.test(event.target.value)) {
       setPrice(event.target.value)
     }
   }
 
   const handlePowerChange = (event) => {
-    const re = /^[^+-][0-9\b]+$/;
+    const re = /^[0-9\b]+$/;
     if (event.target.value === '' || re.test(event.target.value)) {
       setPower(event.target.value)
     }
