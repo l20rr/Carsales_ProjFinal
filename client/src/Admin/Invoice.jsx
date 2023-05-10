@@ -13,6 +13,12 @@ import {
 import Cookies from 'universal-cookie';
 import { StreamChat } from 'stream-chat';
 import { useParams, Link} from 'react-router-dom';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
+
 
 const cookies = new Cookies();
 const authToken = cookies.get("token");
@@ -35,7 +41,7 @@ const Invoice = () => {
   const fullname = cookies.get('fullname');
   const [email, setEmail] = useState('');
   const [NIF, setNif] = useState('');
-  const[invoice_date, setInvoice_date] = useState('')
+  const [invoice_date, setInvoice_date] = useState('')
   const [Postal_code, setPostal_code] = useState('')
   const [amount, setAmount] = useState('')
   const [total,setTotal] = useState('')
@@ -85,7 +91,58 @@ const Invoice = () => {
         console.log(error);
       });
   }, []);
-  
+
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  const usePrint= async () => {
+    
+    const doctitle=[
+      {
+        text: 'Auto-Classificados NIF: 555 000 333',
+        fontsize: 15,
+        bold: true,
+        alignment:'center',
+        margin: [10, 20, 0, 20]
+  } ];
+    const docbody=[
+      {
+        text:' Morada: Para lá do Sol posto ', style: 'subheader'},
+        {text:' Código Postal: 8888 Nenhures ' , style: 'subheader'},
+        {text:' ' },
+        {style: 'tableExample', alignment:'center',
+        table: {
+                    body: [
+                      ['Fatura', ID ],
+                      ['Data', invoice_date],
+                      ['Preço s/iva', amount ],
+                      ['Total', total],
+                      [{ text: '', style: 'tableHeader', colSpan: 2, }],
+                      [{ text: 'Dados do cartão', style: 'tableHeader', colSpan: 2, alignment: 'center' }],
+                      ['Cartão de crédito', creditCard ],
+                      ['Validade do cartão', creditCardDate],
+                      [{ text: '', style: 'tableHeader', colSpan: 2, }],
+                      [{ text: 'Dados do cliente', style: 'tableHeader', colSpan: 2, alignment: 'center' }],
+                      ['Nome', fullname ],
+                      ['Endereço', locality],
+                      ['Código Postal', Postal_code ],
+                      ['Numero Fiscal', NIF],
+                      ['Telemóvel', telem ],
+                      ['Email', email]
+                    ]
+                  },
+                },
+   ];
+    const docbottom =[]
+    const documento ={
+      pageSize:'A6',
+      pageMargins: [45,50,5,20],
+
+      header: [doctitle],
+      content:[docbody],
+      footer:[docbottom]
+    }
+
+    pdfMake.createPdf(documento).open({}, window.open('', '_blank'));
+  }
 
   return (
     <div style={{display: 'flex'}}>
@@ -122,7 +179,7 @@ const Invoice = () => {
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>tel</label>
+                        <label>telemóvel</label>
                         <Form.Control
                         type="number"
                       value={telem}
@@ -225,7 +282,7 @@ const Invoice = () => {
       <Button>Imprimir</Button>
       <br/>
       <br/>
-      <Button>Enviar por email</Button>
+      <Button onClick={usePrint}><i class="bi bi-file-earmark-pdf" ></i> Gerar PDF</Button>
     </div>
 
     </div>
