@@ -43,6 +43,7 @@ const Register = () => {
     const [telem , setTelem] = useState('');
     const [birthdate , setBirthdate] = useState('');
     const [fullname, setFullname] = useState('');
+    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -96,8 +97,12 @@ const Register = () => {
           window.location.href = '/home';
         } catch (error) {
           console.log(error);
-        }
-      };
+          if (isSignup) {
+            setError(error.response.data.message);
+          } else {
+            setError("Email ou password incorretos.");
+          }
+        }}
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
     }
@@ -231,12 +236,11 @@ const Register = () => {
                       </>
                     )}
                   />
-                  
+                  {!isSignup && error && <p className="error-message">{error}</p>} 
                 </div>
-                <label>Confirmar palavra-passe</label>
-
                 {isSignup && (
               <div>
+                <label>Confirmar palavra-passe</label>
                 <Controller
                   name="confPassword"
                   control={control}
