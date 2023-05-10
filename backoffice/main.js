@@ -11,7 +11,7 @@ function createWindow() {
     },
   });
 
-  win.loadURL('http://localhost:3001/register');
+  win.loadURL('http://localhost:3001/RegisterBO');
 }
 
 app.whenReady().then(() => {

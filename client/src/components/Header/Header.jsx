@@ -73,8 +73,13 @@ const [model, setModel] = useState("");
     cookies.remove('email');
     cookies.remove('hashedPassword');
     
-    window.location.reload();
-    window.location.href= '/home'
+    if (email !== "admin@gmail.com") {
+     window.location.href= '/home'
+     window.location.reload();
+    }else{
+      window.location.href= '/RegisterBO'
+    }
+    
 }
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
