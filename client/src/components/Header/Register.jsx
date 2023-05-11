@@ -239,7 +239,7 @@ const Register = () => {
                           labelClass={errors.password ? 'error-label' : 'default-label'}
                           
                         />
-                        <button onClick={showPass} style={{border:'none', borderRadius:'10px', padding:'5px', backgroundColor:'blue', color:'#fff'}}
+                        <button type="button" onClick={showPass} style={{border:'none', borderRadius:'10px', padding:'5px', backgroundColor:'blue', color:'#fff'}}
                       >Mostrar senha</button>
                       </>
                     )}
@@ -274,7 +274,7 @@ const Register = () => {
                         labelClass={errors.confPassword ? 'error-label' : 'default-label'}
                         
                       />
-                      <button onClick={showPass} style={{border:'none', borderRadius:'10px', padding:'5px', backgroundColor:'blue', color:'#fff'}}
+                      <button type="button" onClick={showPass} style={{border:'none', borderRadius:'10px', padding:'5px', backgroundColor:'blue', color:'#fff'}}
                       >Mostrar senha</button>
                     </>
                   )}

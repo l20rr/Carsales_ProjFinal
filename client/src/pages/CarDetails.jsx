@@ -113,12 +113,11 @@ const settings = {
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
                     <h2 className="section__title">{Ad.brand}-{Ad.model}</h2>
                     <span className=" d-flex align-items-right gap-2">
-                        <span style={{ color: "#f9a826" }}>
-                          <i class="ri-star-s-fill"></i>
-                          <i class="ri-star-s-fill"></i>
-                          <i class="ri-star-s-fill"></i>
-                          <i class="ri-star-s-fill"></i>
-                        </span>
+                    <span style={{ color: "#f9a826" }}>
+                        {Array.from({ length: Math.floor(Math.random() * 5) + 1 }, (_, i) => (
+                          <i key={i} className="ri-star-s-fill"></i>
+                        ))}
+                      </span>
                         ({Ad.year} )
                       </span>
                 </div>
@@ -129,10 +128,17 @@ const settings = {
                   <h4 className="rent__price fw-bold fs-5">
                     <i class="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "} {Ad.locality}
                   </h4>
+                
                 </div>
-                <p className="section__description">
+               <div style={{marginRight:'50%',display:'flex', justifyContent:'space-around'}}>
+                
+               <p className="section__description">
                   {Ad.description}
                 </p>
+                <p className="rent__price fw-bold fs-5">
+                  Negociavel:{" "} {Ad.negotiable}
+                  </p>
+               </div>
                 <div className=" d-flex align-items-center mt-4" style={{ columnGap: "3rem" }}>
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i class="ri-roadster-line"style={{ color: "#f9a826" }}></i>{" "}{Ad.categoryName}

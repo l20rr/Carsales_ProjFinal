@@ -279,8 +279,7 @@ const Invoice = () => {
         </Row>
       </Container>
       <br/>
-      <Button>Imprimir</Button>
-      <br/>
+     
       <br/>
       <Button onClick={usePrint}><i class="bi bi-file-earmark-pdf" ></i> Gerar PDF</Button>
     </div>

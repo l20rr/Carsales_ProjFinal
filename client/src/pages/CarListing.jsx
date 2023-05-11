@@ -23,7 +23,8 @@ const CarListing = () => {
   const email = cookies.get('email');
   if (email === "admin@gmail.com") return <AdminUsers/>
   return (
-    <Helmet title="Cars">
+   <div style={{maxWidth:'100vw', overflowX:'hidden' }}>
+     <Helmet title="Cars">
       
       <CommonSection title="Veículos" />
       <section className="p-3 hero__slider-section">
@@ -46,12 +47,12 @@ const CarListing = () => {
         <Container>
           <Row className="mb-4">
             <Col lg="12">
-            <button className="btn-cadastrar" style={{marginTop:'50px'}}>
+            <button className="btn-cadastrar" style={{marginTop:'70px'}}>
             <Link style={{textDecoration:'none', color:'white'}} to="registerCategory" className=" d-flex align-items-center gap-1 btn-cadastrar">
                   Cadastrar veículo
                 </Link>
             </button>
-            <button className="btn-cadastrar" style={{ marginTop: '50px', backgroundColor: 'gray' }} onClick={() => window.location.reload()}>
+            <button className="btn-cadastrar" style={{  padding:'15px', marginLeft:'80%', backgroundColor:'#f9a826' }}  onClick={() => window.location.reload()}>
               ver todos
             </button>
             <br/>
@@ -77,6 +78,7 @@ const CarListing = () => {
          </Container>
       </section>
     </Helmet>
+   </div>
   );
 };
 

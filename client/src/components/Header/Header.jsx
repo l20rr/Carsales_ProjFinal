@@ -149,19 +149,19 @@ return (
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button
-  onClick={handleSearch}
-  style={{
-    borderRadius: "10px",
-    backgroundColor: "#000d6b",
-    color: "#FFFFFF",
-    padding: "2px 3px",
-    transition: "background-color 0.3s ease",
-    border: "none"
-  }}
-  onMouseOver={(e) => e.target.style.backgroundColor = "#f9a826"}
-  onMouseOut={(e) => e.target.style.backgroundColor = "#000d6b"}
->
+            <button
+        onClick={handleSearch}
+        style={{
+          borderRadius: "10px",
+          backgroundColor: "#000d6b",
+          color: "#FFFFFF",
+          padding: "2px 3px",
+          transition: "background-color 0.3s ease",
+          border: "none"
+        }}
+        onMouseOver={(e) => e.target.style.backgroundColor = "#f9a826"}
+        onMouseOut={(e) => e.target.style.backgroundColor = "#000d6b"}
+      >
   Buscar
 </button>
               </div>
