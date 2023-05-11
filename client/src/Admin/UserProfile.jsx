@@ -10,6 +10,7 @@ import { StreamChat } from 'stream-chat';
 import api from '../services/api';
 import Register from "../components/Header/Register"
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -108,6 +109,8 @@ function UserProfile() {
   const [telemError, setTelemError] = useState('');
   const [birthdateError, setBirthdateError] = useState('');
   const [localityError, setLocalityError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const [locality , setLocality] = useState(null);
   const [telem , setTelem] = useState(null);
@@ -305,6 +308,32 @@ function UserProfile() {
     }
   };
 
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+  
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{6,12}$/i;
+  
+    if (!regex.test(value)) {
+      setPasswordError('Password inválida');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+  
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  
+    if (!regex.test(value)) {
+      setEmailError('Email inválido');
+    } else {
+      setEmailError('');
+    }
+  };
+
   return (
     <>
 
@@ -345,9 +374,9 @@ function UserProfile() {
             <MDBInput type="hidden" value={userID} />
             
           <MDBModalFooter>
-            <MDBBtn color="secondary" onClick={toggleModalAdd}>Cancelar</MDBBtn>
-            <MDBBtn color="primary" onClick={handleSubmit}  >Adicionar</MDBBtn>
-            <MDBBtn color="primary" onClick={handleSubmit1}  >Alterar</MDBBtn>
+            <Button variant="secondary" onClick={toggleModalAdd}>Cancelar</Button>
+            <Button variant="primary" onClick={handleSubmit}  >Adicionar</Button>
+            <Button variant="primary" onClick={handleSubmit1}  >Alterar</Button>
           </MDBModalFooter>
         </Form>
         </MDBModalBody>
@@ -363,16 +392,16 @@ function UserProfile() {
         <MDBModalBody>
       <DialogActions sx={{ flexDirection: 'column', gap: 2, my: 2 }}>
       { (
-        <MDBBtn onClick={togglePasswordModal}>
+        <Button onClick={togglePasswordModal}>
           Mudar Password
-        </MDBBtn>
+        </Button>
         )}
-        <MDBBtn onClick={toggleEmailModal}>
+        <Button onClick={toggleEmailModal}>
           Mudar Email
-        </MDBBtn>
-        <MDBBtn onClick={() => setDeleteConfirmationModalOpen(true)} >
+        </Button>
+        <Button onClick={() => setDeleteConfirmationModalOpen(true)} >
           Apagar  Conta
-        </MDBBtn>
+        </Button>
       </DialogActions>
         </MDBModalBody>
       </MDBModal>
@@ -384,12 +413,21 @@ function UserProfile() {
       <MDBModal isOpen={passwordModalOpen} toggle={togglePasswordModal}>
         <MDBModalHeader toggle={togglePasswordModal}>Alterar Password</MDBModalHeader>
       <DialogContent dividers>
-        
-          <MDBInput label="Insira a nova password" type="password" required value={password} onChange={e => setPassword(e.target.value)} name="password"  />
+            <Form.Label>Nova password</Form.Label>
+            <MDBInput
+              type="password"
+              htmlFor="password"
+              required
+              placeholder='<6,A,a,nº,simb($*&@#)'
+              value={password}
+              onChange={handlePasswordChange}
+              error={passwordError}
+              label={passwordError && <label style={{ color: 'red' }}>{passwordError}</label>}
+            />
           
       </DialogContent>
       <DialogActions>
-        <MDBBtn  color="primary" onClick={changePassword} >Alterar</MDBBtn>
+        <Button  color="primary" onClick={changePassword} >Alterar</Button>
       </DialogActions>
       </MDBModal>
     </form>
@@ -401,11 +439,19 @@ function UserProfile() {
         <MDBModalHeader toggle={toggleEmailModal}>Alterar Email</MDBModalHeader>
       <DialogContent dividers>
         
-          <MDBInput label="Insira o novo email" type="text" required value={emaill} onChange={e => setEmail(e.target.value)} name="email"  />
+      <Form.Label>Novo Email</Form.Label>
+            <MDBInput
+              type="text"
+              required
+              value={emaill}
+              onChange={handleEmailChange}
+              error={emailError}
+              label={emailError && <label style={{ color: 'red' }}>{emailError}</label>}
+            />
           
       </DialogContent>
       <DialogActions>
-        <MDBBtn  color="primary" onClick={changePassword} >Alterar</MDBBtn>
+        <Button  color="primary" onClick={changePassword} >Alterar</Button>
       </DialogActions>
       </MDBModal>
     </form>
