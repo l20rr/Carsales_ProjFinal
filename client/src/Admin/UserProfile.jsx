@@ -61,6 +61,7 @@ function UserProfile() {
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [deleteConfirmationModalOpen, setDeleteConfirmationModalOpen] = useState(false);
+
   
 
   const toggleModalChange = () => {
@@ -104,7 +105,9 @@ function UserProfile() {
   }
 
 
-
+  const [telemError, setTelemError] = useState('');
+  const [birthdateError, setBirthdateError] = useState('');
+  const [localityError, setLocalityError] = useState('');
 
   const [locality , setLocality] = useState(null);
   const [telem , setTelem] = useState(null);
@@ -155,19 +158,24 @@ function UserProfile() {
 
   async function handleDeleteAccount(id, streamChatUserId) {
     const response = await api.delete(`/auth/Users/${id}/${streamChatUserId}`);
+        const successMessageElement = document.getElementById('successMessage');
+        successMessageElement.style.display = 'block';
       const cookies = new Cookies();
       try {
-        cookies.remove("token", { path: '/register' });
-        cookies.remove("userID", { path: '/register' });
-        cookies.remove("userId", { path: '/register' });
-        cookies.remove("fullname", { path: '/register' });
-        cookies.remove("email", { path: '/register' });
-        cookies.remove("hashedPassword", { path: '/register' });
+        cookies.remove("token");
+        cookies.remove("userID");
+        cookies.remove("userId");
+        cookies.remove("fullname");
+        cookies.remove("email");
         localStorage.clear();
+        
+    
       } catch (error) {
         console.error('Error removing cookies:', error);
       }
+      
     }
+      
 
   useEffect(() => {
     api.get(`/auth/Users/${id}`)
@@ -258,19 +266,82 @@ function UserProfile() {
     }
   }
 
+  const handleTelemChange = (e) => {
+    const value = e.target.value;
+    setTelem(value);
+  
+    const regex = /^\d{9}$/;
+  
+    if (!regex.test(value)) {
+      setTelemError('Telemóvel precisa de ter 9 dígitos');
+    } else {
+      setTelemError('');
+    }
+  };
+  
+  const handleBirthdateChange = (e) => {
+    const value = e.target.value;
+    setBirthdate(value);
+  
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+  
+    if (!regex.test(value)) {
+      setBirthdateError('Formato de data inválido');
+    } else {
+      setBirthdateError('');
+    }
+  };
+  
+  const handleLocalityChange = (e) => {
+    const value = e.target.value;
+    setLocality(value);
+  
+    const regex = /^[A-Za-z\s]+$/;
+  
+    if (!regex.test(value)) {
+      setLocalityError('Localização inválida');
+    } else {
+      setLocalityError('');
+    }
+  };
+
   return (
     <>
 
     {/* Adicionar dados do Utilizador */}
-
-    
       <MDBModal isOpen={modalOpenB} toggle={toggleModalAdd}>
         <MDBModalHeader toggle={toggleModalAdd}>Definições da conta</MDBModalHeader>
-        <MDBModalBody>
+        <MDBModalBody >
         <Form >
-            <MDBInput type="number" required value={telem} onChange={e => setTelem(e.target.value)} label="Telemóvel" />
-            <MDBInput type="date" required value={birthdate} onChange={e => setBirthdate(e.target.value)} label="Data de nascimento" />
-            <MDBInput type="text" required value={locality} onChange={e => setLocality(e.target.value)} label="Morada" />
+          <Form.Label>Telemóvel</Form.Label>
+          <MDBInput
+              type="number"
+              required
+              value={telem}
+              onChange={handleTelemChange}
+              error={telemError}
+              label={telemError && <label style={{ color: 'red' }}>{telemError}</label>}
+            />
+           
+          <Form.Label>Data de nascimento</Form.Label>
+            <MDBInput
+              type="date"
+              required
+              value={birthdate}
+              onChange={handleBirthdateChange}
+              error={birthdateError}
+              label={birthdateError && <label style={{ color: 'red' }}>{birthdateError}</label>}
+            />
+            <Form.Label>Morada</Form.Label>
+            <MDBInput
+              type="text"
+              required
+              value={locality}
+              onChange={handleLocalityChange}
+              error={localityError}
+              label={localityError && <label style={{ color: 'red' }}>{localityError}</label>}
+            />
+           
             <MDBInput type="hidden" value={userID} />
             
           <MDBModalFooter>
@@ -349,7 +420,7 @@ function UserProfile() {
         </MDBModalBody>
         <MDBModalFooter>
           <MDBBtn color="secondary" onClick={() => setDeleteConfirmationModalOpen(false)}>Cancelar</MDBBtn>
-          <MDBBtn class='deleteButton' color="danger" onClick={() => handleDeleteAccount(userID, userId)}>Apagar</MDBBtn>
+          <MDBBtn color="danger" onClick={() => handleDeleteAccount(userID, userId)}>Apagar</MDBBtn>
         </MDBModalFooter>
       </MDBModal>
     </form>
@@ -443,6 +514,7 @@ function UserProfile() {
                       </MDBRow>
                     </MDBCardBody>
                   </MDBCard>
+                  <p id="successMessage" style={{ display: 'none' }}>Your account was successfully deleted.</p>
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
