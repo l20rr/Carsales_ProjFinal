@@ -63,32 +63,8 @@ function RegisterInvoice() {
   }
 
   function validateCreditCardNumber(creditCardNumber) {
-    // Remover espaços em branco e traços do número
-    creditCardNumber = creditCardNumber.replace(/\s/g, '').replace(/-/g, '');
-  
-    // Verificar se o número contém apenas dígitos
-    if (!/^\d+$/.test(creditCardNumber)) {
-      return false;
-    }
-  
-    // Aplicar o algoritmo de Luhn
-    let sum = 0;
-    let shouldDouble = false;
-    for (let i = creditCardNumber.length - 1; i >= 0; i--) {
-      let digit = parseInt(creditCardNumber.charAt(i));
-  
-      if (shouldDouble) {
-        digit *= 2;
-        if (digit > 9) {
-          digit -= 9;
-        }
-      }
-  
-      sum += digit;
-      shouldDouble = !shouldDouble;
-    }
-  
-    return sum % 10 == 0;
+    const nifRegex = /^[0-9]{9}$/;
+    return nifRegex.test(creditCardNumber);
   }
 
   async function handleSubmit(e) {
@@ -179,7 +155,7 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                       onChange={e => setPostalCode(e.target.value)}
                       min='0'
                     />
-                                      <Form.Control.Feedback type='invalid'>
+                     <Form.Control.Feedback type='invalid'>
                       Por favor, insira um código postal válido no formato XXXX-XXX.
                     </Form.Control.Feedback>
                   </Form.Group>
@@ -213,9 +189,7 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                     />
                     <Form.Control.Feedback type='invalid'>{nifError}</Form.Control.Feedback>
                   </Form.Group>
-
                     </Col>
-                    
                     <Col className="pl-1" md="4">
                       <Form.Group>
                         <label>Validade do cartão de crédito</label>
@@ -234,9 +208,9 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                       <Form.Control
                         id='creditCard'
                         value={creditCard}
-                        type='text'
+                        type='number'
                         required
-                        placeholder='xxxx xxxx xxxx xxxx'
+                        placeholder='9 digitos'
                         onChange={e => setCreditCard(e.target.value)}
                         isInvalid={!validateCreditCardNumber(creditCard)}
                       ></Form.Control>
@@ -245,15 +219,12 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
                       </Form.Control.Feedback>
                     </Form.Group>
                     </Col>
-
                   </Row>
                   <br />
                   <Button
                     className="btn-fill pull-left"
                     type="submit"
-                  >
-                    Enviar
-                  </Button>
+                  >Enviar</Button>
                   <div className="clearfix"></div>
                 </Form>
               </Card.Body>

@@ -93,6 +93,7 @@ const Invoice = () => {
   }, []);
 
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
   const usePrint= async () => {
     
     const doctitle=[
@@ -133,7 +134,7 @@ const Invoice = () => {
    ];
     const docbottom =[]
     const documento ={
-      pageSize:'A6',
+      pageSize:'A5',
       pageMargins: [45,50,5,20],
 
       header: [doctitle],
@@ -141,7 +142,7 @@ const Invoice = () => {
       footer:[docbottom]
     }
 
-    pdfMake.createPdf(documento).open({}, window.open('', '_blank'));
+    pdfMake.createPdf(documento).download('Fatura_Auto_Classify.pdf');
   }
 
   return (

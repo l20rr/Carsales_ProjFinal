@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
         },
 
         CredCard: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.BIGINT(11),
             allowNull: false,
         },
 
