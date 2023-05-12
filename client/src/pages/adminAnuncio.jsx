@@ -66,11 +66,12 @@ function AdminAnuncio() {
   
 
   return (
-    <Container className="d-grid gap-3">
+    <Container className="d-grid gap-3" style={{height:'80vh'}}>
+      
+      <CardBody>
       <Card.Header>
       <Card.Title as="h3">Introduza os dados</Card.Title>
       </Card.Header>
-      <CardBody>
         <Form encType="multipart/form-data" className="d-grid gap-3">
           <Form.Group as={Row}>
             <Form.Control

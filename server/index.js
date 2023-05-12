@@ -32,8 +32,8 @@ app.use(express.urlencoded({ extended: true }));
 
 db.sequelize.sync().then(() => {
     
-
 /*
+
       async function createUserAndClient() {
 
           try {

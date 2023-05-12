@@ -74,7 +74,7 @@ const settings = {
 };
 
   return (
-    <>
+    <div style={{height:'80vh'}}>
    {
     Ads.map(Ad => (
     <div key={Ad.id}>
@@ -177,7 +177,7 @@ const settings = {
   </Helmet>
     </div>
     ))}
-    </>
+    </div>
   );
 };
 

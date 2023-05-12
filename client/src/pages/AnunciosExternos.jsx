@@ -51,7 +51,7 @@ function AnunciosExternos() {
   if (email != 'admin@gmail.com') return <Home />;
   return (
     <>
-    <Container>
+    <Container style={{minHeight:'80vh'}}>
       <div className="d-grid gap-3">
       <Card.Header className="d-grid gap-2">
       <Card.Title as="h1">Admin Page</Card.Title>

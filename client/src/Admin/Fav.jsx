@@ -77,7 +77,7 @@ function Fav() {
                 <td>{ad.model}</td>
                 <td>{ad.year}</td>
                 <td>
-                  <Link to={`/cars/${ad.vehicleID}`}><MDBBtn color='warning' >Detalhes</MDBBtn></Link>
+                  <Link to={`/cars/${ad.vehicleID}`}><button style={{padding:'10px', color:'#000', border:'none', backgroundColor:'yellow'}} >Detalhes</button></Link>
               </td>
               </tr>
             ))}

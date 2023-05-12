@@ -95,7 +95,7 @@ if (email === "admin@gmail.com") return <AdminAnuncio/>
 
 
   return (
-    <div style={{backgroundColor:"#000d6b", height:700}}>
+    <div style={{backgroundColor:"#000d6b", height:850}}>
       
       <MDBContainer className="py-5  mb-5 rounded bg-white">
       <div className="text-center">

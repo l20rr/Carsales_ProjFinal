@@ -33,9 +33,9 @@ const EXCategory = () => {
 
   return (
     <section className="EXCat">
-      <Container>
+      <Container >
         {anunc.length > 1 ? (
-          <Slider {...settings}>
+          <Slider {...settings} style={{display:'flex', alignItems:'center', justifyContent:'center'}} >
             {anunc.map((anc) => (
               <div key={anc.id}  className="container_img">
                 <a href={anc.link} target="_blank"><img className="EXCat_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>

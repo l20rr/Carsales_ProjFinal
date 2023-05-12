@@ -239,7 +239,7 @@ const Register = () => {
                           labelClass={errors.password ? 'error-label' : 'default-label'}
                           
                         />
-                        <button type="button" onClick={showPass} style={{border:'none', borderRadius:'10px', padding:'5px', backgroundColor:'blue', color:'#fff'}}
+                        <button type="button" onClick={showPass} style={{border:'none', borderRadius:'10px', margin:'5px' ,padding:'5px', backgroundColor:'blue', color:'#fff'}}
                       >Mostrar senha</button>
                       </>
                     )}
@@ -274,7 +274,7 @@ const Register = () => {
                         labelClass={errors.confPassword ? 'error-label' : 'default-label'}
                         
                       />
-                      <button type="button" onClick={showPass} style={{border:'none', borderRadius:'10px', padding:'5px', backgroundColor:'blue', color:'#fff'}}
+                      <button type="button" onClick={showPass} style={{border:'none', borderRadius:'10px', margin:'15px' , padding:'5px', backgroundColor:'blue', color:'#fff'}}
                       >Mostrar senha</button>
                     </>
                   )}
@@ -377,9 +377,7 @@ const Register = () => {
                 
                 </div>
               )}
-              <div className='d-flex flex-row justify-content-center mb-4'>
-                <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I agree all statements in Terms of service' />
-              </div>
+              
               <div className="d-grid gap-2">
                 <Button variant="outline-primary" size="sm" className="button-text" type="submit"> 
                   <span className="button-text">{isSignup ? 'Registar' : 'Entrar'}</span>

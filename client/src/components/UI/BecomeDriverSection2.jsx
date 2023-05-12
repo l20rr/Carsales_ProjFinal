@@ -33,11 +33,11 @@ const BecomeDriverSection2 = () => {
 
   return (
     <section className="become__driver">
-      <Container>
+      <Container style={{width:'100vw'}}>
         {anunc.length > 1 ? (
-          <Slider {...settings}>
+          <Slider {...settings}  style={{marginLeft:'15%'}}>
             {anunc.map((anc) => (
-              <div key={anc.id}  className="container_img">
+              <div key={anc.id}  >
                 <a href={anc.link} target="_blank"><img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>
                 
               </div>
@@ -45,7 +45,7 @@ const BecomeDriverSection2 = () => {
           </Slider>
         ) : (
           anunc.map((anc) => (
-            <div key={anc.id}  className="container_img">
+            <div key={anc.id} style={{margin:'150px'}}  >
                <a href={anc.link} target="_blank"><img className="become__driver_img" src={`http://localhost:3002/uploads/${anc.imagem}`} alt="" /></a>
                </div>
           ))
