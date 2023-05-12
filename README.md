@@ -4,7 +4,7 @@ Classify is a website where users can buy and sell cars. Our aim with this Full 
 ### Technologies
 A Javascript stack was used for easier and faster deployment, comprised of **Express** and **Node.js** for the back-end, **MySQL** for the database and **React** for the front-end. A different relational database can also be used since the data modeling, associations and queries are handled with object-relational mapping using **Sequelize**. We also use **MongoDB** for the external ads and **Stream-chat API** for enabling the user to build real-time chat quickly. The user can swiftly ship in-app messaging with the tool's highly reliable chat infrastructure.
 
-###Overview vídeo 
+### Overview vídeo 
 See how the project turned out: [Click](https://l20rr.github.io/overview/)
 
 
