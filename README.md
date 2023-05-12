@@ -36,4 +36,4 @@ npm start
 For the design of the application we used pure CSS and a few Material UI components. A few animations were added for the page transitions, as well as the editing page. 
 
 ## Tools
-The website was built using [Express](https://expressjs.com), [Node.js](https://nodejs.org/en/), [MySQL](https://www.mysql.com), [Sequelize](https://sequelize.org) and [React](https://reactjs.org).
+The website was built using [Express](https://expressjs.com), [Node.js](https://nodejs.org/en/), [MySQL](https://www.mysql.com), [Sequelize](https://sequelize.org), [Stream-Chat](https://getstream.io/chat/), [MongoDB](https://www.mongodb.com/) and [React](https://reactjs.org).
